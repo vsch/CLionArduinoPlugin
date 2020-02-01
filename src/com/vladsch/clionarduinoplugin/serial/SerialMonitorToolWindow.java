@@ -21,6 +21,7 @@
 
 package com.vladsch.clionarduinoplugin.serial;
 
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.util.Disposer;
@@ -35,26 +36,29 @@ import icons.PluginIcons;
 
 import java.util.HashMap;
 
-public class SerialMonitorToolWindow {
-    private ToolWindow toolWindow;
+public class SerialMonitorToolWindow implements Disposable {
+    private final ToolWindow toolWindow;
 
     private static final String TOOL_WINDOW_ID = Bundle.message("toolwindow.serial-monitor.id");
     private static final String SERIAL_MONITOR_ID = "SERIAL_MONITOR_ID";
 
-    private Project project;
-    private SerialMonitorPanel mySerialMonitorPanel;
-    private HashMap<String, Content> myToolWindowContentMap = new HashMap<>();
+    private final Project project;
+    private final SerialMonitorPanel mySerialMonitorPanel;
+    private final HashMap<String, Content> myToolWindowContentMap = new HashMap<>();
 
     public SerialMonitorToolWindow(Project project) {
         this.project = project;
-        toolWindow = ToolWindowManager.getInstance(project).registerToolWindow(TOOL_WINDOW_ID, false, ToolWindowAnchor.BOTTOM, project, true);
+        toolWindow = ToolWindowManager.getInstance(project).registerToolWindow(TOOL_WINDOW_ID, false, ToolWindowAnchor.BOTTOM, this, true);
         toolWindow.setIcon(PluginIcons.serial_port_tool);
+
+        mySerialMonitorPanel = new SerialMonitorPanel(project);
+        Disposer.register(this, mySerialMonitorPanel);
+        Disposer.register(project, this);
 
         //JPanel mainPanel = new JPanel(new BorderLayout());
         //mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         SimpleToolWindowPanel mainPanel = new SimpleToolWindowPanel(false, true);
 
-        mySerialMonitorPanel = new SerialMonitorPanel(project);
         mainPanel.add(mySerialMonitorPanel.getComponent());
 
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
@@ -65,15 +69,16 @@ public class SerialMonitorToolWindow {
 
     public void unregisterToolWindow() {
         ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
-
-        // we need to dispose of all the editors
-        Disposer.dispose(mySerialMonitorPanel);
-
         toolWindowManager.unregisterToolWindow(TOOL_WINDOW_ID);
     }
 
     public SerialMonitorPanel getSerialMonitorPanel() {
         return mySerialMonitorPanel;
+    }
+
+    @Override
+    public void dispose() {
+
     }
 
     public void activate() {

@@ -83,10 +83,11 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
         disconnectPort();
         myListeners.clear();
 
-        if (mySerialMonitorToolWindow != null) {
-            mySerialMonitorToolWindow.unregisterToolWindow();
-            mySerialMonitorToolWindow = null;
-        }
+        // NOTE: now handled by disposer
+//        if (mySerialMonitorToolWindow != null) {
+//            mySerialMonitorToolWindow.unregisterToolWindow();
+//            mySerialMonitorToolWindow = null;
+//        }
 
         if (myBuildMonitor != null) {
             myBuildMonitor.projectClosed();

@@ -4,6 +4,7 @@
 
 ### Version History
 - [TO DO](#to-do)
+- [1.5.3](#153)
 - [1.5.2](#152)
 - [1.4.6](#146)
 - [1.4.4](#144)
@@ -40,6 +41,10 @@
   [ArduinoCMakeListsTxtBuilder.kt: Line 213](https://github.com/vsch/CLionArduinoPlugin/blob/master/src/com/vladsch/clionarduinoplugin/generators/cmake/ArduinoCMakeListsTxtBuilder.kt#L213)
 * [ ] Add: documentation for Windows installation to readme
 * [ ] Fix: update for latest flexmark-java lib 0.60.0
+
+### 1.5.3
+
+* Fix: 2020.1 project already disposed exception
 
 ### 1.5.2
 

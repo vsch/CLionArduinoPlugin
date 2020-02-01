@@ -12,9 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.regex.Pattern;
 
-@State(name = "Arduino Project Settings",
-        storages = @Storage(value = "arduino-project-settings.xml")
-)
+@State(name = "Arduino Project Settings", storages = @Storage(value = "arduino-project-settings.xml"))
 public class ArduinoProjectSettings implements PersistentStateComponent<ArduinoProjectSettings> {
     public static final String TEXT_DELIMITER = "|";
     public static final String TEXT_SPLIT_REGEX = "\\s*\\" + TEXT_DELIMITER + "\\s*";

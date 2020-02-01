@@ -54,7 +54,7 @@
         <p><strong>*</strong> This plugin is a fork of <a href="https://github.com/francoiscampbell/CLionArduinoPlugin">Original CLionArduinoPlugin</a> written by Francois Campbell.</p>
         ]]></description>
 
-    <version>1.5.2</version>
+    <version>1.5.3</version>
 
     <change-notes><![CDATA[
         <h3>1.5.2</h3>
