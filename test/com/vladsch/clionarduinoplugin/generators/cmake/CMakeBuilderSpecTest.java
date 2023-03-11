@@ -1,12 +1,14 @@
 package com.vladsch.clionarduinoplugin.generators.cmake;
 
-import com.vladsch.flexmark.spec.IParseBase;
-import com.vladsch.flexmark.spec.SpecExample;
-import com.vladsch.flexmark.test.ComboSpecTestCase;
-import com.vladsch.flexmark.util.ast.IParse;
-import com.vladsch.flexmark.util.ast.IRender;
+import com.vladsch.flexmark.test.util.ComboSpecTestCase;
+import com.vladsch.flexmark.test.util.FlexmarkSpecExampleRenderer;
+import com.vladsch.flexmark.test.util.SpecExampleRenderer;
+import com.vladsch.flexmark.test.util.spec.ResourceLocation;
+import com.vladsch.flexmark.test.util.spec.SpecExample;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.MutableDataSet;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.runners.Parameterized;
 
 import java.util.HashMap;
@@ -16,9 +18,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class CMakeBuilderSpecTest extends ComboSpecTestCase {
-    private static final String SPEC_RESOURCE = "/cmake_builder_spec.md";
-    public static final String SPEC_FILE_URL = "/Users/vlad/src/projects/CLionArduinoPlugin/test-resources" + SPEC_RESOURCE;
-
     private static final DataHolder OPTIONS = new MutableDataSet()
             .set(CMakeParser.AUTO_CONFIG, true)
             .set(CMakeParser.AST_LINE_END_EOL, true)
@@ -29,7 +28,7 @@ public class CMakeBuilderSpecTest extends ComboSpecTestCase {
             //.set(ExtraRenderer.DUMP_OPTIONS, true)
             ;
 
-    protected static final Map<String, DataHolder> optionsMap = new HashMap<String, DataHolder>();
+    protected static final Map<String, DataHolder> optionsMap = new HashMap<>();
 
     static Map<String, String> valueSet(String... values) {
         assert (values.length & 1) == 0;
@@ -56,6 +55,8 @@ public class CMakeBuilderSpecTest extends ComboSpecTestCase {
     }
 
     static {
+        TestResourceUrlResolver.registerResourceUrlResolvers();
+
         optionsMap.put("board-pro", new MutableDataSet().set(ArduinoCMakeListsTxtBuilderRenderer.VALUE_MAP, valueSet("SET_BOARD", "pro", "SET_CPU", "8MHzatmega328", "PROJECT", "${MAKE_PROJECT_NAME}")));
         optionsMap.put("change-all", new MutableDataSet().set(ArduinoCMakeListsTxtBuilderRenderer.VALUE_MAP, valueSet(
                 "CMAKE_MINIMUM_REQUIRED_VERSION", "Maj.Min.Rev.Twk",
@@ -102,41 +103,36 @@ public class CMakeBuilderSpecTest extends ComboSpecTestCase {
         optionsMap.put("dump-variables", new MutableDataSet().set(ArduinoCMakeListsTxtBuilderRenderer.DUMP_VARIABLE_MAP, true));
         optionsMap.put("reset-project", new MutableDataSet().set(ArduinoCMakeListsTxtBuilderRenderer.RESET_PROJECT_TO_DEFAULTS, true));
     }
-
-    private static final IParseBase PARSER = new CMakeIParser(OPTIONS);
-    // The spec says URL-escaping is optional, but the examples assume that it's enabled.
-    private static final IRender RENDERER = new ArduinoCMakeListsTxtBuilderRenderer(OPTIONS);
+    
+    private static final String SPEC_RESOURCE = "cmake_builder_spec.md";
+    private static final ResourceLocation RESOURCE_LOCATION = ResourceLocation.of(CMakeBuilderSpecTest.class, SPEC_RESOURCE);
 
     private static DataHolder optionsSet(String optionSet) {
         return optionsMap.get(optionSet);
     }
 
     public CMakeBuilderSpecTest(SpecExample example) {
-        super(example.withFileUrl(SPEC_FILE_URL));
+        super(example, optionsMap, OPTIONS);
     }
 
     @Parameterized.Parameters(name = "{0}")
     public static List<Object[]> data() {
-        return getTestData(SPEC_RESOURCE, SPEC_FILE_URL);
+        return getTestData(RESOURCE_LOCATION);
     }
 
     @Override
-    public DataHolder options(String optionSet) {
+    public DataHolder options(@NotNull String optionSet) {
         return optionsSet(optionSet);
     }
 
     @Override
-    public String getSpecResourceName() {
-        return SPEC_RESOURCE;
+    public @NotNull SpecExampleRenderer getSpecExampleRenderer(@NotNull final SpecExample example, @Nullable final DataHolder exampleOptions) {
+        DataHolder combinedOptions = aggregate(myDefaultOptions, exampleOptions);
+        return new FlexmarkSpecExampleRenderer(example, combinedOptions, new CMakeIParser(combinedOptions), new ArduinoCMakeListsTxtBuilderRenderer(combinedOptions), true);
     }
 
     @Override
-    public IParse parser() {
-        return PARSER;
-    }
-
-    @Override
-    public IRender renderer() {
-        return RENDERER;
+    public @NotNull SpecExample checkExample(@NotNull final SpecExample example) {
+        return example;
     }
 }

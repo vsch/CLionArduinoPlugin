@@ -14,14 +14,22 @@ import com.intellij.util.xmlb.annotations.XCollection;
 import com.intellij.util.xmlb.annotations.XMap;
 import com.jetbrains.cidr.cpp.cmake.projectWizard.generators.settings.CMakeProjectSettings;
 import com.vladsch.clionarduinoplugin.generators.CppLanguageVersions;
-import com.vladsch.clionarduinoplugin.resources.*;
+import com.vladsch.clionarduinoplugin.resources.ArduinoConfig;
+import com.vladsch.clionarduinoplugin.resources.Board;
+import com.vladsch.clionarduinoplugin.resources.Programmer;
+import com.vladsch.clionarduinoplugin.resources.ResourceUtils;
+import com.vladsch.clionarduinoplugin.resources.TemplateResolver;
 import com.vladsch.clionarduinoplugin.util.ApplicationSettingsListener;
-import com.vladsch.flexmark.util.Utils;
+import com.vladsch.flexmark.util.sequence.SequenceUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
 @State(name = "Arduino Support Settings",
         storages = @Storage("arduino-plugin-settings.xml")
@@ -291,7 +299,7 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
 
     @Transient
     public void setBaudRateText(final @NotNull String baudRateText) {
-        Integer baud = Utils.parseIntOrNull(baudRateText);
+        Integer baud = SequenceUtils.parseIntOrNull(baudRateText);
         baudRate = baud == null ? 0 : baud;
     }
 

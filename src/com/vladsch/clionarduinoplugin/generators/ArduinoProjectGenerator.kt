@@ -171,7 +171,9 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
             return
         }
 
-        CLionProjectWizardUtils.reformatProjectFiles(project, createdFilesHolder.cMakeFile, formatSourceFilesAsCpp(), *createdFilesHolder.sourceFiles)
+        // vsch: in 2020.1 reformat with as not CPP causes the sketch #include to split off onto the next line
+        // vsch: in 2021.1 API has changed. So for compatibility with later IDEs, reformat will have to be done manually
+        // CLionProjectWizardUtils.reformatProjectFiles(project, createdFilesHolder.cMakeFile, formatSourceFilesAsCpp(), *createdFilesHolder.sourceFiles)
         CMakeWorkspace.getInstance(project).selectProjectDir(VfsUtilCore.virtualToIoFile(baseDir))
 
         if (!ApplicationManager.getApplication().isHeadlessEnvironment) {
@@ -187,7 +189,7 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
     }
 
     override fun formatSourceFilesAsCpp(): Boolean {
-        return false
+        return true
     }
 
     override fun validate(baseDirPath: String): ValidationResult {

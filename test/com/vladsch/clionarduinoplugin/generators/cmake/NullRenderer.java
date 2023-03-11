@@ -1,9 +1,10 @@
 package com.vladsch.clionarduinoplugin.generators.cmake;
 
+import com.vladsch.flexmark.test.util.spec.IRenderBase;
 import com.vladsch.flexmark.util.ast.IRender;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.spec.IRenderBase;
 import com.vladsch.flexmark.util.data.DataHolder;
+import org.jetbrains.annotations.NotNull;
 
 class NullRenderer extends IRenderBase {
     public NullRenderer() {
@@ -15,12 +16,7 @@ class NullRenderer extends IRenderBase {
     }
 
     @Override
-    public void render(Node node, Appendable output) {
+    public void render(@NotNull Node node, @NotNull Appendable output) {
 
-    }
-
-    @Override
-    public IRender withOptions(DataHolder options) {
-        return new NullRenderer(options);
     }
 }

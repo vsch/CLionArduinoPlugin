@@ -1,8 +1,8 @@
 package com.vladsch.clionarduinoplugin.generators.cmake.ast;
 
 import com.vladsch.flexmark.util.ast.Document;
-import com.vladsch.flexmark.util.Pair;
 import com.vladsch.flexmark.util.data.DataHolder;
+import com.vladsch.flexmark.util.misc.Pair;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
 import java.util.List;

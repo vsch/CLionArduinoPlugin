@@ -22,6 +22,8 @@ public enum SerialBaudRates implements ComboBoxAdaptable<SerialBaudRates> {
     BAUDRATE_115200(SerialPort.BAUDRATE_115200, Integer.toString(SerialPort.BAUDRATE_115200)),
     BAUDRATE_128000(SerialPort.BAUDRATE_128000, Integer.toString(SerialPort.BAUDRATE_128000)),
     BAUDRATE_256000(SerialPort.BAUDRATE_256000, Integer.toString(SerialPort.BAUDRATE_256000)),
+    BAUDRATE_512000(512000, Integer.toString(512000)),
+    CUSTOM(-1, Bundle.message("new-project.baud-rate.custom")),
     ;
 
     public final int intValue;
@@ -38,6 +40,10 @@ public enum SerialBaudRates implements ComboBoxAdaptable<SerialBaudRates> {
     @Override
     public ComboBoxAdapter<SerialBaudRates> getAdapter() {
         return ADAPTER;
+    }
+
+    public boolean isCustom() {
+        return this == CUSTOM;
     }
 
     @Override

@@ -4,13 +4,6 @@
     <name>Arduino Support</name>
     <vendor email="" url="https://github.com/vsch/CLionArduinoPlugin">Vladimir Schneider</vendor>
 
-    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="181"/>
-
-    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-         on how to target different products -->
-    <depends>com.intellij.modules.clion</depends>
-
     <description><![CDATA[
         <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/resources/META-INF/pluginIcon.png" alt="pluginIcon.png" width="50" align="middle" />
             Integrates <a href="https://github.com/francoiscampbell/arduino-cmake">Arduino CMake</a> into the CLion IDE.</p>
@@ -54,9 +47,18 @@
         <p><strong>*</strong> This plugin is a fork of <a href="https://github.com/francoiscampbell/CLionArduinoPlugin">Original CLionArduinoPlugin</a> written by Francois Campbell.</p>
         ]]></description>
 
-    <version>1.5.3</version>
+    <version>1.5.6</version>
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <depends>com.intellij.modules.clion</depends>
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="191" until-build="222.*"/> 
 
     <change-notes><![CDATA[
+        <h3>1.5.6</h3>
+        <ul>
+            <li>Fix: compatibility with CLION versions 2019.1 to 2022.2</li>
+        </ul>
         <h3>1.5.2</h3>
         <ul>
             <li>Fix: <a href="https://github.com/vsch/CLionArduinoPlugin/issues/22">#22, Open Existing Project files</a>, unhandled windows path thanks to

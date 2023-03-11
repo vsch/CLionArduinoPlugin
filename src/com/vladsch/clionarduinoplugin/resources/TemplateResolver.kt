@@ -1,9 +1,8 @@
 package com.vladsch.clionarduinoplugin.resources
 
 import com.intellij.openapi.diagnostic.Logger
-import com.vladsch.flexmark.util.TemplateUtil
+import com.vladsch.flexmark.util.misc.TemplateUtil
 import com.vladsch.flexmark.util.sequence.BasedSequence
-import com.vladsch.flexmark.util.sequence.BasedSequenceImpl
 import com.vladsch.plugin.util.*
 import java.io.File
 import java.io.IOException
@@ -18,8 +17,21 @@ object TemplateResolver {
     private val LOG = Logger.getInstance("com.vladsch.clionarduinoplugin")
 
     private const val BUNDLED_TEMPLATES = "/com/vladsch/clionarduinoplugin/templates"
-    val templateTypes = setOf("sketch", "library", "project${File.separator}library_arduino", "project${File.separator}library_static", "project${File.separator}sketch")
-    val templateTypesTest = setOf("sketch", "library", "project${File.separator}library_arduino", "project${File.separator}library_static", "project${File.separator}sketch", "project${File.separator}sketchsubdir")
+    val templateTypes = setOf(
+        "sketch",
+        "library",
+        "project${File.separator}library_arduino",
+        "project${File.separator}library_static",
+        "project${File.separator}sketch"
+    )
+    val templateTypesTest = setOf(
+        "sketch",
+        "library",
+        "project${File.separator}library_arduino",
+        "project${File.separator}library_static",
+        "project${File.separator}sketch",
+        "project${File.separator}sketchsubdir"
+    )
     val templateLevel1Dirs = setOf("sketch", "library", "project")
     val templateTypesPrefixes = templateTypes.map { it + File.separator }.toSet()
     val templateTypesTestPrefixes = templateTypesTest.map { it + File.separator }.toSet()
@@ -81,7 +93,8 @@ object TemplateResolver {
         val result = HashMap<String, String>()
         if (templatesDir != null && !isValidTemplateDir(templatesDir)) return result;
 
-        val resource = getTemplatesURL() //URL("jar:file:/Users/vlad/Library/Application%20Support/CLion2018.1/CLionArduinoPlugin/lib/CLionArduinoPlugin.jar!/com/vladsch/clionarduinoplugin/templates") //getTemplatesURL();
+        val resource =
+            getTemplatesURL() //URL("jar:file:/Users/vlad/Library/Application%20Support/CLion2018.1/CLionArduinoPlugin/lib/CLionArduinoPlugin.jar!/com/vladsch/clionarduinoplugin/templates") //getTemplatesURL();
         val baseDir: File
         val templateDir: File
         val templateFiles = HashMap<File, String>()
@@ -162,7 +175,8 @@ object TemplateResolver {
 
                             content = templateFiles[nameMatch] ?: ""
                             if (!content.isEmpty()) {
-                                templateFiles[file] = content   // just in case there is a sub directory with an empty template that would match
+                                templateFiles[file] =
+                                    content   // just in case there is a sub directory with an empty template that would match
                                 result[file.relativeTo(templateDir).path] = content
                                 break
                             }
@@ -227,15 +241,15 @@ object TemplateResolver {
             val file = File(templatePath)
             val fileNameOnly = file.nameOnly
             val resolvedFile = fileNameOnly.resolveRefs(FILE_NAME_REF, simpleResolver)
-            if (!resolvedFile.isEmpty()) {
-                val lines = BasedSequenceImpl.of(content).split('\n', Integer.MAX_VALUE - 2, BasedSequence.SPLIT_INCLUDE_DELIMS)
+            if (resolvedFile.isNotEmpty()) {
+                val lines = BasedSequence.of(content).split("\n", Integer.MAX_VALUE - 2, BasedSequence.SPLIT_INCLUDE_DELIMS)
                 val template = StringBuilder()
 
                 for (line in lines) {
                     var append = true
                     val resolved = line.resolveRefs(COMMAND_REF) { name, index ->
                         if (name == "DELETE_IF_BLANK") {
-                            append = !index.resolveRefs(COMMAND_REF, simpleResolver).isEmpty()
+                            append = index.resolveRefs(COMMAND_REF, simpleResolver).isNotEmpty()
                             ""
                         } else {
                             if (index != null) null

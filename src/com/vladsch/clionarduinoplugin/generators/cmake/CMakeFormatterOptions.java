@@ -3,7 +3,7 @@ package com.vladsch.clionarduinoplugin.generators.cmake;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.MutableDataHolder;
 import com.vladsch.flexmark.util.data.MutableDataSetter;
-import com.vladsch.flexmark.util.html.LineFormattingAppendable;
+import com.vladsch.flexmark.util.sequence.LineAppendable;
 
 import java.util.Set;
 
@@ -47,27 +47,28 @@ public class CMakeFormatterOptions implements MutableDataSetter {
     }
 
     CMakeFormatterOptions(DataHolder options) {
-        indentSpaces = CMakeFormatter.INDENT_SPACES.getFrom(options);
-        argumentListPrefix = CMakeFormatter.ARGUMENT_LIST_PREFIX.getFrom(options);
-        argumentListSuffix = CMakeFormatter.ARGUMENT_LIST_SUFFIX.getFrom(options);
-        argumentSeparator = CMakeFormatter.ARGUMENT_SEPARATOR.getFrom(options);
-        argumentParensSeparator = CMakeFormatter.ARGUMENT_PARENS_SEPARATOR.getFrom(options);
-        argumentListMaxLine = CMakeFormatter.ARGUMENT_LIST_MAX_LINE.getFrom(options);
+        indentSpaces = CMakeFormatter.INDENT_SPACES.get(options);
+        argumentListPrefix = CMakeFormatter.ARGUMENT_LIST_PREFIX.get(options);
+        argumentListSuffix = CMakeFormatter.ARGUMENT_LIST_SUFFIX.get(options);
+        argumentSeparator = CMakeFormatter.ARGUMENT_SEPARATOR.get(options);
+        argumentParensSeparator = CMakeFormatter.ARGUMENT_PARENS_SEPARATOR.get(options);
+        argumentListMaxLine = CMakeFormatter.ARGUMENT_LIST_MAX_LINE.get(options);
 
-        maxBlankLines = CMakeFormatter.MAX_BLANK_LINES.getFrom(options);
-        maxTrailingBlankLines = CMakeFormatter.MAX_TRAILING_BLANK_LINES.getFrom(options);
+        maxBlankLines = CMakeFormatter.MAX_BLANK_LINES.get(options);
+        maxTrailingBlankLines = CMakeFormatter.MAX_TRAILING_BLANK_LINES.get(options);
 
-        spaceAfterCommandName = CMakeFormatter.SPACE_AFTER_COMMAND_NAME.getFrom(options);
-        collapseWhitespace = CMakeFormatter.COLLAPSE_WHITESPACE.getFrom(options);
-        preserveWhitespace = CMakeFormatter.PRESERVE_WHITESPACE.getFrom(options);
-        preserveArgumentSeparator = CMakeFormatter.PRESERVE_ARGUMENT_SEPARATOR.getFrom(options);
-        preserveLineBreaks = CMakeFormatter.PRESERVE_LINE_BREAKS.getFrom(options);
+        spaceAfterCommandName = CMakeFormatter.SPACE_AFTER_COMMAND_NAME.get(options);
+        collapseWhitespace = CMakeFormatter.COLLAPSE_WHITESPACE.get(options);
+        preserveWhitespace = CMakeFormatter.PRESERVE_WHITESPACE.get(options);
+        preserveArgumentSeparator = CMakeFormatter.PRESERVE_ARGUMENT_SEPARATOR.get(options);
+        preserveLineBreaks = CMakeFormatter.PRESERVE_LINE_BREAKS.get(options);
 
-        int formatFlags = FORMAT_FLAGS.getFrom(options);
+        int formatFlags = FORMAT_FLAGS.get(options);
         if (preserveWhitespace) {
-            formatFlags |= LineFormattingAppendable.ALLOW_LEADING_WHITESPACE;
-            formatFlags &= ~LineFormattingAppendable.COLLAPSE_WHITESPACE;
-        } else if (collapseWhitespace) formatFlags |= LineFormattingAppendable.COLLAPSE_WHITESPACE;
+            formatFlags &= ~(LineAppendable.F_COLLAPSE_WHITESPACE | LineAppendable.F_TRIM_LEADING_WHITESPACE);
+        } else if (collapseWhitespace) {
+            formatFlags |= LineAppendable.F_COLLAPSE_WHITESPACE | LineAppendable.F_TRIM_LEADING_WHITESPACE;
+        }
 
         this.formatFlags = formatFlags;
     }

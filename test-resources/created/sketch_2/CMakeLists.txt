@@ -37,3 +37,7 @@ set(${PROJECT_NAME}_PORT /dev/cu.Bluetooth-Incoming-Port)
 # set(${PROJECT_NAME}_AFLAGS -v)
 
 generate_arduino_firmware(${PROJECT_NAME})
+
+
+print_board_list()
+print_programmer_list()

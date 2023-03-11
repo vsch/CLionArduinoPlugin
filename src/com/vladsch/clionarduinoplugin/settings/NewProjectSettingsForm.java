@@ -6,22 +6,33 @@ import com.intellij.openapi.application.ModalityState;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.TextFieldWithHistory;
 import com.intellij.ui.components.JBCheckBox;
+import com.intellij.ui.components.JBTextField;
 import com.intellij.util.Alarm;
 import com.vladsch.clionarduinoplugin.util.ApplicationSettingsListener;
+import com.vladsch.flexmark.util.sequence.SequenceUtils;
 import com.vladsch.plugin.util.RecursionGuard;
-import com.vladsch.plugin.util.ui.*;
+import com.vladsch.plugin.util.ui.FormParams;
+import com.vladsch.plugin.util.ui.Settable;
+import com.vladsch.plugin.util.ui.SettableForm;
+import com.vladsch.plugin.util.ui.SettingsComponents;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.JTextComponent;
 import java.awt.ItemSelectable;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSettings> implements Disposable, ApplicationSettingsListener, SettableForm<ArduinoApplicationSettings> {
     private JPanel myMainPanel;
@@ -46,6 +57,7 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
     private JLabel myAuthorNameLabel;
     private JLabel myAuthorEMailLabel;
     JComboBox<String> myBaudRate;
+    JBTextField myCustomBaudRate;
     private JLabel myLibraryDisplayNameLabel;
 
     final Set<Object> myPendingUpdates;
@@ -95,13 +107,36 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
         myUpdate = new Alarm(this);
         myPendingUpdates = new LinkedHashSet<>();
 
+        //noinspection unchecked
         components = new SettingsComponents<ArduinoApplicationSettings>(mySettings) {
             @Override
-            protected Settable[] createComponents(ArduinoApplicationSettings i) {
+            protected Settable[] createComponents(@NotNull ArduinoApplicationSettings i) {
                 if (myIsLibrary) {
                     return new Settable[] {
                             componentString(SerialPortNames.ADAPTER, myPort, i::getPort, i::setPort),
-                            component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
+                            //component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
+                            component(() -> {
+                                SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
+                                if (baudRates.isCustom()) {
+                                    Integer rate = SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
+                                    if (rate != null) {
+                                        return rate;
+                                    } else {
+                                        return SerialBaudRates.BAUDRATE_57600.intValue;
+                                    }
+                                } else {
+                                    return baudRates.intValue;
+                                }
+                            }, rate -> {
+                                SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnumNameOrNull(Integer.toString(rate));
+                                if (baudRates == null) {
+                                    myCustomBaudRate.setText(Integer.toString(rate));
+                                    SerialBaudRates.ADAPTER.set(myBaudRate, SerialBaudRates.CUSTOM.intValue);
+                                } else {
+                                    myCustomBaudRate.setText(Integer.toString(rate));
+                                    SerialBaudRates.ADAPTER.set(myBaudRate, rate);
+                                }
+                            }, i::getBaudRate, i::setBaudRate),
                             componentString(BoardNames.ADAPTER, myBoards, i::getBoardName, i::setBoardName),
                             componentString(CpuNames.ADAPTER, myCpus, i::getCpuName, i::setCpuName),
                             componentString(ProgrammerNames.ADAPTER, myProgrammers, i::getProgrammerName, i::setProgrammerName),
@@ -121,7 +156,29 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
                 } else {
                     return new Settable[] {
                             componentString(SerialPortNames.ADAPTER, myPort, i::getPort, i::setPort),
-                            component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
+                            //component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
+                            component(() -> {
+                                SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
+                                if (baudRates.isCustom()) {
+                                    Integer rate = SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
+                                    if (rate != null) {
+                                        return rate;
+                                    } else {
+                                        return SerialBaudRates.BAUDRATE_57600.intValue;
+                                    }
+                                } else {
+                                    return baudRates.intValue;
+                                }
+                            }, rate -> {
+                                SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnumNameOrNull(Integer.toString(rate));
+                                if (baudRates == null) {
+                                    myCustomBaudRate.setText(Integer.toString(rate));
+                                    SerialBaudRates.ADAPTER.set(myBaudRate, SerialBaudRates.CUSTOM.intValue);
+                                } else {
+                                    myCustomBaudRate.setText(Integer.toString(rate));
+                                    SerialBaudRates.ADAPTER.set(myBaudRate, rate);
+                                }
+                            }, i::getBaudRate, i::setBaudRate),
                             componentString(BoardNames.ADAPTER, myBoards, i::getBoardName, i::setBoardName),
                             componentString(CpuNames.ADAPTER, myCpus, i::getCpuName, i::setCpuName),
                             componentString(ProgrammerNames.ADAPTER, myProgrammers, i::getProgrammerName, i::setProgrammerName),
@@ -137,22 +194,13 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
 
         ApplicationManager.getApplication().getMessageBus().connect(this).subscribe(ApplicationSettingsListener.TOPIC, this);
 
-        ItemListener itemListener = new ItemListener() {
-            @Override
-            public void itemStateChanged(final ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    applyChanges(e.getSource());
-                }
-            }
-        };
-
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
+        ItemListener itemListener = e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
                 applyChanges(e.getSource());
             }
         };
 
+        ActionListener actionListener = e -> applyChanges(e.getSource());
         components.forAllComponents(mySettings, settable -> {
             Object target = settable.getComponent();
             if (target instanceof AbstractButton) {
@@ -172,6 +220,9 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
                 }
             }
         });
+
+        ActionListener actionListener1 = e -> updateOptions(false);
+        myBaudRate.addActionListener(actionListener1);
 
         reset(mySettings);
         updateOptions(true);
@@ -255,6 +306,12 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
             myLibraryDisplayNameLabel.setVisible(isArduinoLibrary && !isLimitedConfig);
 
             myLibraryDirectory.setEnabled(myAddLibraryDirectory.isSelected());
+
+            myCustomBaudRate.setEnabled(SerialBaudRates.ADAPTER.get(myBaudRate).isCustom());
+            SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
+            if (!baudRates.isCustom()) {
+                myCustomBaudRate.setText(baudRates.displayName);
+            }
 
             if (updateCpus) {
                 updateCpus();

@@ -273,5 +273,8 @@ project(@{PROJECT_NAME})
 
 # generate_arduino_firmware(@{PROJECT_NAME})
 # generate_arduino_library(@{PROJECT_NAME})
+
+print_board_list()
+print_programmer_list()
 """.prep
 }

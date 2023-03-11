@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 
 public class ProjectSettingsDialog extends DialogWrapper {
     JPanel myMainPanel;
-    private SerialMonitorSettingsForm mySerialMonitorSettingsForm;
+    private final SerialMonitorSettingsForm mySerialMonitorSettingsForm;
 
     public ProjectSettingsDialog(@NotNull Project project) {
         super(false);

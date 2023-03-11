@@ -1,11 +1,10 @@
 package com.vladsch.clionarduinoplugin.generators.cmake;
 
-import com.vladsch.flexmark.util.ast.IParse;
+import com.vladsch.flexmark.test.util.spec.IParseBase;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.spec.IParseBase;
 import com.vladsch.flexmark.util.data.DataHolder;
-import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
+import org.jetbrains.annotations.NotNull;
 
 class CMakeIParser extends IParseBase {
     public CMakeIParser() {
@@ -16,17 +15,11 @@ class CMakeIParser extends IParseBase {
         super(options);
     }
 
+    @NotNull
     @Override
-    public Node parse(BasedSequence input) {
+    public Node parse(@NotNull BasedSequence input) {
         // here we make the lexer parse the input sequence from start to finish and accumulate everything in custom nodes
         CMakeParser parser = new CMakeParser(input, getOptions());
         return parser.getDocument();
-    }
-
-    @Override
-    public IParse withOptions(DataHolder options) {
-        final MutableDataSet mutableDataSet = new MutableDataSet(getOptions());
-        if (options != null) mutableDataSet.setAll(options);
-        return new CMakeIParser(mutableDataSet);
     }
 }

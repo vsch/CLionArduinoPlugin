@@ -21,6 +21,7 @@ import com.intellij.ui.TextFieldWithHistory;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBTextField;
 import com.vladsch.clionarduinoplugin.serial.SerialProjectComponent;
+import com.vladsch.flexmark.util.sequence.SequenceUtils;
 import com.vladsch.plugin.util.ui.FormParams;
 import com.vladsch.plugin.util.ui.Settable;
 import com.vladsch.plugin.util.ui.SettingsComponents;
@@ -31,8 +32,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,6 +45,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
     JBCheckBox myDisconnectOnBuild;
     JBCheckBox myReconnectAfterBuild;
     JBTextField myBuildConfigurationNames;
+    JBTextField myCustomBaudRate;
     JComboBox<String> myBuildConfigurationPattern;
     private JButton myEditRegExButton;
     JBCheckBox myAfterSuccessfulBuild;
@@ -67,12 +67,35 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
     public SerialMonitorSettingsForm(ArduinoProjectSettings settings, boolean allowPortEdit) {
         super(allowPortEdit);
 
+        //noinspection unchecked
         components = new SettingsComponents<ArduinoProjectSettings>(settings) {
             @Override
             protected Settable[] createComponents(ArduinoProjectSettings i) {
                 return new Settable[] {
                         componentString(SerialPortNames.ADAPTER, myPort, i::getPort, i::setPort),
-                        component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
+                        //component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
+                        component(() -> {
+                            SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
+                            if (baudRates.isCustom()) {
+                                Integer rate = SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
+                                if (rate != null) {
+                                    return rate;
+                                } else {
+                                    return SerialBaudRates.BAUDRATE_57600.intValue;
+                                }
+                            } else {
+                                return baudRates.intValue;
+                            }
+                        }, rate -> {
+                            SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnumNameOrNull(Integer.toString(rate));
+                            if (baudRates == null) {
+                                myCustomBaudRate.setText(Integer.toString(rate));
+                                SerialBaudRates.ADAPTER.set(myBaudRate, SerialBaudRates.CUSTOM.intValue);
+                            } else {
+                                myCustomBaudRate.setText(Integer.toString(rate));
+                                SerialBaudRates.ADAPTER.set(myBaudRate, rate);
+                            }
+                        }, i::getBaudRate, i::setBaudRate),
                         //component(myReloadOnFileChange, i::isReloadOnFileChange, i::setReloadOnFileChange),
                         component(myLogConnectDisconnect, i::isLogConnectDisconnect, i::setLogConnectDisconnect),
                         component(myDisconnectOnBuild, i::isDisconnectOnBuild, i::setDisconnectOnBuild),
@@ -87,12 +110,10 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
 
         myRegexSampleText = settings.getRegexSampleText();
 
-        final ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {updateOptions(false);}
-        };
+        final ActionListener actionListener = e -> updateOptions(false);
 
         myReconnectAfterBuild.addActionListener(actionListener);
+        myBaudRate.addActionListener(actionListener);
 
         myEditRegExButton.addActionListener(e -> {
             boolean valid = RegExTestDialog.showDialog(myMainPanel, this);
@@ -128,6 +149,12 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
 
         myBuildConfigurationNames.setEnabled(enablePrefixes);
         myEditRegExButton.setVisible(regexPrefixes);
+        myCustomBaudRate.setEnabled(SerialBaudRates.ADAPTER.get(myBaudRate).isCustom());
+        
+        SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
+        if (!baudRates.isCustom()) {
+            myCustomBaudRate.setText(baudRates.displayName);
+        }
 
         myAfterSuccessfulBuild.setEnabled(myReconnectAfterBuild.isSelected());
     }

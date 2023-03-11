@@ -12,7 +12,7 @@ license: '[CC-BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)'
 
 actual file
 
-```````````````````````````````` example(Generic: 1) options(board-pro)
+```````````````````````````````` example(Generic: 1) options(board-pro)
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake")
 set(CMAKE_CXX_STANDARD 98)
@@ -83,7 +83,7 @@ CMakeFile[0, 377]
 
 actual file
 
-```````````````````````````````` example(Arduno: 1) options(board-pro)
+```````````````````````````````` example(Arduno: 1) options(board-pro)
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake")
 set(CMAKE_CXX_STANDARD 98)
@@ -213,7 +213,7 @@ CMakeFile[0, 851]
 
 actual file
 
-```````````````````````````````` example(Arduno: 2) options(change-all)
+```````````````````````````````` example(Arduno: 2) options(change-all)
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake")
 set(CMAKE_CXX_STANDARD 98)
@@ -359,7 +359,7 @@ CMakeFile[0, 926]
 
 test case
 
-```````````````````````````````` example(Arduno: 3) options(change-all)
+```````````````````````````````` example(Arduno: 3) options(change-all)
 set(${CMAKE_PROJECT_NAME}_SRCS tft_life.cpp)
 set(${CMAKE_PROJECT_NAME}_HDRS tft_life.h)
 .
@@ -370,7 +370,7 @@ set(${PROJECT_NAME}_HDRS setHdrs)
 
 test case
 
-```````````````````````````````` example(Arduno: 4) options(change-all)
+```````````````````````````````` example(Arduno: 4) options(change-all)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/sub)
 .
 link_directories(linkDirectories)
@@ -379,7 +379,7 @@ link_directories(linkDirectories)
 
 test case
 
-```````````````````````````````` example(Arduno: 5) options(change-all)
+```````````````````````````````` example(Arduno: 5) options(change-all)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/.. linkDirectories)
 .
 link_directories(linkDirectories)
@@ -388,7 +388,7 @@ link_directories(linkDirectories)
 
 test case
 
-```````````````````````````````` example(Arduno: 6) options(change-all)
+```````````````````````````````` example(Arduno: 6) options(change-all)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sub)
 .
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sub)
@@ -398,7 +398,7 @@ add_subdirectory(addSubdirectory)
 
 test case
 
-```````````````````````````````` example(Arduno: 7) options(change-all)
+```````````````````````````````` example(Arduno: 7) options(change-all)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sub)
 .
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sub)
@@ -408,7 +408,7 @@ add_subdirectory(addSubdirectory)
 
 test case
 
-```````````````````````````````` example(Arduno: 8) options(change-all, set-or-add)
+```````````````````````````````` example(Arduno: 8) options(change-all,  set-or-add)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sub)
 .
 cmake_minimum_required(VERSION Maj.Min.Rev.Twk)
@@ -436,7 +436,7 @@ generate_arduino_library(${CMAKE_PROJECT_NAME})
 
 test case
 
-```````````````````````````````` example(Arduno: 9) options(change-all, set-or-add)
+```````````````````````````````` example(Arduno: 9) options(change-all,  set-or-add)
 ## Top
 
 ## Before project
@@ -484,7 +484,7 @@ CMakeFile[0, 84]
 ````````````````````````````````
 
 
-```````````````````````````````` example(Arduno: 10) options(add-project, set-or-add)
+```````````````````````````````` example(Arduno: 10) options(add-project,  set-or-add)
 set(CMAKE_TOOLCHAIN_FILE setCmakeToolchainFile)
 set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
 ## Top
@@ -603,7 +603,7 @@ CMakeFile[0, 719]
 
 test uncomment command
 
-```````````````````````````````` example(Arduno: 11) options(add-project, set-or-add)
+```````````````````````````````` example(Arduno: 11) options(add-project,  set-or-add)
 set(CMAKE_TOOLCHAIN_FILE setCmakeToolchainFile)
 set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
 ## Top
@@ -722,7 +722,7 @@ CMakeFile[0, 720]
 
 test uncomment command
 
-```````````````````````````````` example(Arduno: 12) options(add-project, set-or-add)
+```````````````````````````````` example(Arduno: 12) options(add-project,  set-or-add)
 set(CMAKE_TOOLCHAIN_FILE setCmakeToolchainFile)
 set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
 ## Top
@@ -845,7 +845,7 @@ CMakeFile[0, 752]
 
 test takes uncommented over commented
 
-```````````````````````````````` example(Arduno: 13) options(change-all, set-or-add)
+```````````````````````````````` example(Arduno: 13) options(change-all,  set-or-add)
 #project(${CMAKE_PROJECT_NAME})
 ## Top
 
@@ -900,7 +900,7 @@ CMakeFile[0, 116]
 
 test commented suppression command
 
-```````````````````````````````` example(Arduno: 14) options(no-comment-unused)
+```````````````````````````````` example(Arduno: 14) options(no-comment-unused)
 set(CMAKE_TOOLCHAIN_FILE setCmakeToolchainFile)
 set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
 ## Top
@@ -1020,7 +1020,7 @@ CMakeFile[0, 752]
 ````````````````````````````````
 
 
-```````````````````````````````` example(Arduno: 15) options(board-pro)
+```````````````````````````````` example(Arduno: 15) options(board-pro)
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_PROJECT_NAME tft_life)
@@ -1129,7 +1129,7 @@ CMakeFile[0, 734]
 
 File not parsing for project name macro should not be wrapped in `${}`
 
-```````````````````````````````` example Issue 1: 1
+```````````````````````````````` example Issue 1: 1
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(${CMAKE_PROJECT_NAME} tft_test)
@@ -1180,7 +1180,7 @@ set(${CMAKE_PROJECT_NAME}_AFLAGS -v)
 
 generate_arduino_firmware(${CMAKE_PROJECT_NAME})
 .
-CMakeFile[0, 781]
+CMakeFile[0, 780]
   Command[0, 37] text:[0, 22, "cmake_minimum_required"] open:[22, 23, "("] arguments:[23, 36, "VERSION 2.8.4"] close:[36, 37, ")"]
     Argument[23, 30] text:[23, 30, "VERSION"]
     Argument[31, 36] text:[31, 36, "2.8.4"]
@@ -1248,13 +1248,12 @@ CMakeFile[0, 781]
   BlankLine[731, 732]
   Command[732, 780] text:[732, 757, "generate_arduino_firmware"] open:[757, 758, "("] arguments:[758, 779, "${CMAKE_PROJECT_NAME}"] close:[779, 780, ")"]
     Argument[758, 779] text:[758, 779, "${CMAKE_PROJECT_NAME}"]
-  LineEnding[780, 781]
 ````````````````````````````````
 
 
 File not parsing for project name macro should not be wrapped in `${}`
 
-```````````````````````````````` example(Issue 1: 2) options(board-pro)
+```````````````````````````````` example(Issue 1: 2) options(board-pro)
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(${CMAKE_PROJECT_NAME} tft_test)
@@ -1376,7 +1375,7 @@ CMakeFile[0, 780]
 ````````````````````````````````
 
 
-```````````````````````````````` example(Issue 1: 3) options(unmodified-original, dump-variables)
+```````````````````````````````` example(Issue 1: 3) options(unmodified-original,  dump-variables)
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_CXX_STANDARD 98)
@@ -1515,7 +1514,7 @@ CMakeFile[0, 803]
 ````````````````````````````````
 
 
-```````````````````````````````` example(Issue 1: 4) options(unmodified-original, dump-variables, reset-project)
+```````````````````````````````` example(Issue 1: 4) options(unmodified-original,  dump-variables,  reset-project)
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_CXX_STANDARD 98)

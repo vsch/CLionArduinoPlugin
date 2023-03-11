@@ -36,7 +36,7 @@ import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.ListTableModel;
 import com.intellij.util.ui.UIUtil;
 import com.vladsch.clionarduinoplugin.Bundle;
-import com.vladsch.flexmark.util.DelimitedBuilder;
+import com.vladsch.flexmark.util.misc.DelimitedBuilder;
 import com.vladsch.flexmark.util.html.ui.BackgroundColor;
 import com.vladsch.flexmark.util.html.ui.HtmlBuilder;
 import com.vladsch.flexmark.util.html.ui.HtmlHelpers;

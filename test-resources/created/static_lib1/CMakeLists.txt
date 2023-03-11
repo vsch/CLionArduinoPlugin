@@ -38,3 +38,6 @@ set(${PROJECT_NAME}_AFLAGS -v)
 
 
 generate_arduino_library(${PROJECT_NAME})
+
+print_board_list()
+print_programmer_list()

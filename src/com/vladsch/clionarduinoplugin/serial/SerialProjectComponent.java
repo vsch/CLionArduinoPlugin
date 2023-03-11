@@ -6,6 +6,7 @@ import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.openapi.wm.WindowManager;
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
@@ -73,7 +74,9 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
         }
 
         myStatusWidget.setStatus(true, false, canConnectPort());
-        mySerialMonitorToolWindow = new SerialMonitorToolWindow(myProject);
+        ToolWindowManager.getInstance(myProject).invokeLater(()->{
+            mySerialMonitorToolWindow = new SerialMonitorToolWindow(myProject);
+        });
     }
 
     @Override

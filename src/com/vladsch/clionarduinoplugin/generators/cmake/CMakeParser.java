@@ -2,7 +2,8 @@ package com.vladsch.clionarduinoplugin.generators.cmake;
 
 import com.vladsch.clionarduinoplugin.generators.cmake.ast.*;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.Pair;
+import com.vladsch.flexmark.util.misc.CharPredicate;
+import com.vladsch.flexmark.util.misc.Pair;
 import com.vladsch.flexmark.util.data.DataKey;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.plugin.util.SemanticVersion;
@@ -261,7 +262,7 @@ public class CMakeParser {
                                         if (minVersionArg != null) {
                                             // TODO: figure out if need to unescape
                                             BasedSequence version = minVersionArg.getChars();
-                                            BasedSequence[] minMaxVersions = version.split("...", 2);
+                                            BasedSequence[] minMaxVersions = version.split("...", 2, 0);
 
                                             // use max version if given
                                             SemanticVersion minVersion = new SemanticVersion(minMaxVersions[0]);
@@ -476,7 +477,7 @@ public class CMakeParser {
                 if (options.astBlankLines || options.astLineEndEol) {
                     // only blank line if did not have input before
                     int startOfLine = input.startOfLine(start);
-                    int pos = input.indexOfAnyNot(BasedSequence.WHITESPACE_CHARS, startOfLine, start);
+                    int pos = input.indexOfAnyNot(CharPredicate.WHITESPACE, startOfLine, start);
                     if (pos == -1) {
                         // blank line
                         if (options.astBlankLines) {

@@ -1,9 +1,14 @@
 package com.vladsch.clionarduinoplugin.generators.cmake;
 
-import com.vladsch.flexmark.spec.SpecExample;
-import com.vladsch.flexmark.test.ComboSpecTestCase;
+import com.vladsch.flexmark.test.util.ComboSpecTestCase;
+import com.vladsch.flexmark.test.util.FlexmarkSpecExampleRenderer;
+import com.vladsch.flexmark.test.util.SpecExampleRenderer;
+import com.vladsch.flexmark.test.util.spec.ResourceLocation;
+import com.vladsch.flexmark.test.util.spec.SpecExample;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.MutableDataSet;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.runners.Parameterized;
 
 import java.util.HashMap;
@@ -11,9 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CMakeFormatterSpecTest extends ComboSpecTestCase {
-    private static final String SPEC_RESOURCE = "/cmake_formatter_spec.md";
-    public static final String SPEC_FILE_URL = "/Users/vlad/src/projects/CLionArduinoPlugin/test-resources" + SPEC_RESOURCE;
-
     private static final DataHolder OPTIONS = new MutableDataSet()
             .set(CMakeParser.AUTO_CONFIG, false)
             //.set(FormattingRenderer.INDENT_SIZE, 2)
@@ -25,6 +27,8 @@ public class CMakeFormatterSpecTest extends ComboSpecTestCase {
 
     private static final Map<String, DataHolder> optionsMap = new HashMap<String, DataHolder>();
     static {
+        TestResourceUrlResolver.registerResourceUrlResolvers();
+
         optionsMap.put("auto-config", new MutableDataSet().set(CMakeParser.AUTO_CONFIG, true));
         optionsMap.put("bracket-comments", new MutableDataSet().set(CMakeParser.BRACKET_COMMENTS, true));
         optionsMap.put("line-cont", new MutableDataSet().set(CMakeParser.LINE_CONTINUATION, true));
@@ -45,43 +49,36 @@ public class CMakeFormatterSpecTest extends ComboSpecTestCase {
         optionsMap.put("ast-arg-seps", new MutableDataSet().set(CMakeParser.AST_ARGUMENT_SEPARATORS, true));
         optionsMap.put("commented-out", new MutableDataSet().set(CMakeParser.AST_COMMENTED_OUT_COMMANDS, true));
     }
-
-    private static final CMakeIParser PARSER = new CMakeIParser(OPTIONS);
-
-    // The spec says URL-escaping is optional, but the examples assume that it's enabled.
-    private static final CMakeFormatter RENDERER = CMakeFormatter.build(OPTIONS);
-
     private static DataHolder optionsSet(String optionSet) {
         if (optionSet == null) return null;
         return optionsMap.get(optionSet);
     }
 
+    private static final String SPEC_RESOURCE = "cmake_formatter_spec.md";
+    private static final ResourceLocation RESOURCE_LOCATION = ResourceLocation.of(CMakeFormatterSpecTest.class, SPEC_RESOURCE);
+
     public CMakeFormatterSpecTest(SpecExample example) {
-        super(example);
+        super(example, optionsMap, OPTIONS);
     }
 
     @Parameterized.Parameters(name = "{0}")
     public static List<Object[]> data() {
-        return getTestData(SPEC_RESOURCE, SPEC_FILE_URL);
+        return getTestData(RESOURCE_LOCATION);
     }
 
     @Override
-    public DataHolder options(String optionSet) {
+    public DataHolder options(@NotNull String optionSet) {
         return optionsSet(optionSet);
     }
 
     @Override
-    public String getSpecResourceName() {
-        return SPEC_RESOURCE;
+    public @NotNull SpecExampleRenderer getSpecExampleRenderer(@NotNull final SpecExample example, @Nullable final DataHolder exampleOptions) {
+        DataHolder combinedOptions = aggregate(myDefaultOptions, exampleOptions);
+        return new FlexmarkSpecExampleRenderer(example, combinedOptions, new CMakeIParser(combinedOptions), CMakeFormatter.build(combinedOptions), true);
     }
 
     @Override
-    public CMakeIParser parser() {
-        return PARSER;
-    }
-
-    @Override
-    public CMakeFormatter renderer() {
-        return RENDERER;
+    public @NotNull SpecExample checkExample(@NotNull final SpecExample example) {
+        return example;
     }
 }

@@ -11,7 +11,7 @@ import com.vladsch.clionarduinoplugin.resources.resolveRefs
 import com.vladsch.flexmark.util.ast.Node
 import com.vladsch.flexmark.util.data.DataHolder
 import com.vladsch.flexmark.util.data.MutableDataSet
-import com.vladsch.flexmark.util.sequence.BasedSequenceImpl
+import com.vladsch.flexmark.util.sequence.BasedSequence
 import com.vladsch.plugin.util.VariableExpander
 import com.vladsch.plugin.util.ifElse
 import com.vladsch.plugin.util.prefixWith
@@ -19,7 +19,6 @@ import com.vladsch.plugin.util.suffixWith
 import java.io.IOException
 import java.util.*
 import java.util.regex.Pattern
-import kotlin.collections.ArrayList
 
 /**
  * Class for creating, reading and modifying CMakeLists.txt files with specific flavour
@@ -29,7 +28,11 @@ import kotlin.collections.ArrayList
  * This class knows the how and when of manipulating the file but no knowledge of what
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: Array<CMakeCommandAnchor>, val projectNameMacro: String = PROJECT_NAME) {
+abstract class CMakeListsTxtBuilder(
+    commands: Array<CMakeCommandType>,
+    anchors: Array<CMakeCommandAnchor>,
+    val projectNameMacro: String = PROJECT_NAME
+) {
 
     private val myElements = ArrayList<CMakeElement>()
     private val myElementNodeMap = HashMap<CMakeElement, Node>()
@@ -124,14 +127,27 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
     }
 
     @JvmOverloads
-    constructor(projectNameMacro: String, commands: Array<CMakeCommandType>, anchors: Array<CMakeCommandAnchor>, text: CharSequence, options: DataHolder?, values: Map<String, Any>? = null) : this(commands, anchors, projectNameMacro) {
-        val parser = CMakeParser(BasedSequenceImpl.of(text), options ?: DEFAULT_OPTIONS)
+    constructor(
+        projectNameMacro: String,
+        commands: Array<CMakeCommandType>,
+        anchors: Array<CMakeCommandAnchor>,
+        text: CharSequence,
+        options: DataHolder?,
+        values: Map<String, Any>? = null
+    ) : this(commands, anchors, projectNameMacro) {
+        val parser = CMakeParser(BasedSequence.of(text), options ?: DEFAULT_OPTIONS)
         myCMakeFile = parser.document
         loadCMakeFile(values)
     }
 
     @JvmOverloads
-    constructor(projectNameMacro: String, commands: Array<CMakeCommandType>, anchors: Array<CMakeCommandAnchor>, cMakeFile: CMakeFile, values: Map<String, Any>? = null) : this(commands, anchors, projectNameMacro) {
+    constructor(
+        projectNameMacro: String,
+        commands: Array<CMakeCommandType>,
+        anchors: Array<CMakeCommandAnchor>,
+        cMakeFile: CMakeFile,
+        values: Map<String, Any>? = null
+    ) : this(commands, anchors, projectNameMacro) {
         myCMakeFile = cMakeFile
         loadCMakeFile(values)
     }
@@ -182,7 +198,7 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
                         useVarName = rawArgs[0].removePrefix("\${").removeSuffix("}")
                     }
 
-                    if (args.size > 1) cMakeVariableValues[useVarName ?: args[0]] = args.slice(1..args.size - 1)
+                    if (args.size > 1) cMakeVariableValues[useVarName ?: args[0]] = args.slice(1 .. args.size - 1)
                     else if (!args.isEmpty()) cMakeVariableValues[useVarName ?: args[0]] = null
                 } else if (node.command.equals("project")) {
                     // get the project name
@@ -261,7 +277,8 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
                         // if the name contains a macro then it won't be expanded but the setCommand is expanded
                         // need to convert it by expanding dependent names
                         for (name in mySetCommandsArg0Keys) {
-                            val nameWithProjectName = if (cMakeProjectNameMacro.isNotEmpty()) name.replace(PROJECT_NAME, cMakeProjectNameMacro) else name
+                            val nameWithProjectName =
+                                if (cMakeProjectNameMacro.isNotEmpty()) name.replace(PROJECT_NAME, cMakeProjectNameMacro) else name
                             val converted = replacedCommandParams(cMakeVariableValues.resolve(nameWithProjectName), valueSet)
                             if (converted.replace(projectNameMacro, cMakeProjectName) == resolvedSetCommand) {
                                 // it is this
@@ -270,7 +287,8 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
                                 break
                             } else if (converted.indexOf(CMakeCommandType.WILDCARD_ARG_MARKER) >= 0) {
                                 // has wildcard match
-                                val regEx = ("^\\Q" + converted.replace(projectNameMacro, cMakeProjectName).replace(CMakeCommandType.WILDCARD_ARG_MARKER, "\\E.*?\\Q") + "\\E$").toRegex()
+                                val regEx = ("^\\Q" + converted.replace(projectNameMacro, cMakeProjectName)
+                                    .replace(CMakeCommandType.WILDCARD_ARG_MARKER, "\\E.*?\\Q") + "\\E$").toRegex()
                                 if (resolvedSetCommand.matches(regEx)) {
                                     // use generic set
                                     commandType = mySetCommandsArg0[name]
@@ -301,7 +319,7 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
                         val regEx = Pattern.compile("^\\Q" + fixedArg.replace(CMakeCommandType.WILDCARD_ARG_MARKER, "\\E(.*?)\\Q") + "\\E$")
                         val matcher = regEx.matcher(rawArgs[i++])
                         matcher.find()
-                        for (g in 1..matcher.groupCount()) {
+                        for (g in 1 .. matcher.groupCount()) {
                             makeCommand.setArg(j++, matcher.group(g))
                         }
                     } else i++
@@ -429,7 +447,12 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
     /**
      * range is [rangeStart, rangeEnd)
      */
-    fun getCommandIndex(commandType: CMakeCommandType?, rangeStart: Int = 0, rangeEnd: Int = myElements.size, reverse: Boolean = false): Int {
+    fun getCommandIndex(
+        commandType: CMakeCommandType?,
+        rangeStart: Int = 0,
+        rangeEnd: Int = myElements.size,
+        reverse: Boolean = false
+    ): Int {
         var firstCommented = -1
         var i = reverse.ifElse(rangeEnd, rangeStart)
         val dI = reverse.ifElse(-1, 1)
@@ -450,7 +473,8 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
                         // TODO: make it work for other sub-commands
                         if (commandType == SET_PROJECT_NAME && commandType.isOfType(element.commandType)) {
                             // specialization, compare first argument to see if a match, for now just set project name
-                            val setCommandMacro = if (outputCMakeProjectNameMacro.isNotEmpty()) outputCMakeProjectNameMacro else cMakeProjectNameMacro
+                            val setCommandMacro =
+                                if (outputCMakeProjectNameMacro.isNotEmpty()) outputCMakeProjectNameMacro else cMakeProjectNameMacro
                             if (element.argCount > 1 && element.arg(0).prefixWith("\${").suffixWith("}") == setCommandMacro) {
                                 return i
                             }
@@ -511,6 +535,7 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
     }
 
     private class IndexRange(val originalBefore: Int, val originalAfter: Int) {
+
         var beforeIndex: Int = 0
         var afterIndex: Int = 0
 
@@ -531,13 +556,19 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
 
         override fun toString(): String {
             return "IndexRange [" +
-                    "" + afterIndex +
-                    " - " + beforeIndex +
-                    ']'.toString()
+                "" + afterIndex +
+                " - " + beforeIndex +
+                ']'.toString()
         }
     }
 
-    private fun adjustIndexRange(command: CMakeCommand, range: IndexRange, siblings: Collection<CMakeCommandType>?, siblingsAnchorType: AnchorType, isMember: Boolean) {
+    private fun adjustIndexRange(
+        command: CMakeCommand,
+        range: IndexRange,
+        siblings: Collection<CMakeCommandType>?,
+        siblingsAnchorType: AnchorType,
+        isMember: Boolean
+    ) {
         if (siblings == null) return
 
         var isAfter: Boolean
@@ -593,7 +624,6 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
                 }
             }
             else -> {
-
             }
         }
     }
@@ -868,6 +898,7 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
     }
 
     companion object {
+
         // commands can have fixed and variable arguments
         // fixed arguments can have dependency on variable arguments of other commands in the command set for a given cmake file
         // this allows fixed args to be dependent on args of other commands or values in the command set
@@ -876,40 +907,82 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
         const val PROJECT_VAR_NAME = "PROJECT_NAME"
         const val PROJECT_NAME = "\${$PROJECT_VAR_NAME}"
 
-        val CMAKE_MINIMUM_REQUIRED = CMakeCommandType("CMAKE_MINIMUM_REQUIRED", "cmake_minimum_required", arrayOf(), 1, 2, false, false, true)
-        val CMAKE_MINIMUM_REQUIRED_VERSION = CMakeCommandSubType("CMAKE_MINIMUM_REQUIRED_VERSION", CMAKE_MINIMUM_REQUIRED, arrayOf("VERSION"), 2, 2, true, false, true)
-        val LINK_DIRECTORIES = CMakeCommandType("LINK_DIRECTORIES", "link_directories", arrayOf(), 1, CMakeCommandType.INF_MAX_ARGS, true, false, true)
+        val CMAKE_MINIMUM_REQUIRED =
+            CMakeCommandType("CMAKE_MINIMUM_REQUIRED", "cmake_minimum_required", arrayOf(), 1, 2, false, false, true)
+        val CMAKE_MINIMUM_REQUIRED_VERSION =
+            CMakeCommandSubType("CMAKE_MINIMUM_REQUIRED_VERSION", CMAKE_MINIMUM_REQUIRED, arrayOf("VERSION"), 2, 2, true, false, true)
+        val LINK_DIRECTORIES =
+            CMakeCommandType("LINK_DIRECTORIES", "link_directories", arrayOf(), 1, CMakeCommandType.INF_MAX_ARGS, true, false, true)
         val ADD_SUBDIRECTORY = CMakeCommandType("ADD_SUBDIRECTORY", "add_subdirectory", arrayOf(), 1, 3, true, true, false)
         val PROJECT = CMakeCommandType("PROJECT", "project", arrayOf(), 1, 1, true, false, false, arrayOf("\${<@$PROJECT_VAR_NAME@>}"))
-        val SET = CMakeCommandType("SET", "set", arrayOf(), 1, CMakeCommandType.INF_MAX_ARGS, true,true,true)
+        val SET = CMakeCommandType("SET", "set", arrayOf(), 1, CMakeCommandType.INF_MAX_ARGS, true, true, true)
 
         // Generic commands added but not verified
-        val ADD_COMPILE_OPTIONS = CMakeCommandType("ADD_COMPILE_OPTIONS", "add_compile_options", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val ADD_CUSTOM_COMMAND = CMakeCommandType("ADD_CUSTOM_COMMAND", "add_custom_command", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val ADD_CUSTOM_TARGET = CMakeCommandType("ADD_CUSTOM_TARGET", "add_custom_target", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val ADD_DEFINITIONS = CMakeCommandType("ADD_DEFINITIONS", "add_definitions", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val ADD_DEPENDENCIES = CMakeCommandType("ADD_DEPENDENCIES", "add_dependencies", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val ADD_EXECUTABLE = CMakeCommandType("ADD_EXECUTABLE", "add_executable", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ADD_COMPILE_OPTIONS =
+            CMakeCommandType("ADD_COMPILE_OPTIONS", "add_compile_options", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ADD_CUSTOM_COMMAND =
+            CMakeCommandType("ADD_CUSTOM_COMMAND", "add_custom_command", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ADD_CUSTOM_TARGET =
+            CMakeCommandType("ADD_CUSTOM_TARGET", "add_custom_target", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ADD_DEFINITIONS =
+            CMakeCommandType("ADD_DEFINITIONS", "add_definitions", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ADD_DEPENDENCIES =
+            CMakeCommandType("ADD_DEPENDENCIES", "add_dependencies", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ADD_EXECUTABLE =
+            CMakeCommandType("ADD_EXECUTABLE", "add_executable", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ADD_LIBRARY = CMakeCommandType("ADD_LIBRARY", "add_library", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ADD_TEST = CMakeCommandType("ADD_TEST", "add_test", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val AUX_SOURCE_DIRECTORY = CMakeCommandType("AUX_SOURCE_DIRECTORY", "aux_source_directory", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val AUX_SOURCE_DIRECTORY = CMakeCommandType(
+            "AUX_SOURCE_DIRECTORY",
+            "aux_source_directory",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
         val BREAK = CMakeCommandType("BREAK", "break", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val BUILD_COMMAND = CMakeCommandType("BUILD_COMMAND", "build_command", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val CMAKE_HOST_SYSTEM_INFORMATION = CMakeCommandType("CMAKE_HOST_SYSTEM_INFORMATION", "cmake_host_system_information", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val BUILD_COMMAND =
+            CMakeCommandType("BUILD_COMMAND", "build_command", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val CMAKE_HOST_SYSTEM_INFORMATION = CMakeCommandType(
+            "CMAKE_HOST_SYSTEM_INFORMATION",
+            "cmake_host_system_information",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
         val CMAKE_POLICY = CMakeCommandType("CMAKE_POLICY", "cmake_policy", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val CONFIGURE_FILE = CMakeCommandType("CONFIGURE_FILE", "configure_file", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val CREATE_TEST_SOURCELIST = CMakeCommandType("CREATE_TEST_SOURCELIST", "create_test_sourcelist", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val DEFINE_PROPERTY = CMakeCommandType("DEFINE_PROPERTY", "define_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val CONFIGURE_FILE =
+            CMakeCommandType("CONFIGURE_FILE", "configure_file", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val CREATE_TEST_SOURCELIST = CMakeCommandType(
+            "CREATE_TEST_SOURCELIST",
+            "create_test_sourcelist",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val DEFINE_PROPERTY =
+            CMakeCommandType("DEFINE_PROPERTY", "define_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ELSEIF = CMakeCommandType("ELSEIF", "elseif", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ELSE = CMakeCommandType("ELSE", "else", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val ENABLE_LANGUAGE = CMakeCommandType("ENABLE_LANGUAGE", "enable_language", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val ENABLE_TESTING = CMakeCommandType("ENABLE_TESTING", "enable_testing", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ENABLE_LANGUAGE =
+            CMakeCommandType("ENABLE_LANGUAGE", "enable_language", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val ENABLE_TESTING =
+            CMakeCommandType("ENABLE_TESTING", "enable_testing", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ENDFOREACH = CMakeCommandType("ENDFOREACH", "endforeach", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ENDFUNCTION = CMakeCommandType("ENDFUNCTION", "endfunction", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ENDIF = CMakeCommandType("ENDIF", "endif", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ENDMACRO = CMakeCommandType("ENDMACRO", "endmacro", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val ENDWHILE = CMakeCommandType("ENDWHILE", "endwhile", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val EXECUTE_PROCESS = CMakeCommandType("EXECUTE_PROCESS", "execute_process", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val EXECUTE_PROCESS =
+            CMakeCommandType("EXECUTE_PROCESS", "execute_process", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val EXPORT = CMakeCommandType("EXPORT", "export", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val FILE = CMakeCommandType("FILE", "file", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val FIND_FILE = CMakeCommandType("FIND_FILE", "find_file", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
@@ -920,76 +993,212 @@ abstract class CMakeListsTxtBuilder(commands: Array<CMakeCommandType>, anchors: 
         val FLTK_WRAP_UI = CMakeCommandType("FLTK_WRAP_UI", "fltk_wrap_ui", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val FOREACH = CMakeCommandType("FOREACH", "foreach", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val FUNCTION = CMakeCommandType("FUNCTION", "function", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val GET_CMAKE_PROPERTY = CMakeCommandType("GET_CMAKE_PROPERTY", "get_cmake_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val GET_DIRECTORY_PROPERTY = CMakeCommandType("GET_DIRECTORY_PROPERTY", "get_directory_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val GET_FILENAME_COMPONENT = CMakeCommandType("GET_FILENAME_COMPONENT", "get_filename_component", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val GET_CMAKE_PROPERTY =
+            CMakeCommandType("GET_CMAKE_PROPERTY", "get_cmake_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val GET_DIRECTORY_PROPERTY = CMakeCommandType(
+            "GET_DIRECTORY_PROPERTY",
+            "get_directory_property",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val GET_FILENAME_COMPONENT = CMakeCommandType(
+            "GET_FILENAME_COMPONENT",
+            "get_filename_component",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
         val GET_PROPERTY = CMakeCommandType("GET_PROPERTY", "get_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val GET_SOURCE_FILE_PROPERTY = CMakeCommandType("GET_SOURCE_FILE_PROPERTY", "get_source_file_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val GET_TARGET_PROPERTY = CMakeCommandType("GET_TARGET_PROPERTY", "get_target_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val GET_TEST_PROPERTY = CMakeCommandType("GET_TEST_PROPERTY", "get_test_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val GET_SOURCE_FILE_PROPERTY = CMakeCommandType(
+            "GET_SOURCE_FILE_PROPERTY",
+            "get_source_file_property",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val GET_TARGET_PROPERTY =
+            CMakeCommandType("GET_TARGET_PROPERTY", "get_target_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val GET_TEST_PROPERTY =
+            CMakeCommandType("GET_TEST_PROPERTY", "get_test_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val IF = CMakeCommandType("IF", "if", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val INCLUDE_DIRECTORIES = CMakeCommandType("INCLUDE_DIRECTORIES", "include_directories", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val INCLUDE_EXTERNAL_MSPROJECT = CMakeCommandType("INCLUDE_EXTERNAL_MSPROJECT", "include_external_msproject", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val INCLUDE_REGULAR_EXPRESSION = CMakeCommandType("INCLUDE_REGULAR_EXPRESSION", "include_regular_expression", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val INCLUDE_DIRECTORIES =
+            CMakeCommandType("INCLUDE_DIRECTORIES", "include_directories", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val INCLUDE_EXTERNAL_MSPROJECT = CMakeCommandType(
+            "INCLUDE_EXTERNAL_MSPROJECT",
+            "include_external_msproject",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val INCLUDE_REGULAR_EXPRESSION = CMakeCommandType(
+            "INCLUDE_REGULAR_EXPRESSION",
+            "include_regular_expression",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
         val INCLUDE = CMakeCommandType("INCLUDE", "include", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val INSTALL = CMakeCommandType("INSTALL", "install", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val LIST = CMakeCommandType("LIST", "list", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val LOAD_CACHE = CMakeCommandType("LOAD_CACHE", "load_cache", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val LOAD_COMMAND = CMakeCommandType("LOAD_COMMAND", "load_command", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val MACRO = CMakeCommandType("MACRO", "macro", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val MARK_AS_ADVANCED = CMakeCommandType("MARK_AS_ADVANCED", "mark_as_advanced", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val MARK_AS_ADVANCED =
+            CMakeCommandType("MARK_AS_ADVANCED", "mark_as_advanced", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val MATH = CMakeCommandType("MATH", "math", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val MESSAGE = CMakeCommandType("MESSAGE", "message", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val OPTION = CMakeCommandType("OPTION", "option", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val QT_WRAP_CPP = CMakeCommandType("QT_WRAP_CPP", "qt_wrap_cpp", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val QT_WRAP_UI = CMakeCommandType("QT_WRAP_UI", "qt_wrap_ui", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val REMOVE_DEFINITIONS = CMakeCommandType("REMOVE_DEFINITIONS", "remove_definitions", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val REMOVE_DEFINITIONS =
+            CMakeCommandType("REMOVE_DEFINITIONS", "remove_definitions", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val RETURN = CMakeCommandType("RETURN", "return", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val SEPARATE_ARGUMENTS = CMakeCommandType("SEPARATE_ARGUMENTS", "separate_arguments", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val SET_DIRECTORY_PROPERTIES = CMakeCommandType("SET_DIRECTORY_PROPERTIES", "set_directory_properties", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val SEPARATE_ARGUMENTS =
+            CMakeCommandType("SEPARATE_ARGUMENTS", "separate_arguments", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val SET_DIRECTORY_PROPERTIES = CMakeCommandType(
+            "SET_DIRECTORY_PROPERTIES",
+            "set_directory_properties",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
         val SET_PROPERTY = CMakeCommandType("SET_PROPERTY", "set_property", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val SET_SOURCE_FILES_PROPERTIES = CMakeCommandType("SET_SOURCE_FILES_PROPERTIES", "set_source_files_properties", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val SET_TARGET_PROPERTIES = CMakeCommandType("SET_TARGET_PROPERTIES", "set_target_properties", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val SET_TESTS_PROPERTIES = CMakeCommandType("SET_TESTS_PROPERTIES", "set_tests_properties", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val SET_SOURCE_FILES_PROPERTIES = CMakeCommandType(
+            "SET_SOURCE_FILES_PROPERTIES",
+            "set_source_files_properties",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val SET_TARGET_PROPERTIES = CMakeCommandType(
+            "SET_TARGET_PROPERTIES",
+            "set_target_properties",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val SET_TESTS_PROPERTIES = CMakeCommandType(
+            "SET_TESTS_PROPERTIES",
+            "set_tests_properties",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
         val SITE_NAME = CMakeCommandType("SITE_NAME", "site_name", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val SOURCE_GROUP = CMakeCommandType("SOURCE_GROUP", "source_group", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val STRING = CMakeCommandType("STRING", "string", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val TARGET_COMPILE_DEFINITIONS = CMakeCommandType("TARGET_COMPILE_DEFINITIONS", "target_compile_definitions", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val TARGET_COMPILE_OPTIONS = CMakeCommandType("TARGET_COMPILE_OPTIONS", "target_compile_options", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val TARGET_INCLUDE_DIRECTORIES = CMakeCommandType("TARGET_INCLUDE_DIRECTORIES", "target_include_directories", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val TARGET_LINK_LIBRARIES = CMakeCommandType("TARGET_LINK_LIBRARIES", "target_link_libraries", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val TARGET_COMPILE_DEFINITIONS = CMakeCommandType(
+            "TARGET_COMPILE_DEFINITIONS",
+            "target_compile_definitions",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val TARGET_COMPILE_OPTIONS = CMakeCommandType(
+            "TARGET_COMPILE_OPTIONS",
+            "target_compile_options",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val TARGET_INCLUDE_DIRECTORIES = CMakeCommandType(
+            "TARGET_INCLUDE_DIRECTORIES",
+            "target_include_directories",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
+        val TARGET_LINK_LIBRARIES = CMakeCommandType(
+            "TARGET_LINK_LIBRARIES",
+            "target_link_libraries",
+            arrayOf(),
+            0,
+            CMakeCommandType.INF_MAX_ARGS,
+            false,
+            true,
+            false
+        )
         val TRY_COMPILE = CMakeCommandType("TRY_COMPILE", "try_compile", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val TRY_RUN = CMakeCommandType("TRY_RUN", "try_run", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val UNSET = CMakeCommandType("UNSET", "unset", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
-        val VARIABLE_WATCH = CMakeCommandType("VARIABLE_WATCH", "variable_watch", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
+        val VARIABLE_WATCH =
+            CMakeCommandType("VARIABLE_WATCH", "variable_watch", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
         val WHILE = CMakeCommandType("WHILE", "while", arrayOf(), 0, CMakeCommandType.INF_MAX_ARGS, false, true, false)
 
         // specialized set commands
-        val SET_CMAKE_TOOLCHAIN_FILE = CMakeCommandSubType("SET_CMAKE_TOOLCHAIN_FILE", SET, arrayOf("CMAKE_TOOLCHAIN_FILE"), 1, 1, true, false, true, arrayOf("\${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake"))
-        val SET_CMAKE_CXX_STANDARD = CMakeCommandSubType("SET_CMAKE_CXX_STANDARD", SET, arrayOf("CMAKE_CXX_STANDARD"), 1, 1, false, false, true)
+        val SET_CMAKE_TOOLCHAIN_FILE = CMakeCommandSubType(
+            "SET_CMAKE_TOOLCHAIN_FILE",
+            SET,
+            arrayOf("CMAKE_TOOLCHAIN_FILE"),
+            1,
+            1,
+            true,
+            false,
+            true,
+            arrayOf("\${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake")
+        )
+        val SET_CMAKE_CXX_STANDARD =
+            CMakeCommandSubType("SET_CMAKE_CXX_STANDARD", SET, arrayOf("CMAKE_CXX_STANDARD"), 1, 1, false, false, true)
         val SET_PROJECT_NAME = CMakeCommandSubType("SET_PROJECT_NAME", SET, arrayOf("<@$PROJECT_VAR_NAME@>"), 1, 1, false, false, true)
 
         val ourCommands = arrayOf(
-                CMAKE_MINIMUM_REQUIRED,
-                CMAKE_MINIMUM_REQUIRED_VERSION,
-                LINK_DIRECTORIES,
-                ADD_SUBDIRECTORY,
-                PROJECT,
-                SET,
+            CMAKE_MINIMUM_REQUIRED,
+            CMAKE_MINIMUM_REQUIRED_VERSION,
+            LINK_DIRECTORIES,
+            ADD_SUBDIRECTORY,
+            PROJECT,
+            SET,
 
-                SET_CMAKE_TOOLCHAIN_FILE,
-                SET_CMAKE_CXX_STANDARD,
-                SET_PROJECT_NAME
+            SET_CMAKE_TOOLCHAIN_FILE,
+            SET_CMAKE_CXX_STANDARD,
+            SET_PROJECT_NAME
         )
 
         private val LOG = Logger.getInstance("com.vladsch.clionarduinoplugin.generators")
         private val DEFAULT_OPTIONS = MutableDataSet()
-                .set(CMakeParser.AUTO_CONFIG, true)
-                .set(CMakeParser.AST_LINE_END_EOL, true)
-                .set(CMakeParser.AST_COMMENTS, true)
-                .set(CMakeParser.AST_BLANK_LINES, true)
-                .set(CMakeParser.AST_ARGUMENT_SEPARATORS, true)
-                .set(CMakeParser.AST_COMMENTED_OUT_COMMANDS, true)
+            .set(CMakeParser.AUTO_CONFIG, true)
+            .set(CMakeParser.AST_LINE_END_EOL, true)
+            .set(CMakeParser.AST_COMMENTS, true)
+            .set(CMakeParser.AST_BLANK_LINES, true)
+            .set(CMakeParser.AST_ARGUMENT_SEPARATORS, true)
+            .set(CMakeParser.AST_COMMENTED_OUT_COMMANDS, true)
 
         /**
          * replace other commands' argument references in the given string

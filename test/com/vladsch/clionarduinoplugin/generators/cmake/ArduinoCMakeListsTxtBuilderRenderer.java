@@ -5,16 +5,20 @@ import com.vladsch.clionarduinoplugin.generators.cmake.ast.CMakeFile;
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.CMakeCommand;
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.CMakeCommandType;
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.CMakeElement;
-import com.vladsch.flexmark.util.ast.IRender;
+import com.vladsch.flexmark.test.util.TestUtils;
+import com.vladsch.flexmark.test.util.spec.IRenderBase;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.spec.IRenderBase;
-import com.vladsch.flexmark.test.DumpSpecReader;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.DataKey;
-import com.vladsch.flexmark.util.data.MutableDataSet;
+import com.vladsch.flexmark.util.data.DataKeyBase;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
     public ArduinoCMakeListsTxtBuilderRenderer() {
@@ -25,8 +29,8 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
         super(options);
     }
 
-    final static public DataKey<Map<String, String>> VALUE_MAP = new DataKey<>("VALUE_MAP", (options) -> new LinkedHashMap<>());
-    final static public DataKey<Set<String>> SUPPRESS_COMMENTED_SET = new DataKey<>("SUPPRESS_COMMENTED_SET", (options) -> new HashSet<>());
+    final static public DataKey<Map<String, String>> VALUE_MAP = new DataKey<>("VALUE_MAP", LinkedHashMap::new);
+    final static public DataKey<Set<String>> SUPPRESS_COMMENTED_SET = new DataKey<>("SUPPRESS_COMMENTED_SET", HashSet::new);
     final static public DataKey<Boolean> DUMP_ELEMENTS_BEFORE = new DataKey<>("DUMP_ELEMENTS_BEFORE", false);
     final static public DataKey<Boolean> DUMP_ELEMENTS_AFTER = new DataKey<>("DUMP_ELEMENTS_AFTER", false);
     final static public DataKey<Boolean> DUMP_VARIABLE_MAP = new DataKey<>("DUMP_VARIABLE_MAP", false);
@@ -39,15 +43,15 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
     public void render(Node node, Appendable output) {
         assert node instanceof CMakeFile;
         CMakeFile cMakeFile = (CMakeFile) node;
-        Map<String, String> values = getOptions().get(VALUE_MAP);
-        Map<String, Object> valueSet = new HashMap<>(getOptions().get(VALUE_MAP));
-        Set<String> suppressSet = new HashSet<>(getOptions().get(SUPPRESS_COMMENTED_SET));
+        Map<String, String> values = VALUE_MAP.get(getOptions());
+        Map<String, Object> valueSet = new HashMap<>(VALUE_MAP.get(getOptions()));
+        Set<String> suppressSet = new HashSet<>(SUPPRESS_COMMENTED_SET.get(getOptions()));
         CMakeListsTxtBuilder builder = new ArduinoCMakeListsTxtBuilder(cMakeFile, valueSet);
-        boolean setOrAdd = SET_OR_ADD.getFrom(node.getDocument());
-        boolean suppressCommented = SUPPRESS_COMMENTED.getFrom(node.getDocument());
+        boolean setOrAdd = SET_OR_ADD.get(node.getDocument());
+        boolean suppressCommented = SUPPRESS_COMMENTED.get(node.getDocument());
 
         try {
-            if (DUMP_VARIABLE_MAP.getFrom(cMakeFile)) {
+            if (DUMP_VARIABLE_MAP.get(cMakeFile)) {
                 // dump the variables tree
                 output.append("# cMakeProjectNameMacro = ").append(builder.getCMakeProjectNameMacro()).append("\n");
                 output.append("# outputCMakeProjectNameMacro = ").append(builder.getOutputCMakeProjectNameMacro()).append("\n");
@@ -55,11 +59,11 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
                 output.append("# ").append(builder.getCMakeVariableValues().toString().replace("\n", "\n# ")).append("\n");
             }
 
-            if (DUMP_ELEMENTS_BEFORE.getFrom(cMakeFile)) {
+            if (DUMP_ELEMENTS_BEFORE.get(cMakeFile)) {
                 // dump the element tree
                 for (CMakeElement element : builder.getElements()) {
                     String s = element.toString();
-                    output.append("# ").append(DumpSpecReader.unShowTabs(s.replace('\n', '\r'))).append("\n");
+                    output.append("# ").append(TestUtils.fromVisibleSpecText(s.replace('\n', '\r'))).append("\n");
                 }
             }
 
@@ -148,11 +152,11 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
 
             if (ExtraRenderer.DUMP_OPTIONS.getFrom(cMakeFile)) {
                 // dump the options
-                Map<DataKey<?>, Object> all = ((CMakeFile) node).getAll();
-                ArrayList<DataKey<?>> keys = new ArrayList<>(all.keySet());
+                Map<? extends DataKeyBase<?>, Object> all = ((CMakeFile) node).getAll();
+                ArrayList<? extends DataKeyBase<?>> keys = new ArrayList<>(all.keySet());
                 keys.sort((o1, o2) -> Comparing.compare(o1.getName(), o2.getName()));
 
-                for (DataKey<?> key : keys) {
+                for (DataKeyBase<?> key : keys) {
                     output.append("# ").append(key.getName()).append("->").append(String.valueOf(all.get(key))).append("\n");
                 }
             }
@@ -160,18 +164,11 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
                 // dump the element tree
                 for (CMakeElement element : builder.getElements()) {
                     String s = element.toString();
-                    output.append("# ").append(DumpSpecReader.unShowTabs(s.replace('\n', '\r'))).append("\n");
+                    output.append("# ").append(TestUtils.fromVisibleSpecText(s.replace('\n', '\r'))).append("\n");
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public IRender withOptions(DataHolder options) {
-        final MutableDataSet mutableDataSet = new MutableDataSet(getOptions());
-        if (options != null) mutableDataSet.setAll(options);
-        return new ArduinoCMakeListsTxtBuilderRenderer(mutableDataSet);
     }
 }

@@ -1,5 +1,6 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <option name="LINE_SEPARATOR" value="&#10;" />
     <option name="FIELD_NAME_PREFIX" value="my" />
     <option name="STATIC_FIELD_NAME_PREFIX" value="our" />
     <option name="PREFER_LONGER_NAMES" value="false" />
@@ -8,30 +9,23 @@
       <value />
     </option>
     <option name="RIGHT_MARGIN" value="140" />
-    <option name="HTML_ATTRIBUTE_WRAP" value="0" />
-    <option name="HTML_TEXT_WRAP" value="0" />
-    <option name="HTML_KEEP_BLANK_LINES" value="1" />
-    <option name="HTML_ALIGN_ATTRIBUTES" value="false" />
-    <option name="HTML_ELEMENTS_TO_REMOVE_NEW_LINE_BEFORE" value="" />
-    <option name="HTML_DO_NOT_INDENT_CHILDREN_OF" value="html,body" />
-    <option name="HTML_DONT_ADD_BREAKS_IF_INLINE_CONTENT" value="title,h1,h2,h3,h4,h5,h6,p,li" />
     <option name="FORMATTER_TAGS_ENABLED" value="true" />
     <DBN-PSQL>
-      <case-options enabled="true">
-        <option name="KEYWORD_CASE" value="upper" />
+      <case-options enabled="false">
+        <option name="KEYWORD_CASE" value="lower" />
         <option name="FUNCTION_CASE" value="lower" />
         <option name="PARAMETER_CASE" value="lower" />
-        <option name="DATATYPE_CASE" value="upper" />
+        <option name="DATATYPE_CASE" value="lower" />
         <option name="OBJECT_CASE" value="preserve" />
       </case-options>
       <formatting-settings enabled="false" />
     </DBN-PSQL>
     <DBN-SQL>
-      <case-options enabled="true">
-        <option name="KEYWORD_CASE" value="upper" />
+      <case-options enabled="false">
+        <option name="KEYWORD_CASE" value="lower" />
         <option name="FUNCTION_CASE" value="lower" />
         <option name="PARAMETER_CASE" value="lower" />
-        <option name="DATATYPE_CASE" value="upper" />
+        <option name="DATATYPE_CASE" value="lower" />
         <option name="OBJECT_CASE" value="preserve" />
       </case-options>
       <formatting-settings enabled="false">
@@ -43,7 +37,6 @@
     <JavaCodeStyleSettings>
       <option name="FIELD_NAME_PREFIX" value="my" />
       <option name="PREFER_LONGER_NAMES" value="false" />
-      <option name="GENERATE_FINAL_PARAMETERS" value="true" />
       <option name="DO_NOT_WRAP_AFTER_SINGLE_ANNOTATION" value="true" />
       <option name="BLANK_LINES_AROUND_INITIALIZER" value="0" />
       <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="10" />
@@ -53,12 +46,14 @@
       </option>
       <option name="JD_ADD_BLANK_AFTER_PARM_COMMENTS" value="true" />
       <option name="JD_ADD_BLANK_AFTER_RETURN" value="true" />
-      <option name="JD_KEEP_EMPTY_RETURN" value="false" />
+      <option name="JD_PRESERVE_LINE_FEEDS" value="true" />
       <option name="JD_INDENT_ON_CONTINUATION" value="true" />
     </JavaCodeStyleSettings>
     <JetCodeStyleSettings>
       <option name="SPACE_AROUND_RANGE" value="true" />
+      <option name="NAME_COUNT_TO_USE_STAR_IMPORT_FOR_MEMBERS" value="10" />
       <option name="WRAP_ELVIS_EXPRESSIONS" value="0" />
+      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
     </JetCodeStyleSettings>
     <MarkdownNavigatorCodeStyleSettings>
       <option name="WRAP_ON_TYPING" value="1" />
@@ -67,11 +62,13 @@
       <option name="FORMAT_WITH_SOFT_WRAP" value="2" />
       <option name="TASK_LIST_ITEM_CASE" value="1" />
       <option name="TASK_LIST_ITEM_PLACEMENT" value="2" />
+      <option name="BULLET_LIST_ITEM_MARKER" value="2" />
       <option name="NEW_BULLET_LIST_ITEM_MARKER" value="2" />
-      <option name="LIST_SPACING" value="1" />
+      <option name="LIST_SPACING" value="2" />
       <option name="VERBATIM_MINIMIZE_INDENT" value="true" />
       <option name="CODE_FENCE_MINIMIZE_INDENT" value="true" />
       <option name="CODE_FENCE_MATCH_CLOSING_MARKER" value="true" />
+      <option name="BLOCK_QUOTE_MARKERS" value="2" />
       <option name="ABBREVIATIONS_PLACEMENT" value="4" />
       <option name="FOOTNOTE_PLACEMENT" value="4" />
       <option name="REFERENCE_PLACEMENT" value="4" />
@@ -81,18 +78,26 @@
       <option name="SMART_EDIT_TABLES" value="true" />
       <option name="TABLE_LEFT_ALIGN_MARKER" value="0" />
       <option name="TOC_FORMAT_ON_SAVE" value="true" />
+      <option name="TOC_HEADING_LEVELS" value="28" />
       <option name="TOC_GENERATE_TEXT_ONLY" value="true" />
       <option name="TOC_TITLE_LEVEL" value="3" />
       <option name="RIGHT_MARGIN" value="96" />
     </MarkdownNavigatorCodeStyleSettings>
+    <MarkdownNavigatorEnhCodeStyleSettings>
+      <option name="TOC_FORMAT_ON_SAVE" value="true" />
+      <option name="RIGHT_MARGIN" value="96" />
+      <option name="TRAILING_SPACES_ID_1" value="flexmark-java-spec-example" />
+    </MarkdownNavigatorEnhCodeStyleSettings>
     <Properties>
       <option name="KEEP_BLANK_LINES" value="true" />
     </Properties>
     <XML>
       <option name="XML_ATTRIBUTE_WRAP" value="0" />
       <option name="XML_KEEP_BLANK_LINES" value="1" />
-      <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
     </XML>
+    <editorconfig>
+      <option name="ENABLED" value="false" />
+    </editorconfig>
     <codeStyleSettings language="Blade">
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="4" />
@@ -110,8 +115,6 @@
     </codeStyleSettings>
     <codeStyleSettings language="JAVA">
       <option name="RIGHT_MARGIN" value="999" />
-      <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
-      <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
       <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
       <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
       <option name="KEEP_BLANK_LINES_BETWEEN_PACKAGE_DECLARATION_AND_HEADER" value="1" />
@@ -127,6 +130,10 @@
       <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
       <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
       <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
+      <option name="WRAP_COMMENTS" value="true" />
+      <option name="DOWHILE_BRACE_FORCE" value="1" />
+      <option name="WHILE_BRACE_FORCE" value="1" />
+      <option name="FOR_BRACE_FORCE" value="1" />
       <option name="FIELD_ANNOTATION_WRAP" value="1" />
       <option name="WRAP_ON_TYPING" value="0" />
       <indentOptions>
@@ -201,6 +208,11 @@
         </groups>
       </arrangement>
     </codeStyleSettings>
+    <codeStyleSettings language="Shell Script">
+      <indentOptions>
+        <option name="INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
     <codeStyleSettings language="XML">
       <option name="RIGHT_MARGIN" value="999" />
       <option name="WRAP_ON_TYPING" value="0" />
@@ -209,7 +221,7 @@
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="kotlin">
-      <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
+      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
       <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
       <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
       <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />

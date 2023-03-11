@@ -9,7 +9,7 @@ import com.vladsch.flexmark.formatter.NodeFormattingHandler;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
-import com.vladsch.flexmark.util.sequence.RepeatedCharSequence;
+import com.vladsch.flexmark.util.sequence.RepeatedSequence;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -43,7 +43,7 @@ public class CMakeNodeFormatter implements NodeFormatter {
 
     private void render(final CommandBlock node, final NodeFormatterContext context, final MarkdownWriter markdown) {
         markdown.pushPrefix();
-        markdown.addPrefix(RepeatedCharSequence.of(' ', formatterOptions.indentSpaces));
+        markdown.addPrefix(RepeatedSequence.repeatOf(' ', formatterOptions.indentSpaces));
         context.renderChildren(node);
         markdown.popPrefix();
     }
@@ -66,7 +66,7 @@ public class CMakeNodeFormatter implements NodeFormatter {
         markdown.append(node.getOpeningMarker());
         if (!formatterOptions.preserveWhitespace) {
             markdown.pushPrefix();
-            if (formatterOptions.indentSpaces > 0) markdown.addPrefix(RepeatedCharSequence.of(' ', formatterOptions.indentSpaces));
+            if (formatterOptions.indentSpaces > 0) markdown.addPrefix(RepeatedSequence.repeatOf(' ', formatterOptions.indentSpaces));
             context.renderChildren(node);
             markdown.popPrefix();
         } else {

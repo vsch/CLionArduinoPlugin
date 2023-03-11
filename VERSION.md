@@ -3,30 +3,31 @@
 [TOC levels=3,4]: # "Version History"
 
 ### Version History
-- [TO DO](#to-do)
-- [1.5.3](#153)
-- [1.5.2](#152)
-- [1.4.6](#146)
-- [1.4.4](#144)
-- [1.4.2](#142)
-- [1.4.0](#140)
-- [1.3.14](#1314)
-- [1.3.12](#1312)
-- [1.3.10](#1310)
-- [1.3.8](#138)
-- [1.3.6](#136)
-- [1.3.4](#134)
-- [1.3.2](#132)
-- [1.3.0](#130)
-- [1.2.4](#124)
-- [1.2.3](#123)
-- [1.2.2](#122)
-- [1.2.1](#121)
-- [1.2.0](#120)
-- [1.1.0](#110)
-- [1.0.2](#102)
-- [1.0.1](#101)
-- [1.0](#10)
+- [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
+  - [TO DO](#to-do)
+  - [1.5.6](#156)
+  - [1.5.2](#152)
+  - [1.4.6](#146)
+  - [1.4.4](#144)
+  - [1.4.2](#142)
+  - [1.4.0](#140)
+  - [1.3.14](#1314)
+  - [1.3.12](#1312)
+  - [1.3.10](#1310)
+  - [1.3.8](#138)
+  - [1.3.6](#136)
+  - [1.3.4](#134)
+  - [1.3.2](#132)
+  - [1.3.0](#130)
+  - [1.2.4](#124)
+  - [1.2.3](#123)
+  - [1.2.2](#122)
+  - [1.2.1](#121)
+  - [1.2.0](#120)
+  - [1.1.0](#110)
+  - [1.0.2](#102)
+  - [1.0.1](#101)
+  - [1.0](#10)
 
 
 #### TO DO
@@ -42,9 +43,9 @@
 * [ ] Add: documentation for Windows installation to readme
 * [ ] Fix: update for latest flexmark-java lib 0.60.0
 
-### 1.5.3
+### 1.5.6
 
-* Fix: 2020.1 project already disposed exception
+* Fix: compatibility with CLION versions 2019.1 to 2022.2 
 
 ### 1.5.2
 
@@ -82,7 +83,7 @@
 * Fix: change build config dialog would use un-sanitized project dir name for project name. If
   the two differed then wrong config would be generated
 * Fix: use project name extracted from `CMakeLists.txt` over the directory name of the project
-* Fix: serial monitor "edit settings" would always show port name from new project wizard
+* Fix: Serial monitor "edit settings" would always show port name from new project wizard
   instead of project settings while connect/disconnect would use the right port name.
 * Fix: exception in displaying serial monitor settings form
 * Add: option to log serial port related exceptions to the console
