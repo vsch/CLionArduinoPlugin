@@ -1,5 +1,6 @@
 package com.vladsch.clionarduinoplugin.serial;
 
+import com.intellij.execution.actions.ClearConsoleAction;
 import com.intellij.execution.filters.TextConsoleBuilderImpl;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.ui.ConsoleView;
@@ -199,17 +200,25 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         addIfFoundAction(filteredActions, actions, ToggleUseSoftWrapsToolbarAction.class);
         addIfFoundAction(filteredActions, actions, ScrollToTheEndToolbarAction.class);
         addIfFoundAction(filteredActions, actions, ActionManager.getInstance().getAction("Print").getClass());
-        addIfFoundAction(filteredActions, actions, ConsoleViewImpl.ClearAllAction.class);
+        
+        // try to load the new version, if not found try the old
+        //noinspection MissingRecentApi
+        if (!addIfFoundAction(filteredActions, actions, ClearConsoleAction.class)) {
+            //noinspection UnstableApiUsage
+            addIfFoundAction(filteredActions, actions, ConsoleViewImpl.ClearAllAction.class);
+        }
 
         return filteredActions;
     }
 
-    private <T extends AnAction> void addIfFoundAction(ArrayList<AnAction> list, AnAction[] actions, Class<T> actionClass) {
+    private <T extends AnAction> boolean addIfFoundAction(ArrayList<AnAction> list, AnAction[] actions, Class<T> actionClass) {
         for (AnAction action : actions) {
             if (actionClass.isInstance(action)) {
                 list.add(action);
+                return true;
             }
         }
+        return false;
     }
 
     public JComponent getComponent() {

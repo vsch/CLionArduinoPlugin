@@ -47,7 +47,7 @@
         <p><strong>*</strong> This plugin is a fork of <a href="https://github.com/francoiscampbell/CLionArduinoPlugin">Original CLionArduinoPlugin</a> written by Francois Campbell.</p>
         ]]></description>
 
-    <version>1.5.6</version>
+    <version>1.5.7</version>
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
     <depends>com.intellij.modules.clion</depends>
@@ -55,6 +55,11 @@
     <idea-version since-build="191" until-build="222.*"/> 
 
     <change-notes><![CDATA[
+        <h3>1.5.7</h3>
+        <ul>
+            <li>Fix: lost clear all button in serial monitor console view, deprecated and removed in 2020.1</li>
+            <li>Add: Option to clear Serial Console on reconnect after build.</li>
+        </ul>
         <h3>1.5.6</h3>
         <ul>
             <li>Fix: compatibility with CLION versions 2019.1 to 2022.2</li>

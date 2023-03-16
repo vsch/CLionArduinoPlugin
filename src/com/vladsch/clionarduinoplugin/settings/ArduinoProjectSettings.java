@@ -24,6 +24,7 @@ public class ArduinoProjectSettings implements PersistentStateComponent<ArduinoP
     private int baudRate = 9600;
     private boolean disconnectOnBuild = true;
     private boolean reconnectAfterBuild = true;
+    private boolean clearOnReconnect = true;
     private boolean afterSuccessfulBuild = true;
     private int buildConfigurationPatternType = BuildConfigurationPatternType.REGEX.intValue;
     private @NotNull String regexSampleText = "upload|test-upload|!-upload";
@@ -119,6 +120,14 @@ public class ArduinoProjectSettings implements PersistentStateComponent<ArduinoP
 
     public void setReconnectAfterBuild(final boolean reconnectAfterBuild) {
         this.reconnectAfterBuild = reconnectAfterBuild;
+    }
+
+    public boolean isClearOnReconnect() {
+        return clearOnReconnect;
+    }
+
+    public void setClearOnReconnect(final boolean clearOnReconnect) {
+        this.clearOnReconnect = clearOnReconnect;
     }
 
     public int getBuildConfigurationPatternType() {

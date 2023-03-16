@@ -44,6 +44,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
     JComboBox<String> myBaudRate;
     JBCheckBox myDisconnectOnBuild;
     JBCheckBox myReconnectAfterBuild;
+    private JBCheckBox myClearOnReconnect;
     JBTextField myBuildConfigurationNames;
     JBTextField myCustomBaudRate;
     JComboBox<String> myBuildConfigurationPattern;
@@ -100,6 +101,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
                         component(myLogConnectDisconnect, i::isLogConnectDisconnect, i::setLogConnectDisconnect),
                         component(myDisconnectOnBuild, i::isDisconnectOnBuild, i::setDisconnectOnBuild),
                         component(myReconnectAfterBuild, i::isReconnectAfterBuild, i::setReconnectAfterBuild),
+                        component(myClearOnReconnect, i::isClearOnReconnect, i::setClearOnReconnect),
                         component(myActivateOnConnect, i::isActivateOnConnect, i::setActivateOnConnect),
                         component(myAfterSuccessfulBuild, i::isAfterSuccessfulBuild, i::setAfterSuccessfulBuild),
                         component(BuildConfigurationPatternType.ADAPTER, myBuildConfigurationPattern, i::getBuildConfigurationPatternType, i::setBuildConfigurationPatternType),
@@ -113,6 +115,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         final ActionListener actionListener = e -> updateOptions(false);
 
         myReconnectAfterBuild.addActionListener(actionListener);
+        myClearOnReconnect.addActionListener(actionListener);
         myBaudRate.addActionListener(actionListener);
 
         myEditRegExButton.addActionListener(e -> {
@@ -157,6 +160,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         }
 
         myAfterSuccessfulBuild.setEnabled(myReconnectAfterBuild.isSelected());
+        myClearOnReconnect.setEnabled(myReconnectAfterBuild.isSelected());
     }
 
     // RegExSettingsHolder

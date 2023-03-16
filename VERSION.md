@@ -5,6 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.5.7](#157)
   - [1.5.6](#156)
   - [1.5.2](#152)
   - [1.4.6](#146)
@@ -42,6 +43,11 @@
   [ArduinoCMakeListsTxtBuilder.kt: Line 213](https://github.com/vsch/CLionArduinoPlugin/blob/master/src/com/vladsch/clionarduinoplugin/generators/cmake/ArduinoCMakeListsTxtBuilder.kt#L213)
 * [ ] Add: documentation for Windows installation to readme
 * [ ] Fix: update for latest flexmark-java lib 0.60.0
+
+### 1.5.7
+
+* Fix: lost clear all button in serial monitor console view, deprecated and removed in 2020.1
+* Add: Option to clear Serial Console on reconnect after build.
 
 ### 1.5.6
 

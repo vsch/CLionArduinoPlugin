@@ -141,10 +141,23 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
         myIsBuilding = false;
         if (myWasConnected && myProjectSettings.isReconnectAfterBuild()) {
             if (!myProjectSettings.isAfterSuccessfulBuild() || success) {
+                if (mySerialMonitorToolWindow != null && myProjectSettings.isClearOnReconnect()) {
+                    mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView().clear();
+                }
                 connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
             }
         }
         myStatusWidget.setStatus(true, myConnectedPort != null, canConnectPort());
+    }
+    
+    public void clearSerialMonitorConsole() {
+        if (mySerialMonitorToolWindow != null) {
+            mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView().clear();
+        }
+    }
+
+    public boolean canClearSerialMonitorConsole() {
+        return mySerialMonitorToolWindow != null;
     }
 
     public boolean isBuildMonitored() {
