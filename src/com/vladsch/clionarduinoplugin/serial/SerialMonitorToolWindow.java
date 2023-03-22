@@ -68,8 +68,10 @@ public class SerialMonitorToolWindow implements Disposable {
     }
 
     public void unregisterToolWindow() {
-        ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
-        toolWindowManager.unregisterToolWindow(TOOL_WINDOW_ID);
+        if (!project.isDefault()) {
+            ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
+            toolWindowManager.unregisterToolWindow(TOOL_WINDOW_ID);
+        }
     }
 
     public SerialMonitorPanel getSerialMonitorPanel() {

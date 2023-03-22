@@ -47,12 +47,12 @@
         <p><strong>*</strong> This plugin is a fork of <a href="https://github.com/francoiscampbell/CLionArduinoPlugin">Original CLionArduinoPlugin</a> written by Francois Campbell.</p>
         ]]></description>
 
-    <version>1.5.7</version>
+    <version>1.5.9</version>
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
     <depends>com.intellij.modules.clion</depends>
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="191" until-build="222.*"/> 
+    <idea-version since-build="193.5233.102" until-build="222.*"/> 
 
     <change-notes><![CDATA[
         <h3>1.5.7</h3>

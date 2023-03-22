@@ -1,13 +1,20 @@
 package com.vladsch.clionarduinoplugin.serial;
 
+import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.actionSystem.impl.SimpleDataContext;
 import com.intellij.openapi.application.ModalityState;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.Disposer;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.openapi.wm.CustomStatusBarWidget;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
@@ -126,8 +133,9 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
             }
         };
 
-        DataContext context = Helpers.simpleDataContext(mySerialProjectComponent.getProject());
-
+        DataContext context;
+        context = DataManager.getInstance().getDataContext(myComponent);
+        
         return JBPopupFactory.getInstance().createActionGroupPopup(
                 "Serial Monitor",
                 group,
@@ -153,6 +161,11 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
     @Override
     public @Nullable Consumer<MouseEvent> getClickConsumer() {
         return null;
+    }
+
+    @Override
+    public @Nullable WidgetPresentation getPresentation() {
+        return CustomStatusBarWidget.super.getPresentation();
     }
 
     @Override

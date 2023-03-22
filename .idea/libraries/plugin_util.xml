@@ -4,6 +4,9 @@
       <root url="jar://$PROJECT_DIR$/lib/plugin-util.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../plugin-util.212/src/main" />
+      <root url="file://$PROJECT_DIR$/../plugin-util.212/src/main" />
+    </SOURCES>
   </library>
 </component>

@@ -5,6 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.5.9](#159)
   - [1.5.7](#157)
   - [1.5.6](#156)
   - [1.5.2](#152)
@@ -43,6 +44,16 @@
   [ArduinoCMakeListsTxtBuilder.kt: Line 213](https://github.com/vsch/CLionArduinoPlugin/blob/master/src/com/vladsch/clionarduinoplugin/generators/cmake/ArduinoCMakeListsTxtBuilder.kt#L213)
 * [ ] Add: documentation for Windows installation to readme
 * [ ] Fix: update for latest flexmark-java lib 0.60.0
+
+### 1.5.9
+
+* Fix: serial monitor tool window throwing exceptions on closing because some elements were
+  already disposed.
+* Fix: serial monitor settings, baud rate was always showing up as custom.
+* Fix: project build settings, baud rate was always default, regardless of how it was set in
+  CMakeLists.txt.
+* Fix: IDE exceptions about wrong DataContext and missing component value in DataContext for
+  status bar widget
 
 ### 1.5.7
 

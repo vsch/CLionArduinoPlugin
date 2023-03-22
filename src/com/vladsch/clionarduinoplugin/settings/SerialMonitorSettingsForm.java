@@ -88,7 +88,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
                                 return baudRates.intValue;
                             }
                         }, rate -> {
-                            SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnumNameOrNull(Integer.toString(rate));
+                            SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnum(Integer.toString(rate));
                             if (baudRates == null) {
                                 myCustomBaudRate.setText(Integer.toString(rate));
                                 SerialBaudRates.ADAPTER.set(myBaudRate, SerialBaudRates.CUSTOM.intValue);

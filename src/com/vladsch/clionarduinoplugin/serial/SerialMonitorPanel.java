@@ -23,6 +23,7 @@ import com.vladsch.clionarduinoplugin.settings.SendSettingsForm;
 import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
 import jssc.SerialPortEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -49,7 +50,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
     private JPanel myToolbarPanel;
     JBTextField mySendText;
     SendSettingsForm mySendSettingsForm;
-    private ConsoleView myConsoleView;
+    private @Nullable ConsoleView myConsoleView;
 
     @NotNull final Project myProject;
     final ArduinoProjectSettings myProjectSettings;
@@ -104,6 +105,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendText.setText("");
     }
 
+    @Nullable
     public ConsoleView getConsoleView() {
         return myConsoleView;
     }
@@ -139,13 +141,15 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
 
     @Override
     public void onReceive(final byte[] buf) {
-        String s = new String(buf).replaceAll("\r", "");
-        myConsoleView.print(s, ConsoleViewContentType.NORMAL_OUTPUT);
+        if (myConsoleView != null) {
+            String s = new String(buf).replaceAll("\r", "");
+            myConsoleView.print(s, ConsoleViewContentType.NORMAL_OUTPUT);
+        }
     }
 
     @Override
     public void onSent(final byte[] buf) {
-        if (myProjectSettings.isLogSentText()) {
+        if (myConsoleView != null && myProjectSettings.isLogSentText()) {
             String s = new String(buf).replaceAll("\r", "");
             myConsoleView.print(s, ConsoleViewContentType.USER_INPUT);
         }
@@ -156,7 +160,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendText.setEnabled(true);
         mySendButton.setEnabled(true);
 
-        if (myProjectSettings.isLogConnectDisconnect()) {
+        if (myConsoleView != null && myProjectSettings.isLogConnectDisconnect()) {
             myConsoleView.print("--------------- Connected " + portName + " @ " + baudRate + " ----------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS:ALT_CONNECTION_STATUS);
         }
     }
@@ -166,7 +170,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendText.setEnabled(false);
         mySendButton.setEnabled(false);
 
-        if (myProjectSettings.isLogConnectDisconnect()) {
+        if (myConsoleView != null && myProjectSettings.isLogConnectDisconnect()) {
             myConsoleView.print("-------------- Disconnected " + portName + " @ " + baudRate + " --------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS:ALT_CONNECTION_STATUS);
         }
     }
@@ -178,7 +182,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
 
     @Override
     public void onError(final boolean isError, final String message, final Throwable e) {
-        if (myProjectSettings.isLogExceptions()) {
+        if (myConsoleView != null && myProjectSettings.isLogExceptions()) {
             ConsoleViewContentType viewContentType = isError ? LOG_ERROR_OUTPUT : ConsoleViewContentType.LOG_WARNING_OUTPUT;
             myConsoleView.print(message, viewContentType);
             myConsoleView.print("\n", viewContentType);

@@ -325,7 +325,7 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
 
             settings.programmerId = cMakeVariableValues["${cMakeProjectName}_PROGRAMMER"].firstOrNull() ?: ""
             settings.port = cMakeVariableValues["${cMakeProjectName}_PORT"].firstOrNull() ?: ""
-            settings.baudRate = cMakeVariableValues["${cMakeProjectName}_PORT"].firstOrNull()?.toIntOrNull() ?: 0
+            settings.baudRate = cMakeVariableValues["pro.upload.speed"].firstOrNull()?.toIntOrNull() ?: 0
             settings.isVerbose = cMakeVariableValues["${cMakeProjectName}_AFLAGS"].contains("-v")
 
             // TODO: implement getting these from the library.properties file
