@@ -61,3 +61,6 @@ crashlytics-build.properties
 /assets/issues/
 /assets/support/
 /annotations/
+/lib/
+/excluded_lib/
+/jSSC-2.8.0-Release.zip

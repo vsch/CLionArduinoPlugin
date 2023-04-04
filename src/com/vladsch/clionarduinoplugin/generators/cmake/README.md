@@ -1,6 +1,6 @@
 # CMake Commands Used
 
-[TOC]: # " "
+[TOC]: # ""
 
 - [cmake_minimum_required](#cmake_minimum_required)
 - [add_subdirectory](#add_subdirectory)
@@ -9,8 +9,6 @@
 - [set](#set)
 - [CMAKE_TOOLCHAIN_FILE](#cmake_toolchain_file)
 - [CMAKE_CXX_STANDARD](#cmake_cxx_standard)
-
-
 
 ## cmake_minimum_required
 
@@ -104,33 +102,46 @@ project(<PROJECT-NAME>
 ```
 
 Sets the name of the project and stores the name in the
-[PROJECT_NAME](https://cmake.org/cmake/help/v3.0/variable/PROJECT_NAME.html#variable:PROJECT_NAME "PROJECT_NAME")
-variable. Additionally this sets variables
+[PROJECT_NAME](https://cmake.org/cmake/help/v3.0/variable/PROJECT_NAME.html#variable:PROJECT_NAME
+"PROJECT_NAME") variable. Additionally this sets variables
 
-* [PROJECT_SOURCE_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_SOURCE_DIR.html#variable:PROJECT_SOURCE_DIR "PROJECT_SOURCE_DIR"),
-  [<PROJECT-NAME>_SOURCE_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_SOURCE_DIR.html#variable:%3CPROJECT-NAME%3E_SOURCE_DIR "<PROJECT-NAME>_SOURCE_DIR")
-* [PROJECT_BINARY_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_BINARY_DIR.html#variable:PROJECT_BINARY_DIR "PROJECT_BINARY_DIR"),
-  [<PROJECT-NAME>_BINARY_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_BINARY_DIR.html#variable:%3CPROJECT-NAME%3E_BINARY_DIR "<PROJECT-NAME>_BINARY_DIR")
+* [PROJECT_SOURCE_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_SOURCE_DIR.html#variable:PROJECT_SOURCE_DIR
+  "PROJECT_SOURCE_DIR"),
+  [<PROJECT-NAME>_SOURCE_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_SOURCE_DIR.html#variable:%3CPROJECT-NAME%3E_SOURCE_DIR
+  "<PROJECT-NAME>_SOURCE_DIR")
+* [PROJECT_BINARY_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_BINARY_DIR.html#variable:PROJECT_BINARY_DIR
+  "PROJECT_BINARY_DIR"),
+  [<PROJECT-NAME>_BINARY_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_BINARY_DIR.html#variable:%3CPROJECT-NAME%3E_BINARY_DIR
+  "<PROJECT-NAME>_BINARY_DIR")
 
 If VERSION is specified, given components must be non-negative integers. If VERSION is not
 specified, the default version is the empty string. The VERSION option may not be used unless
 policy [CMP0048](https://cmake.org/cmake/help/v3.0/policy/CMP0048.html#policy:CMP0048 "CMP0048")
 is set to NEW.
 
-The
-[project()](https://cmake.org/cmake/help/v3.0/command/project.html#command:project "project")
-command stores the version number and its components in variables
+The [project()](https://cmake.org/cmake/help/v3.0/command/project.html#command:project
+"project") command stores the version number and its components in variables
 
-* [PROJECT_VERSION](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION.html#variable:PROJECT_VERSION "PROJECT_VERSION"),
-  [<PROJECT-NAME>_VERSION](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION.html#variable:%3CPROJECT-NAME%3E_VERSION "<PROJECT-NAME>_VERSION")
-* [PROJECT_VERSION_MAJOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_MAJOR.html#variable:PROJECT_VERSION_MAJOR "PROJECT_VERSION_MAJOR"),
-  [<PROJECT-NAME>_VERSION_MAJOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_MAJOR.html#variable:%3CPROJECT-NAME%3E_VERSION_MAJOR "<PROJECT-NAME>_VERSION_MAJOR")
-* [PROJECT_VERSION_MINOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_MINOR.html#variable:PROJECT_VERSION_MINOR "PROJECT_VERSION_MINOR"),
-  [<PROJECT-NAME>_VERSION_MINOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_MINOR.html#variable:%3CPROJECT-NAME%3E_VERSION_MINOR "<PROJECT-NAME>_VERSION_MINOR")
-* [PROJECT_VERSION_PATCH](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_PATCH.html#variable:PROJECT_VERSION_PATCH "PROJECT_VERSION_PATCH"),
-  [<PROJECT-NAME>_VERSION_PATCH](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_PATCH.html#variable:%3CPROJECT-NAME%3E_VERSION_PATCH "<PROJECT-NAME>_VERSION_PATCH")
-* [PROJECT_VERSION_TWEAK](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_TWEAK.html#variable:PROJECT_VERSION_TWEAK "PROJECT_VERSION_TWEAK"),
-  [<PROJECT-NAME>_VERSION_TWEAK](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_TWEAK.html#variable:%3CPROJECT-NAME%3E_VERSION_TWEAK "<PROJECT-NAME>_VERSION_TWEAK")
+* [PROJECT_VERSION](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION.html#variable:PROJECT_VERSION
+  "PROJECT_VERSION"),
+  [<PROJECT-NAME>_VERSION](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION.html#variable:%3CPROJECT-NAME%3E_VERSION
+  "<PROJECT-NAME>_VERSION")
+* [PROJECT_VERSION_MAJOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_MAJOR.html#variable:PROJECT_VERSION_MAJOR
+  "PROJECT_VERSION_MAJOR"),
+  [<PROJECT-NAME>_VERSION_MAJOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_MAJOR.html#variable:%3CPROJECT-NAME%3E_VERSION_MAJOR
+  "<PROJECT-NAME>_VERSION_MAJOR")
+* [PROJECT_VERSION_MINOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_MINOR.html#variable:PROJECT_VERSION_MINOR
+  "PROJECT_VERSION_MINOR"),
+  [<PROJECT-NAME>_VERSION_MINOR](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_MINOR.html#variable:%3CPROJECT-NAME%3E_VERSION_MINOR
+  "<PROJECT-NAME>_VERSION_MINOR")
+* [PROJECT_VERSION_PATCH](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_PATCH.html#variable:PROJECT_VERSION_PATCH
+  "PROJECT_VERSION_PATCH"),
+  [<PROJECT-NAME>_VERSION_PATCH](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_PATCH.html#variable:%3CPROJECT-NAME%3E_VERSION_PATCH
+  "<PROJECT-NAME>_VERSION_PATCH")
+* [PROJECT_VERSION_TWEAK](https://cmake.org/cmake/help/v3.0/variable/PROJECT_VERSION_TWEAK.html#variable:PROJECT_VERSION_TWEAK
+  "PROJECT_VERSION_TWEAK"),
+  [<PROJECT-NAME>_VERSION_TWEAK](https://cmake.org/cmake/help/v3.0/variable/PROJECT-NAME_VERSION_TWEAK.html#variable:%3CPROJECT-NAME%3E_VERSION_TWEAK
+  "<PROJECT-NAME>_VERSION_TWEAK")
 
 Variables corresponding to unspecified versions are set to the empty string (if policy
 [CMP0048](https://cmake.org/cmake/help/v3.0/policy/CMP0048.html#policy:CMP0048 "CMP0048") is set
@@ -142,8 +153,9 @@ Specify language NONE, or use the LANGUAGES keyword and list no languages, to sk
 languages.
 
 If a variable exists called
-[CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE](https://cmake.org/cmake/help/v3.0/variable/CMAKE_PROJECT_PROJECT-NAME_INCLUDE.html#variable:CMAKE_PROJECT_%3CPROJECT-NAME%3E_INCLUDE "CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE"),
-the file pointed to by that variable will be included as the last step of the project command.
+[CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE](https://cmake.org/cmake/help/v3.0/variable/CMAKE_PROJECT_PROJECT-NAME_INCLUDE.html#variable:CMAKE_PROJECT_%3CPROJECT-NAME%3E_INCLUDE
+"CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE"), the file pointed to by that variable will be included
+as the last step of the project command.
 
 The top-level CMakeLists.txt file for a project must contain a literal, direct call to the
 [project()](https://cmake.org/cmake/help/v3.0/command/project.html#command:project "project")

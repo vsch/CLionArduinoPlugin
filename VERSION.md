@@ -1,10 +1,11 @@
 ## CLionArduinoPlugin Version Notes
 
-[TOC levels=3,4]: # "Version History"
+[TOC]: # "Version History"
 
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.5.11 Next](#1511-next)
   - [1.5.9](#159)
   - [1.5.7](#157)
   - [1.5.6](#156)
@@ -31,7 +32,6 @@
   - [1.0.1](#101)
   - [1.0](#10)
 
-
 #### TO DO
 
 * [ ] Add: `Generate keywords.txt` action to generate keywords.txt based on contained project
@@ -41,9 +41,23 @@
   * [ ] [Support for ESP32 using Arduino libs]
   * [ ] [Include directories when setting up the library. Added Servo_RECURSE.]
 * [ ] Fix: add logic to allow for absolute additional library paths
-  [ArduinoCMakeListsTxtBuilder.kt: Line 213](https://github.com/vsch/CLionArduinoPlugin/blob/master/src/com/vladsch/clionarduinoplugin/generators/cmake/ArduinoCMakeListsTxtBuilder.kt#L213)
+      [ArduinoCMakeListsTxtBuilder.kt: Line 213](https://github.com/vsch/CLionArduinoPlugin/blob/master/src/com/vladsch/clionarduinoplugin/generators/cmake/ArduinoCMakeListsTxtBuilder.kt#L213)
 * [ ] Add: documentation for Windows installation to readme
 * [ ] Fix: update for latest flexmark-java lib 0.60.0
+
+### 1.5.11 Next
+
+* Fix: Arduino.cmake to detect libraries which need RECURSE flag and set it automatically.
+  Determination is made by looking for `src/` subdirectory containing source files. If one is
+  found the library source search is recursed.
+* Fix: Arduino.cmake to exclude sources from subdirectories whose name begins with `cmake-build`
+  or `examples`. Otherwise, it went off to use sources from the build directories to determine
+  library dependence.
+* Fix: Update `programmers.txt` from Arduino version `1.8.19`
+* Fix: apply pull requests from original project for suggested fixes:
+  * [Bug fix: Allow linking for sketches]
+  * [Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub]
+  * [Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub]
 
 ### 1.5.9
 
@@ -62,7 +76,7 @@
 
 ### 1.5.6
 
-* Fix: compatibility with CLION versions 2019.1 to 2022.2 
+* Fix: compatibility with CLION versions 2019.1 to 2022.2
 
 ### 1.5.2
 
@@ -95,8 +109,8 @@
 * Fix: cmake builder to handle any variable to set project name used for project command
 * Add: detection when `set(PROJECT_NAME project_name)` is erroneously given as
   `set($\{PROJECT_NAME} project_name)`.
-* Fix: `Change build settings` enables show difference and change build buttons when
-  generated content differs from current, not just when settings are changed.
+* Fix: `Change build settings` enables show difference and change build buttons when generated
+  content differs from current, not just when settings are changed.
 * Fix: change build config dialog would use un-sanitized project dir name for project name. If
   the two differed then wrong config would be generated
 * Fix: use project name extracted from `CMakeLists.txt` over the directory name of the project
@@ -264,10 +278,12 @@
 * Adds import for Arduino.h to all newly created sketch files to enable code completion
 * Compiled with Java 6 for compatibility with OS X out of the box
 
+[#22, Open Existing Project files]: https://github.com/vsch/CLionArduinoPlugin/issues/22
 [Allow setting ARDUINO_SDK_PATH as environment variable]: https://github.com/Pro/arduino-cmake/commit/2f069184b029dbe5f91dd55e24b854ee79641510
-[arduino-cmake]: https://github.com/queezythegreat/arduino-cmake
+[Bug fix: Allow linking for sketches]: https://github.com/francoiscampbell/arduino-cmake/pull/10
 [Include directories when setting up the library. Added Servo_RECURSE.]: https://github.com/francoiscampbell/arduino-cmake/commit/dbd4fe372b9a0120325b429b3ed23c311ab3dc66
 [Support for ESP32 using Arduino libs]: https://github.com/altexdim/arduino-cmake/commit/f21fd1ae0c48583c2b498a24cfa2e65814fff483
-[#22, Open Existing Project files]: https://github.com/vsch/CLionArduinoPlugin/issues/22
-
+[arduino-cmake]: https://github.com/queezythegreat/arduino-cmake
+[Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub]: https://github.com/francoiscampbell/arduino-cmake/pull/4 "Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub"
+[Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub]: https://github.com/francoiscampbell/arduino-cmake/pull/3 "Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub"
 

@@ -173,7 +173,9 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
 
             builder.isWantCommented = true
 
-            builder.setOrAddCommand(CMAKE_MINIMUM_REQUIRED_VERSION, "2.8.4")
+            builder.setOrAddCommand(CMAKE_MINIMUM_REQUIRED_VERSION, "3.0.0")
+            // TODO: this needs to change to use embedded or user supplied path. Not CMAKE_SOURCE_DIR, also need to stop copying the cmake directory
+            //      to every project.
             builder.setOrAddCommand(SET_CMAKE_TOOLCHAIN_FILE, "\${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake")
             builder.setOrAddCommand(SET_CMAKE_CXX_STANDARD, appSettings.languageVersionLineForCMake).setSuppressible(appSettings.languageVersionName.isEmpty())
 
@@ -217,7 +219,7 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             if (!settings.isLibrary) {
                 // TODO: add UI for recurse library options
                 if (appSettings.nestedLibraries.isEmpty()) {
-                    //                    builder.setOrAddCommand(SET_LIB_NAME_RECURSE, "\${LIB_NAME}", "true").setSuppressible(true)
+                    // builder.setOrAddCommand(SET_LIB_NAME_RECURSE, "\${LIB_NAME}", "true").setSuppressible(true)
                 } else {
                     for (library in appSettings.nestedLibraries) {
                         builder.setOrAddCommand(SET_LIB_NAME_RECURSE, library, "true")
