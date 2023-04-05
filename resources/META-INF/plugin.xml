@@ -4,8 +4,15 @@
     <name>Arduino Support</name>
     <vendor email="" url="https://github.com/vsch/CLionArduinoPlugin">Vladimir Schneider</vendor>
 
+    <version>1.5.11</version>
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <depends>com.intellij.modules.clion</depends>
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="201.6668.113" until-build="222.*"/>
+
     <description><![CDATA[
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/resources/META-INF/pluginIcon.png" alt="pluginIcon.png" width="50" align="middle" />
+        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/resources/META-INF/pluginIcon.png" alt="pluginIcon.png" width="50" align="middle"/>
             Integrates <a href="https://github.com/francoiscampbell/arduino-cmake">Arduino CMake</a> into the CLion IDE.</p>
         <p>Install and create Arduino CMake projects in one click with new project wizard types and view
             communications with the integrated serial monitor tool window.</p>
@@ -38,21 +45,14 @@
             Please uninstall or disable <code>Serial Port Monitor</code> plugin before installing <code>Arduino Support</code>.</p>
         <p>| <a href="https://github.com/vsch/CLionArduinoPlugin/issues">Issues</a> | <a href="https://github.com/vsch/CLionArduinoPlugin">Plugin Source</a> |</p>
         <p><br></p>
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png" alt="Screenshot_NewProject.png" width="400px" /><br></p>
+        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png" alt="Screenshot_NewProject.png" width="400px"/><br></p>
         <!--![Screenshot_ProjectSettings](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ProjectSettings.png){width=400px}-->
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png" alt="Screenshot_SerialMonitor" width="400px" /><br></p>
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png" alt="Screenshot_ChangeBuildSettings" width="400px" /><br></p>
+        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png" alt="Screenshot_SerialMonitor" width="400px"/><br></p>
+        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png" alt="Screenshot_ChangeBuildSettings" width="400px"/><br></p>
         <!--![Screenshot_ChangeBuildDiff](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildDiff.png){width=400px}-->
         <p><br></p>
         <p><strong>*</strong> This plugin is a fork of <a href="https://github.com/francoiscampbell/CLionArduinoPlugin">Original CLionArduinoPlugin</a> written by Francois Campbell.</p>
         ]]></description>
-
-    <version>1.5.11</version>
-    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-         on how to target different products -->
-    <depends>com.intellij.modules.clion</depends>
-    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="201.6668.113" until-build="222.*"/> 
 
     <change-notes><![CDATA[
         <h3>1.5.7</h3>
@@ -89,7 +89,8 @@
                 when disconnecting a port to allow the port to become available. On projects with very short
                 build times, disconnecting a port does not allow enough time for the port to become available,
                 causing the upload to fail with &ldquo;Resource busy&rdquo; error. Adding a short delay after disconnect
-                solves the problem. On some project it is not needed on others 20ms was sufficient.</li>
+                solves the problem. On some project it is not needed on others 20ms was sufficient.
+            </li>
         </ul>
         <h3>1.4.2</h3>
         <ul>
@@ -97,38 +98,49 @@
             <li>Fix: cmake builder to find set project name command in generic set command set.</li>
             <li>Fix: cmake builder to handle any variable to set project name used for project command</li>
             <li>Add: detection when <code>set(PROJECT_NAME project_name)</code> is erroneously given as
-                <code>set($\{PROJECT_NAME} project_name)</code>.</li>
+                <code>set($\{PROJECT_NAME} project_name)</code>.
+            </li>
             <li>Fix: <code>Change build settings</code> enables show difference and change build buttons when
-                generated content differs from current, not just when settings are changed.</li>
+                generated content differs from current, not just when settings are changed.
+            </li>
             <li>Fix: change build config dialog would use un-sanitized project dir name for project name. If
-                the two differed then wrong config would be generated</li>
+                the two differed then wrong config would be generated
+            </li>
             <li>Fix: use project name extracted from <code>CMakeLists.txt</code> over the directory name of the project</li>
             <li>Fix: serial monitor &ldquo;edit settings&rdquo; would always show port name from new project wizard
-                instead of project settings while connect/disconnect would use the right port name.</li>
+                instead of project settings while connect/disconnect would use the right port name.
+            </li>
             <li>Fix: exception in displaying serial monitor settings form</li>
             <li>Add: option to log serial port related exceptions to the console</li>
             <li>Fix: change project build settings on error would disable the <code>Change Build</code> button and not
-                re-enable it when build settings were changed.</li>
+                re-enable it when build settings were changed.
+            </li>
             <li>Fix: clean up and refactor code.</li>
         </ul>
         <h3>1.4.0</h3>
         <ul>
             <li>Add: UI for changing Arduino build board, cpu, programmer, etc. Under Tools &gt; Arduino Support
-                &gt; Change build settings</li>
+                &gt; Change build settings
+            </li>
             <li>Add: default baud rate in new project wizard to allow using default</li>
             <li>Add: baud rate if one was provided to cmake lists</li>
             <li>Add: basic Arduino CMakeLists.txt builder from template, to have common code for new project
-                and change parameters.</li>
+                and change parameters.
+            </li>
             <li>Fix: basic builder properly modifying/inserting commands and generating <code>CMakeLists.txt</code></li>
             <li>Add: using CMakeParser and CMakeBuilder for generating <code>CMakeLists.txt</code> for new projects. One
-                step away from UI to modify project config.</li>
+                step away from UI to modify project config.
+            </li>
             <li>Add: template path option and button to copy bundled if path does not exist. Can now customize
-                templates used to create projects/sketches</li>
+                templates used to create projects/sketches
+            </li>
             <li>Fix: templates only accessible as files under debug environment.</li>
             <li>Fix: rework builder to not depend on <code>set()</code> variable names and resolve values for command
-                matching.</li>
+                matching.
+            </li>
             <li>Fix: refactor builder to use cmake project name variable used in <code>project()</code> if it was not
-                changed through set/add command, otherwise use one given by mods.</li>
+                changed through set/add command, otherwise use one given by mods.
+            </li>
             <li>Add: generic unknown command to handle commands which have no defined type</li>
             <li>Add: generating CMakeLists from config options instead of real files</li>
         </ul>
@@ -136,14 +148,18 @@
         <ul>
             <li>Add: CMake file parser and formatter, needed for UI to modify existing file. Will also be used
                 for generating the <code>CMakeLists.txt</code> for new projects and fixing up one that is messed up in
-                terms of required order of lines.</li>
+                terms of required order of lines.
+            </li>
             <li>Fix: CMakeFormatter and CMakeParser to handle preserving original file when recreated from
-                AST.</li>
+                AST.
+            </li>
             <li>Add: <code>CMakeListsBuilder</code> for parsing existing file, modifying values and regenerating the new
-                content based on new values but preserving unchanged lines.</li>
+                content based on new values but preserving unchanged lines.
+            </li>
             <li>Fix: refactor mess of project wizard gui panel to re-usable form</li>
             <li>Add: trigger re-validation on failure. A hack solution since we are hacking into the IDE
-                functionality. It is not exactly open api so kludges are inevitable.</li>
+                functionality. It is not exactly open api so kludges are inevitable.
+            </li>
             <li>Fix: minor layout fixes for forms.</li>
         </ul>
         <h3>1.3.12</h3>
@@ -261,16 +277,16 @@
                              key="plugin.project-configurable.name"
                              nonDefaultProject="false"
                              instance="com.vladsch.clionarduinoplugin.settings.ArduinoSerialMonitorConfigurable"/>
-        
-        <toolWindow factoryClass="com.vladsch.clionarduinoplugin.serial.SerialMonitorToolWindowFactory" 
-                    id="Arduino Support" 
-                    anchor="bottom" 
-                    canCloseContents="false" 
+
+        <toolWindow factoryClass="com.vladsch.clionarduinoplugin.serial.SerialMonitorToolWindowFactory"
+                    id="Arduino Support"
+                    anchor="bottom"
+                    canCloseContents="false"
                     secondary="false"
                     icon="PluginIcons.serial_port_tool"
                     largeStripeAnchor="left"
-        /> 
-        
+        />
+
         <statusBarWidgetFactory implementation="com.vladsch.clionarduinoplugin.serial.SerialMonitorStatusBarWidgetFactory"
                                 id="ArduinoSupport.SerialMonitor"
         />
@@ -304,7 +320,7 @@
                     text="Change build settings"
                     description="Change Arduino project board, cpu, programmer, etc."
             >
-<!--                icon="PluginIcons.arduino_sketch"-->
+                <!--                icon="PluginIcons.arduino_sketch"-->
                 <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
             </action>
         </group>
