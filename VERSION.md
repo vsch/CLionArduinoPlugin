@@ -47,6 +47,9 @@
 
 ### 1.5.11 Next
 
+* Add: Toolchain file path option, wth diff and create, to allow not having a `cmake` directory
+  and tool chain files in every project. Also allows to use different toolchain than
+  `ArduinoCmake.cmake`.
 * Fix: Arduino.cmake to detect libraries which need RECURSE flag and set it automatically.
   Determination is made by looking for `src/` subdirectory containing source files. If one is
   found the library source search is recursed.

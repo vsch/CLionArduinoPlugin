@@ -143,14 +143,14 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
                 }
             }
 
-            if (RESET_PROJECT_TO_DEFAULTS.getFrom(getOptions())) {
+            if (RESET_PROJECT_TO_DEFAULTS.get(getOptions())) {
                 builder.setOrAddCommand(CMakeListsTxtBuilder.Companion.getPROJECT()).clearToDefaults();
             }
 
-            String contents = builder.getCMakeContents(valueSet, suppressCommented, USE_UNMODIFIED_ORIGINAL.getFrom(cMakeFile));
+            String contents = builder.getCMakeContents(valueSet, suppressCommented, USE_UNMODIFIED_ORIGINAL.get(cMakeFile));
             output.append(contents);
 
-            if (ExtraRenderer.DUMP_OPTIONS.getFrom(cMakeFile)) {
+            if (ExtraRenderer.DUMP_OPTIONS.get(cMakeFile)) {
                 // dump the options
                 Map<? extends DataKeyBase<?>, Object> all = ((CMakeFile) node).getAll();
                 ArrayList<? extends DataKeyBase<?>> keys = new ArrayList<>(all.keySet());
@@ -160,7 +160,7 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
                     output.append("# ").append(key.getName()).append("->").append(String.valueOf(all.get(key))).append("\n");
                 }
             }
-            if (DUMP_ELEMENTS_AFTER.getFrom(cMakeFile)) {
+            if (DUMP_ELEMENTS_AFTER.get(cMakeFile)) {
                 // dump the element tree
                 for (CMakeElement element : builder.getElements()) {
                     String s = element.toString();

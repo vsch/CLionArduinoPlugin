@@ -52,6 +52,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class ProjectBuildSettingsDialog extends DialogWrapper {
     //private static final Logger logger = com.intellij.openapi.diagnostic.Logger.getInstance("com.vladsch.idea.multimarkdown.settings.license.fetch-dialog");
@@ -238,8 +239,8 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
         myNewProjectSettingsForm.apply(mySettings.getApplicationSettings());
 
         CMakeWorkspace workspace = CMakeWorkspace.getInstance(myProject);
-        File projectDir = workspace.getProjectDir();
-        String name = FileUtil.sanitizeFileName(projectDir.getName());
+        Path projectDir = workspace.getProjectPath().getFileName();
+        String name = FileUtil.sanitizeFileName(projectDir.toString());
 
         String modifiedContent = ArduinoCMakeListsTxtBuilder.Companion.getCMakeFileContent(content, name, mySettings, true);
         mySettings.copyFrom(saved);

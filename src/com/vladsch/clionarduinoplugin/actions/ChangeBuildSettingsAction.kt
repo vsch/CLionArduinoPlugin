@@ -42,7 +42,10 @@ class ChangeBuildSettingsAction : DumbAwareAction(Bundle.message("action.change-
             val virtualFile = VirtualFileManager.getInstance().findFileByUrl("file://" + cMakeListsTxt.absolutePath)
             val document = if (virtualFile == null) null else FileDocumentManager.getInstance().getDocument(virtualFile)
             
-            val settings = if (virtualFile == null) null else ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, document?.text) 
+            val settings = if (virtualFile == null) null else ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(
+                projectDir,
+                document?.text
+            ) 
 
             if (settings == null || virtualFile == null) {
                 Messages.showErrorDialog(project, Bundle.message("action.change-build-settings.not-arduino-project.message"), Bundle.message("action.change-build-settings.not-arduino-project.title"))

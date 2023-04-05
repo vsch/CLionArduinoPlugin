@@ -6,15 +6,21 @@ import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
+import com.intellij.openapi.wm.StatusBarWidget;
+import com.intellij.openapi.wm.StatusBarWidgetFactory;
 import com.intellij.openapi.wm.ToolWindowManager;
-import com.intellij.openapi.wm.WindowManager;
+import com.intellij.serviceContainer.NonInjectable;
+import com.vladsch.clionarduinoplugin.Bundle;
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,14 +33,14 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
     public static final String NEED_CLION_2018_3_OR_LATER = "Build monitoring not available. Need CLion 2018.3 or later";
 
     final Project myProject;
-    final StatusWidget myStatusWidget;
+    @Nullable StatusWidget myStatusWidget;
     final @NotNull ArduinoProjectSettings myProjectSettings;
     boolean myIsBuilding = false;
     boolean myWasConnected;
     String myConnectedPort;
     int myConnectedBaudRate;
     private SerialPortManager myPortManager;
-    SerialMonitorToolWindow mySerialMonitorToolWindow;
+    @Nullable SerialMonitorToolWindow mySerialMonitorToolWindow;
     BuildMonitor myBuildMonitor = null;
 
     SerialPort mySerialPort;
@@ -42,20 +48,19 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
 
     public SerialProjectComponent(final Project project) {
         myProject = project;
-        myStatusWidget = new StatusWidget(this);
         myProjectSettings = ArduinoProjectSettings.getInstance(myProject);
     }
 
     @Override
     public void projectOpened() {
-        StatusBar statusBar = WindowManager.getInstance().getStatusBar(myProject);
-        //statusBar.addWidget(myStatusWidget, "before ToolWindows Widget");
-        //statusBar.addWidget(myStatusWidget, "after ToolWindows Widget");
-        //statusBar.addWidget(myStatusWidget, "before Memory");
-        //statusBar.addWidget(myStatusWidget, "after Memory");
-        //statusBar.addWidget(myStatusWidget, "before InfoAndProgress");
-        //statusBar.addWidget(myStatusWidget, "after InfoAndProgress");
-        statusBar.addWidget(myStatusWidget, "__AUTODETECT__");
+//        StatusBar statusBar = WindowManager.getInstance().getStatusBar(myProject);
+//        //statusBar.addWidget(myStatusWidget, "before ToolWindows Widget");
+//        //statusBar.addWidget(myStatusWidget, "after ToolWindows Widget");
+//        //statusBar.addWidget(myStatusWidget, "before Memory");
+//        //statusBar.addWidget(myStatusWidget, "after Memory");
+//        //statusBar.addWidget(myStatusWidget, "before InfoAndProgress");
+//        //statusBar.addWidget(myStatusWidget, "after InfoAndProgress");
+//        statusBar.addWidget(myStatusWidget, "__AUTODETECT__");
 
         try {
             myBuildMonitor = new BuildMonitor(myProject, this);
@@ -73,8 +78,11 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
             myBuildMonitor = null;
         }
 
-        myStatusWidget.setStatus(true, false, canConnectPort());
-        ToolWindowManager.getInstance(myProject).invokeLater(()->{
+        if (myStatusWidget != null) {
+            myStatusWidget.setStatus(true, false, canConnectPort());
+        }
+
+        ToolWindowManager.getInstance(myProject).invokeLater(() -> {
             mySerialMonitorToolWindow = new SerialMonitorToolWindow(myProject);
         });
     }
@@ -97,7 +105,10 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
             myBuildMonitor = null;
         }
 
-        myStatusWidget.dispose();
+        if (myStatusWidget != null) {
+            myStatusWidget.dispose();
+            myStatusWidget = null;
+        }
 
         SerialPortManager portManager = ApplicationManager.getApplication().getComponent(SerialPortManager.class);
         portManager.removeProjectComponent(this);
@@ -133,7 +144,9 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
         } else {
             myWasConnected = false;
         }
-        myStatusWidget.setStatus(false, myConnectedPort != null, myConnectedPort != null, "In Build: " + targetName);
+        if (myStatusWidget != null) {
+            myStatusWidget.setStatus(false, myConnectedPort != null, myConnectedPort != null, "In Build: " + targetName);
+        }
     }
 
     @Override
@@ -141,17 +154,25 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
         myIsBuilding = false;
         if (myWasConnected && myProjectSettings.isReconnectAfterBuild()) {
             if (!myProjectSettings.isAfterSuccessfulBuild() || success) {
-                if (mySerialMonitorToolWindow != null && myProjectSettings.isClearOnReconnect()) {
+                if (mySerialMonitorToolWindow != null
+                        && mySerialMonitorToolWindow.getSerialMonitorPanel() != null
+                        && mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView() != null
+                ) {
                     mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView().clear();
                 }
                 connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
             }
         }
-        myStatusWidget.setStatus(true, myConnectedPort != null, canConnectPort());
+        if (myStatusWidget != null) {
+            myStatusWidget.setStatus(true, myConnectedPort != null, canConnectPort());
+        }
     }
-    
+
     public void clearSerialMonitorConsole() {
-        if (mySerialMonitorToolWindow != null) {
+        if (mySerialMonitorToolWindow != null
+                && mySerialMonitorToolWindow.getSerialMonitorPanel() != null
+                && mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView() != null
+        ) {
             mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView().clear();
         }
     }
@@ -174,12 +195,16 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
 
             connect(port, baudRate);
 
+            //noinspection VariableNotUsedInsideIf
             if (mySerialPort != null) {
                 // once connected
                 myConnectedPort = port;
                 myConnectedBaudRate = baudRate;
                 myPortManager.setPortOwner(this, myConnectedPort);
-                myStatusWidget.setStatus(true, true, true);
+
+                if (myStatusWidget != null) {
+                    myStatusWidget.setStatus(true, true, true);
+                }
 
                 if (myProjectSettings.isActivateOnConnect()) {
                     // active tool window
@@ -190,6 +215,7 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
         return true;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public boolean connectPort() {
         return connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
     }

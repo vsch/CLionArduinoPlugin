@@ -4,17 +4,11 @@ import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
-import com.intellij.openapi.actionSystem.impl.SimpleDataContext;
 import com.intellij.openapi.application.ModalityState;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.Disposer;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.openapi.wm.CustomStatusBarWidget;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
@@ -28,7 +22,6 @@ import com.vladsch.clionarduinoplugin.actions.SerialMonitorBaudRateAction;
 import com.vladsch.clionarduinoplugin.actions.SerialMonitorPortAction;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
-import com.vladsch.plugin.util.edit.Helpers;
 import icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +35,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.IconPresentation, StatusBarWidget.MultipleTextValuesPresentation, ProjectSettingsListener {
+    public static final String SERIAL_MONITOR_ID = "ArduinoSupport.SerialMonitor";
     SerialProjectComponent mySerialProjectComponent;
     private StatusBar myStatusBar;
     private Alarm myUpdate;
@@ -55,15 +49,11 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
 
     public StatusWidget(@NotNull SerialProjectComponent serialProjectComponent) {
         mySerialProjectComponent = serialProjectComponent;
+        //noinspection ThisEscapedInObjectConstruction
         myUpdate = new Alarm(this);
         myActionEnabled = true;
 
-        myComponent = new TextPanel.WithIconAndArrows() {
-            @Override
-            protected boolean shouldPaintArrows() {
-                return myActionEnabled && !myCanConnect;
-            }
-        };
+        myComponent = new TextPanel.WithIconAndArrows();
 
         myComponent.addMouseListener(new MouseAdapter() {
             @Override
@@ -94,8 +84,17 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
         });
 
         serialProjectComponent.getProject().getMessageBus().connect(this).subscribe(ProjectSettingsListener.TOPIC, this);
+        //public static final Border ICON = JBUI.CurrentTheme.StatusBar.Widget.iconBorder();
+        //public static final Border INSTANCE = JBUI.CurrentTheme.StatusBar.Widget.border();
+        //public static final Border WIDE = ;
 
+        // DEPRECATED: replacement available only since 221.5080.210 
+        // myComponent.setBorder(JBUI.CurrentTheme.StatusBar.Widget.border());
         myComponent.setBorder(WidgetBorder.WIDE);
+    }
+
+    public boolean isEnabled() {
+        return myActionEnabled && myIsConnected;
     }
 
     @Override
@@ -110,7 +109,7 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
 
     @Override
     public @NotNull String ID() {
-        return "ArduinoSupport.SerialMonitor";
+        return SERIAL_MONITOR_ID;
     }
 
     @Override
@@ -135,7 +134,7 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
 
         DataContext context;
         context = DataManager.getInstance().getDataContext(myComponent);
-        
+
         return JBPopupFactory.getInstance().createActionGroupPopup(
                 "Serial Monitor",
                 group,
@@ -166,11 +165,6 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
     @Override
     public @Nullable WidgetPresentation getPresentation() {
         return CustomStatusBarWidget.super.getPresentation();
-    }
-
-    @Override
-    public @Nullable WidgetPresentation getPresentation(@NotNull final PlatformType type) {
-        return this;
     }
 
     @Override

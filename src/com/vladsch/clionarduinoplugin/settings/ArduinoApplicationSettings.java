@@ -1,6 +1,8 @@
 package com.vladsch.clionarduinoplugin.settings;
 
+import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.application.impl.ApplicationImpl;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -63,12 +65,15 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
     private @NotNull String boardsTxtPath = "";
     private @NotNull String programmersTxtPath = "";
     private @NotNull String templatesPath = "";
+    private @NotNull String toolchainTxtPath = "";
     private boolean bundledBoardsTxt = true;
     private boolean bundledProgrammersTxt = true;
     private boolean bundledTemplates = true;
+    private boolean bundledToolchainTxt = true;
     private boolean commentUnusedSettings = true;
     private int myDisconnectRestTime = 50;  // ms to delay after disconnecting on build 
 
+    
     private ArduinoConfig myArduinoConfig = null;
 
     @NotNull
@@ -429,6 +434,29 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         }
     }
 
+    public boolean isBundledToolchainTxt() {
+        return bundledToolchainTxt;
+    }
+
+    public void setBundledToolchainTxt(final boolean bundledToolchainTxt) {
+        if (this.bundledToolchainTxt != bundledToolchainTxt) {
+            invalidateArduinoConfig();
+            this.bundledToolchainTxt = bundledToolchainTxt;
+        }
+    }
+
+    @NotNull
+    public String getToolchainTxtPath() {
+        return toolchainTxtPath;
+    }
+
+    public void setToolchainTxtPath(@NotNull final String toolchainTxtPath) {
+        if (!this.toolchainTxtPath.equals(toolchainTxtPath)) {
+            invalidateArduinoConfig();
+            this.toolchainTxtPath = toolchainTxtPath;
+        }
+    }
+
     private static String getFileContent(String path) {
         if (!path.isEmpty()) {
             File file = new File(path);
@@ -517,6 +545,8 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         if (verbose != settings.verbose) return false;
         if (bundledBoardsTxt != settings.bundledBoardsTxt) return false;
         if (bundledProgrammersTxt != settings.bundledProgrammersTxt) return false;
+        if (bundledTemplates != settings.bundledTemplates) return false;
+        if (bundledToolchainTxt != settings.bundledToolchainTxt) return false;
         if (!languageVersionName.equals(settings.languageVersionName)) return false;
         if (!libraryType.equals(settings.libraryType)) return false;
         if (!Arrays.equals(libraryDirectories, settings.libraryDirectories)) return false;
@@ -531,7 +561,10 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         if (!boardCpuMap.equals(settings.boardCpuMap)) return false;
         if (!portHistory.equals(settings.portHistory)) return false;
         if (!boardsTxtPath.equals(settings.boardsTxtPath)) return false;
-        return programmersTxtPath.equals(settings.programmersTxtPath);
+        if (!programmersTxtPath.equals(settings.programmersTxtPath)) return false;
+        if (!templatesPath.equals(settings.templatesPath)) return false;
+        if (!toolchainTxtPath.equals(settings.toolchainTxtPath)) return false;
+        return true; 
     }
 
     @SuppressWarnings("NonFinalFieldReferencedInHashCode")
@@ -555,8 +588,12 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         result = 31 * result + portHistory.hashCode();
         result = 31 * result + boardsTxtPath.hashCode();
         result = 31 * result + programmersTxtPath.hashCode();
+        result = 31 * result + templatesPath.hashCode();
+        result = 31 * result + toolchainTxtPath.hashCode();
         result = 31 * result + (bundledBoardsTxt ? 1 : 0);
         result = 31 * result + (bundledProgrammersTxt ? 1 : 0);
+        result = 31 * result + (bundledTemplates ? 1 : 0);
+        result = 31 * result + (bundledToolchainTxt ? 1 : 0);
         return result;
     }
 
@@ -618,7 +655,7 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
 
     @NotNull
     public static ArduinoApplicationSettings getInstance() {
-        return ServiceManager.getService(ArduinoApplicationSettings.class);
+        return ApplicationManager.getApplication().getService(ArduinoApplicationSettings.class);
     }
 
     @NotNull

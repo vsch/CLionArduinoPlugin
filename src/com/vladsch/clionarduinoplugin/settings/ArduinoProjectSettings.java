@@ -206,7 +206,7 @@ public class ArduinoProjectSettings implements PersistentStateComponent<ArduinoP
 
     @NotNull
     public static ArduinoProjectSettings getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, ArduinoProjectSettings.class);
+        return project.getService(ArduinoProjectSettings.class);
     }
 
     @NotNull

@@ -72,6 +72,9 @@ class ArduinoConfig(boardTxt: String?, programmersTxt: String?) {
         val programmersTxtString: String
             get() = ResourceUtils.getResourceFileContent(ArduinoConfig::class.java, "/com/vladsch/clionarduinoplugin/config/programmers.txt")
 
+        val toolchainTxtString: String
+            get() = ResourceUtils.getResourceFileContent(ArduinoConfig::class.java, "/com/vladsch/clionarduinoplugin/resources/arduino-cmake/cmake/ArduinoToolchain.cmake")
+
         fun parseProgrammers(programmersText: String?): LinkedHashMap<String, Programmer> {
             val programmers = LinkedHashMap<String, Programmer>()
             if (programmersText != null) {

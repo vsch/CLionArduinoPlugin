@@ -199,7 +199,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         }
     }
 
-    private List<AnAction> filterActions(AnAction[] actions) {
+    private static List<AnAction> filterActions(AnAction[] actions) {
         ArrayList<AnAction> filteredActions = new ArrayList<>();
         addIfFoundAction(filteredActions, actions, ToggleUseSoftWrapsToolbarAction.class);
         addIfFoundAction(filteredActions, actions, ScrollToTheEndToolbarAction.class);
@@ -208,14 +208,14 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         // try to load the new version, if not found try the old
         //noinspection MissingRecentApi
         if (!addIfFoundAction(filteredActions, actions, ClearConsoleAction.class)) {
-            //noinspection UnstableApiUsage
+            //noinspection UnstableApiUsage,removal
             addIfFoundAction(filteredActions, actions, ConsoleViewImpl.ClearAllAction.class);
         }
 
         return filteredActions;
     }
 
-    private <T extends AnAction> boolean addIfFoundAction(ArrayList<AnAction> list, AnAction[] actions, Class<T> actionClass) {
+    private static <T extends AnAction> boolean addIfFoundAction(ArrayList<AnAction> list, AnAction[] actions, Class<T> actionClass) {
         for (AnAction action : actions) {
             if (actionClass.isInstance(action)) {
                 list.add(action);

@@ -190,9 +190,11 @@ public class CMakeParser {
                     if (res) {
                         // it is
                         CommentedOutCommand node = (CommentedOutCommand) document.getLastChildAny(CommentedOutCommand.class);
-                        node.setLeadingSpaces(input.subSequence(start, saved));
-                        node.setCommentMarker(input.subSequence(saved, saved + 1));
-                        node.setCharsFromContent();
+                        if (node != null) {
+                            node.setLeadingSpaces(input.subSequence(start, saved));
+                            node.setCommentMarker(input.subSequence(saved, saved + 1));
+                            node.setCharsFromContent();
+                        }
                         break;
                     } else {
                         index = saved;

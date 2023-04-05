@@ -3,6 +3,7 @@ package com.vladsch.clionarduinoplugin.generators.cmake;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.MutableDataHolder;
 import com.vladsch.flexmark.util.data.MutableDataSetter;
+import org.jetbrains.annotations.NotNull;
 
 public class CMakeParserOptions implements MutableDataSetter {
     public boolean autoConfig;
@@ -34,18 +35,19 @@ public class CMakeParserOptions implements MutableDataSetter {
     }
 
     CMakeParserOptions(DataHolder options) {
-        autoConfig = CMakeParser.AUTO_CONFIG.getFrom(options);
-        blockComments = CMakeParser.BRACKET_COMMENTS.getFrom(options);
-        lineContinuation = CMakeParser.LINE_CONTINUATION.getFrom(options);
-        astLineEndEol = CMakeParser.AST_LINE_END_EOL.getFrom(options);
-        astComments = CMakeParser.AST_COMMENTS.getFrom(options);
-        astCommandBlocks = CMakeParser.AST_COMMAND_BLOCKS.getFrom(options);
-        astBlankLines = CMakeParser.AST_BLANK_LINES.getFrom(options);
-        astArgumentSeparators = CMakeParser.AST_ARGUMENT_SEPARATORS.getFrom(options);
-        astCommentedOutCommands = CMakeParser.AST_COMMENTED_OUT_COMMANDS.getFrom(options);
-        maxErrorLineRecoveries = CMakeParser.MAX_ERROR_LINE_RECOVERIES.getFrom(options);
+        autoConfig = CMakeParser.AUTO_CONFIG.get(options);
+        blockComments = CMakeParser.BRACKET_COMMENTS.get(options);
+        lineContinuation = CMakeParser.LINE_CONTINUATION.get(options);
+        astLineEndEol = CMakeParser.AST_LINE_END_EOL.get(options);
+        astComments = CMakeParser.AST_COMMENTS.get(options);
+        astCommandBlocks = CMakeParser.AST_COMMAND_BLOCKS.get(options);
+        astBlankLines = CMakeParser.AST_BLANK_LINES.get(options);
+        astArgumentSeparators = CMakeParser.AST_ARGUMENT_SEPARATORS.get(options);
+        astCommentedOutCommands = CMakeParser.AST_COMMENTED_OUT_COMMANDS.get(options);
+        maxErrorLineRecoveries = CMakeParser.MAX_ERROR_LINE_RECOVERIES.get(options);
     }
 
+    @NotNull
     @Override
     public MutableDataHolder setIn(final MutableDataHolder dataHolder) {
         dataHolder.set(CMakeParser.AUTO_CONFIG, autoConfig);

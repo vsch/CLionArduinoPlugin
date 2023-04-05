@@ -49,7 +49,7 @@ public class CMakeCommandSubType extends CMakeCommandType {
     }
 
     public CMakeCommandSubType(@NotNull final String name, @NotNull final CMakeCommandType specializationOf, final @NotNull String[] fixedArgs, final int minArgs, final int maxArgs, final boolean noDupeArgs, final boolean isMultiple, final boolean isKeepLast, @Nullable String[] defaults) {
-        super(name, specializationOf.myCommand, combineArgs(specializationOf, specializationOf.myFixedArgs, fixedArgs), minArgs, maxArgs, noDupeArgs, isMultiple, isKeepLast, defaults);
+        super(name, specializationOf.myCommand, combineArgs(specializationOf, specializationOf.myFixedArgs, fixedArgs), minArgs, maxArgs, noDupeArgs, isMultiple, isKeepLast, defaults, 0);
         mySpecializationOf = specializationOf;
     }
 

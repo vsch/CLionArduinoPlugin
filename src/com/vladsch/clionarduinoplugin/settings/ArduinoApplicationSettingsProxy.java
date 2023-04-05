@@ -2,9 +2,7 @@ package com.vladsch.clionarduinoplugin.settings;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class ArduinoApplicationSettingsProxy implements ArduinoProjectFileSettings {
     public static final String[] EMPTY_STRINGS = new String[0];
@@ -299,5 +297,80 @@ public class ArduinoApplicationSettingsProxy implements ArduinoProjectFileSettin
     @Override
     public void setAuthorEMail(@NotNull final String authorEMail) {
         mySettings.setAuthorEMail(authorEMail);
+    }
+
+    public String getTemplatesPath() {
+        return mySettings.getTemplatesPath();
+    }
+
+    public void setTemplatesPath(final String templatesPath) {
+        mySettings.setTemplatesPath(templatesPath);
+    }
+
+    public boolean isBundledTemplates() {
+        return mySettings.isBundledTemplates();
+    }
+
+    public int getDisconnectRestTime() {
+        return mySettings.getDisconnectRestTime();
+    }
+
+    public void setDisconnectRestTime(final int disconnectRestTime) {
+        mySettings.setDisconnectRestTime(disconnectRestTime);
+    }
+
+    public void setBundledTemplates(final boolean bundledTemplates) {
+        mySettings.setBundledTemplates(bundledTemplates);
+    }
+
+    @NotNull
+    public String getBoardsTxtPath() {
+        return mySettings.getBoardsTxtPath();
+    }
+
+    public void setBoardsTxtPath(@NotNull final String boardsTxtPath) {
+        mySettings.setBoardsTxtPath(boardsTxtPath);
+    }
+
+    public boolean isBundledBoardsTxt() {
+        return mySettings.isBundledBoardsTxt();
+    }
+
+    public void setBundledBoardsTxt(final boolean bundledBoardsTxt) {
+        mySettings.setBundledBoardsTxt(bundledBoardsTxt);
+    }
+
+    public boolean isBundledProgrammersTxt() {
+        return mySettings.isBundledProgrammersTxt();
+    }
+
+    public void setBundledProgrammersTxt(final boolean bundledProgrammersTxt) {
+        mySettings.setBundledProgrammersTxt(bundledProgrammersTxt);
+    }
+
+    @NotNull
+    public String getProgrammersTxtPath() {
+        return mySettings.getProgrammersTxtPath();
+    }
+
+    public void setProgrammersTxtPath(@NotNull final String programmersTxtPath) {
+        mySettings.setProgrammersTxtPath(programmersTxtPath);
+    }
+
+    public boolean isBundledToolchainTxt() {
+        return mySettings.isBundledToolchainTxt();
+    }
+
+    public void setBundledToolchainTxt(final boolean bundledToolchainTxt) {
+        mySettings.setBundledToolchainTxt(bundledToolchainTxt);
+    }
+
+    @NotNull
+    public String getToolchainTxtPath() {
+        return mySettings.getToolchainTxtPath();
+    }
+
+    public void setToolchainTxtPath(@NotNull final String toolchainTxtPath) {
+        mySettings.setToolchainTxtPath(toolchainTxtPath);
     }
 }

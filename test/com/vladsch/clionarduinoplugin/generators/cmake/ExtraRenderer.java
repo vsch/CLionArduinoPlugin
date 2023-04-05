@@ -38,7 +38,7 @@ class ExtraRenderer extends IRenderBase {
             for (Pair<String, BasedSequence> pair : errors) {
                 String message = pair.getFirst();
                 BasedSequence location = pair.getSecond();
-                Pair<Integer, Integer> lineColumnAtIndex = node.getChars().getLineColumnAtIndex(location.getStartOffset());
+                Pair<Integer, Integer> lineColumnAtIndex = node.getChars().lineColumnAtIndex(location.getStartOffset());
                 int line = lineColumnAtIndex.getFirst();
                 int col = lineColumnAtIndex.getSecond();
 
@@ -49,7 +49,7 @@ class ExtraRenderer extends IRenderBase {
                 if (location.length() > 0 && location.charAt(location.length() - 1) != '\n') output.append('\n');
             }
 
-            if (DUMP_OPTIONS.getFrom(getOptions())) {
+            if (DUMP_OPTIONS.get(getOptions())) {
                 // dump the options
                 Map<? extends DataKeyBase<?>, Object> all = ((CMakeFile) node).getAll();
                 ArrayList<? extends DataKeyBase<?>> keys = new ArrayList<>(all.keySet());

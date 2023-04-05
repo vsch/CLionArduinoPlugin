@@ -27,7 +27,6 @@ import com.intellij.uiDesigner.core.GridConstraints
 import com.intellij.uiDesigner.core.GridLayoutManager
 import com.intellij.util.messages.MessageBusConnection
 import com.jetbrains.cidr.cpp.CPPLog
-import com.jetbrains.cidr.cpp.cmake.projectWizard.CLionProjectWizardUtils
 import com.jetbrains.cidr.cpp.cmake.projectWizard.generators.CMakeProjectGenerator
 import com.jetbrains.cidr.cpp.cmake.projectWizard.generators.settings.CMakeProjectSettings
 import com.jetbrains.cidr.cpp.cmake.projectWizard.generators.settings.ui.CMakeSettingsPanel
@@ -57,7 +56,9 @@ import javax.swing.JPanel
 import javax.swing.JTextField
 
 abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerator(), Disposable {
-    protected val mySettings: ArduinoApplicationSettingsProxy = ArduinoApplicationSettingsProxy.wrap(ArduinoApplicationSettings.getInstance().state, isLibrary)
+
+    protected val mySettings: ArduinoApplicationSettingsProxy =
+        ArduinoApplicationSettingsProxy.wrap(ArduinoApplicationSettings.getInstance().state, isLibrary)
     private val myListeners = HashSet<WeakReference<GeneratorFailedValidationListener>>()
 
     override fun dispose() {
@@ -115,15 +116,15 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         val camelName = word.makeProperCamelCase()
         val pascalName = word.makePascalCase()
         val templateVars = mutableMapOf(
-                "PROJECT_NAME" to snakeName.toUpperCase(),
-                "project_name" to snakeName.toLowerCase(),
-                "ProjectName" to pascalName,
-                //                "COMMENT_UNUSED" to if (mySettings.applicationSettings.isCommentUnusedSettings) "true" else "false",
-                "projectName" to camelName
+            "PROJECT_NAME" to snakeName.toUpperCase(),
+            "project_name" to snakeName.toLowerCase(),
+            "ProjectName" to pascalName,
+            //                "COMMENT_UNUSED" to if (mySettings.applicationSettings.isCommentUnusedSettings) "true" else "false",
+            "projectName" to camelName
         )
 
         templateVars.putAll(
-                templateVars(name, pascalName, camelName, snakeName).toMutableMap()
+            templateVars(name, pascalName, camelName, snakeName).toMutableMap()
         )
 
         val templateDir = mySettings.applicationSettings.templateDir
@@ -132,16 +133,16 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
 
         val nonSourceFiles = ArrayList<VirtualFile>()
         val sourceFiles = resolvedTemplates
-                .map { (name, content) ->
-                    if (name != Strings.CMAKE_LISTS_FILENAME) createProjectFileWithContent(rootDir, name, content) else null
-                }.filterNotNull()
-                //  if non source files are left in the source array then CLion 2018.1 throws an exception on project create
-                .filterNot {
-                    if (it.name == Strings.LIBRARY_PROPERTIES_FILENAME || it.name == "keywords.txt") {
-                        nonSourceFiles.add(it)
-                        true
-                    } else false
-                }.toTypedArray()
+            .map { (name, content) ->
+                if (name != Strings.CMAKE_LISTS_FILENAME) createProjectFileWithContent(rootDir, name, content) else null
+            }.filterNotNull()
+            //  if non source files are left in the source array then CLion 2018.1 throws an exception on project create
+            .filterNot {
+                if (it.name == Strings.LIBRARY_PROPERTIES_FILENAME || it.name == "keywords.txt") {
+                    nonSourceFiles.add(it)
+                    true
+                } else false
+            }.toTypedArray()
 
         val cMakeFileTemplate = resolvedTemplates[Strings.CMAKE_LISTS_FILENAME] ?: ""
 
@@ -150,7 +151,11 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         val cMakeFileContent = ArduinoCMakeListsTxtBuilder.getCMakeFileContent(cMakeFileTemplate, name, mySettings, fileList, false)
         val cMakeFile = createProjectFileWithContent(rootDir, Strings.CMAKE_LISTS_FILENAME, cMakeFileContent)
 
-        val extraFiles = ArduinoToolchainFiles.copyToDirectory(VfsUtil.findFileByIoFile(VfsUtilCore.virtualToIoFile(rootDir), false))
+        val extraFiles: Array<VirtualFile> =
+            if (mySettings.applicationSettings.isBundledToolchainTxt)
+                ArduinoToolchainFiles.copyToDirectory(VfsUtil.findFileByIoFile(VfsUtilCore.virtualToIoFile(rootDir), false))
+            else emptyArray()
+
         if (mySettings.isAddLibraryDirectory) {
             val libDir = File(rootDir.path) + mySettings.applicationSettings.libraryDirectory
             if (!libDir.exists() && libDir.canonicalPath != rootDir.canonicalPath) {
@@ -178,8 +183,10 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
 
         if (!ApplicationManager.getApplication().isHeadlessEnvironment) {
             PsiNavigationSupport.getInstance().createNavigatable(project, createdFilesHolder.cMakeFile, -1).navigate(false)
-            Arrays.asList(*createdFilesHolder.nonSourceFiles).forEach { file -> PsiNavigationSupport.getInstance().createNavigatable(project, file, -1).navigate(true) }
-            Arrays.asList(*createdFilesHolder.sourceFiles).forEach { file -> PsiNavigationSupport.getInstance().createNavigatable(project, file, -1).navigate(true) }
+            Arrays.asList(*createdFilesHolder.nonSourceFiles)
+                .forEach { file -> PsiNavigationSupport.getInstance().createNavigatable(project, file, -1).navigate(true) }
+            Arrays.asList(*createdFilesHolder.sourceFiles)
+                .forEach { file -> PsiNavigationSupport.getInstance().createNavigatable(project, file, -1).navigate(true) }
         }
 
         // vsch: Need to reload the CMakeList.txt to generate build files, first time generation is incorrect
@@ -217,7 +224,9 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         // here we have a problem, we'll use defaults and hope for the best
     }
 
-    private class MyCMakeWorkspaceListener(private val myBusConnection: MessageBusConnection, private val myWorkspace: CMakeWorkspace) : CMakeWorkspaceListener {
+    private class MyCMakeWorkspaceListener(private val myBusConnection: MessageBusConnection, private val myWorkspace: CMakeWorkspace) :
+        CMakeWorkspaceListener {
+
         override fun reloadingFinished(canceled: Boolean) {
             myBusConnection.disconnect()
 
@@ -244,6 +253,7 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
     }
 
     internal interface GeneratorFailedValidationListener {
+
         fun onValidationFailed(): Boolean
     }
 
@@ -271,7 +281,9 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         return canFail
     }
 
-    private class ArduinoNewProjectSettingsPanel(val settings: ArduinoApplicationSettingsProxy, projectGenerator: ArduinoProjectGenerator) : CMakeSettingsPanel(projectGenerator), ApplicationSettingsListener, GeneratorFailedValidationListener, Disposable {
+    private class ArduinoNewProjectSettingsPanel(val settings: ArduinoApplicationSettingsProxy, projectGenerator: ArduinoProjectGenerator) :
+        CMakeSettingsPanel(projectGenerator), ApplicationSettingsListener, GeneratorFailedValidationListener, Disposable {
+
         private val myPanel: JPanel
         private var myHaveFailed = false
         private val myNewProjectSettingsForm = NewProjectSettingsForm(settings, true, false)
@@ -368,9 +380,15 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         }
     }
 
-    protected class CreatedFilesHolder constructor(val cMakeFile: VirtualFile, val sourceFiles: Array<VirtualFile>, val nonSourceFiles: Array<VirtualFile>, val extraFiles: Array<VirtualFile>)
+    protected class CreatedFilesHolder constructor(
+        val cMakeFile: VirtualFile,
+        val sourceFiles: Array<VirtualFile>,
+        val nonSourceFiles: Array<VirtualFile>,
+        val extraFiles: Array<VirtualFile>
+    )
 
     companion object {
+
         fun validateOptions(settings: ArduinoApplicationSettings): ValidationResult? {
             val result = validateOptionsInfo(settings, null)
             if (result != null) {
@@ -381,17 +399,26 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
 
         fun validateOptionsInfo(settings: ArduinoApplicationSettings, form: NewProjectSettingsForm?): ValidationInfo? {
             if (settings.boardId.isEmpty()) {
-                return ValidationInfo(Bundle.message("new-project.no-board"), form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.BOARD))
+                return ValidationInfo(
+                    Bundle.message("new-project.no-board"),
+                    form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.BOARD)
+                )
             }
 
             if (settings.getBoardCpuNames(settings.boardName).isNotEmpty() && settings.cpuId.isEmpty()) {
-                return ValidationInfo(Bundle.message("new-project.1.no-cpu", settings.cpuLabel, settings.boardName), form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.CPU))
+                return ValidationInfo(
+                    Bundle.message("new-project.1.no-cpu", settings.cpuLabel, settings.boardName),
+                    form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.CPU)
+                )
             }
 
             if (settings.isAddLibraryDirectory) {
                 for (dir in settings.libraryDirectories) {
                     if (File(dir).isAbsolute) {
-                        return ValidationInfo(Bundle.message("new-project.0.absolute-lib-dir", dir), form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.LIB_DIR))
+                        return ValidationInfo(
+                            Bundle.message("new-project.0.absolute-lib-dir", dir),
+                            form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.LIB_DIR)
+                        )
                     }
                 }
             }

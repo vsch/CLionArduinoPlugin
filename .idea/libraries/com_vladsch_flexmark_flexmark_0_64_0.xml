@@ -16,6 +16,19 @@
       <root url="jar://$PROJECT_DIR$/lib/flexmark-util-visitor-0.64.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-ast-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/annotations-15.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-builder-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-collection-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-data-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-dependency-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-format-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-html-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-misc-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-sequence-0.64.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/flexmark-util-visitor-0.64.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

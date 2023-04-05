@@ -10,6 +10,9 @@ public class CMakeCommandType {
     final public static CMakeCommandType NULL = new CMakeCommandType("", "", EMPTY, 0, 0);
     final public static String WILDCARD_ARG_MARKER = "<@@>";
     final public static int INF_MAX_ARGS = 1000;
+
+    final public static int POST_INDENT = 0x01;    // post indent after command
+    final public static int PRE_UNINDENT = 0x02;   // unindent before outputting command, can have both pre and post
     final protected static CMakeCommandType UNKNOWN = new CMakeCommandType("", "", EMPTY, 0, INF_MAX_ARGS);
 
     final protected @NotNull String myName;
@@ -24,19 +27,21 @@ public class CMakeCommandType {
     final protected int myWildcardFixedArgs;
     final protected int myWildcardCount;
 
+    final protected int myIndentFlags;           // amount by which this command post indents or pre-unindents
+
     public CMakeCommandType(@NotNull final String name, @NotNull final String command, final @NotNull String[] fixedArgs, final int minArgs, final int maxArgs) {
-        this(name, command, fixedArgs, minArgs, maxArgs, false, true, true, null);
+        this(name, command, fixedArgs, minArgs, maxArgs, false, true, true, null, 0);
     }
 
     public CMakeCommandType(@NotNull final String name, @NotNull final String command, final @NotNull String[] fixedArgs, final int minArgs, final int maxArgs, final boolean noDupeArgs) {
-        this(name, command, fixedArgs, minArgs, maxArgs, noDupeArgs, true, true, null);
+        this(name, command, fixedArgs, minArgs, maxArgs, noDupeArgs, true, true, null, 0);
     }
 
     public CMakeCommandType(@NotNull final String name, @NotNull final String command, final @NotNull String[] fixedArgs, final int minArgs, final int maxArgs, final boolean noDupeArgs, final boolean isMultiple, final boolean isKeepLast) {
-        this(name, command, fixedArgs, minArgs, maxArgs, noDupeArgs, isMultiple, isKeepLast, null);
+        this(name, command, fixedArgs, minArgs, maxArgs, noDupeArgs, isMultiple, isKeepLast, null, 0);
     }
 
-    public CMakeCommandType(@NotNull final String name, @NotNull final String command, final @NotNull String[] fixedArgs, final int minArgs, final int maxArgs, final boolean noDupeArgs, final boolean isMultiple, final boolean isKeepLast, @Nullable String[] defaults) {
+    public CMakeCommandType(@NotNull final String name, @NotNull final String command, final @NotNull String[] fixedArgs, final int minArgs, final int maxArgs, final boolean noDupeArgs, final boolean isMultiple, final boolean isKeepLast, @Nullable String[] defaults, int indentFlags) {
         myName = name;
         myCommand = command;
         myFixedArgs = fixedArgs;
@@ -48,6 +53,15 @@ public class CMakeCommandType {
         myDefaultArgs = defaults != null ? defaults : EMPTY;
         myWildcardFixedArgs = getWildcardFixedArgs(fixedArgs);
         myWildcardCount = getWildcardCount(fixedArgs);
+        myIndentFlags = indentFlags;
+    }
+
+    public boolean isPreUnIndenting() {
+        return (myIndentFlags & PRE_UNINDENT) != 0;
+    }
+
+    public boolean isPostIndenting() {
+        return (myIndentFlags & POST_INDENT) != 0;
     }
 
     public static int getWildcardFixedArgs(final @NotNull String[] fixedArgs) {
@@ -143,6 +157,7 @@ public class CMakeCommandType {
                 ", " + myMaxArgs +
                 "], NoDupes " + myNoDupeArgs +
                 ", IsMulti " + myIsMultiple +
+                ", indent " + myIndentFlags +
                 '}';
     }
 }

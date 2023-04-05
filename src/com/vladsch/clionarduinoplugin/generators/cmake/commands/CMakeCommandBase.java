@@ -117,7 +117,7 @@ public abstract class CMakeCommandBase implements CMakeElement {
                     // its a default, we replace values in it
                     replacement = CMakeListsTxtBuilder.Companion.replacedCommandParams(replacement, valueSet);
                 }
-                
+
                 wildcardArg++;
                 arg = arg.substring(0, pos) + replacement + arg.substring(pos + CMakeCommandType.WILDCARD_ARG_MARKER.length());
                 pos += replacement.length();
@@ -126,7 +126,7 @@ public abstract class CMakeCommandBase implements CMakeElement {
             if (arg.isEmpty()) continue;
 
             arg = CMakeListsTxtBuilder.Companion.replacedCommandParams(arg, valueSet);
-            
+
             if (projectNameMacro != null && !projectNameMacro.isEmpty()) {
                 // replace project name macro with one provided
                 arg = arg.replace(CMakeListsTxtBuilder.PROJECT_NAME, projectNameMacro);
@@ -143,6 +143,14 @@ public abstract class CMakeCommandBase implements CMakeElement {
         }
 
         int iMax = myArgs.size();
+        String useSep = " ";
+        if (iMax - wildcardArg > 4) {
+            useSep = "\n        ";
+            if (!sep.isEmpty()) {
+                sep = useSep;
+            }
+        }
+
         for (int i = wildcardArg; i < iMax; i++) {
             String arg = myArgs.get(i);
 
@@ -157,9 +165,14 @@ public abstract class CMakeCommandBase implements CMakeElement {
                 argValues.add(arg);
 
                 out.append(sep);
-                sep = " ";
+                sep = useSep;
                 out.append(CMakeParser.getArgText(arg));
             }
+        }
+
+        if (!useSep.equals(" ")) {
+            // add sep before )
+            out.append(useSep);
         }
 
         if (myAddEOL) {

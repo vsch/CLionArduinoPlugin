@@ -130,11 +130,11 @@ public class RegExTestDialog extends DialogWrapper {
     }
 
     private BackgroundColor getInvalidTableBackground(boolean isSelected) {
-        return BackgroundColor.of(Helpers.errorColor(UIUtil.getTableBackground(isSelected)));
+        return BackgroundColor.of(Helpers.errorColor(UIUtil.getTableBackground()));
     }
 
     BackgroundColor getTableBackground(boolean isSelected) {
-        return BackgroundColor.of(UIUtil.getTableBackground(isSelected));
+        return BackgroundColor.of(UIUtil.getTableBackground());
     }
 
     public boolean saveSettings(boolean onlySamples) {

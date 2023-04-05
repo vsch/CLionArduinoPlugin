@@ -52,7 +52,7 @@
          on how to target different products -->
     <depends>com.intellij.modules.clion</depends>
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="193.5233.102" until-build="222.*"/> 
+    <idea-version since-build="201.6668.113" until-build="222.*"/> 
 
     <change-notes><![CDATA[
         <h3>1.5.7</h3>
@@ -261,6 +261,19 @@
                              key="plugin.project-configurable.name"
                              nonDefaultProject="false"
                              instance="com.vladsch.clionarduinoplugin.settings.ArduinoSerialMonitorConfigurable"/>
+        
+        <toolWindow factoryClass="com.vladsch.clionarduinoplugin.serial.SerialMonitorToolWindowFactory" 
+                    id="Arduino Support" 
+                    anchor="bottom" 
+                    canCloseContents="false" 
+                    secondary="false"
+                    icon="PluginIcons.serial_port_tool"
+                    largeStripeAnchor="left"
+        /> 
+        
+        <statusBarWidgetFactory implementation="com.vladsch.clionarduinoplugin.serial.SerialMonitorStatusBarWidgetFactory"
+                                id="ArduinoSupport.SerialMonitor"
+        />
     </extensions>
 
     <application-components>

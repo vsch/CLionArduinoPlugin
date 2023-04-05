@@ -87,6 +87,7 @@ function Upd() {
 
 Upd "CLion2020-2" "plugins-sandbox-mn"
 Upd "CLion2020-3" "plugins-sandbox-mn"
+Upd "CLion2021-2" "plugins-sandbox"
 
 # for plugin debugging in intellij-community under debugging
 # UpdRaw "/Users/vlad/src/intellij-community/system/plugins-sandbox/plugins"
