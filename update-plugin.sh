@@ -6,7 +6,7 @@ OLD_PLUGIN=
 SANDBOX_NAME="plugin-sandbox-cl"
 SANDBOX_IDE=
 IDE_LIST=(
-    "CLion2019.3"
+#    "CLion2019.3" only 201.6668.113 is supported
     "CLion2020.1"
     "CLion2020.2"
     "CLion2020.3"
