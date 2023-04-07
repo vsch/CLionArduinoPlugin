@@ -11,10 +11,11 @@ import icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
 
 public class ConnectAction extends DumbAwareAction {
+    
     public ConnectAction() {
         super(Bundle.message("action.connect.label"), Bundle.message("actions.connect.description"), PluginIcons.serial_port_disconnected);
     }
-
+    
     @Override
     public void update(@NotNull final AnActionEvent e) {
         Project project = e.getProject();
@@ -35,6 +36,7 @@ public class ConnectAction extends DumbAwareAction {
 
             enabled = serialProjectComponent.canConnectPort();
         }
+
         presentation.setEnabled(enabled);
     }
 

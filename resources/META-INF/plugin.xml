@@ -4,12 +4,13 @@
     <name>Arduino Support</name>
     <vendor email="" url="https://github.com/vsch/CLionArduinoPlugin">Vladimir Schneider</vendor>
 
-    <version>1.5.15</version>
+    <version>1.5.19</version>
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
     <depends>com.intellij.modules.clion</depends>
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="201.6668.113" until-build="222.*"/>
+    <!--<idea-version since-build="201.6668.113" until-build="222.*"/>-->
+    <idea-version since-build="201.6668.113"/>
 
     <description><![CDATA[
         <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/resources/META-INF/pluginIcon.png" alt="pluginIcon.png" width="50" align="middle"/>

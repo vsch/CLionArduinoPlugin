@@ -67,7 +67,6 @@ class SerialMonitorToolWindowFactory implements ToolWindowFactory, DumbAware {
 
     @Override
     public boolean shouldBeAvailable(@NotNull Project project) {
-        // TODO: check to be available only in arduino projects
         return true;
     }
 }

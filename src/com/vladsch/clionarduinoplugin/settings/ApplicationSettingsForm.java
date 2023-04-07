@@ -85,6 +85,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
     private TextFieldWithBrowseButton myToolchainTxtPath;
     private JBCheckBox myBundledToolchainTxt;
     private JButton myToolchainTxtDiff;
+    private JButton myToolchainTxtDiff2;
     private JButton myToolchainTxtCreate;
     private JLabel myToolchainTxtLabel;
 
@@ -105,6 +106,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         final String boardsTxt = ArduinoConfig.Companion.getBoardsTxtString();
         final String programmersTxt = ArduinoConfig.Companion.getProgrammersTxtString();
         final String toolchainTxt = ArduinoConfig.Companion.getToolchainTxtString();
+        final String toolchainTxt2 = ArduinoConfig.Companion.getToolchainTxtString2();
         myArduinoConfig = new ArduinoConfig(boardsTxt, programmersTxt);
         //noinspection unchecked
         components = new SettingsComponents<ArduinoApplicationSettings>(mySettings) {
@@ -228,8 +230,27 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                             Bundle.message("settings.toolchain-txt-diff.title"),
                             getContent(toolchainTxt),
                             getContent(fileTxt),
-                            Bundle.message("settings.bundled.0.title", "toolchain.txt"),
+                            Bundle.message("settings.bundled.0.title", "ArduinoToolchain.cmake"),
                             myToolchainTxtPath.getText());
+                    showDiff(request);
+                }
+            }
+        });
+
+        myToolchainTxtDiff2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                File file = new File(new File(myToolchainTxtPath.getText()).getParentFile(), "Platform/Arduino.cmake");
+                if (!file.exists()) {
+                } else if (file.isDirectory()) {
+                } else {
+                    String fileTxt = ResourceUtils.getFileContent(file);
+                    SimpleDiffRequest request = new SimpleDiffRequest(
+                            Bundle.message("settings.toolchain-txt-diff2.title"),
+                            getContent(toolchainTxt2),
+                            getContent(fileTxt),
+                            Bundle.message("settings.bundled.0.title", "Platform/Arduino.cmake"),
+                            file.getPath());
                     showDiff(request);
                 }
             }
@@ -386,6 +407,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
 
             if (myBundledToolchainTxt.isSelected()) {
                 myToolchainTxtDiff.setVisible(false);
+                myToolchainTxtDiff2.setVisible(false);
                 myToolchainTxtCreate.setVisible(false);
                 myToolchainTxtLabel.setVisible(true);
             }
@@ -593,6 +615,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     myToolchainTxtLabel.setText(error);
                     myToolchainTxtLabel.setVisible(true);
                     myToolchainTxtDiff.setVisible(canShowDiff);
+                    myToolchainTxtDiff2.setVisible(canShowDiff);
                     myToolchainTxtCreate.setVisible(canCreate);
 
                     if (onSet) {
@@ -601,6 +624,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 } else {
                     myToolchainTxtLabel.setVisible(false);
                     myToolchainTxtDiff.setVisible(canShowDiff);
+                    myToolchainTxtDiff2.setVisible(canShowDiff);
                     myToolchainTxtCreate.setVisible(false);
                 }
             } else {

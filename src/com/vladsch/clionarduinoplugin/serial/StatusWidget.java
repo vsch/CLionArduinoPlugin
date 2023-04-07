@@ -8,10 +8,8 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.JBPopupFactory.ActionSelectionAid;
 import com.intellij.openapi.ui.popup.ListPopup;
-import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
-import com.intellij.ui.awt.RelativePoint;
 import com.intellij.util.Consumer;
 import com.vladsch.clionarduinoplugin.Bundle;
 import com.vladsch.clionarduinoplugin.actions.ConnectAction;
@@ -24,8 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.Icon;
-import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/ /*StatusBarWidget.IconPresentation,*/ StatusBarWidget.MultipleTextValuesPresentation, ProjectSettingsListener {
@@ -33,7 +29,6 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
     SerialProjectComponent mySerialProjectComponent;
     private StatusBar myStatusBar;
     boolean myActionEnabled;
-    private boolean myIsDisposed;
     private String myText;
     private String myTooltip;
     boolean myIsConnected;
@@ -50,23 +45,14 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
 
         mySerialPortListener = new SerialPortListener() {
             @Override
-            public void onConnect(String portName, int baudRate) {
-                setStatus(true, true, true);
-            }
-
-            @Override
-            public void onDisconnect(String portName, int baudRate) {
-                setStatus(!serialProjectComponent.isBuilding(), false, serialProjectComponent.canConnectPort());
+            public void onStatusChanged() {
+                setStatus(!serialProjectComponent.isBuilding(), serialProjectComponent.isPortConnected(), serialProjectComponent.canConnectPort());
             }
         };
 
         serialProjectComponent.addPortListener(mySerialPortListener);
 
         setStatus(!serialProjectComponent.isBuilding(), serialProjectComponent.isPortConnected(), serialProjectComponent.canConnectPort());
-    }
-
-    public boolean isEnabled() {
-        return myActionEnabled && myIsConnected;
     }
 
     @Override
@@ -97,7 +83,7 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
                     group,
                     context,
                     ActionSelectionAid.SPEEDSEARCH,
-                    false
+                    true
             );
         }
         return null;
@@ -106,8 +92,10 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
     private static class MyActionGroup extends ActionGroup {
         @Override
         public AnAction @NotNull [] getChildren(@Nullable final AnActionEvent e) {
+            ConnectAction connectAction = new ConnectAction();
+
             return new AnAction[] {
-                    new ConnectAction(),
+                    connectAction,
                     SerialMonitorPortAction.Companion.createSerialPortsActionGroup(),
                     SerialMonitorBaudRateAction.Companion.createBaudRateActionGroup(),
             };
@@ -137,10 +125,13 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
         myStatusBar = statusBar;
     }
 
+    public boolean isDisposed() {
+        return mySerialProjectComponent == null;
+    }
+
     @Override
     public void dispose() {
-        if (!myIsDisposed) {
-            myIsDisposed = true;
+        if (!isDisposed()) {
             myStatusBar = null;
             mySerialProjectComponent.removePortListener(mySerialPortListener);
             mySerialPortListener = null;
@@ -156,7 +147,7 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
         myIcon = null;
         myTooltip = null;
 
-        if (myIsDisposed) return;
+        if (isDisposed()) return;
 
         myActionEnabled = true;
         myCanConnect = mySerialProjectComponent.canConnectPort();
@@ -185,20 +176,5 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
     @Override
     public @Nullable WidgetPresentation getPresentation() {
         return this;
-    }
-
-    void showPopup(@NotNull MouseEvent e) {
-        if (!myActionEnabled) {
-            return;
-        }
-
-        ListPopup popup = getPopupStep();
-
-        if (popup != null) {
-            Dimension dimension = popup.getContent().getPreferredSize();
-            Point at = new Point(0, -dimension.height);
-            popup.show(new RelativePoint(e.getComponent(), at));
-            Disposer.register(this, popup); // destroy popup on unexpected project close
-        }
     }
 }

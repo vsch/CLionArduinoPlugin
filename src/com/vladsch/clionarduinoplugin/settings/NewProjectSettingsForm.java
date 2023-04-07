@@ -104,11 +104,12 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
         isImmediateUpdate = immediateUpdate;
         isLimitedConfig = limitedConfig;
 
+        //noinspection ThisEscapedInObjectConstruction
         myUpdate = new Alarm(this);
         myPendingUpdates = new LinkedHashSet<>();
 
-        //noinspection unchecked
-        components = new SettingsComponents<ArduinoApplicationSettings>(mySettings) {
+        //noinspection unchecked,rawtypes
+        components = new SettingsComponents<>(mySettings) {
             @Override
             protected Settable[] createComponents(@NotNull ArduinoApplicationSettings i) {
                 if (myIsLibrary) {
@@ -118,9 +119,8 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
                             component(() -> {
                                 SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
                                 if (baudRates.isCustom()) {
-                                    Integer rate = SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
-                                    if (rate != null) {
-                                        return rate;
+                                    if (SequenceUtils.parseIntOrNull(myCustomBaudRate.getText()) != null) {
+                                        return SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
                                     } else {
                                         return SerialBaudRates.BAUDRATE_57600.intValue;
                                     }
@@ -128,8 +128,8 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
                                     return baudRates.intValue;
                                 }
                             }, rate -> {
-                                SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnum(Integer.toString(rate));
-                                if (baudRates == null) {
+                                //noinspection ConstantValue
+                                if (SerialBaudRates.ADAPTER.findEnum(Integer.toString(rate)) == null) {
                                     myCustomBaudRate.setText(Integer.toString(rate));
                                     SerialBaudRates.ADAPTER.set(myBaudRate, SerialBaudRates.CUSTOM.intValue);
                                 } else {
@@ -154,15 +154,15 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
                             component(myAuthorEMail, i::getAuthorEMail, i::setAuthorEMail),
                     };
                 } else {
+                    //noinspection unchecked
                     return new Settable[] {
                             componentString(SerialPortNames.ADAPTER, myPort, i::getPort, i::setPort),
                             //component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
                             component(() -> {
                                 SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
                                 if (baudRates.isCustom()) {
-                                    Integer rate = SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
-                                    if (rate != null) {
-                                        return rate;
+                                    if (SequenceUtils.parseIntOrNull(myCustomBaudRate.getText()) != null) {
+                                        return SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
                                     } else {
                                         return SerialBaudRates.BAUDRATE_57600.intValue;
                                     }
@@ -170,8 +170,8 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
                                     return baudRates.intValue;
                                 }
                             }, rate -> {
-                                SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnum(Integer.toString(rate));
-                                if (baudRates == null) {
+                                //noinspection ConstantValue
+                                if (SerialBaudRates.ADAPTER.findEnum(Integer.toString(rate)) == null) {
                                     myCustomBaudRate.setText(Integer.toString(rate));
                                     SerialBaudRates.ADAPTER.set(myBaudRate, SerialBaudRates.CUSTOM.intValue);
                                 } else {
@@ -192,6 +192,7 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
             }
         };
 
+        //noinspection ThisEscapedInObjectConstruction
         ApplicationManager.getApplication().getMessageBus().connect(this).subscribe(ApplicationSettingsListener.TOPIC, this);
 
         ItemListener itemListener = e -> {
@@ -203,6 +204,7 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
         ActionListener actionListener = e -> applyChanges(e.getSource());
         components.forAllComponents(mySettings, settable -> {
             Object target = settable.getComponent();
+            //noinspection ConstantValue
             if (target instanceof AbstractButton) {
                 ((AbstractButton) target).addActionListener(actionListener);
             } else {
@@ -210,6 +212,7 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
                     ((ItemSelectable) target).addItemListener(itemListener);
                 }
 
+                //noinspection ConstantValue
                 if (target instanceof JTextComponent) {
                     ((JTextComponent) target).getDocument().addDocumentListener(new DocumentAdapter() {
                         @Override

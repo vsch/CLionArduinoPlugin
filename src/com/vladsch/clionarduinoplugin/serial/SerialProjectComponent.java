@@ -2,10 +2,11 @@ package com.vladsch.clionarduinoplugin.serial;
 
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.Disposable;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowManager;
+import com.intellij.openapi.wm.impl.ToolWindowManagerImpl;
 import com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent;
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
@@ -15,7 +16,6 @@ import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -29,7 +29,6 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
 
     final Project myProject;
     private ArduinoApplicationComponent myApplicationComponent;
-    @Nullable StatusWidget myStatusWidget;
     final @NotNull ArduinoProjectSettings myProjectSettings;
     boolean myIsBuilding = false;
     boolean myWasConnected;
@@ -74,17 +73,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     @Override
     public void onSettingsChanged() {
         if (isPortConnected() && (myConnectedBaudRate != myProjectSettings.getBaudRate() || !myConnectedPort.equals(myProjectSettings.getPort()))) {
-            if (myPortManager.disconnectPort(myProjectSettings.getPort())) {
-                // need to pause for a very short delay to allow port to reset
-                int restTime = ArduinoApplicationSettings.getInstance().getDisconnectRestTime();
-                if (restTime > 0) {
-                    try {
-                        Thread.sleep(restTime);
-                    } catch (InterruptedException ignored) {
-                    }
-                }
-            }
-
+            disconnectAndRest();
             connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
         }
     }
@@ -110,8 +99,6 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
                 myBuildMonitor = null;
             }
 
-            myStatusWidget = null;
-
             SerialPortManager portManager = SerialPortManager.getInstance();
             portManager.removeProjectComponent(this);
         }
@@ -122,22 +109,24 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
         if (myProjectSettings.isDisconnectOnBuild() && myProjectSettings.isBuildConfigurationMatched(targetName)) {
             boolean wasConnected = isPortConnected();
             myIsBuilding = true;
-            if (myPortManager.disconnectPort(myProjectSettings.getPort())) {
-                // need to pause for a very short delay to allow port to reset
-                int restTime = ArduinoApplicationSettings.getInstance().getDisconnectRestTime();
-                if (restTime > 0) {
-                    try {
-                        Thread.sleep(restTime);
-                    } catch (InterruptedException ignored) {
-                    }
-                }
-            }
+            disconnectAndRest();
             myWasConnected = wasConnected;
         } else {
             myWasConnected = false;
         }
-        if (myStatusWidget != null) {
-            myStatusWidget.setStatus(false, myConnectedPort != null, myConnectedPort != null, "In Build: " + targetName);
+        statusChanged();
+    }
+
+    private void disconnectAndRest() {
+        if (myPortManager.disconnectPort(myProjectSettings.getPort())) {
+            // need to pause for a very short delay to allow port to reset
+            int restTime = ArduinoApplicationSettings.getInstance().getDisconnectRestTime();
+            if (restTime > 0) {
+                try {
+                    Thread.sleep(restTime);
+                } catch (InterruptedException ignored) {
+                }
+            }
         }
     }
 
@@ -150,10 +139,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
                 connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
             }
         }
-
-        if (myStatusWidget != null) {
-            myStatusWidget.setStatus(true, myConnectedPort != null, canConnectPort());
-        }
+        statusChanged();
     }
 
     public void clearSerialMonitorConsole() {
@@ -186,6 +172,12 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
                 if (myProjectSettings.isActivateOnConnect() && myToolWindow != null) {
                     // active tool window
                     myToolWindow.show(null);
+                }
+
+                ensureToolWindowCreated();
+                
+                for (SerialPortListener listener : myListeners) {
+                    listener.onConnect(myConnectedPort, baudRate);
                 }
             }
         }
@@ -228,11 +220,24 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
             myWasConnected = false;
             myPortManager.removeProjectComponent(this);
 
+            myConnectedPort = null;
+
+            ensureToolWindowCreated();
+
             for (SerialPortListener listener : myListeners) {
                 listener.onDisconnect(port, baud);
             }
+        }
+    }
 
-            myConnectedPort = null;
+    @SuppressWarnings("UnstableApiUsage")
+    private void ensureToolWindowCreated() {
+        if (myToolWindow == null) {
+            // get it up and running
+            ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(myProject);
+            if (toolWindowManager instanceof ToolWindowManagerImpl) {
+                ((ToolWindowManagerImpl) toolWindowManager).showToolWindow("Arduino Support");
+            }
         }
     }
 
@@ -314,10 +319,6 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
                         }
                     }
                 });
-
-                for (SerialPortListener listener : myListeners) {
-                    listener.onConnect(portName, baudRate);
-                }
             }
         } catch (SerialPortException e) {
             mySerialPort = null;
@@ -357,5 +358,11 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
 
     public void removePortListener(SerialPortListener listener) {
         myListeners.remove(listener);
+    }
+
+    public void statusChanged() {
+        for (SerialPortListener listener : myListeners) {
+            listener.onStatusChanged();
+        }
     }
 }

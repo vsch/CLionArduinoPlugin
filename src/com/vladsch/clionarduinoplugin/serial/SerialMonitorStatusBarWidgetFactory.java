@@ -55,9 +55,7 @@ class SerialMonitorStatusBarWidgetFactory implements StatusBarWidgetFactory {
     @Override
     public @NotNull StatusBarWidget createWidget(@NotNull Project project) {
         SerialProjectComponent serialProjectComponent = SerialProjectComponent.getInstance(project);
-        StatusWidget widget = new StatusWidget(serialProjectComponent);
-        serialProjectComponent.myStatusWidget = widget;
-        return widget;
+        return new StatusWidget(serialProjectComponent);
     }
 
     @Override

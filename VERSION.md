@@ -5,7 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
-  - [1.5.15 Next](#1515-next)
+  - [1.5.20 Next](#1520-next)
   - [1.5.11](#1511)
   - [1.5.9](#159)
   - [1.5.7](#157)
@@ -45,15 +45,16 @@
       [ArduinoCMakeListsTxtBuilder.kt: Line 213](https://github.com/vsch/CLionArduinoPlugin/blob/master/src/com/vladsch/clionarduinoplugin/generators/cmake/ArduinoCMakeListsTxtBuilder.kt#L213)
 * [ ] Add: documentation for Windows installation to readme
 * [ ] Fix: update for latest flexmark-java lib 0.60.0
-
-### 1.5.15 Next
-
 * [ ] Add: check project settings and `CMakeLists.txt` and if they are out of sync:
   * Offer to delete `cmake` directory in project if using non-bundled toolchain and it is not
     the project's toolchain in `cmake`
   * Offer to add the directory if it is missing
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
+
+### 1.5.20 Next
+
+* Fix: add second diff button for toolchain diff viewing `Platform/Arduino.cmake`
 * Fix: allow directories to be selected for toolchain file path.
 * Fix: if a directory is selected add `ArduinoToolchain.cmake` file name automatically.
 
