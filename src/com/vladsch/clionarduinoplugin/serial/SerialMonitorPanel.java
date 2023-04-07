@@ -29,8 +29,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -43,7 +41,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
     final static public ConsoleViewContentType LOG_ERROR_OUTPUT = new ConsoleViewContentType("LOG_ERROR_OUTPUT", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY);
     final static public ConsoleViewContentType CONNECTION_STATUS = ConsoleViewContentType.SYSTEM_OUTPUT;
     static public ConsoleViewContentType ALT_CONNECTION_STATUS = null;
-    
+
     private JPanel myPanel;
     private JButton mySendButton;
     private JPanel myConsoleHolder;
@@ -60,12 +58,9 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         createConsole();
 
         myProjectSettings = ArduinoProjectSettings.getInstance(myProject);
-        mySendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                // send the text
-                handleEnter();
-            }
+        mySendButton.addActionListener(e -> {
+            // send the text
+            handleEnter();
         });
 
         mySendText.addKeyListener(new KeyAdapter() {
@@ -85,12 +80,11 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendText.setEnabled(false);
         mySendButton.setEnabled(false);
 
+        //noinspection ThisEscapedInObjectConstruction
         project.getMessageBus().connect(this).subscribe(ProjectSettingsListener.TOPIC, this);
 
         mySendSettingsForm.getComponent().setVisible(myProjectSettings.isShowSendOptions());
-        mySendSettingsForm.setChangeMonitor(() -> {
-            mySendSettingsForm.apply(myProjectSettings);
-        });
+        mySendSettingsForm.setChangeMonitor(() -> mySendSettingsForm.apply(myProjectSettings));
 
         mySendSettingsForm.reset(myProjectSettings);
     }
@@ -161,7 +155,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendButton.setEnabled(true);
 
         if (myConsoleView != null && myProjectSettings.isLogConnectDisconnect()) {
-            myConsoleView.print("--------------- Connected " + portName + " @ " + baudRate + " ----------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS:ALT_CONNECTION_STATUS);
+            myConsoleView.print("--------------- Connected " + portName + " @ " + baudRate + " ----------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS : ALT_CONNECTION_STATUS);
         }
     }
 
@@ -171,7 +165,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendButton.setEnabled(false);
 
         if (myConsoleView != null && myProjectSettings.isLogConnectDisconnect()) {
-            myConsoleView.print("-------------- Disconnected " + portName + " @ " + baudRate + " --------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS:ALT_CONNECTION_STATUS);
+            myConsoleView.print("-------------- Disconnected " + portName + " @ " + baudRate + " --------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS : ALT_CONNECTION_STATUS);
         }
     }
 
@@ -192,7 +186,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
                 e.printStackTrace(s);
                 s.close();
                 out.flush();
-                try { out.close();} catch (IOException ignored) {}
+                try { out.close(); } catch (IOException ignored) { }
                 myConsoleView.print(out.toString(), viewContentType);
                 myConsoleView.print("\n", viewContentType);
             }
@@ -204,11 +198,10 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         addIfFoundAction(filteredActions, actions, ToggleUseSoftWrapsToolbarAction.class);
         addIfFoundAction(filteredActions, actions, ScrollToTheEndToolbarAction.class);
         addIfFoundAction(filteredActions, actions, ActionManager.getInstance().getAction("Print").getClass());
-        
+
         // try to load the new version, if not found try the old
-        //noinspection MissingRecentApi
         if (!addIfFoundAction(filteredActions, actions, ClearConsoleAction.class)) {
-            //noinspection UnstableApiUsage,removal
+            //noinspection removal,UnnecessarilyQualifiedInnerClassAccess
             addIfFoundAction(filteredActions, actions, ConsoleViewImpl.ClearAllAction.class);
         }
 
@@ -231,11 +224,11 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
 
     @Override
     public void dispose() {
+        SerialProjectComponent.getInstance(myProject).removePortListener(this);
+
         if (myConsoleView != null) {
             Disposer.dispose(myConsoleView);
             myConsoleView = null;
         }
-        //mySerialService.removePortStateListener(portStateListener);
-        //mySerialService.removeDataListener(dataListener);
     }
 }

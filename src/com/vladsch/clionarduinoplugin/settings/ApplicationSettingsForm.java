@@ -57,6 +57,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 
 public class ApplicationSettingsForm implements Disposable, ApplicationSettingsListener {
     static final Logger LOG = Logger.getInstance("com.vladsch.clionarduinoplugin.settings");
@@ -88,6 +89,8 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
     private JLabel myToolchainTxtLabel;
 
     @NotNull ArduinoConfig myArduinoConfig;
+
+    private boolean myInUpdate = false;
 
     public JComponent getComponent() {
         return myMainPanel;
@@ -165,7 +168,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         );
 
         myToolchainTxtPath.addBrowseFolderListener(Bundle.message("settings.toolchain-txt-file-directory.title"), null, null,
-                new FileChooserDescriptor(true, false, false, false, false, false),
+                new FileChooserDescriptor(true, true, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
 
@@ -357,197 +360,209 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
     }
 
     void updateOptions(boolean onSet) {
-        myBoardsTxtPath.setEnabled(!myBundledBoardsTxt.isSelected());
-        myProgrammersTxtPath.setEnabled(!myBundledProgrammersTxt.isSelected());
-        myTemplatesPath.setEnabled(!myBundledTemplates.isSelected());
-        myToolchainTxtPath.setEnabled(!myBundledToolchainTxt.isSelected());
+        if (myInUpdate) return;
+        try {
+            myInUpdate = true;
+            myBoardsTxtPath.setEnabled(!myBundledBoardsTxt.isSelected());
+            myProgrammersTxtPath.setEnabled(!myBundledProgrammersTxt.isSelected());
+            myTemplatesPath.setEnabled(!myBundledTemplates.isSelected());
+            myToolchainTxtPath.setEnabled(!myBundledToolchainTxt.isSelected());
 
-        if (myBundledBoardsTxt.isSelected()) {
-            myBoardsTxtDiff.setVisible(false);
-            myBoardsTxtLabel.setVisible(true);
-        }
-
-        if (myBundledProgrammersTxt.isSelected()) {
-            myProgrammersTxtDiff.setVisible(false);
-            myProgrammersTxtLabel.setVisible(true);
-        }
-
-        if (myBundledTemplates.isSelected()) {
-            myTemplatesDiff.setVisible(false);
-            myTemplatesCreate.setVisible(false);
-            myTemplatesPathLabel.setVisible(true);
-        }
-
-        if (myBundledToolchainTxt.isSelected()) {
-            myToolchainTxtDiff.setVisible(false);
-            myToolchainTxtCreate.setVisible(false);
-            myToolchainTxtLabel.setVisible(true);
-        }
-
-        if (myBoardsTxtPath.isEnabled()) {
-            String boardsTxtPath = myBoardsTxtPath.getText();
-            String error = "";
-            boolean canShowDiff = false;
-            if (boardsTxtPath.isEmpty()) {
-                // using bundled boards txt
-                error = Bundle.message("settings.bundled-boards-txt.message");
-            } else {
-                // try to open and read the file
-                File file = new File(boardsTxtPath);
-                if (!file.exists()) {
-                    // should not happen
-                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-boards-txt.message") + "</span></body></html>";
-                } else if (file.isDirectory()) {
-                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.directory-boards-txt.message") + "</span></body></html>";
-                } else {
-                    canShowDiff = true;
-                    String fileTxt = ResourceUtils.getFileContent(file);
-                    ArduinoConfig arduinoConfig = new ArduinoConfig(fileTxt, "");
-                    if (arduinoConfig.getBoardIdMap().size() == 0) {
-                        // invalid
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-boards-txt.message") + "</span></body></html>";
-                    }
-                }
-            }
-
-            if (!error.isEmpty()) {
-                myBoardsTxtLabel.setText(error);
+            if (myBundledBoardsTxt.isSelected()) {
+                myBoardsTxtDiff.setVisible(false);
                 myBoardsTxtLabel.setVisible(true);
-                myBoardsTxtDiff.setVisible(canShowDiff);
-
-                if (onSet) {
-                    myBundledBoardsTxt.setSelected(true);
-                }
-            } else {
-                myBoardsTxtLabel.setVisible(false);
-                myBoardsTxtDiff.setVisible(true);
-            }
-        } else {
-            String error = Bundle.message("settings.bundled-boards-txt.message");
-            myBoardsTxtLabel.setText(error);
-        }
-
-        if (myProgrammersTxtPath.isEnabled()) {
-            String programmersTxtPath = myProgrammersTxtPath.getText();
-            String error = "";
-            boolean canShowDiff = false;
-            if (programmersTxtPath.isEmpty()) {
-                // using bundled programmers txt
-                error = Bundle.message("settings.bundled-programmers-txt.message");
-            } else {
-                // try to open and read the file
-                File file = new File(programmersTxtPath);
-                if (!file.exists()) {
-                    // should not happen
-                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-programmers-txt.message") + "</span></body></html>";
-                } else if (file.isDirectory()) {
-                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.directory-programmers-txt.message") + "</span></body></html>";
-                } else {
-                    canShowDiff = true;
-                    String fileTxt = ResourceUtils.getFileContent(file);
-                    ArduinoConfig arduinoConfig = new ArduinoConfig("", fileTxt);
-                    if (arduinoConfig.getProgrammerIdMap().size() == 0) {
-                        // invalid
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-programmers-txt.message") + "</span></body></html>";
-                    }
-                }
             }
 
-            if (!error.isEmpty()) {
-                myProgrammersTxtLabel.setText(error);
+            if (myBundledProgrammersTxt.isSelected()) {
+                myProgrammersTxtDiff.setVisible(false);
                 myProgrammersTxtLabel.setVisible(true);
-                myProgrammersTxtDiff.setVisible(canShowDiff);
-
-                if (onSet) {
-                    myBundledProgrammersTxt.setSelected(true);
-                }
-            } else {
-                myProgrammersTxtLabel.setVisible(false);
-                myProgrammersTxtDiff.setVisible(true);
-            }
-        } else {
-            String error = Bundle.message("settings.bundled-programmers-txt.message");
-            myProgrammersTxtLabel.setText(error);
-        }
-
-        if (myTemplatesPath.isEnabled()) {
-            String templatesPath = myTemplatesPath.getText();
-            String error = "";
-            boolean canCreate = false;
-            boolean canShowDiff = false;
-            if (templatesPath.isEmpty()) {
-                // using bundled programmers txt
-                error = Bundle.message("settings.bundled-templates.message");
-            } else {
-                // try to open and read the file
-                File file = new File(templatesPath);
-                if (!file.exists()) {
-                    // should not happen
-                    String parentPath = file.getPath();
-
-                    while (!parentPath.isEmpty()) {
-                        File parent = new File(parentPath);
-                        if (parent.exists()) {
-                            canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
-                            break;
-                        }
-                        int pos = parentPath.lastIndexOf(File.separator);
-                        if (pos <= 0) break;
-
-                        parentPath = parentPath.substring(0, pos);
-                    }
-
-                    if (!canCreate) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-templates-rw.message") + "</span></body></html>";
-                    } else {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-templates.message") + "</span></body></html>";
-                    }
-                } else if (file.isFile()) {
-                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-templates.message") + "</span></body></html>";
-                } else {
-                    canShowDiff = false; // does not work for non-project directories
-
-                    // should have all files in respective template types
-                    if (!TemplateResolver.INSTANCE.haveAllTemplates(file)) {
-                        // invalid
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-templates.message") + "</span></body></html>";
-                    }
-                }
             }
 
-            if (!error.isEmpty()) {
-                myTemplatesPathLabel.setText(error);
-                myTemplatesPathLabel.setVisible(true);
-                myTemplatesDiff.setVisible(canShowDiff);
-                myTemplatesCreate.setVisible(canCreate);
-
-                if (onSet) {
-                    myBundledTemplates.setSelected(true);
-                }
-            } else {
-                myTemplatesPathLabel.setVisible(false);
-                myTemplatesDiff.setVisible(canShowDiff);
+            if (myBundledTemplates.isSelected()) {
+                myTemplatesDiff.setVisible(false);
                 myTemplatesCreate.setVisible(false);
+                myTemplatesPathLabel.setVisible(true);
             }
-        } else {
-            String error = Bundle.message("settings.bundled-templates.message");
-            myTemplatesPathLabel.setText(error);
-        }
 
-        if (myToolchainTxtPath.isEnabled()) {
-            String toolchainTxtPathText = myToolchainTxtPath.getText();
-            String error = "";
-            boolean canCreate = false;
-            boolean canShowDiff = false;
-            if (toolchainTxtPathText.isEmpty()) {
-                error = Bundle.message("settings.bundled-toolchain.message");
-            } else {
-                // try to open and read the file
-                File file = new File(toolchainTxtPathText);
-                if (!file.exists() || file.isDirectory()) {
-                    if (file.isDirectory()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-directory.message") + "</span></body></html>";
+            if (myBundledToolchainTxt.isSelected()) {
+                myToolchainTxtDiff.setVisible(false);
+                myToolchainTxtCreate.setVisible(false);
+                myToolchainTxtLabel.setVisible(true);
+            }
+
+            if (myBoardsTxtPath.isEnabled()) {
+                String boardsTxtPath = myBoardsTxtPath.getText();
+                String error = "";
+                boolean canShowDiff = false;
+                if (boardsTxtPath.isEmpty()) {
+                    // using bundled boards txt
+                    error = Bundle.message("settings.bundled-boards-txt.message");
+                } else {
+                    // try to open and read the file
+                    File file = new File(boardsTxtPath);
+                    if (!file.exists()) {
+                        // should not happen
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-boards-txt.message") + "</span></body></html>";
+                    } else if (file.isDirectory()) {
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.directory-boards-txt.message") + "</span></body></html>";
                     } else {
+                        canShowDiff = true;
+                        String fileTxt = ResourceUtils.getFileContent(file);
+                        ArduinoConfig arduinoConfig = new ArduinoConfig(fileTxt, "");
+                        if (arduinoConfig.getBoardIdMap().size() == 0) {
+                            // invalid
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-boards-txt.message") + "</span></body></html>";
+                        }
+                    }
+                }
+
+                if (!error.isEmpty()) {
+                    myBoardsTxtLabel.setText(error);
+                    myBoardsTxtLabel.setVisible(true);
+                    myBoardsTxtDiff.setVisible(canShowDiff);
+
+                    if (onSet) {
+                        myBundledBoardsTxt.setSelected(true);
+                    }
+                } else {
+                    myBoardsTxtLabel.setVisible(false);
+                    myBoardsTxtDiff.setVisible(true);
+                }
+            } else {
+                String error = Bundle.message("settings.bundled-boards-txt.message");
+                myBoardsTxtLabel.setText(error);
+            }
+
+            if (myProgrammersTxtPath.isEnabled()) {
+                String programmersTxtPath = myProgrammersTxtPath.getText();
+                String error = "";
+                boolean canShowDiff = false;
+                if (programmersTxtPath.isEmpty()) {
+                    // using bundled programmers txt
+                    error = Bundle.message("settings.bundled-programmers-txt.message");
+                } else {
+                    // try to open and read the file
+                    File file = new File(programmersTxtPath);
+                    if (!file.exists()) {
+                        // should not happen
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-programmers-txt.message") + "</span></body></html>";
+                    } else if (file.isDirectory()) {
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.directory-programmers-txt.message") + "</span></body></html>";
+                    } else {
+                        canShowDiff = true;
+                        String fileTxt = ResourceUtils.getFileContent(file);
+                        ArduinoConfig arduinoConfig = new ArduinoConfig("", fileTxt);
+                        if (arduinoConfig.getProgrammerIdMap().size() == 0) {
+                            // invalid
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-programmers-txt.message") + "</span></body></html>";
+                        }
+                    }
+                }
+
+                if (!error.isEmpty()) {
+                    myProgrammersTxtLabel.setText(error);
+                    myProgrammersTxtLabel.setVisible(true);
+                    myProgrammersTxtDiff.setVisible(canShowDiff);
+
+                    if (onSet) {
+                        myBundledProgrammersTxt.setSelected(true);
+                    }
+                } else {
+                    myProgrammersTxtLabel.setVisible(false);
+                    myProgrammersTxtDiff.setVisible(true);
+                }
+            } else {
+                String error = Bundle.message("settings.bundled-programmers-txt.message");
+                myProgrammersTxtLabel.setText(error);
+            }
+
+            if (myTemplatesPath.isEnabled()) {
+                String templatesPath = myTemplatesPath.getText();
+                String error = "";
+                boolean canCreate = false;
+                boolean canShowDiff = false;
+                if (templatesPath.isEmpty()) {
+                    // using bundled programmers txt
+                    error = Bundle.message("settings.bundled-templates.message");
+                } else {
+                    // try to open and read the file
+                    File file = new File(templatesPath);
+                    if (!file.exists()) {
+                        // should not happen
+                        String parentPath = file.getPath();
+
+                        while (!parentPath.isEmpty()) {
+                            File parent = new File(parentPath);
+                            if (parent.exists()) {
+                                canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
+                                break;
+                            }
+                            int pos = parentPath.lastIndexOf(File.separator);
+                            if (pos <= 0) break;
+
+                            parentPath = parentPath.substring(0, pos);
+                        }
+
+                        if (!canCreate) {
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-templates-rw.message") + "</span></body></html>";
+                        } else {
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-templates.message") + "</span></body></html>";
+                        }
+                    } else if (file.isFile()) {
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-templates.message") + "</span></body></html>";
+                    } else {
+                        canShowDiff = false; // does not work for non-project directories
+
+                        // should have all files in respective template types
+                        if (!TemplateResolver.INSTANCE.haveAllTemplates(file)) {
+                            // invalid
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-templates.message") + "</span></body></html>";
+                        }
+                    }
+                }
+
+                if (!error.isEmpty()) {
+                    myTemplatesPathLabel.setText(error);
+                    myTemplatesPathLabel.setVisible(true);
+                    myTemplatesDiff.setVisible(canShowDiff);
+                    myTemplatesCreate.setVisible(canCreate);
+
+                    if (onSet) {
+                        myBundledTemplates.setSelected(true);
+                    }
+                } else {
+                    myTemplatesPathLabel.setVisible(false);
+                    myTemplatesDiff.setVisible(canShowDiff);
+                    myTemplatesCreate.setVisible(false);
+                }
+            } else {
+                String error = Bundle.message("settings.bundled-templates.message");
+                myTemplatesPathLabel.setText(error);
+            }
+
+            if (myToolchainTxtPath.isEnabled()) {
+                String toolchainTxtPathText = myToolchainTxtPath.getText();
+                String error = "";
+                boolean canCreate = false;
+                boolean canShowDiff = false;
+                if (toolchainTxtPathText.isEmpty()) {
+                    error = Bundle.message("settings.bundled-toolchain.message");
+                } else {
+                    // try to open and read the file
+                    File file = new File(toolchainTxtPathText);
+                    if (!file.exists() || file.isDirectory()) {
+                        if (file.isDirectory()) {
+                            // add file name automatically 
+                            Path toolchainPath = Path.of(toolchainTxtPathText, "ArduinoToolchain.cmake");
+                            toolchainTxtPathText = toolchainPath.toString();
+                            file = toolchainPath.toFile();
+                            String finalToolchainTxtPathText = toolchainTxtPathText;
+                            ApplicationManager.getApplication().invokeLater(() -> {
+                                myToolchainTxtPath.setText(finalToolchainTxtPathText);
+                            });
+                            //error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-directory.message") + "</span></body></html>";
+                        }
+
                         String parentPath = file.getParent();
 
                         while (!parentPath.isEmpty()) {
@@ -566,32 +581,34 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                         } else {
                             error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain.message") + "</span></body></html>";
                         }
+                    } else if (file.isDirectory()) {
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-toolchain.message") + "</span></body></html>";
+                    } else {
+                        // not necessarily our bundled toolchain
+                        canShowDiff = true;
                     }
-                } else if (file.isDirectory()) {
-                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-toolchain.message") + "</span></body></html>";
-                } else {
-                    // not necessarily our bundled toolchain
-                    canShowDiff = true;
                 }
-            }
 
-            if (!error.isEmpty()) {
-                myToolchainTxtLabel.setText(error);
-                myToolchainTxtLabel.setVisible(true);
-                myToolchainTxtDiff.setVisible(canShowDiff);
-                myToolchainTxtCreate.setVisible(canCreate);
+                if (!error.isEmpty()) {
+                    myToolchainTxtLabel.setText(error);
+                    myToolchainTxtLabel.setVisible(true);
+                    myToolchainTxtDiff.setVisible(canShowDiff);
+                    myToolchainTxtCreate.setVisible(canCreate);
 
-                if (onSet) {
-                    myBundledToolchainTxt.setSelected(true);
+                    if (onSet) {
+                        myBundledToolchainTxt.setSelected(true);
+                    }
+                } else {
+                    myToolchainTxtLabel.setVisible(false);
+                    myToolchainTxtDiff.setVisible(canShowDiff);
+                    myToolchainTxtCreate.setVisible(false);
                 }
             } else {
-                myToolchainTxtLabel.setVisible(false);
-                myToolchainTxtDiff.setVisible(canShowDiff);
-                myToolchainTxtCreate.setVisible(false);
+                String error = Bundle.message("settings.bundled-toolchain.message");
+                myToolchainTxtLabel.setText(error);
             }
-        } else {
-            String error = Bundle.message("settings.bundled-toolchain.message");
-            myToolchainTxtLabel.setText(error);
+        } finally {
+            myInUpdate = false;
         }
     }
 
@@ -625,9 +642,6 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
-        //myNewSketchForm = new NewProjectSettingsForm(false,true);
-        //myNewLibraryForm = new NewProjectSettingsForm(true,true);
         final SpinnerNumberModel model = new SpinnerNumberModel(20, 0, 100, 5);
         myDisconnectRestTime = new JSpinner(model);
     }

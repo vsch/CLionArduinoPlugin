@@ -62,16 +62,11 @@ class SerialMonitorStatusBarWidgetFactory implements StatusBarWidgetFactory {
 
     @Override
     public void disposeWidget(@NotNull StatusBarWidget widget) {
-        widget.dispose();
+        
     }
 
     @Override
     public boolean canBeEnabledOn(@NotNull StatusBar bar) {
-        Project project = bar.getProject();
-        if (project != null) {
-            SerialProjectComponent serialProjectComponent = SerialProjectComponent.getInstance(project);
-            return serialProjectComponent.myStatusWidget != null && serialProjectComponent.myStatusWidget.isEnabled();
-        }
-        return false;
+        return true;
     }
 }

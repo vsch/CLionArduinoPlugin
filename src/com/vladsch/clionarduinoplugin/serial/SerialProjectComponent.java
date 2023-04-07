@@ -1,24 +1,19 @@
 package com.vladsch.clionarduinoplugin.serial;
 
 import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.StatusBar;
-import com.intellij.openapi.wm.StatusBarWidget;
-import com.intellij.openapi.wm.StatusBarWidgetFactory;
-import com.intellij.openapi.wm.ToolWindowManager;
-import com.intellij.serviceContainer.NonInjectable;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.intellij.openapi.wm.ToolWindow;
+import com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent;
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
+import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,11 +23,12 @@ import java.util.Set;
 
 import static com.vladsch.clionarduinoplugin.serial.SerialMonitorPanel.ALT_CONNECTION_STATUS;
 
-public class SerialProjectComponent implements ProjectComponent, BuildListener {
+public class SerialProjectComponent implements BuildListener, Disposable, ProjectSettingsListener {
     private static final Logger LOG = Logger.getInstance("com.vladsch.clionarduinoplugin.serial");
     public static final String NEED_CLION_2018_3_OR_LATER = "Build monitoring not available. Need CLion 2018.3 or later";
 
     final Project myProject;
+    private ArduinoApplicationComponent myApplicationComponent;
     @Nullable StatusWidget myStatusWidget;
     final @NotNull ArduinoProjectSettings myProjectSettings;
     boolean myIsBuilding = false;
@@ -40,29 +36,21 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
     String myConnectedPort;
     int myConnectedBaudRate;
     private SerialPortManager myPortManager;
-    @Nullable SerialMonitorToolWindow mySerialMonitorToolWindow;
-    BuildMonitor myBuildMonitor = null;
+    ToolWindow myToolWindow;
+    SerialMonitorPanel mySerialMonitorPanel;
+    BuildMonitor myBuildMonitor;
 
     SerialPort mySerialPort;
-    final Set<SerialPortListener> myListeners = Collections.synchronizedSet(new HashSet<SerialPortListener>());
+
+    final Set<SerialPortListener> myListeners = Collections.synchronizedSet(new HashSet<>());
 
     public SerialProjectComponent(final Project project) {
         myProject = project;
+        myApplicationComponent = ArduinoApplicationComponent.getInstance();
         myProjectSettings = ArduinoProjectSettings.getInstance(myProject);
-    }
-
-    @Override
-    public void projectOpened() {
-//        StatusBar statusBar = WindowManager.getInstance().getStatusBar(myProject);
-//        //statusBar.addWidget(myStatusWidget, "before ToolWindows Widget");
-//        //statusBar.addWidget(myStatusWidget, "after ToolWindows Widget");
-//        //statusBar.addWidget(myStatusWidget, "before Memory");
-//        //statusBar.addWidget(myStatusWidget, "after Memory");
-//        //statusBar.addWidget(myStatusWidget, "before InfoAndProgress");
-//        //statusBar.addWidget(myStatusWidget, "after InfoAndProgress");
-//        statusBar.addWidget(myStatusWidget, "__AUTODETECT__");
 
         try {
+            //noinspection ThisEscapedInObjectConstruction
             myBuildMonitor = new BuildMonitor(myProject, this);
             myBuildMonitor.projectOpened();
             try {
@@ -78,51 +66,55 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
             myBuildMonitor = null;
         }
 
-        if (myStatusWidget != null) {
-            myStatusWidget.setStatus(true, false, canConnectPort());
-        }
-
-        ToolWindowManager.getInstance(myProject).invokeLater(() -> {
-            mySerialMonitorToolWindow = new SerialMonitorToolWindow(myProject);
-        });
-    }
-
-    @Override
-    public void projectClosed() {
-        //StatusBar statusBar = WindowManager.getInstance().getStatusBar(myProject);
-        //statusBar.removeWidget(myStatusWidget.ID());
-        disconnectPort();
-        myListeners.clear();
-
-        // NOTE: now handled by disposer
-//        if (mySerialMonitorToolWindow != null) {
-//            mySerialMonitorToolWindow.unregisterToolWindow();
-//            mySerialMonitorToolWindow = null;
-//        }
-
-        if (myBuildMonitor != null) {
-            myBuildMonitor.projectClosed();
-            myBuildMonitor = null;
-        }
-
-        if (myStatusWidget != null) {
-            myStatusWidget.dispose();
-            myStatusWidget = null;
-        }
-
-        SerialPortManager portManager = ApplicationManager.getApplication().getComponent(SerialPortManager.class);
-        portManager.removeProjectComponent(this);
-    }
-
-    @Override
-    public void initComponent() {
         myPortManager = SerialPortManager.getInstance();
+
+        project.getMessageBus().connect(this).subscribe(ProjectSettingsListener.TOPIC, this);
     }
 
     @Override
-    public void disposeComponent() {
-        disconnectPort();
-        myPortManager = null;
+    public void onSettingsChanged() {
+        if (isPortConnected() && (myConnectedBaudRate != myProjectSettings.getBaudRate() || !myConnectedPort.equals(myProjectSettings.getPort()))) {
+            if (myPortManager.disconnectPort(myProjectSettings.getPort())) {
+                // need to pause for a very short delay to allow port to reset
+                int restTime = ArduinoApplicationSettings.getInstance().getDisconnectRestTime();
+                if (restTime > 0) {
+                    try {
+                        Thread.sleep(restTime);
+                    } catch (InterruptedException ignored) {
+                    }
+                }
+            }
+
+            connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
+        }
+    }
+
+    public static SerialProjectComponent getInstance(@NotNull Project project) {
+        return project.getService(SerialProjectComponent.class);
+    }
+
+    @Override
+    public void dispose() {
+        if (mySerialMonitorPanel != null) {
+            mySerialMonitorPanel.dispose();
+            mySerialMonitorPanel = null;
+            myApplicationComponent = null;
+
+            disconnectPort();
+            myPortManager = null;
+
+            myListeners.clear();
+
+            if (myBuildMonitor != null) {
+                myBuildMonitor.projectClosed();
+                myBuildMonitor = null;
+            }
+
+            myStatusWidget = null;
+
+            SerialPortManager portManager = SerialPortManager.getInstance();
+            portManager.removeProjectComponent(this);
+        }
     }
 
     @Override
@@ -154,31 +146,20 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
         myIsBuilding = false;
         if (myWasConnected && myProjectSettings.isReconnectAfterBuild()) {
             if (!myProjectSettings.isAfterSuccessfulBuild() || success) {
-                if (mySerialMonitorToolWindow != null
-                        && mySerialMonitorToolWindow.getSerialMonitorPanel() != null
-                        && mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView() != null
-                ) {
-                    mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView().clear();
-                }
+                clearSerialMonitorConsole();
                 connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
             }
         }
+
         if (myStatusWidget != null) {
             myStatusWidget.setStatus(true, myConnectedPort != null, canConnectPort());
         }
     }
 
     public void clearSerialMonitorConsole() {
-        if (mySerialMonitorToolWindow != null
-                && mySerialMonitorToolWindow.getSerialMonitorPanel() != null
-                && mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView() != null
-        ) {
-            mySerialMonitorToolWindow.getSerialMonitorPanel().getConsoleView().clear();
+        if (mySerialMonitorPanel != null && mySerialMonitorPanel.getConsoleView() != null) {
+            mySerialMonitorPanel.getConsoleView().clear();
         }
-    }
-
-    public boolean canClearSerialMonitorConsole() {
-        return mySerialMonitorToolWindow != null;
     }
 
     public boolean isBuildMonitored() {
@@ -202,13 +183,9 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
                 myConnectedBaudRate = baudRate;
                 myPortManager.setPortOwner(this, myConnectedPort);
 
-                if (myStatusWidget != null) {
-                    myStatusWidget.setStatus(true, true, true);
-                }
-
-                if (myProjectSettings.isActivateOnConnect()) {
+                if (myProjectSettings.isActivateOnConnect() && myToolWindow != null) {
                     // active tool window
-                    mySerialMonitorToolWindow.activate();
+                    myToolWindow.show(null);
                 }
             }
         }
@@ -222,10 +199,6 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
 
     public boolean isBuilding() {
         return myIsBuilding;
-    }
-
-    public boolean isWasConnected() {
-        return myWasConnected;
     }
 
     public String getConnectedPort() {
@@ -260,9 +233,6 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
             }
 
             myConnectedPort = null;
-            if (!myIsBuilding) {
-                myStatusWidget.setStatus(true, false, canConnectPort());
-            }
         }
     }
 
@@ -273,20 +243,11 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
     }
 
     public boolean canConnectPort() {
-        return !myIsBuilding && SerialPortManager.getInstance().getSerialPorts(true).contains(myProjectSettings.getPort());
+        return !myIsBuilding && SerialPortManager.getSerialPorts(true).contains(myProjectSettings.getPort());
     }
 
     public Project getProject() {
         return myProject;
-    }
-
-    @Override
-    public @NotNull String getComponentName() {
-        return "Arduino Support Terminal Component";
-    }
-
-    public static SerialProjectComponent getInstance(@NotNull Project project) {
-        return project.getComponent(SerialProjectComponent.class);
     }
 
     private void connect(String portName, int baudRate) {
@@ -313,6 +274,7 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
                     "space",
             };
 
+            //noinspection ConstantValue
             String message = "Failed to set port parameters { baud: " + baudRate +
                     ", dataBits: " + dataBits +
                     ", stopBits: " + stopBitNames[stopBits] +
@@ -323,7 +285,6 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
             //notifySerialError(true, message, null);
 
             if (!mySerialPort.setParams(baudRate, dataBits, stopBits, parity, rts, dtr)) {
-                // TODO: signal error
                 // Failed to set parameters
                 mySerialPort = null;
                 notifySerialError(true, message, null);
@@ -392,20 +353,9 @@ public class SerialProjectComponent implements ProjectComponent, BuildListener {
 
     public void addPortListener(@NotNull SerialPortListener listener) {
         myListeners.add(listener);
-
-        if (listener instanceof SerialMonitorPanel) {
-            ApplicationManager.getApplication().invokeLater(() -> {
-                if (myBuildMonitor == null) {
-                    notifySerialError(false, NEED_CLION_2018_3_OR_LATER, null);
-                }
-
-                //notifySerialError(false, "Initialized", null);
-                //notifySerialError(true, "Error Test", null);
-            });
-        }
     }
 
-    public void removeListener(SerialPortListener listener) {
+    public void removePortListener(SerialPortListener listener) {
         myListeners.remove(listener);
     }
 }

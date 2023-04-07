@@ -85,8 +85,8 @@ function Upd() {
     done
 }
 
-Upd "CLion2020-2" "plugins-sandbox-mn"
-Upd "CLion2020-3" "plugins-sandbox-mn"
+# Upd "CLion2020-2" "plugins-sandbox"
+# Upd "CLion2020-3" "plugins-sandbox"
 Upd "CLion2021-2" "plugins-sandbox"
 
 # for plugin debugging in intellij-community under debugging

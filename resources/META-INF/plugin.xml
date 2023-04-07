@@ -4,7 +4,7 @@
     <name>Arduino Support</name>
     <vendor email="" url="https://github.com/vsch/CLionArduinoPlugin">Vladimir Schneider</vendor>
 
-    <version>1.5.11</version>
+    <version>1.5.15</version>
     <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
     <depends>com.intellij.modules.clion</depends>
@@ -284,42 +284,25 @@
                     canCloseContents="false"
                     secondary="false"
                     icon="PluginIcons.serial_port_tool"
-                    largeStripeAnchor="left"
-        />
+                    largeStripeAnchor="left"/>
 
         <statusBarWidgetFactory implementation="com.vladsch.clionarduinoplugin.serial.SerialMonitorStatusBarWidgetFactory"
-                                id="ArduinoSupport.SerialMonitor"
-        />
+                                id="ArduinoSupport.SerialMonitor"/>
+        
+        <applicationService serviceImplementation="com.vladsch.clionarduinoplugin.serial.SerialPortManager"/>
+        <applicationService serviceImplementation="com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent"/>
+        <projectService serviceImplementation="com.vladsch.clionarduinoplugin.components.ArduinoProjectComponent"/>
+        <projectService serviceImplementation="com.vladsch.clionarduinoplugin.serial.SerialProjectComponent"/>
     </extensions>
-
-    <application-components>
-        <!-- Add your application components here -->
-        <component>
-            <implementation-class>com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent</implementation-class>
-        </component>
-        <component>
-            <implementation-class>com.vladsch.clionarduinoplugin.serial.SerialPortManager</implementation-class>
-        </component>
-    </application-components>
-
-    <project-components>
-        <!-- Add your project components here -->
-        <component>
-            <implementation-class>com.vladsch.clionarduinoplugin.serial.SerialProjectComponent</implementation-class>
-        </component>
-        <component>
-            <implementation-class>com.vladsch.clionarduinoplugin.components.ArduinoProjectComponent</implementation-class>
-        </component>
-    </project-components>
 
     <actions>
         <group id="com.vladsch.clionarduinoplugin.actions.ToolsMenu" text="Arduino Support" popup="true" icon="PluginIcons.arduino_plugin_logo">
-            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="ExternalToolsGroup"/>
+            <add-to-group group-id="BuildMenu" anchor="after" relative-to-action="Clean"/>
+            <separator/>
             <action class="com.vladsch.clionarduinoplugin.actions.ChangeBuildSettingsAction"
                     id="com.vladsch.clionarduinoplugin.actions.ChangeBuildSettings"
-                    text="Change build settings"
-                    description="Change Arduino project board, cpu, programmer, etc."
-            >
+                    text="Change Build Settings"
+                    description="Change Arduino project board, cpu, programmer, etc.">
                 <!--                icon="PluginIcons.arduino_sketch"-->
                 <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
             </action>
@@ -328,7 +311,7 @@
         <!-- Add your actions here -->
         <action id="com.vladsch.clionarduinoplugin.actions.NewSketchFile"
                 class="com.vladsch.clionarduinoplugin.actions.NewSketchFile"
-                text="Arduino Sketch" description="New Arduino Sketch File"
+                text="Arduino Sketch" description="Create a new arduino sketch file"
                 icon="PluginIcons.arduino_sketch">
             <add-to-group group-id="NewGroup" anchor="first"/>
         </action>

@@ -1,7 +1,6 @@
 package com.vladsch.clionarduinoplugin.generators.cmake;
 
 import com.vladsch.flexmark.test.util.spec.IRenderBase;
-import com.vladsch.flexmark.util.ast.IRender;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.DataHolder;
 import org.jetbrains.annotations.NotNull;

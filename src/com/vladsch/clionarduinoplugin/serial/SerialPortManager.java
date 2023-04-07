@@ -1,7 +1,7 @@
 package com.vladsch.clionarduinoplugin.serial;
 
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.BaseComponent;
 import com.vladsch.clionarduinoplugin.generators.SerialPortList;
 import jssc.SerialNativeInterface;
 import org.jetbrains.annotations.NotNull;
@@ -12,14 +12,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SerialPortManager implements BaseComponent {
+public class SerialPortManager implements Disposable {
     private final HashMap<String, SerialProjectComponent> myConnectedSerialPorts;
 
     public SerialPortManager() {
         myConnectedSerialPorts = new HashMap<>();
     }
 
-    public ArrayList<String> getSerialPorts(Boolean filtered) {
+    @Override
+    public void dispose() {
+        
+    }
+
+    public static ArrayList<String> getSerialPorts(Boolean filtered) {
         ArrayList<String> ports = new ArrayList<>();
 
         if (filtered && SerialNativeInterface.getOsType() == SerialNativeInterface.OS_MAC_OS_X) {
@@ -74,17 +79,7 @@ public class SerialPortManager implements BaseComponent {
         return false;
     }
 
-    @Override
-    public void initComponent() {
-
-    }
-
-    @Override
-    public void disposeComponent() {
-
-    }
-
     public static SerialPortManager getInstance() {
-        return ApplicationManager.getApplication().getComponent(SerialPortManager.class);
+        return ApplicationManager.getApplication().getService(SerialPortManager.class);
     }
 }

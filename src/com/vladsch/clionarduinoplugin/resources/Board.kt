@@ -1,7 +1,5 @@
 package com.vladsch.clionarduinoplugin.resources
 
-import org.jetbrains.builtInWebServer.validateToken
-
 class Board(val id: String, val name: String, val cpuNameMap: LinkedHashMap<String, String>) {
     private val nameCpuMap: HashMap<String, String> by lazy {
         val map = HashMap<String, String>()

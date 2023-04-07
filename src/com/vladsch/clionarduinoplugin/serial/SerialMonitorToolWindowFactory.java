@@ -34,27 +34,25 @@ import com.vladsch.clionarduinoplugin.Bundle;
 import org.jetbrains.annotations.NotNull;
 
 class SerialMonitorToolWindowFactory implements ToolWindowFactory, DumbAware {
+    public SerialMonitorToolWindowFactory() {
+        int tmp = 0;
+    }
+
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow window) {
-//            window = ToolWindowManager.getInstance(project).registerToolWindow(TOOL_WINDOW_ID, false, ToolWindowAnchor.BOTTOM, this, true);
         SerialProjectComponent serialProjectComponent = SerialProjectComponent.getInstance(project);
 
-        if (serialProjectComponent.mySerialMonitorToolWindow != null) {
-            serialProjectComponent.mySerialMonitorToolWindow.mySerialMonitorPanel = new SerialMonitorPanel(project);
-            Disposer.register(serialProjectComponent.mySerialMonitorToolWindow, serialProjectComponent.mySerialMonitorToolWindow.mySerialMonitorPanel);
+        serialProjectComponent.mySerialMonitorPanel = new SerialMonitorPanel(project);
+        Disposer.register(serialProjectComponent, serialProjectComponent.mySerialMonitorPanel);
 
-            //JPanel mainPanel = new JPanel(new BorderLayout());
-            //mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            SimpleToolWindowPanel mainPanel = new SimpleToolWindowPanel(false, true);
+        SimpleToolWindowPanel mainPanel = new SimpleToolWindowPanel(false, true);
 
-            mainPanel.add(serialProjectComponent.mySerialMonitorToolWindow.mySerialMonitorPanel.getComponent());
+        mainPanel.add(serialProjectComponent.mySerialMonitorPanel.getComponent());
 
-            ContentFactory contentFactory = ApplicationManager.getApplication().getService(ContentFactory.class);
-            Content content = contentFactory.createContent(mainPanel, Bundle.message("toolwindow.serial-monitor.title"), false);
-            window.getContentManager().addContent(content);
-        } else {
-            int tmp = 0;
-        }
+        ContentFactory contentFactory = ApplicationManager.getApplication().getService(ContentFactory.class);
+        Content content = contentFactory.createContent(mainPanel, Bundle.message("toolwindow.serial-monitor.title"), false);
+        serialProjectComponent.myToolWindow = window;
+        window.getContentManager().addContent(content);
     }
 
     @Override

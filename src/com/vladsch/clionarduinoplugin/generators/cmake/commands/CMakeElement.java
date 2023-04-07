@@ -1,6 +1,5 @@
 package com.vladsch.clionarduinoplugin.generators.cmake.commands;
 
-import com.vladsch.flexmark.util.sequence.LineAppendable;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;

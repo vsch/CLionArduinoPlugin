@@ -4,7 +4,6 @@ import com.vladsch.clionarduinoplugin.serial.SerialPortManager;
 import com.vladsch.plugin.util.ui.ComboBoxAdapter;
 import com.vladsch.plugin.util.ui.ComboBoxAdapterImpl;
 import com.vladsch.plugin.util.ui.DynamicListAdaptable;
-import jssc.SerialPortList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +20,7 @@ public class SerialPortNames extends DynamicListAdaptable<SerialPortNames> {
     final public static Static<DynamicListAdaptable<SerialPortNames>> ADAPTER = new Static<>(new ComboBoxAdapterImpl<>(EMPTY));
 
     public static void updateValues(final boolean filtered, @Nullable JComboBox<String> comboBox, SerialPortNames... exclude) {
-        values = DynamicListAdaptable.updateValues(EMPTY, SerialPortManager.getInstance().getSerialPorts(filtered), true, SerialPortNames::new);
+        values = DynamicListAdaptable.updateValues(EMPTY, SerialPortManager.getSerialPorts(filtered), true, SerialPortNames::new);
         //noinspection unchecked
         ADAPTER.setDefaultValue(values[0]);
 

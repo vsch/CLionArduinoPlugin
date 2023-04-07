@@ -1,9 +1,7 @@
 package com.vladsch.clionarduinoplugin.actions
 
-import com.intellij.openapi.actionSystem.ActionGroup
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.Toggleable
+import com.intellij.openapi.actionSystem.*
+import com.vladsch.clionarduinoplugin.serial.SerialProjectComponent
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings
 import jssc.SerialPort
 
@@ -23,8 +21,9 @@ class SerialMonitorBaudRateAction(internal val myBaudRate: Int) : AnAction(Integ
         if (project != null) {
             val baudRate = ArduinoProjectSettings.getInstance(project).baudRate
             val presentation = e.presentation
-            presentation.putClientProperty(Toggleable.SELECTED_PROPERTY, baudRate == myBaudRate)
-            if (e.isFromContextMenu) {
+            
+            Toggleable.setSelected(presentation, baudRate == myBaudRate)
+            if (ActionPlaces.isPopupPlace(e.place)) {
                 //force to show check marks instead of toggled icons in context menu
                 presentation.icon = null
             }

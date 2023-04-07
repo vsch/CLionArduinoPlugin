@@ -5,19 +5,16 @@ import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
+import com.intellij.openapi.ui.popup.JBPopupFactory.ActionSelectionAid;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.Disposer;
-import com.intellij.openapi.wm.CustomStatusBarWidget;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
-import com.intellij.openapi.wm.impl.status.TextPanel;
 import com.intellij.ui.awt.RelativePoint;
-import com.intellij.util.Alarm;
 import com.intellij.util.Consumer;
-import com.intellij.util.ui.UIUtil;
 import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.actions.ConnectAction;
 import com.vladsch.clionarduinoplugin.actions.SerialMonitorBaudRateAction;
 import com.vladsch.clionarduinoplugin.actions.SerialMonitorPortAction;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
@@ -27,70 +24,45 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.Icon;
-import javax.swing.JComponent;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.IconPresentation, StatusBarWidget.MultipleTextValuesPresentation, ProjectSettingsListener {
+public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/ /*StatusBarWidget.IconPresentation,*/ StatusBarWidget.MultipleTextValuesPresentation, ProjectSettingsListener {
     public static final String SERIAL_MONITOR_ID = "ArduinoSupport.SerialMonitor";
     SerialProjectComponent mySerialProjectComponent;
     private StatusBar myStatusBar;
-    private Alarm myUpdate;
-    private final TextPanel.WithIconAndArrows myComponent;
     boolean myActionEnabled;
     private boolean myIsDisposed;
     private String myText;
     private String myTooltip;
     boolean myIsConnected;
     boolean myCanConnect;
+    private SerialPortListener mySerialPortListener;
+    private Icon myIcon = null;
 
     public StatusWidget(@NotNull SerialProjectComponent serialProjectComponent) {
         mySerialProjectComponent = serialProjectComponent;
-        //noinspection ThisEscapedInObjectConstruction
-        myUpdate = new Alarm(this);
         myActionEnabled = true;
 
-        myComponent = new TextPanel.WithIconAndArrows();
-
-        myComponent.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(final MouseEvent e) {
-                int button = e.getButton();
-                int clickCount = e.getClickCount();
-                if (button == 1) {
-                    if (myActionEnabled) {
-                        if (myIsConnected) {
-                            mySerialProjectComponent.disconnectPort();
-                        } else {
-                            if (myCanConnect) {
-                                mySerialProjectComponent.connectPort();
-                            } else {
-                                update(null);
-                                showPopup(e);
-                            }
-                        }
-                    }
-                    e.consume();
-                } else if (button == 3) {
-                    // show popup
-                    update(null);
-                    showPopup(e);
-                    e.consume();
-                }
-            }
-        });
-
+        //noinspection ThisEscapedInObjectConstruction
         serialProjectComponent.getProject().getMessageBus().connect(this).subscribe(ProjectSettingsListener.TOPIC, this);
-        //public static final Border ICON = JBUI.CurrentTheme.StatusBar.Widget.iconBorder();
-        //public static final Border INSTANCE = JBUI.CurrentTheme.StatusBar.Widget.border();
-        //public static final Border WIDE = ;
 
-        // DEPRECATED: replacement available only since 221.5080.210 
-        // myComponent.setBorder(JBUI.CurrentTheme.StatusBar.Widget.border());
-        myComponent.setBorder(WidgetBorder.WIDE);
+        mySerialPortListener = new SerialPortListener() {
+            @Override
+            public void onConnect(String portName, int baudRate) {
+                setStatus(true, true, true);
+            }
+
+            @Override
+            public void onDisconnect(String portName, int baudRate) {
+                setStatus(!serialProjectComponent.isBuilding(), false, serialProjectComponent.canConnectPort());
+            }
+        };
+
+        serialProjectComponent.addPortListener(mySerialPortListener);
+
+        setStatus(!serialProjectComponent.isBuilding(), serialProjectComponent.isPortConnected(), serialProjectComponent.canConnectPort());
     }
 
     public boolean isEnabled() {
@@ -99,12 +71,7 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
 
     @Override
     public void onSettingsChanged() {
-        update(null);
-    }
-
-    @Override
-    public JComponent getComponent() {
-        return myComponent;
+        update();
     }
 
     @Override
@@ -114,39 +81,42 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
 
     @Override
     public @NotNull Icon getIcon() {
-        return myIsConnected ? PluginIcons.serial_port : PluginIcons.serial_port_disconnected;
+        return myIcon;
     }
 
     @Override
     @Nullable("null means the widget is unable to show the popup")
     public ListPopup getPopupStep() {
-        //final ActionGroup group = SerialMonitorPortActionBase.Companion.createSerialPortsActionGroup();
-        final ActionGroup group = new ActionGroup() {
-            @NotNull
-            @Override
-            public AnAction[] getChildren(@Nullable final AnActionEvent e) {
-                return new AnAction[] {
-                        SerialMonitorPortAction.Companion.createSerialPortsActionGroup(),
-                        SerialMonitorBaudRateAction.Companion.createBaudRateActionGroup(),
-                };
-            }
-        };
+        if (myStatusBar != null) {
+            final ActionGroup group = new MyActionGroup();
 
-        DataContext context;
-        context = DataManager.getInstance().getDataContext(myComponent);
+            DataContext context = DataManager.getInstance().getDataContext(myStatusBar.getComponent());
 
-        return JBPopupFactory.getInstance().createActionGroupPopup(
-                "Serial Monitor",
-                group,
-                context,
-                JBPopupFactory.ActionSelectionAid.SPEEDSEARCH,
-                false
-        );
+            return JBPopupFactory.getInstance().createActionGroupPopup(
+                    "Serial Monitor",
+                    group,
+                    context,
+                    ActionSelectionAid.SPEEDSEARCH,
+                    false
+            );
+        }
+        return null;
+    }
+
+    private static class MyActionGroup extends ActionGroup {
+        @Override
+        public AnAction @NotNull [] getChildren(@Nullable final AnActionEvent e) {
+            return new AnAction[] {
+                    new ConnectAction(),
+                    SerialMonitorPortAction.Companion.createSerialPortsActionGroup(),
+                    SerialMonitorBaudRateAction.Companion.createBaudRateActionGroup(),
+            };
+        }
     }
 
     @Override
     public @Nullable String getSelectedValue() {
-        return Integer.toString(ArduinoProjectSettings.getInstance(mySerialProjectComponent.getProject()).getBaudRate());
+        return myText;
     }
 
     @Override
@@ -163,59 +133,40 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
     }
 
     @Override
-    public @Nullable WidgetPresentation getPresentation() {
-        return CustomStatusBarWidget.super.getPresentation();
-    }
-
-    @Override
     public void install(@NotNull final StatusBar statusBar) {
         myStatusBar = statusBar;
     }
 
     @Override
     public void dispose() {
-        myIsDisposed = true;
-        myUpdate = null;
-        myStatusBar = null;
-        mySerialProjectComponent = null;
+        if (!myIsDisposed) {
+            myIsDisposed = true;
+            myStatusBar = null;
+            mySerialProjectComponent.removePortListener(mySerialPortListener);
+            mySerialPortListener = null;
+            mySerialProjectComponent = null;
+            myIcon = null;
+            myText = null;
+            myTooltip = null;
+        }
     }
 
-    protected final boolean isDisposed() {
-        return myIsDisposed;
-    }
+    public void update() {
+        myText = null;
+        myIcon = null;
+        myTooltip = null;
 
-    public void update(@Nullable Runnable finishUpdate) {
-        if (myIsDisposed || myUpdate.isDisposed()) return;
+        if (myIsDisposed) return;
 
-        myUpdate.cancelAllRequests();
-        myUpdate.addRequest(() -> {
-            if (myIsDisposed || myUpdate.isDisposed()) return;
+        myActionEnabled = true;
+        myCanConnect = mySerialProjectComponent.canConnectPort();
+        myIcon = myIsConnected ? PluginIcons.serial_port : PluginIcons.serial_port_disconnected;
+        int baudRate = ArduinoProjectSettings.getInstance(mySerialProjectComponent.getProject()).getBaudRate();
+        myText = Integer.toString(baudRate);
 
-            myComponent.setVisible(true);
-            myActionEnabled = true;
-            myCanConnect = mySerialProjectComponent.canConnectPort();
-
-            if (myActionEnabled) {
-                myComponent.setForeground(UIUtil.getActiveTextColor());
-                myComponent.setTextAlignment(Component.LEFT_ALIGNMENT);
-            } else {
-                myComponent.setForeground(UIUtil.getInactiveTextColor());
-                myComponent.setTextAlignment(Component.CENTER_ALIGNMENT);
-            }
-
-            myComponent.setIcon(getIcon());
-            myComponent.setToolTipText(getTooltipText());
-            myComponent.setText(myText);
-            myComponent.invalidate();
-
-            if (myStatusBar != null) {
-                myStatusBar.updateWidget(ID());
-            }
-
-            if (finishUpdate != null) {
-                finishUpdate.run();
-            }
-        }, 200, ModalityState.any());
+        if (myStatusBar != null) {
+            myStatusBar.updateWidget(ID());
+        }
     }
 
     public void setStatus(final boolean isEnabled, final boolean isConnected, final boolean canConnect) {
@@ -228,7 +179,12 @@ public class StatusWidget implements CustomStatusBarWidget, StatusBarWidget.Icon
         myText = "";
         myTooltip = tooltip;
         myIsConnected = isConnected;
-        update(null);
+        update();
+    }
+
+    @Override
+    public @Nullable WidgetPresentation getPresentation() {
+        return this;
     }
 
     void showPopup(@NotNull MouseEvent e) {

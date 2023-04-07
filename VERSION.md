@@ -5,7 +5,8 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
-  - [1.5.11 Next](#1511-next)
+  - [1.5.15 Next](#1515-next)
+  - [1.5.11](#1511)
   - [1.5.9](#159)
   - [1.5.7](#157)
   - [1.5.6](#156)
@@ -45,8 +46,20 @@
 * [ ] Add: documentation for Windows installation to readme
 * [ ] Fix: update for latest flexmark-java lib 0.60.0
 
-### 1.5.11 Next
+### 1.5.15 Next
 
+* [ ] Add: check project settings and `CMakeLists.txt` and if they are out of sync:
+  * Offer to delete `cmake` directory in project if using non-bundled toolchain and it is not
+    the project's toolchain in `cmake`
+  * Offer to add the directory if it is missing
+  * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
+    toolchain file.
+* Fix: allow directories to be selected for toolchain file path.
+* Fix: if a directory is selected add `ArduinoToolchain.cmake` file name automatically.
+
+### 1.5.11
+
+* Change: minimum supported version is `201.6668.113`
 * Add: Toolchain file path option, wth diff and create, to allow not having a `cmake` directory
   and tool chain files in every project. Also allows to use different toolchain than
   `ArduinoCmake.cmake`.
@@ -282,11 +295,11 @@
 * Compiled with Java 6 for compatibility with OS X out of the box
 
 [#22, Open Existing Project files]: https://github.com/vsch/CLionArduinoPlugin/issues/22
+[Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub]: https://github.com/francoiscampbell/arduino-cmake/pull/3 "Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub"
 [Allow setting ARDUINO_SDK_PATH as environment variable]: https://github.com/Pro/arduino-cmake/commit/2f069184b029dbe5f91dd55e24b854ee79641510
 [Bug fix: Allow linking for sketches]: https://github.com/francoiscampbell/arduino-cmake/pull/10
 [Include directories when setting up the library. Added Servo_RECURSE.]: https://github.com/francoiscampbell/arduino-cmake/commit/dbd4fe372b9a0120325b429b3ed23c311ab3dc66
+[Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub]: https://github.com/francoiscampbell/arduino-cmake/pull/4 "Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub"
 [Support for ESP32 using Arduino libs]: https://github.com/altexdim/arduino-cmake/commit/f21fd1ae0c48583c2b498a24cfa2e65814fff483
 [arduino-cmake]: https://github.com/queezythegreat/arduino-cmake
-[Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub]: https://github.com/francoiscampbell/arduino-cmake/pull/4 "Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub"
-[Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub]: https://github.com/francoiscampbell/arduino-cmake/pull/3 "Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub"
 
