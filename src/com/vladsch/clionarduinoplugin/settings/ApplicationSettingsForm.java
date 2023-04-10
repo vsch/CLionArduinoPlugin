@@ -572,42 +572,46 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 } else {
                     // try to open and read the file
                     File file = new File(toolchainTxtPathText);
-                    if (!file.exists() || file.isDirectory()) {
-                        if (file.isDirectory()) {
-                            // add file name automatically 
-                            Path toolchainPath = Path.of(toolchainTxtPathText, "ArduinoToolchain.cmake");
-                            toolchainTxtPathText = toolchainPath.toString();
-                            file = toolchainPath.toFile();
-                            String finalToolchainTxtPathText = toolchainTxtPathText;
-                            ApplicationManager.getApplication().invokeLater(() -> {
-                                myToolchainTxtPath.setText(finalToolchainTxtPathText);
-                            });
-                            //error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-directory.message") + "</span></body></html>";
-                        }
-
-                        String parentPath = file.getParent();
-
-                        while (!parentPath.isEmpty()) {
-                            File parent = new File(parentPath);
-                            if (parent.exists()) {
-                                canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
-                                break;
+                    if (file.getName().equals("ArduinoToolchain.cmake")) {
+                        if (!file.exists() || file.isDirectory()) {
+                            if (file.isDirectory()) {
+                                // add file name automatically 
+                                Path toolchainPath = Path.of(toolchainTxtPathText, "ArduinoToolchain.cmake");
+                                toolchainTxtPathText = toolchainPath.toString();
+                                file = toolchainPath.toFile();
+                                String finalToolchainTxtPathText = toolchainTxtPathText;
+                                ApplicationManager.getApplication().invokeLater(() -> {
+                                    myToolchainTxtPath.setText(finalToolchainTxtPathText);
+                                });
+                                //error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-directory.message") + "</span></body></html>";
                             }
-                            int pos = parentPath.lastIndexOf(File.separator);
-                            if (pos <= 0) break;
 
-                            parentPath = parentPath.substring(0, pos);
-                        }
-                        if (!canCreate) {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-rw.message") + "</span></body></html>";
+                            String parentPath = file.getParent();
+
+                            while (!parentPath.isEmpty()) {
+                                File parent = new File(parentPath);
+                                if (parent.exists()) {
+                                    canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
+                                    break;
+                                }
+                                int pos = parentPath.lastIndexOf(File.separator);
+                                if (pos <= 0) break;
+
+                                parentPath = parentPath.substring(0, pos);
+                            }
+                            if (!canCreate) {
+                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-rw.message") + "</span></body></html>";
+                            } else {
+                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain.message") + "</span></body></html>";
+                            }
+                        } else if (file.isDirectory()) {
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-toolchain.message") + "</span></body></html>";
                         } else {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain.message") + "</span></body></html>";
+                            // not necessarily our bundled toolchain
+                            canShowDiff = true;
                         }
-                    } else if (file.isDirectory()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-toolchain.message") + "</span></body></html>";
                     } else {
-                        // not necessarily our bundled toolchain
-                        canShowDiff = true;
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-toolchain-txt.message") + "</span></body></html>";
                     }
                 }
 

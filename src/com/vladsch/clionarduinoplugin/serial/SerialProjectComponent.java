@@ -89,7 +89,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
             mySerialMonitorPanel = null;
             myApplicationComponent = null;
 
-            disconnectPort();
+            myPortManager.removeProjectComponent(this);
             myPortManager = null;
 
             myListeners.clear();
@@ -98,9 +98,6 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
                 myBuildMonitor.projectClosed();
                 myBuildMonitor = null;
             }
-
-            SerialPortManager portManager = SerialPortManager.getInstance();
-            portManager.removeProjectComponent(this);
         }
     }
 
