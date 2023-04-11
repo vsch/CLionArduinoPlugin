@@ -4,17 +4,12 @@
     <name>Arduino Support</name>
     <vendor email="vladimir.schneider@gmail.com" url="https://github.com/vsch">Vladimir Schneider</vendor>
 
-    <version>1.5.29</version>
-    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-         on how to target different products -->
+    <version>1.5.31</version>
     <depends>com.intellij.modules.clion</depends>
-    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <!--<idea-version since-build="201.6668.113" until-build="222.*"/>-->
     <idea-version since-build="201.6668.113"/>
 
     <description><![CDATA[
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/resources/META-INF/pluginIcon.png" alt="pluginIcon.png" width="50" align="middle"/>
-            Integrates <a href="https://github.com/francoiscampbell/arduino-cmake">Arduino CMake</a> into the CLion IDE.</p>
+        <p>Integrates <a href="https://github.com/francoiscampbell/arduino-cmake">Arduino CMake</a> into the CLion IDE.</p>
         <p>Install and create Arduino CMake projects in one click with new project wizard types and view
             communications with the integrated serial monitor tool window.</p>
         <ul>
@@ -28,11 +23,11 @@
             <li>
                 <p>Serial port monitor tool window with options to disconnect on build start and reconnect on
                     build complete.</p>
-                <p><strong>NOTE:</strong> Build events are only available in CLion 2018.3 (or later) so these options are
-                    disabled if you are running an earlier version of CLion.</p>
             </li>
             <li>
-                <p>Change current build parameters with <code>Tools</code> &gt; <code>Arduino Support</code> &gt; <code>Change build settings</code>. Preview changes to <code>CMakeLists.txt</code> before committing to them with the <code>Show Difference</code> button or use it to copy the desired changes to apply them manually.</p>
+                <p>Change current build parameters with <code>Build</code> &gt; <code>Arduino Support</code> &gt; <code>Change build settings</code>.
+                    Preview changes to <code>CMakeLists.txt</code> before committing to them with the <code>Show Difference</code>
+                    button, or use it to copy the desired changes to apply them manually.</p>
             </li>
             <li>
                 <p>Customize template files used for creating new projects.</p>
@@ -40,22 +35,73 @@
             <li>
                 <p>Use bundled <code>boards.txt</code> and <code>programmers.txt</code> or your own versions.</p>
             </li>
+            <li>
+                <p>Use bundled <code>ArduinoToolchain</code> or your own version.</p>
+            </li>
         </ul>
-        <h4>** <code>Serial Port Monitor</code> plugin cannot be used with <code>Arduino Support</code></h4>
+        <h3>** <code>Serial Port Monitor</code> plugin cannot be used with <code>Arduino Support</code></h3>
         <p>Both plugins use <a href="https://github.com/scream3r/java-simple-serial-connector">jSSC-2.8.0</a> serial library and only one plugin can load the native libraries.
             Please uninstall or disable <code>Serial Port Monitor</code> plugin before installing <code>Arduino Support</code>.</p>
         <p>| <a href="https://github.com/vsch/CLionArduinoPlugin/issues">Issues</a> | <a href="https://github.com/vsch/CLionArduinoPlugin">Plugin Source</a> |</p>
-        <p><br></p>
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png" alt="Screenshot_NewProject.png" width="400px"/><br></p>
-        <!--![Screenshot_ProjectSettings](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ProjectSettings.png){width=400px}-->
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png" alt="Screenshot_SerialMonitor" width="400px"/><br></p>
-        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png" alt="Screenshot_ChangeBuildSettings" width="400px"/><br></p>
-        <!--![Screenshot_ChangeBuildDiff](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildDiff.png){width=400px}-->
-        <p><br></p>
+        <hr>
+        <p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png" alt="Screenshot_NewProject.png" height="248px" width="400px" /><br />
+            <img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png" alt="Screenshot_SerialMonitor" height="191px" width="400px" /><br />
+            <img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png" alt="Screenshot_ChangeBuildSettings" height="281px" width="400px" /></p>
+        <hr>
         <p><strong>*</strong> This plugin is a fork of <a href="https://github.com/francoiscampbell/CLionArduinoPlugin">Original CLionArduinoPlugin</a> written by Francois Campbell.</p>
         ]]></description>
 
     <change-notes><![CDATA[
+        <h3>1.5.32</h3>
+        <ul>
+            <li>Fix: improve toolchain file path error and info messages</li>
+            <li>Fix: revert macro name for <code>_SRCS</code> and <code>_HRDS</code> to be resolved, with arguments to remain
+                unresolved.
+            </li>
+            <li>Fix: resolve white space preservation in regenerated <code>CMakeLists.txt</code> file. Only changing text
+                for values which were changed.
+            </li>
+            <li>Fix: <code>CMakeLists.txt</code> file with mixed project macro name when <code>PROJECT_NAME</code> or
+                <code>CMAKE_PROJECT_NAME</code> is used to set <code>_SRCS</code> and <code>_HDRS</code>, while project was set with another
+                macro name, for example <code>project(${ANOTHER_NAME})</code></li>
+            <li>Fix: disable diff buttons if the toolchain file is not <code>ArduinoToolchain.cmake</code> so that other
+                toolchain files will not be erroneously compared to bundled version.
+            </li>
+            <li>Fix: add second diff button for toolchain diff viewing <code>Platform/Arduino.cmake</code></li>
+            <li>Fix: allow directories to be selected for toolchain file path.</li>
+            <li>Fix: if a directory is selected add <code>ArduinoToolchain.cmake</code> file name automatically.</li>
+            <li>Change: minimum supported version is <code>201.6668.113</code></li>
+            <li>Add: Toolchain file path option, wth diff and create, to allow not having a <code>cmake</code> directory
+                and tool chain files in every project. Also allows to use different toolchain than
+                <code>ArduinoCmake.cmake</code>.
+            </li>
+            <li>Fix: Arduino.cmake to detect libraries which need RECURSE flag and set it automatically.
+                Determination is made by looking for <code>src/</code> subdirectory containing source files. If one is
+                found the library source search is recursed.
+            </li>
+            <li>Fix: Arduino.cmake to exclude sources from subdirectories whose name begins with <code>cmake-build</code>
+                or <code>examples</code>. Otherwise, it went off to use sources from the build directories to determine
+                library dependence.
+            </li>
+            <li>Fix: Update <code>programmers.txt</code> from Arduino version <code>1.8.19</code></li>
+            <li>Fix: apply pull requests from original project for suggested fixes:
+                <ul>
+                    <li><a href="https://github.com/francoiscampbell/arduino-cmake/pull/10">Bug fix: Allow linking for sketches</a></li>
+                    <li><a href="https://github.com/francoiscampbell/arduino-cmake/pull/4" title="Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub">Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub</a></li>
+                    <li><a href="https://github.com/francoiscampbell/arduino-cmake/pull/3" title="Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub">Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub</a></li>
+                </ul>
+            </li>
+            <li>Fix: serial monitor tool window throwing exceptions on closing because some elements were
+                already disposed.
+            </li>
+            <li>Fix: serial monitor settings, baud rate was always showing up as custom.</li>
+            <li>Fix: project build settings, baud rate was always default, regardless of how it was set in
+                CMakeLists.txt.
+            </li>
+            <li>Fix: IDE exceptions about wrong DataContext and missing component value in DataContext for
+                status bar widget
+            </li>
+        </ul>
         <h3>1.5.7</h3>
         <ul>
             <li>Fix: lost clear all button in serial monitor console view, deprecated and removed in 2020.1</li>
@@ -289,7 +335,7 @@
 
         <statusBarWidgetFactory implementation="com.vladsch.clionarduinoplugin.serial.SerialMonitorStatusBarWidgetFactory"
                                 id="ArduinoSupport.SerialMonitor"/>
-        
+
         <applicationService serviceImplementation="com.vladsch.clionarduinoplugin.serial.SerialPortManager"/>
         <applicationService serviceImplementation="com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent"/>
         <projectService serviceImplementation="com.vladsch.clionarduinoplugin.components.ArduinoProjectComponent"/>

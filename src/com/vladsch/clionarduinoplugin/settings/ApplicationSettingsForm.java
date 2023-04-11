@@ -152,7 +152,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         myBundledToolchainTxt.addActionListener(listener);
 
         //noinspection DialogTitleCapitalization
-        myBoardsTxtPath.addBrowseFolderListener(Bundle.message("settings.boards-file-directory.title"), null, null,
+        myBoardsTxtPath.addBrowseFolderListener(Bundle.message("settings.boards-file.is-directory.title"), null, null,
                 new FileChooserDescriptor(true, false, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
@@ -164,12 +164,12 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         );
 
         //noinspection DialogTitleCapitalization
-        myTemplatesPath.addBrowseFolderListener(Bundle.message("settings.templates-file-directory.title"), null, null,
+        myTemplatesPath.addBrowseFolderListener(Bundle.message("settings.templates.file-directory.title"), null, null,
                 new FileChooserDescriptor(false, true, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
 
-        myToolchainTxtPath.addBrowseFolderListener(Bundle.message("settings.toolchain-txt-file-directory.title"), null, null,
+        myToolchainTxtPath.addBrowseFolderListener(Bundle.message("settings.toolchain-txt.file-directory.title"), null, null,
                 new FileChooserDescriptor(true, true, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
@@ -189,7 +189,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 } else {
                     String fileTxt = ResourceUtils.getFileContent(file);
                     SimpleDiffRequest request = new SimpleDiffRequest(
-                            Bundle.message("settings.boards-txt-diff.title"),
+                            Bundle.message("settings.boards-txt.diff.title"),
                             getContent(boardsTxt),
                             getContent(fileTxt),
                             Bundle.message("settings.bundled.0.title", "boards.txt"),
@@ -227,7 +227,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 } else {
                     String fileTxt = ResourceUtils.getFileContent(file);
                     SimpleDiffRequest request = new SimpleDiffRequest(
-                            Bundle.message("settings.toolchain-txt-diff.title"),
+                            Bundle.message("settings.toolchain-txt.diff.title"),
                             getContent(toolchainTxt),
                             getContent(fileTxt),
                             Bundle.message("settings.bundled.0.title", "ArduinoToolchain.cmake"),
@@ -246,7 +246,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 } else {
                     String fileTxt = ResourceUtils.getFileContent(file);
                     SimpleDiffRequest request = new SimpleDiffRequest(
-                            Bundle.message("settings.toolchain-txt-diff2.title"),
+                            Bundle.message("settings.toolchain-txt.diff2.title"),
                             getContent(toolchainTxt2),
                             getContent(fileTxt),
                             Bundle.message("settings.bundled.0.title", "Platform/Arduino.cmake"),
@@ -288,16 +288,16 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                                 updateOptions(false);
                                 Messages.showMessageDialog(
                                         myMainPanel,
-                                        Bundle.message("settings.templates-create-success.label", file.getPath()),
-                                        Bundle.message("settings.templates-create-success.title"),
+                                        Bundle.message("settings.templates.create-success.label", file.getPath()),
+                                        Bundle.message("settings.templates.create-success.title"),
                                         Messages.getInformationIcon());
                             } catch (IOException e1) {
                                 LOG.info("Create template dir failed", e1);
 
                                 Messages.showMessageDialog(
                                         myMainPanel,
-                                        Bundle.message("settings.templates-create-failed.label"),
-                                        Bundle.message("settings.templates-create-failed.title"),
+                                        Bundle.message("settings.templates.create-failed.label"),
+                                        Bundle.message("settings.templates.create-failed.title"),
                                         Messages.getErrorIcon());
                             }
                         }
@@ -338,14 +338,14 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                                 updateOptions(false);
                                 Messages.showMessageDialog(
                                         myMainPanel,
-                                        Bundle.message("settings.toolchain-txt-create-success.label", file.getParentFile().getPath()),
-                                        Bundle.message("settings.toolchain-txt-create-success.title"),
+                                        Bundle.message("settings.toolchain-txt.create-success.label", file.getParentFile().getPath()),
+                                        Bundle.message("settings.toolchain-txt.create-success.title"),
                                         Messages.getInformationIcon());
                             } else {
                                 Messages.showMessageDialog(
                                         myMainPanel,
-                                        Bundle.message("settings.toolchain-txt-create-failed.label"),
-                                        Bundle.message("settings.toolchain-txt-create-failed.title"),
+                                        Bundle.message("settings.toolchain-txt.create-failed.label"),
+                                        Bundle.message("settings.toolchain-txt.create-failed.title"),
                                         Messages.getErrorIcon());
                             }
                         }
@@ -424,9 +424,9 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     File file = new File(boardsTxtPath);
                     if (!file.exists()) {
                         // should not happen
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-boards-txt.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.boards-txt.not-exists.message") + "</span></body></html>";
                     } else if (file.isDirectory()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.directory-boards-txt.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.boards-txt.is-directory.message") + "</span></body></html>";
                     } else {
                         canShowDiff = true;
                         String fileTxt = ResourceUtils.getFileContent(file);
@@ -467,9 +467,9 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     File file = new File(programmersTxtPath);
                     if (!file.exists()) {
                         // should not happen
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-programmers-txt.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.programmers-txt.not-exists.message") + "</span></body></html>";
                     } else if (file.isDirectory()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.directory-programmers-txt.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.programmers-txt.directory.message") + "</span></body></html>";
                     } else {
                         canShowDiff = true;
                         String fileTxt = ResourceUtils.getFileContent(file);
@@ -526,9 +526,9 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                         }
 
                         if (!canCreate) {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-templates-rw.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.templates.not-exists.rd-only.message") + "</span></body></html>";
                         } else {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-templates.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.templates.not-exists.message") + "</span></body></html>";
                         }
                     } else if (file.isFile()) {
                         error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-templates.message") + "</span></body></html>";
@@ -572,21 +572,25 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 } else {
                     // try to open and read the file
                     File file = new File(toolchainTxtPathText);
-                    if (file.getName().equals("ArduinoToolchain.cmake")) {
-                        if (!file.exists() || file.isDirectory()) {
-                            if (file.isDirectory()) {
-                                // add file name automatically 
-                                Path toolchainPath = Path.of(toolchainTxtPathText, "ArduinoToolchain.cmake");
-                                toolchainTxtPathText = toolchainPath.toString();
-                                file = toolchainPath.toFile();
-                                String finalToolchainTxtPathText = toolchainTxtPathText;
-                                ApplicationManager.getApplication().invokeLater(() -> {
-                                    myToolchainTxtPath.setText(finalToolchainTxtPathText);
-                                });
-                                //error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-directory.message") + "</span></body></html>";
+                    if (!file.exists() || file.isDirectory()) {
+                        if (file.isDirectory()) {
+                            // add file name automatically 
+                            Path toolchainPath = Path.of(toolchainTxtPathText, "ArduinoToolchain.cmake");
+                            toolchainTxtPathText = toolchainPath.toString();
+                            file = toolchainPath.toFile();
+                            String finalToolchainTxtPathText = toolchainTxtPathText;
+                            ApplicationManager.getApplication().invokeLater(() -> {
+                                myToolchainTxtPath.setText(finalToolchainTxtPathText);
+                            });
+                        } else {
+                            if (!file.getName().equals("ArduinoToolchain.cmake")) {
+                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists.not-arduino-cmake.message") + "</span></body></html>";
                             }
+                        }
 
+                        if (error.isEmpty()) {
                             String parentPath = file.getParent();
+                            String missingParentPath = parentPath;
 
                             while (!parentPath.isEmpty()) {
                                 File parent = new File(parentPath);
@@ -597,21 +601,30 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                                 int pos = parentPath.lastIndexOf(File.separator);
                                 if (pos <= 0) break;
 
+                                missingParentPath = parentPath;
                                 parentPath = parentPath.substring(0, pos);
                             }
+                            
                             if (!canCreate) {
-                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain-rw.message") + "</span></body></html>";
+                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists-rd-only.0.message", missingParentPath) + "</span></body></html>";
                             } else {
-                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.not-exists-toolchain.message") + "</span></body></html>";
+                                if (!file.getParentFile().exists()) {
+                                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists-directory.0.message", missingParentPath) + "</span></body></html>";
+                                } else {
+                                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists.message") + "</span></body></html>";
+                                }
+
                             }
-                        } else if (file.isDirectory()) {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-toolchain.message") + "</span></body></html>";
-                        } else {
-                            // not necessarily our bundled toolchain
-                            canShowDiff = true;
                         }
+                    } else if (file.isDirectory()) {
+                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.is-directory.message") + "</span></body></html>";
                     } else {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-toolchain-txt.message") + "</span></body></html>";
+                        // not necessarily our bundled toolchain
+                        if (file.getName().equals("ArduinoToolchain.cmake")) {
+                            canShowDiff = true;
+                        } else {
+                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-arduino-cmake.message") + "</span></body></html>";
+                        }
                     }
                 }
 

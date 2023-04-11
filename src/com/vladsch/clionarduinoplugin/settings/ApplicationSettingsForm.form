@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.vladsch.clionarduinoplugin.settings.ApplicationSettingsForm">
   <grid id="27dc6" binding="myMainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="810" height="404"/>
+      <xy x="20" y="20" width="825" height="404"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -52,14 +52,12 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt-path.label"/>
+              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt.path.label"/>
             </properties>
           </component>
           <component id="750fe" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myBoardsTxtPath">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <maximum-size width="600" height="-1"/>
-              </grid>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
@@ -73,9 +71,7 @@
           </component>
           <component id="b6196" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myProgrammersTxtPath">
             <constraints>
-              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <maximum-size width="600" height="-1"/>
-              </grid>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
@@ -117,7 +113,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt-diff.label"/>
+                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt.diff.label"/>
                 </properties>
               </component>
             </children>
@@ -135,7 +131,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt-diff.label"/>
+                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt.diff.label"/>
                 </properties>
               </component>
               <component id="c5f74" class="javax.swing.JLabel" binding="myProgrammersTxtLabel">
@@ -154,14 +150,12 @@
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.templates-path.label"/>
+              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.templates.path.label"/>
             </properties>
           </component>
           <component id="157e6" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myTemplatesPath">
             <constraints>
-              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <maximum-size width="600" height="-1"/>
-              </grid>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
@@ -186,7 +180,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt-diff.label"/>
+                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.boards-txt.diff.label"/>
                 </properties>
               </component>
               <component id="48ce4" class="javax.swing.JButton" binding="myTemplatesCreate">
@@ -194,7 +188,7 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.templates-create.label"/>
+                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.templates.create.label"/>
                 </properties>
               </component>
               <component id="3b94a" class="javax.swing.JLabel" binding="myTemplatesPathLabel">
@@ -231,14 +225,12 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt-path.label"/>
+              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt.path.label"/>
             </properties>
           </component>
           <component id="54003" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myToolchainTxtPath">
             <constraints>
-              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <maximum-size width="600" height="-1"/>
-              </grid>
+              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
@@ -263,7 +255,7 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt-create.label"/>
+                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt.create.label"/>
                 </properties>
               </component>
               <component id="c12cd" class="javax.swing.JLabel" binding="myToolchainTxtLabel">
@@ -288,8 +280,8 @@
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt-diff.label"/>
-                      <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt-diff.title"/>
+                      <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt.diff.label"/>
+                      <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt.diff.title"/>
                     </properties>
                   </component>
                   <component id="4d7bc" class="javax.swing.JButton" binding="myToolchainTxtDiff2">
@@ -297,8 +289,8 @@
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt-diff2.label"/>
-                      <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt-diff2.title"/>
+                      <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt.diff2.label"/>
+                      <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.toolchain-txt.diff2.title"/>
                     </properties>
                   </component>
                 </children>

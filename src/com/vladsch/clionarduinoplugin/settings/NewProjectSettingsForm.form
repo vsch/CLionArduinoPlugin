@@ -235,7 +235,7 @@
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="new-project.baud-rate.messge.label"/>
+                      <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="new-project.baud-rate.message.label"/>
                     </properties>
                   </component>
                   <component id="7ea2f" class="com.intellij.ui.components.JBTextField" binding="myCustomBaudRate">
