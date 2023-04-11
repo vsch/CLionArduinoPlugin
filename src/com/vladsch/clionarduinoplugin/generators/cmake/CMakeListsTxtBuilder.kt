@@ -1,12 +1,7 @@
 package com.vladsch.clionarduinoplugin.generators.cmake
 
 import com.intellij.openapi.diagnostic.Logger
-import com.vladsch.clionarduinoplugin.generators.cmake.ast.Argument
-import com.vladsch.clionarduinoplugin.generators.cmake.ast.BlankLine
-import com.vladsch.clionarduinoplugin.generators.cmake.ast.CMakeFile
-import com.vladsch.clionarduinoplugin.generators.cmake.ast.Command
-import com.vladsch.clionarduinoplugin.generators.cmake.ast.CommentedOutCommand
-import com.vladsch.clionarduinoplugin.generators.cmake.ast.LineComment
+import com.vladsch.clionarduinoplugin.generators.cmake.ast.*
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.*
 import com.vladsch.clionarduinoplugin.resources.TemplateResolver
 import com.vladsch.clionarduinoplugin.resources.resolveRefs
@@ -210,10 +205,11 @@ abstract class CMakeListsTxtBuilder(
                         if (rawArgs.size > 1) cMakeVariableValues[rawArgs[0]] = rawArgs.slice(1 .. rawArgs.size - 1)
                         else cMakeVariableValues[rawArgs[0]] = null
                     } else if (rawArgs.isNotEmpty() && (rawArgs[0] == "\${PROJECT_NAME}_SRCS" || rawArgs[0] == "\${PROJECT_NAME}_HDRS"
-                            || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_SRCS" || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_HDRS")) {
+                            || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_SRCS" || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_HDRS")
+                    ) {
                         // this is most likely a mistake, since the project name is in cMakeProjectNameMacro
                         val replaceMacroName = cMakeProjectNameMacro + rawArgs[0].substring(rawArgs[0].length - 5)
-                        if (rawArgs.size > 1) cMakeVariableValues[replaceMacroName] = rawArgs.slice(1 .. rawArgs.size - 1) 
+                        if (rawArgs.size > 1) cMakeVariableValues[replaceMacroName] = rawArgs.slice(1 .. rawArgs.size - 1)
                         else cMakeVariableValues[replaceMacroName] = null
                     } else {
                         if (args.size > 1) cMakeVariableValues[useVarName ?: args[0]] = args.slice(1 .. args.size - 1)
@@ -264,14 +260,23 @@ abstract class CMakeListsTxtBuilder(
             // find the command or we can create a new one if we don't have it already or just make it into a text block
             var commandType: CMakeCommandType? = null
             val rawArgs = ArrayList<String>()
-            val rawArgLeadingSpaces = ArrayList<BasedSequence>()
+            val rawArgsLeadingSpaces = ArrayList<BasedSequence>()
 
             for (arg in node.getChildren()) {
                 if (arg is Argument) {
                     rawArgs.add(arg.text.toString())
-                    rawArgLeadingSpaces.add(arg.leadingSpaces)
+                    if (arg.previous is LineEnding) {
+                        rawArgsLeadingSpaces.add(arg.leadingSpaces.prefixWithEOL())
+                    } else {
+                        rawArgsLeadingSpaces.add(arg.leadingSpaces)
+                    }
                 }
             }
+
+            val lastChild = node.lastChild
+            val addBeforeClosing =
+                if (lastChild is LineEnding) node.baseSubSequence(lastChild.startOffset, node.closingMarker.startOffset)
+                else BasedSequence.NULL
 
             val commandName = node.command.toString()
             if (commandName == "set") {
@@ -336,11 +341,10 @@ abstract class CMakeListsTxtBuilder(
             if (commandName == "made_up_command") {
                 val tmp = 0
             }
-            
+
             if (commandType != null) {
-                makeCommand = CMakeCommand(commandType, node.next is LineComment)
-                // KLUDGE: blank line nodes steal EOL from next node's leadingSpaces, so need to add it here to compensate 
-                makeCommand.leadingSpaces = if (node.previous is BlankLine) node.leadingSpaces.prefixWithEOL() else node.leadingSpaces
+                makeCommand = CMakeCommand(commandType, false, addBeforeClosing)
+                makeCommand.leadingSpaces = node.leadingSpaces
 
                 var i = 0
                 var j = 0
@@ -353,20 +357,19 @@ abstract class CMakeListsTxtBuilder(
                         val matcher = regEx.matcher(rawArgs[i++])
                         matcher.find()
                         for (g in 1 .. matcher.groupCount()) {
-                            makeCommand.setArg(j++, matcher.group(g), rawArgLeadingSpaces[g])
+                            makeCommand.setArg(j++, matcher.group(g), rawArgsLeadingSpaces[g])
                         }
                     } else i++
                 }
 
                 while (i < rawArgs.size) {
-                    makeCommand.setArg(j++, rawArgs[i], rawArgLeadingSpaces[i])
+                    makeCommand.setArg(j++, rawArgs[i], rawArgsLeadingSpaces[i])
                     i++
                 }
             } else {
                 // unknown command
-                makeCommand = CMakeUnknownCommand(commandName, rawArgs, rawArgLeadingSpaces, node.next is LineComment)
-                // KLUDGE: blank line nodes steal EOL from next node's leadingSpaces, so need to add it here to compensate 
-                makeCommand.leadingSpaces = if (node.previous is BlankLine) node.leadingSpaces.prefixWithEOL() else node.leadingSpaces
+                makeCommand = CMakeUnknownCommand(commandName, rawArgs, rawArgsLeadingSpaces, false, addBeforeClosing)
+                makeCommand.leadingSpaces = node.leadingSpaces
             }
 
             if (node is CommentedOutCommand) {
@@ -377,9 +380,7 @@ abstract class CMakeListsTxtBuilder(
         }
 
         // create a text element
-        // KLUDGE: blank line nodes steal EOL from next node's leadingSpaces, so need to add it here to compensate 
-        //    however, if the previous is a LineComment and it has EOL then adding an extra one would double blank lines
-        return CMakeText(node.chars.toString(), node is BlankLine && node.next !is BlankLine && node.next !is Command && !(node.previous is LineComment && node.previous?.chars?.endsWithEOL()?:false))
+        return CMakeText(node.chars.toString(), false)
     }
 
     fun elementOriginalText(element: CMakeElement): String {
@@ -437,7 +438,7 @@ abstract class CMakeListsTxtBuilder(
     }
 
     fun removeElement(index: Int) {
-        if (index + 1 < myElements.size) 
+        if (index + 1 < myElements.size)
             myElements[index + 1].isAddEOL = myElements[index].isAddEOL
         myElements.removeAt(index)
     }
@@ -802,7 +803,7 @@ abstract class CMakeListsTxtBuilder(
         val command = setCommand(commandType, args)
         if (command == null) {
             // create a new one and find where to insert it
-            val newCommand = CMakeCommand(commandType, args?.toList() ?: listOf(), null, true)
+            val newCommand = CMakeCommand(commandType, args?.toList() ?: listOf(), null, true, BasedSequence.NULL)
             addCommand(newCommand)
             return newCommand
         }
@@ -842,13 +843,19 @@ abstract class CMakeListsTxtBuilder(
                     if (commandType.isNoDupeArgs) {
                         // add another one after this one if the arg value is different
                         if (!command.allArgsEqual(argList)) {
-                            newCommand = CMakeCommand(command.commandType, argList, command.getArgsLeadingSpaces(argList), true)
+                            newCommand = CMakeCommand(
+                                command.commandType,
+                                argList,
+                                command.getArgsLeadingSpaces(argList),
+                                true,
+                                command.addBeforeClosing
+                            )
                             newCommand.commentOut(false)
                             addElementAfter(command, newCommand)
                         }
                     } else {
                         // add another one after this one
-                        newCommand = CMakeCommand(command.commandType, argList, null, true)
+                        newCommand = CMakeCommand(command.commandType, argList, null, true, BasedSequence.NULL)
                         addElementAfter(command, newCommand)
                     }
                 } else {
@@ -866,7 +873,7 @@ abstract class CMakeListsTxtBuilder(
                             replaceElement(command, newCommand)
                         } else {
                             // is a matched sub-type, need to replace completely
-                            newCommand = CMakeCommand(commandType, argList, null, false)
+                            newCommand = CMakeCommand(commandType, argList, null, false, command.addBeforeClosing)
                             newCommand.commentOut(false)
                             newCommand.setArgsWithDefaults(argList, command.getArgsLeadingSpaces(argList))
 
@@ -1082,7 +1089,7 @@ abstract class CMakeListsTxtBuilder(
         private val LOG = Logger.getInstance("com.vladsch.clionarduinoplugin.generators")
         private val DEFAULT_OPTIONS = MutableDataSet()
             .set(CMakeParser.AUTO_CONFIG, true)
-            .set(CMakeParser.AST_LINE_END_EOL, false)
+            .set(CMakeParser.AST_LINE_END_EOL, true)
             .set(CMakeParser.AST_COMMENTS, true)
             .set(CMakeParser.AST_BLANK_LINES, true)
             .set(CMakeParser.AST_ARGUMENT_SEPARATORS, true)

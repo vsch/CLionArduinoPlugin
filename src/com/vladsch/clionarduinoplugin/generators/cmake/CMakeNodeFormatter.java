@@ -57,6 +57,9 @@ public class CMakeNodeFormatter implements NodeFormatter {
                 markdown.append("# ");
             }
         }
+        if (formatterOptions.preserveWhitespace) {
+            markdown.append(node.getLeadingSpaces());
+        }
         markdown.append(node.getCommand());
         if (formatterOptions.preserveWhitespace) {
             CMakeFormatterContext.appendWhiteSpaceBetween(markdown, node.getCommand(), node.getOpeningMarker(), formatterOptions.preserveWhitespace, formatterOptions.collapseWhitespace, true);

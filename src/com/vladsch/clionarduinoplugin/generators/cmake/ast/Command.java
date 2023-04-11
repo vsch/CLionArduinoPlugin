@@ -1,6 +1,7 @@
 package com.vladsch.clionarduinoplugin.generators.cmake.ast;
 
 import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.misc.CharPredicate;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
 public class Command extends Node {
@@ -34,8 +35,12 @@ public class Command extends Node {
     public BasedSequence getLeadingSpaces() {
         return leadingSpaces;
     }
-
-    public void setLeadingSpaces(final BasedSequence leadingSpaces) {
+    
+    public void setLeadingSpaces(BasedSequence leadingSpaces) {
+        // need to trim spaces before EOL, these are previous node's trailing spaces
+        if (leadingSpaces.indexOf('\n') > 0) {
+            leadingSpaces = leadingSpaces.subSequence(leadingSpaces.countLeading(CharPredicate.SPACE_TAB));
+        }
         this.leadingSpaces = leadingSpaces.isEmpty() ? BasedSequence.NULL : leadingSpaces;
     }
 

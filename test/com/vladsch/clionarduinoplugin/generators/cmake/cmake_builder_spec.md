@@ -1028,6 +1028,54 @@ set(CMAKE_PROJECT_NAME tft_life)
 set(${CMAKE_PROJECT_NAME}_BOARD pro)
 set(ARDUINO_CPU 8MHzatmega328)    ## This must be set before project call
 project(${CMAKE_PROJECT_NAME})
+# Define the source code
+.
+cmake_minimum_required(VERSION 2.8.4)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
+set(CMAKE_PROJECT_NAME tft_life)
+
+set(${MAKE_PROJECT_NAME}_BOARD pro)
+set(ARDUINO_CPU 8MHzatmega328)    ## This must be set before project call
+project(${MAKE_PROJECT_NAME})
+# Define the source code
+.
+CMakeFile[0, 313]
+  Command[0, 37] text:[0, 22, "cmake_minimum_required"] open:[22, 23, "("] arguments:[23, 36, "VERSION 2.8.4"] close:[36, 37, ")"]
+    Argument[23, 30] text:[23, 30, "VERSION"]
+    Argument[31, 36] text:[31, 36, "2.8.4"]
+  LineEnding[37, 38]
+  Command[38, 112] text:[38, 41, "set"] open:[41, 42, "("] arguments:[42, 111, "CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake"] close:[111, 112, ")"]
+    Argument[42, 62] text:[42, 62, "CMAKE_TOOLCHAIN_FILE"]
+    Argument[63, 111] text:[63, 111, "${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake"]
+  LineEnding[112, 113]
+  Command[113, 145] text:[113, 116, "set"] open:[116, 117, "("] arguments:[117, 144, "CMAKE_PROJECT_NAME tft_life"] close:[144, 145, ")"]
+    Argument[117, 135] text:[117, 135, "CMAKE_PROJECT_NAME"]
+    Argument[136, 144] text:[136, 144, "tft_life"]
+  LineEnding[145, 146]
+  BlankLine[146, 147]
+  Command[147, 183] text:[147, 150, "set"] open:[150, 151, "("] arguments:[151, 182, "${CMAKE_PROJECT_NAME}_BOARD pro"] close:[182, 183, ")"]
+    Argument[151, 178] text:[151, 178, "${CMAKE_PROJECT_NAME}_BOARD"]
+    Argument[179, 182] text:[179, 182, "pro"]
+  LineEnding[183, 184]
+  Command[184, 214] text:[184, 187, "set"] open:[187, 188, "("] arguments:[188, 213, "ARDUINO_CPU 8MHzatmega328"] close:[213, 214, ")"]
+    Argument[188, 199] text:[188, 199, "ARDUINO_CPU"]
+    Argument[200, 213] text:[200, 213, "8MHzatmega328"]
+  LineComment[214, 258] spaces:[214, 218, "    "] open:[214, 215, " "] text:[215, 258, "   ## This must be set before project call\n"]
+  Command[258, 288] text:[258, 265, "project"] open:[265, 266, "("] arguments:[266, 287, "${CMAKE_PROJECT_NAME}"] close:[287, 288, ")"]
+    Argument[266, 287] text:[266, 287, "${CMAKE_PROJECT_NAME}"]
+  LineEnding[288, 289]
+  LineComment[289, 313] open:[289, 290, "#"] text:[290, 313, " Define the source code"]
+````````````````````````````````
+
+
+```````````````````````````````` example(Arduno: 16) options(board-pro)
+cmake_minimum_required(VERSION 2.8.4)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
+set(CMAKE_PROJECT_NAME tft_life)
+
+set(${CMAKE_PROJECT_NAME}_BOARD pro)
+set(ARDUINO_CPU 8MHzatmega328)    ## This must be set before project call
+project(${CMAKE_PROJECT_NAME})
 
 # Define the source code
 set(${CMAKE_PROJECT_NAME}_SRCS tft_life.cpp)
@@ -1404,7 +1452,8 @@ generate_arduino_firmware(${PROJECT_NAME})
 # cMakeProjectNameMacro = ${CMAKE_PROJECT_NAME}
 # outputCMakeProjectNameMacro = 
 # cMakeProjectName = tft_life
-# VariableExpander(valueMap=ARDUINO_CPU -> [ 8MHzatmega328 ]
+# VariableExpander(valueMap=${CMAKE_PROJECT_NAME}_SRCS -> [ tft_life.cpp ]
+# , ARDUINO_CPU -> [ 8MHzatmega328 ]
 # , CMAKE_CXX_STANDARD -> [ 98 ]
 # , CMAKE_PROJECT_NAME -> [ tft_life ]
 # , CMAKE_TOOLCHAIN_FILE -> [ /cmake/ArduinoToolchain.cmake ]
@@ -1413,7 +1462,6 @@ generate_arduino_firmware(${PROJECT_NAME})
 # , tft_life_BOARD -> [ pro ]
 # , tft_life_PORT -> [ /dev/cu.usbserial-00000000 ]
 # , tft_life_PROGRAMMER -> [ avrispmkii ]
-# , tft_life_SRCS -> [ tft_life.cpp ]
 # asMacroMap=[  ])
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
@@ -1543,7 +1591,8 @@ generate_arduino_firmware(${PROJECT_NAME})
 # cMakeProjectNameMacro = ${CMAKE_PROJECT_NAME}
 # outputCMakeProjectNameMacro = 
 # cMakeProjectName = a_project
-# VariableExpander(valueMap=ARDUINO_CPU -> [ 8MHzatmega328 ]
+# VariableExpander(valueMap=${CMAKE_PROJECT_NAME}_SRCS -> [ tft_life.cpp ]
+# , ARDUINO_CPU -> [ 8MHzatmega328 ]
 # , CMAKE_CXX_STANDARD -> [ 98 ]
 # , CMAKE_PROJECT_NAME -> [ a_project ]
 # , CMAKE_TOOLCHAIN_FILE -> [ /cmake/ArduinoToolchain.cmake ]
@@ -1552,7 +1601,6 @@ generate_arduino_firmware(${PROJECT_NAME})
 # , a_project_BOARD -> [ pro ]
 # , a_project_PORT -> [ /dev/cu.usbserial-00000000 ]
 # , a_project_PROGRAMMER -> [ avrispmkii ]
-# , a_project_SRCS -> [ tft_life.cpp ]
 # asMacroMap=[  ])
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
@@ -1650,6 +1698,227 @@ CMakeFile[0, 804]
   BlankLine[761, 762]
   Command[762, 804] text:[762, 787, "generate_arduino_firmware"] open:[787, 788, "("] arguments:[788, 803, "${PROJECT_NAME}"] close:[803, 804, ")"]
     Argument[788, 803] text:[788, 803, "${PROJECT_NAME}"]
+````````````````````````````````
+
+
+File eols on blank lines should preserve
+
+```````````````````````````````` example Issue 1: 5
+cmake_minimum_required(VERSION 3.0.0)
+set(CMAKE_TOOLCHAIN_FILE /usr/local/etc/arduino-cmake/ArduinoToolchain.cmake)
+set(CMAKE_CXX_STANDARD 98)
+set(PROJECT_NAME CookiePortioner)
+
+add_link_options(-Xlinker -Map=../output.map)
+
+set(ARDUINO_CPU 8MHzatmega328)
+
+set(${PROJECT_NAME}_BOARD pro)
+project(${PROJECT_NAME})
+
+# Define additional source and header files or default arduino sketch files
+set(${PROJECT_NAME}_SRCS
+    CookiePortioner.cpp
+    drivers/interrupt_handlers.c
+    EventTranslator.cpp
+    MainScreen.cpp
+    ${PROFILE_GFX_C_FILES}
+    tasks/AdcHandler.cpp
+    tasks/MotorControl.cpp
+    tasks/PortionControl.cpp
+    tasks/SoundHandler.cpp
+    util/HistoryBuffer.cpp
+    util/non_volatile_data.c
+    util/power_down.c
+    util/Strings.c
+    util/TimeIt.cpp
+    util/TimeIt.h
+    ${UART_C_FILES}
+    )
+set(${PROJECT_NAME}_HDRS
+    config.h
+    drivers/interrupt_handlers.h
+    EventTranslator.cpp
+    InputEvents.h
+    MainScreen.h
+    ${PROFILE_GFX_H_FILES}
+    pin_config.h
+    tasks/AdcHandler.h
+    tasks/MotorControl.h
+    tasks/PortionControl.h
+    tasks/SoundHandler.h
+    type_defs.h
+    util/HistoryBuffer.h
+    util/non_volatile_data.h
+    util/power_down.h
+    util/Strings.h
+    ${UART_H_FILES}
+    )
+
+.
+cmake_minimum_required(VERSION 3.0.0)
+set(CMAKE_TOOLCHAIN_FILE /usr/local/etc/arduino-cmake/ArduinoToolchain.cmake)
+set(CMAKE_CXX_STANDARD 98)
+set(PROJECT_NAME CookiePortioner)
+
+add_link_options(-Xlinker -Map=../output.map)
+
+set(ARDUINO_CPU 8MHzatmega328)
+
+set(${PROJECT_NAME}_BOARD pro)
+project(${PROJECT_NAME})
+
+# Define additional source and header files or default arduino sketch files
+set(${PROJECT_NAME}_SRCS
+    CookiePortioner.cpp
+    drivers/interrupt_handlers.c
+    EventTranslator.cpp
+    MainScreen.cpp
+    ${PROFILE_GFX_C_FILES}
+    tasks/AdcHandler.cpp
+    tasks/MotorControl.cpp
+    tasks/PortionControl.cpp
+    tasks/SoundHandler.cpp
+    util/HistoryBuffer.cpp
+    util/non_volatile_data.c
+    util/power_down.c
+    util/Strings.c
+    util/TimeIt.cpp
+    util/TimeIt.h
+    ${UART_C_FILES}
+    )
+set(${PROJECT_NAME}_HDRS
+    config.h
+    drivers/interrupt_handlers.h
+    EventTranslator.cpp
+    InputEvents.h
+    MainScreen.h
+    ${PROFILE_GFX_H_FILES}
+    pin_config.h
+    tasks/AdcHandler.h
+    tasks/MotorControl.h
+    tasks/PortionControl.h
+    tasks/SoundHandler.h
+    type_defs.h
+    util/HistoryBuffer.h
+    util/non_volatile_data.h
+    util/power_down.h
+    util/Strings.h
+    ${UART_H_FILES}
+    )
+.
+CMakeFile[0, 1223]
+  Command[0, 37] text:[0, 22, "cmake_minimum_required"] open:[22, 23, "("] arguments:[23, 36, "VERSION 3.0.0"] close:[36, 37, ")"]
+    Argument[23, 30] text:[23, 30, "VERSION"]
+    Argument[31, 36] text:[31, 36, "3.0.0"]
+  LineEnding[37, 38]
+  Command[38, 115] text:[38, 41, "set"] open:[41, 42, "("] arguments:[42, 114, "CMAKE_TOOLCHAIN_FILE /usr/local/etc/arduino-cmake/ArduinoToolchain.cmake"] close:[114, 115, ")"]
+    Argument[42, 62] text:[42, 62, "CMAKE_TOOLCHAIN_FILE"]
+    Argument[63, 114] text:[63, 114, "/usr/local/etc/arduino-cmake/ArduinoToolchain.cmake"]
+  LineEnding[115, 116]
+  Command[116, 142] text:[116, 119, "set"] open:[119, 120, "("] arguments:[120, 141, "CMAKE_CXX_STANDARD 98"] close:[141, 142, ")"]
+    Argument[120, 138] text:[120, 138, "CMAKE_CXX_STANDARD"]
+    Argument[139, 141] text:[139, 141, "98"]
+  LineEnding[142, 143]
+  Command[143, 176] text:[143, 146, "set"] open:[146, 147, "("] arguments:[147, 175, "PROJECT_NAME CookiePortioner"] close:[175, 176, ")"]
+    Argument[147, 159] text:[147, 159, "PROJECT_NAME"]
+    Argument[160, 175] text:[160, 175, "CookiePortioner"]
+  LineEnding[176, 177]
+  BlankLine[177, 178]
+  Command[178, 223] text:[178, 194, "add_link_options"] open:[194, 195, "("] arguments:[195, 222, "-Xlinker -Map=../output.map"] close:[222, 223, ")"]
+    Argument[195, 203] text:[195, 203, "-Xlinker"]
+    Argument[204, 222] text:[204, 222, "-Map=../output.map"]
+  LineEnding[223, 224]
+  BlankLine[224, 225]
+  Command[225, 255] text:[225, 228, "set"] open:[228, 229, "("] arguments:[229, 254, "ARDUINO_CPU 8MHzatmega328"] close:[254, 255, ")"]
+    Argument[229, 240] text:[229, 240, "ARDUINO_CPU"]
+    Argument[241, 254] text:[241, 254, "8MHzatmega328"]
+  LineEnding[255, 256]
+  BlankLine[256, 257]
+  Command[257, 287] text:[257, 260, "set"] open:[260, 261, "("] arguments:[261, 286, "${PROJECT_NAME}_BOARD pro"] close:[286, 287, ")"]
+    Argument[261, 282] text:[261, 282, "${PROJECT_NAME}_BOARD"]
+    Argument[283, 286] text:[283, 286, "pro"]
+  LineEnding[287, 288]
+  Command[288, 312] text:[288, 295, "project"] open:[295, 296, "("] arguments:[296, 311, "${PROJECT_NAME}"] close:[311, 312, ")"]
+    Argument[296, 311] text:[296, 311, "${PROJECT_NAME}"]
+  LineEnding[312, 313]
+  BlankLine[313, 314]
+  LineComment[314, 390] open:[314, 315, "#"] text:[315, 390, " Define additional source and header files or default arduino sketch files\n"]
+  Command[390, 810] text:[390, 393, "set"] open:[393, 394, "("] arguments:[394, 809, "${PROJECT_NAME}_SRCS\n    CookiePortioner.cpp\n    drivers/interrupt_handlers.c\n    EventTranslator.cpp\n    MainScreen.cpp\n    ${PROFILE_GFX_C_FILES}\n    tasks/AdcHandler.cpp\n    tasks/MotorControl.cpp\n    tasks/PortionControl.cpp\n    tasks/SoundHandler.cpp\n    util/HistoryBuffer.cpp\n    util/non_volatile_data.c\n    util/power_down.c\n    util/Strings.c\n    util/TimeIt.cpp\n    util/TimeIt.h\n    ${UART_C_FILES}\n    "] close:[809, 810, ")"]
+    Argument[394, 414] text:[394, 414, "${PROJECT_NAME}_SRCS"]
+    LineEnding[414, 415]
+    Argument[419, 438] text:[419, 438, "CookiePortioner.cpp"]
+    LineEnding[438, 439]
+    Argument[443, 471] text:[443, 471, "drivers/interrupt_handlers.c"]
+    LineEnding[471, 472]
+    Argument[476, 495] text:[476, 495, "EventTranslator.cpp"]
+    LineEnding[495, 496]
+    Argument[500, 514] text:[500, 514, "MainScreen.cpp"]
+    LineEnding[514, 515]
+    Argument[519, 541] text:[519, 541, "${PROFILE_GFX_C_FILES}"]
+    LineEnding[541, 542]
+    Argument[546, 566] text:[546, 566, "tasks/AdcHandler.cpp"]
+    LineEnding[566, 567]
+    Argument[571, 593] text:[571, 593, "tasks/MotorControl.cpp"]
+    LineEnding[593, 594]
+    Argument[598, 622] text:[598, 622, "tasks/PortionControl.cpp"]
+    LineEnding[622, 623]
+    Argument[627, 649] text:[627, 649, "tasks/SoundHandler.cpp"]
+    LineEnding[649, 650]
+    Argument[654, 676] text:[654, 676, "util/HistoryBuffer.cpp"]
+    LineEnding[676, 677]
+    Argument[681, 705] text:[681, 705, "util/non_volatile_data.c"]
+    LineEnding[705, 706]
+    Argument[710, 727] text:[710, 727, "util/power_down.c"]
+    LineEnding[727, 728]
+    Argument[732, 746] text:[732, 746, "util/Strings.c"]
+    LineEnding[746, 747]
+    Argument[751, 766] text:[751, 766, "util/TimeIt.cpp"]
+    LineEnding[766, 767]
+    Argument[771, 784] text:[771, 784, "util/TimeIt.h"]
+    LineEnding[784, 785]
+    Argument[789, 804] text:[789, 804, "${UART_C_FILES}"]
+    LineEnding[804, 805]
+  LineEnding[810, 811]
+  Command[811, 1221] text:[811, 814, "set"] open:[814, 815, "("] arguments:[815, 1220, "${PROJECT_NAME}_HDRS\n    config.h\n    drivers/interrupt_handlers.h\n    EventTranslator.cpp\n    InputEvents.h\n    MainScreen.h\n    ${PROFILE_GFX_H_FILES}\n    pin_config.h\n    tasks/AdcHandler.h\n    tasks/MotorControl.h\n    tasks/PortionControl.h\n    tasks/SoundHandler.h\n    type_defs.h\n    util/HistoryBuffer.h\n    util/non_volatile_data.h\n    util/power_down.h\n    util/Strings.h\n    ${UART_H_FILES}\n    "] close:[1220, 1221, ")"]
+    Argument[815, 835] text:[815, 835, "${PROJECT_NAME}_HDRS"]
+    LineEnding[835, 836]
+    Argument[840, 848] text:[840, 848, "config.h"]
+    LineEnding[848, 849]
+    Argument[853, 881] text:[853, 881, "drivers/interrupt_handlers.h"]
+    LineEnding[881, 882]
+    Argument[886, 905] text:[886, 905, "EventTranslator.cpp"]
+    LineEnding[905, 906]
+    Argument[910, 923] text:[910, 923, "InputEvents.h"]
+    LineEnding[923, 924]
+    Argument[928, 940] text:[928, 940, "MainScreen.h"]
+    LineEnding[940, 941]
+    Argument[945, 967] text:[945, 967, "${PROFILE_GFX_H_FILES}"]
+    LineEnding[967, 968]
+    Argument[972, 984] text:[972, 984, "pin_config.h"]
+    LineEnding[984, 985]
+    Argument[989, 1007] text:[989, 1007, "tasks/AdcHandler.h"]
+    LineEnding[1007, 1008]
+    Argument[1012, 1032] text:[1012, 1032, "tasks/MotorControl.h"]
+    LineEnding[1032, 1033]
+    Argument[1037, 1059] text:[1037, 1059, "tasks/PortionControl.h"]
+    LineEnding[1059, 1060]
+    Argument[1064, 1084] text:[1064, 1084, "tasks/SoundHandler.h"]
+    LineEnding[1084, 1085]
+    Argument[1089, 1100] text:[1089, 1100, "type_defs.h"]
+    LineEnding[1100, 1101]
+    Argument[1105, 1125] text:[1105, 1125, "util/HistoryBuffer.h"]
+    LineEnding[1125, 1126]
+    Argument[1130, 1154] text:[1130, 1154, "util/non_volatile_data.h"]
+    LineEnding[1154, 1155]
+    Argument[1159, 1176] text:[1159, 1176, "util/power_down.h"]
+    LineEnding[1176, 1177]
+    Argument[1181, 1195] text:[1181, 1195, "util/Strings.h"]
+    LineEnding[1195, 1196]
+    Argument[1200, 1215] text:[1200, 1215, "${UART_H_FILES}"]
+    LineEnding[1215, 1216]
+  LineEnding[1221, 1222]
+  BlankLine[1222, 1223]
 ````````````````````````````````
 
 

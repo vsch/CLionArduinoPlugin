@@ -21,6 +21,21 @@ public class Argument extends Node {
         this.text = text;
         this.closingMarker = closingMarker;
     }
+    
+    public BasedSequence getLeadingSpaces() {
+        Node previous = getPrevious();
+        int startOffset = getStartOffset();
+
+        if (previous == null) {
+            if (getParent() instanceof Command) {
+                startOffset = ((Command) getParent()).getOpeningMarker().getEndOffset();
+            }
+        } else {
+            startOffset = previous.getEndOffset();
+        } 
+        
+        return baseSubSequence(startOffset, getStartOffset());
+    }
 
     @Override
     public BasedSequence[] getSegments() {

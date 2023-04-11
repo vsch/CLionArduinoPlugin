@@ -18,9 +18,6 @@ import java.util.Map;
 public class CMakeFormatterSpecTest extends ComboSpecTestCase {
     private static final DataHolder OPTIONS = new MutableDataSet()
             .set(CMakeParser.AUTO_CONFIG, false)
-            //.set(FormattingRenderer.INDENT_SIZE, 2)
-            //.set(HtmlRenderer.PERCENT_ENCODE_URLS, true)
-            //.set(Parser.EXTENSIONS, Collections.singleton(FormatterExtension.create()))
             .set(CMakeParser.AST_BLANK_LINES, true)
             .set(CMakeParser.AST_LINE_END_EOL, true)
             .set(CMakeParser.AST_ARGUMENT_SEPARATORS, true);

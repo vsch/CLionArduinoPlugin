@@ -224,8 +224,7 @@ public class NewProjectSettingsForm extends FormParams<ArduinoApplicationSetting
             }
         });
 
-        ActionListener actionListener1 = e -> updateOptions(false);
-        myBaudRate.addActionListener(actionListener1);
+        myBaudRate.addActionListener(actionListener);
 
         reset(mySettings);
         updateOptions(true);

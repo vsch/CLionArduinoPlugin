@@ -77,7 +77,6 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
         // if command is not found or has less args then an empty value will be used
         //
 
-
         // @formatter:off
         val GENERATE_ARDUINO_FIRMWARE = CMakeCommandType("GENERATE_ARDUINO_FIRMWARE", "generate_arduino_firmware", arrayOf(), 1, 1, true, false, true, arrayOf("\${PROJECT_NAME}"), 0)
         val GENERATE_ARDUINO_LIBRARY = CMakeCommandType("GENERATE_ARDUINO_LIBRARY", "generate_arduino_library", arrayOf(), 1, 1, true, false, true, arrayOf("\${PROJECT_NAME}"), 0)
@@ -260,7 +259,6 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
 
             val baudRateText = appSettings.baudRateText
             builder.setOrAddCommand(SET_UPLOAD_SPEED, baudRateText.ifEmpty("9600")).setSuppressible(baudRateText.isEmpty())
-            //            builder.removeCommand(SET_UPLOAD_SPEED)
 
             builder.setOrAddCommand(SET_AFLAGS, "-v").setSuppressible(!appSettings.isVerbose)
 
@@ -273,7 +271,7 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             }
 
             // Can add our own values to resolve variables
-            // TODO: figure out how to make comments unused false make sense with comments above
+            
             return builder.getCMakeContents(
                 null,
                 !appSettings.isCommentUnusedSettings,
@@ -315,8 +313,8 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             val cMakeProjectName = builder.cMakeProjectName
 
             settings.projectName = cMakeProjectName ?: ""
-            settings.sources = cMakeVariableValues["\${PROJECT_NAME}_SRCS"].toTypedArray()
-            settings.headers = cMakeVariableValues["\${PROJECT_NAME}_HDRS"].toTypedArray()
+            settings.sources = cMakeVariableValues["${builder.cMakeProjectNameMacro}_SRCS"].toTypedArray()
+            settings.headers = cMakeVariableValues["${builder.cMakeProjectNameMacro}_HDRS"].toTypedArray()
             settings.sketch = cMakeVariableValues["${cMakeProjectName}_SKETCH"].firstOrNull() ?: ""
             settings.boardId = cMakeVariableValues["${cMakeProjectName}_BOARD"].firstOrNull() ?: ""
             settings.cpuId = cMakeVariableValues["ARDUINO_CPU"].firstOrNull() ?: ""

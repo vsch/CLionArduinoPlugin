@@ -4,6 +4,7 @@ import com.intellij.openapi.util.io.FileUtil
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.CMakeCommand
 import com.vladsch.clionarduinoplugin.resources.Strings
 import com.vladsch.clionarduinoplugin.resources.TemplateResolver
+import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettingsProxy
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectFileSettings
 import com.vladsch.plugin.util.StudiedWord
@@ -18,6 +19,7 @@ import kotlin.collections.HashMap
 class ArduinoCMakeBuilderTest {
     val testProjects: File = File(ArduinoCMakeBuilderTest::class.java.getResource("/projects/dummy.txt").toURI()).parentFile
     val createdProjects: File = File(ArduinoCMakeBuilderTest::class.java.getResource("/created/dummy.txt").toURI()).parentFile
+    val applicationSettings: ArduinoApplicationSettings = ArduinoApplicationSettings()
 
     private val source = """
 # set(lib1_RECURSE true)
@@ -164,7 +166,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_non_arduino() {
         val projectDir = testProjects + "non_arduino"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         assertEquals(null, settings?.asString("expected"))
@@ -173,7 +175,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_tft_life() {
         val projectDir = testProjects + "tft_life"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.projectName = projectDir.name
@@ -200,9 +202,10 @@ set(lib4_RECURSE false)
     @Test
     fun test_tft_life2() {
         val projectDir = testProjects + "tft_life2"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
+        // NOTE: the file sets CMAKE_PROJECT_NAME but uses ${PROJECT_NAME}_SRCS and ${PROJECT_NAME}_HDRS
         expected.projectName = projectDir.name
         expected.headers = arrayOf()
         expected.sources = arrayOf("tft_life2.cpp")
@@ -227,7 +230,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_sketch1() {
         val projectDir = testProjects + "sketch_1"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.projectName = projectDir.name
@@ -249,7 +252,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_sketch2() {
         val projectDir = testProjects + "sketch_2"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.projectName = projectDir.name
@@ -273,7 +276,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_tft_test() {
         val projectDir = testProjects + "tft_test"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.projectName = projectDir.name
@@ -298,7 +301,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_arduino_lib1() {
         val projectDir = testProjects + "arduino_lib1"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.isLibrary = true
@@ -328,7 +331,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_arduino_lib2() {
         val projectDir = testProjects + "arduino_lib2"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.isLibrary = true
@@ -358,7 +361,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_static_lib1() {
         val projectDir = testProjects + "static_lib1"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.isLibrary = true
@@ -382,7 +385,7 @@ set(lib4_RECURSE false)
     @Test
     fun test_static_lib2() {
         val projectDir = testProjects + "static_lib2"
-        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
         val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         expected.isLibrary = true

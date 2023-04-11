@@ -4,7 +4,6 @@ import com.vladsch.clionarduinoplugin.generators.cmake.ast.BlankLine;
 import com.vladsch.clionarduinoplugin.generators.cmake.ast.CMakeFile;
 import com.vladsch.clionarduinoplugin.generators.cmake.ast.LineEnding;
 import com.vladsch.flexmark.formatter.*;
-import com.vladsch.flexmark.formatter.FormatterOptions;
 import com.vladsch.flexmark.html.renderer.HtmlIdGenerator;
 import com.vladsch.flexmark.html.renderer.LinkType;
 import com.vladsch.flexmark.html.renderer.ResolvedLink;
@@ -41,6 +40,8 @@ import java.util.function.Supplier;
 
 import static com.vladsch.flexmark.formatter.Formatter.NULL_ITERABLE;
 
+// TODO: add a node post processor to move nodes between if() ... else() ... endif() to be child nodes of if() and else() with block wrapper around them
+//       otherwise indentation will not work because all commands are at the root level.
 public class CMakeFormatter implements IRender {
 
     // syntax options

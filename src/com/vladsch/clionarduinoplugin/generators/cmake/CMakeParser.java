@@ -190,8 +190,14 @@ public class CMakeParser {
                     if (res) {
                         // it is
                         CommentedOutCommand node = (CommentedOutCommand) document.getLastChildAny(CommentedOutCommand.class);
+                        
                         if (node != null) {
-                            node.setLeadingSpaces(input.subSequence(start, saved));
+                            BasedSequence leadingSpaces = BasedSequence.NULL;
+                            if (node.getPrevious() != null) {
+                                // commented out nodes get their leading spaces from the start of comment
+                                leadingSpaces = input.subSequence(node.getPrevious().getEndOffset(), start);
+                            }
+                            node.setLeadingSpaces(leadingSpaces);
                             node.setCommentMarker(input.subSequence(saved, saved + 1));
                             node.setCharsFromContent();
                         }
@@ -248,7 +254,12 @@ public class CMakeParser {
 
                         if (parseLineEnding(parent, index)) {
                             // we are good
-                            commandNode.setLeadingSpaces(input.subSequence(start, command.getEndOffset()));
+                            BasedSequence leadingSpaces = BasedSequence.NULL;
+                            if (!isCommentedOut && commandNode.getPrevious() != null) {
+                                // commented out nodes get their leading spaces from the start of comment
+                                leadingSpaces = input.subSequence(commandNode.getPrevious().getEndOffset(), saved); 
+                            }
+                            commandNode.setLeadingSpaces(leadingSpaces);
                             commandNode.setCommand(command);
                             commandNode.setOpeningMarker(open);
                             commandNode.setArguments(input.subSequence(open.getEndOffset(), close.getStartOffset()));

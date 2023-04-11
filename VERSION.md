@@ -5,7 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
-  - [1.5.24 Next](#1524-next)
+  - [1.5.26 Next](#1526-next)
   - [1.5.11](#1511)
   - [1.5.9](#159)
   - [1.5.7](#157)
@@ -52,8 +52,13 @@
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
 
-### 1.5.24 Next
+### 1.5.26 Next
 
+* Fix: resolve white space preservation in regenerated `CMakeLists.txt` file. Only changing text
+  for values which were changed.
+* Fix: `CMakeLists.txt` file with mixed project macro name when `PROJECT_NAME` or
+  `CMAKE_PROJECT_NAME` is used to set `_SRCS` and `_HDRS`, while project was set with another
+  macro name, for example `project(${ANOTHER_NAME})`
 * Fix: disable diff buttons if the toolchain file is not `ArduinoToolchain.cmake` so that other
   toolchain files will not be erroneously compared to bundled version.
 * Fix: add second diff button for toolchain diff viewing `Platform/Arduino.cmake`

@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 class SerialMonitorToolWindowFactory implements ToolWindowFactory, DumbAware {
     public SerialMonitorToolWindowFactory() {
-        int tmp = 0;
+
     }
 
     @Override

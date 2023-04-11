@@ -1,5 +1,6 @@
 package com.vladsch.clionarduinoplugin.settings;
 
+import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
@@ -70,7 +71,6 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
     private boolean commentUnusedSettings = true;
     private int myDisconnectRestTime = 50;  // ms to delay after disconnecting on build 
 
-    
     private ArduinoConfig myArduinoConfig = null;
 
     @NotNull
@@ -561,7 +561,7 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         if (!programmersTxtPath.equals(settings.programmersTxtPath)) return false;
         if (!templatesPath.equals(settings.templatesPath)) return false;
         if (!toolchainTxtPath.equals(settings.toolchainTxtPath)) return false;
-        return true; 
+        return true;
     }
 
     @SuppressWarnings("NonFinalFieldReferencedInHashCode")
@@ -649,6 +649,8 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
     boolean isServiceInstance() {
         return this == getInstance();
     }
+
+    static @Nullable ArduinoApplicationSettings testSettings = null;
 
     @NotNull
     public static ArduinoApplicationSettings getInstance() {

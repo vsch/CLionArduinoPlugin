@@ -11,6 +11,7 @@ import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.DataKey;
 import com.vladsch.flexmark.util.data.DataKeyBase;
+import com.vladsch.flexmark.util.sequence.BasedSequence;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ class ArduinoCMakeListsTxtBuilderRenderer extends IRenderBase {
     @Override
     public void render(Node node, Appendable output) {
         assert node instanceof CMakeFile;
+        
         CMakeFile cMakeFile = (CMakeFile) node;
         Map<String, String> values = VALUE_MAP.get(getOptions());
         Map<String, Object> valueSet = new HashMap<>(VALUE_MAP.get(getOptions()));

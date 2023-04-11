@@ -369,7 +369,6 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         //                JTextField field = ((TextFieldWithBrowseButton) jcomp).getTextField();
         //                String text = field.getText();
         //                field.setText(text);
-        //                int tmp = 0;
         //            }
         //            showChildTree((JComponent) comp, lvl + "." + i);
         //        }
