@@ -5,7 +5,8 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
-  - [1.5.26 Next](#1526-next)
+  - [1.5.30 Next](#1530-next)
+  - [1.5.25 Next](#1525-next)
   - [1.5.11](#1511)
   - [1.5.9](#159)
   - [1.5.7](#157)
@@ -52,7 +53,12 @@
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
 
-### 1.5.26 Next
+### 1.5.30 Next
+
+* Fix: revert macro name for `_SRCS` and `_HRDS` to be resoved but the arguments to remain
+  unresolved.
+
+### 1.5.25 Next
 
 * Fix: resolve white space preservation in regenerated `CMakeLists.txt` file. Only changing text
   for values which were changed.

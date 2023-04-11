@@ -190,7 +190,7 @@ abstract class CMakeListsTxtBuilder(
 
                     // RELEASE: if inside conditional or looping commands then do not replace its macro values
                     //     by checking the parent nodes (or previous nodes) and seeing if unmatched parent conditional or loop is our parent
-                    val args = rawArgs.map { cMakeVariableValues.resolve(it) }
+                    val args: List<String> = rawArgs.map { cMakeVariableValues.resolve(it) }
                     var useVarName: String? = null
 
                     if (rawArgs.isNotEmpty() && args.size > 1 && (rawArgs[0] == "\${CMAKE_PROJECT_NAME}" && args[0].isEmpty() || rawArgs[0] == "\${PROJECT_NAME}") && args[0].isEmpty()) {
@@ -198,22 +198,21 @@ abstract class CMakeListsTxtBuilder(
                         erroneousSetProjectName = args[1]
                         erroneousSetProjectNameMacro = rawArgs[0]
                         useVarName = rawArgs[0].removePrefix("\${").removeSuffix("}")
-                    }
-
-                    if (rawArgs.isNotEmpty() && (rawArgs[0] == "${cMakeProjectNameMacro}_SRCS" || rawArgs[0] == "${cMakeProjectNameMacro}_HDRS")) {
+                        cMakeVariableValues[useVarName] = if (args.size > 1) args.slice(1 .. args.size - 1) else null
+                    } else if (rawArgs.isNotEmpty() && (rawArgs[0] == "${cMakeProjectNameMacro}_SRCS" || rawArgs[0] == "${cMakeProjectNameMacro}_HDRS")) {
                         // Don't expand any macros. Just leave as is
-                        if (rawArgs.size > 1) cMakeVariableValues[rawArgs[0]] = rawArgs.slice(1 .. rawArgs.size - 1)
-                        else cMakeVariableValues[rawArgs[0]] = null
-                    } else if (rawArgs.isNotEmpty() && (rawArgs[0] == "\${PROJECT_NAME}_SRCS" || rawArgs[0] == "\${PROJECT_NAME}_HDRS"
-                            || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_SRCS" || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_HDRS")
+                        cMakeVariableValues[args[0]] = if (rawArgs.size > 1) rawArgs.slice(1 .. rawArgs.size - 1) else null
+                    } else if (rawArgs.isNotEmpty()
+                        && (args[0] == "_SRCS" && (rawArgs[0] == "\${PROJECT_NAME}_SRCS" || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_SRCS")
+                            || args[0] == "_HDRS" && (rawArgs[0] == "\${PROJECT_NAME}_HDRS" || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_HDRS"))
                     ) {
-                        // this is most likely a mistake, since the project name is in cMakeProjectNameMacro
-                        val replaceMacroName = cMakeProjectNameMacro + rawArgs[0].substring(rawArgs[0].length - 5)
-                        if (rawArgs.size > 1) cMakeVariableValues[replaceMacroName] = rawArgs.slice(1 .. rawArgs.size - 1)
-                        else cMakeVariableValues[replaceMacroName] = null
-                    } else {
-                        if (args.size > 1) cMakeVariableValues[useVarName ?: args[0]] = args.slice(1 .. args.size - 1)
-                        else if (args.isNotEmpty()) cMakeVariableValues[useVarName ?: args[0]] = null
+                        // this is most likely a mistake, since the project name is given by cMakeProjectNameMacro 
+                        // and this uses something else and undefined
+                        val replaceMacroName =
+                            cMakeVariableValues.resolve("\${${cMakeProjectNameMacro}}") + rawArgs[0].substring(rawArgs[0].length - 5)
+                        cMakeVariableValues[replaceMacroName] = if (rawArgs.size > 1) rawArgs.slice(1 .. rawArgs.size - 1) else null
+                    } else if (args.isNotEmpty()) {
+                        cMakeVariableValues[args[0]] = if (args.size > 1) args.slice(1 .. args.size - 1) else null
                     }
                 } else if (node.command.equals("project")) {
                     // get the project name

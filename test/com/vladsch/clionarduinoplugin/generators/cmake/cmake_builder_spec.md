@@ -1452,8 +1452,7 @@ generate_arduino_firmware(${PROJECT_NAME})
 # cMakeProjectNameMacro = ${CMAKE_PROJECT_NAME}
 # outputCMakeProjectNameMacro = 
 # cMakeProjectName = tft_life
-# VariableExpander(valueMap=${CMAKE_PROJECT_NAME}_SRCS -> [ tft_life.cpp ]
-# , ARDUINO_CPU -> [ 8MHzatmega328 ]
+# VariableExpander(valueMap=ARDUINO_CPU -> [ 8MHzatmega328 ]
 # , CMAKE_CXX_STANDARD -> [ 98 ]
 # , CMAKE_PROJECT_NAME -> [ tft_life ]
 # , CMAKE_TOOLCHAIN_FILE -> [ /cmake/ArduinoToolchain.cmake ]
@@ -1462,6 +1461,7 @@ generate_arduino_firmware(${PROJECT_NAME})
 # , tft_life_BOARD -> [ pro ]
 # , tft_life_PORT -> [ /dev/cu.usbserial-00000000 ]
 # , tft_life_PROGRAMMER -> [ avrispmkii ]
+# , tft_life_SRCS -> [ tft_life.cpp ]
 # asMacroMap=[  ])
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
@@ -1591,8 +1591,7 @@ generate_arduino_firmware(${PROJECT_NAME})
 # cMakeProjectNameMacro = ${CMAKE_PROJECT_NAME}
 # outputCMakeProjectNameMacro = 
 # cMakeProjectName = a_project
-# VariableExpander(valueMap=${CMAKE_PROJECT_NAME}_SRCS -> [ tft_life.cpp ]
-# , ARDUINO_CPU -> [ 8MHzatmega328 ]
+# VariableExpander(valueMap=ARDUINO_CPU -> [ 8MHzatmega328 ]
 # , CMAKE_CXX_STANDARD -> [ 98 ]
 # , CMAKE_PROJECT_NAME -> [ a_project ]
 # , CMAKE_TOOLCHAIN_FILE -> [ /cmake/ArduinoToolchain.cmake ]
@@ -1601,6 +1600,7 @@ generate_arduino_firmware(${PROJECT_NAME})
 # , a_project_BOARD -> [ pro ]
 # , a_project_PORT -> [ /dev/cu.usbserial-00000000 ]
 # , a_project_PROGRAMMER -> [ avrispmkii ]
+# , a_project_SRCS -> [ tft_life.cpp ]
 # asMacroMap=[  ])
 cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)

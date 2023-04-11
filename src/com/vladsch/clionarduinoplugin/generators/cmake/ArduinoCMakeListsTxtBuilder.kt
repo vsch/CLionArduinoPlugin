@@ -313,8 +313,8 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             val cMakeProjectName = builder.cMakeProjectName
 
             settings.projectName = cMakeProjectName ?: ""
-            settings.sources = cMakeVariableValues["${builder.cMakeProjectNameMacro}_SRCS"].toTypedArray()
-            settings.headers = cMakeVariableValues["${builder.cMakeProjectNameMacro}_HDRS"].toTypedArray()
+            settings.sources = cMakeVariableValues["${cMakeProjectName}_SRCS"].toTypedArray()
+            settings.headers = cMakeVariableValues["${cMakeProjectName}_HDRS"].toTypedArray()
             settings.sketch = cMakeVariableValues["${cMakeProjectName}_SKETCH"].firstOrNull() ?: ""
             settings.boardId = cMakeVariableValues["${cMakeProjectName}_BOARD"].firstOrNull() ?: ""
             settings.cpuId = cMakeVariableValues["ARDUINO_CPU"].firstOrNull() ?: ""
