@@ -10,21 +10,21 @@ import java.util.List;
 public class CMakeUnknownCommand extends CMakeCommandBase {
     final protected @NotNull String myCommandName;
 
-    public CMakeUnknownCommand(@NotNull final String commandName, @NotNull final List<String> args, @Nullable List<BasedSequence> argsLeadingSpaces, boolean isAddEOL, boolean commented, boolean suppressibleCommented, @NotNull BasedSequence addEolBeforeClosing) {
-        super(CMakeCommandType.UNKNOWN, args, argsLeadingSpaces, isAddEOL, commented, suppressibleCommented, addEolBeforeClosing);
+    public CMakeUnknownCommand(@NotNull final String commandName, @NotNull final List<CommandArgument> args, boolean isAddEOL, boolean commented, boolean suppressibleCommented, @NotNull BasedSequence addEolBeforeClosing) {
+        super(CMakeCommandType.UNKNOWN, args, isAddEOL, commented, suppressibleCommented, addEolBeforeClosing);
         myCommandName = commandName;
     }
 
-    public CMakeUnknownCommand(@NotNull final String commandName, @NotNull final List<String> args, @Nullable List<BasedSequence> argsLeadingSpaces, boolean isAddEOL, @NotNull BasedSequence addEolBeforeClosing) {
-        this(commandName, args, argsLeadingSpaces, isAddEOL, false, false, addEolBeforeClosing);
+    public CMakeUnknownCommand(@NotNull final String commandName, @NotNull final List<CommandArgument> args, boolean isAddEOL, @NotNull BasedSequence addEolBeforeClosing) {
+        this(commandName, args, isAddEOL, false, false, addEolBeforeClosing);
     }
 
     public CMakeUnknownCommand(@NotNull final String commandName, boolean isAddEOL, @NotNull BasedSequence addEolBeforeClosing) {
-        this(commandName, Collections.emptyList(), Collections.emptyList(), isAddEOL, false, false, addEolBeforeClosing);
+        this(commandName, Collections.emptyList(), isAddEOL, false, false, addEolBeforeClosing);
     }
 
     public CMakeUnknownCommand(@NotNull final CMakeUnknownCommand other) {
-        this(other.myCommandName, other.myArgs, other.myArgsLeadingSpaces, other.myAddEOL, other.myCommented, other.mySuppressibleCommented, other.myAddBeforeClosing);
+        this(other.myCommandName, other.myArgs, other.myAddEOL, other.myCommented, other.mySuppressibleCommented, other.myAddBeforeClosing);
     }
 
     @Override

@@ -9,45 +9,43 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public abstract class CMakeCommandBase implements CMakeElement {
     final protected @NotNull CMakeCommandType myCommandType;
-    final protected @NotNull ArrayList<String> myArgs;
-    final protected @NotNull ArrayList<BasedSequence> myArgsLeadingSpaces;
+    final protected @NotNull ArrayList<CommandArgument> myArgs;
     protected boolean myAddEOL;
     protected boolean myCommented;
     protected boolean mySuppressibleCommented;
-    protected BasedSequence myLeadingSpaces = BasedSequence.NULL;
-    protected BasedSequence myAddBeforeClosing = BasedSequence.NULL;
+    protected BasedSequence myLeadingSpaces;
+    protected BasedSequence myAddBeforeClosing;
 
-    public CMakeCommandBase(@NotNull final CMakeCommandType commandType, @NotNull final List<String> args, @Nullable List<BasedSequence> argsLeadingSpaces, boolean isAddEOL, boolean commented, boolean suppressibleCommented, @NotNull BasedSequence addBeforeClosing) {
+    public CMakeCommandBase(@NotNull final CMakeCommandType commandType, @NotNull final List<CommandArgument> args, boolean isAddEOL, boolean commented, boolean suppressibleCommented, @NotNull BasedSequence addBeforeClosing) {
         myCommandType = commandType;
         myAddEOL = isAddEOL;
         myCommented = commented;
         mySuppressibleCommented = suppressibleCommented;
         myAddBeforeClosing = addBeforeClosing;
+        myLeadingSpaces = BasedSequence.NULL;
 
         myArgs = new ArrayList<>(args);
-        myArgsLeadingSpaces = argsLeadingSpaces == null ? new ArrayList<>() : new ArrayList<>(argsLeadingSpaces);
-        if (argsLeadingSpaces == null) {
-            int iMax = args.size();
-            for (int i = 0; i < iMax; i++) {
-                myArgsLeadingSpaces.add(BasedSequence.NULL);
-            }
-        }
-        
+
         String[] defaults = commandType.getDefaultArgs();
-        int iMax = defaults.length;
 
         // set defaults for missing or null values
+        int iMax = defaults.length;
         for (int i = 0; i < iMax; i++) {
             if (i >= myArgs.size() || myArgs.get(i) == null) {
-                addArg(defaults[i], BasedSequence.NULL);
+                setOrAddArg(i, CommandArgument.of(defaults[i]));
+            }
+        }
+
+        iMax = myArgs.size();
+        for (int i = 0; i < iMax; i++) {
+            if (myArgs.get(i) == null) {
+                myArgs.set(i, CommandArgument.NULL);
             }
         }
     }
@@ -145,10 +143,11 @@ public abstract class CMakeCommandBase implements CMakeElement {
                 if (pos == -1) break;
                 if (wildcardArg >= myArgs.size()) break;
 
-                String replacement = myArgs.get(wildcardArg);
-                argLeadingSpaces = myArgsLeadingSpaces.get(wildcardArg);
+                CommandArgument cmdArg = myArgs.get(wildcardArg);
+                String replacement = cmdArg.getValue().toString();
+                argLeadingSpaces = cmdArg.getLeadingSpaces();
 
-                if (wildcardArg < myCommandType.myDefaultArgs.length && myCommandType.myDefaultArgs[wildcardArg].equals(replacement)) {
+                if (wildcardArg < myCommandType.myDefaultArgs.length && replacement.equals(myCommandType.myDefaultArgs[wildcardArg])) {
                     // its a default, we replace values in it
                     replacement = CMakeListsTxtBuilder.Companion.replacedCommandParams(replacement, valueSet);
                 }
@@ -183,12 +182,11 @@ public abstract class CMakeCommandBase implements CMakeElement {
         }
 
         int iMax = myArgs.size();
-        
-        for (int i = wildcardArg; i < iMax; i++) {
-            String arg = myArgs.get(i);
-            if (arg.isEmpty()) continue;
 
-            BasedSequence argLeadingSpaces = myArgsLeadingSpaces.get(i);
+        for (int i = wildcardArg; i < iMax; i++) {
+            CommandArgument cmdArg = myArgs.get(i);
+            String arg = cmdArg.getValue().toString();
+            if (arg.isEmpty()) continue;
 
             if (i < myCommandType.myDefaultArgs.length && myCommandType.myDefaultArgs[i].equals(arg)) {
                 // its a default, we replace values in it
@@ -198,10 +196,10 @@ public abstract class CMakeCommandBase implements CMakeElement {
             if (!myCommandType.isNoDupeArgs() || !argValues.contains(arg)) {
                 argValues.add(arg);
 
-                if (!argLeadingSpaces.isEmpty()) out.append(argLeadingSpaces); 
+                if (cmdArg.getLeadingSpaces().isNotEmpty()) out.append(cmdArg.getLeadingSpaces());
                 else out.append(sep);
                 sep = " ";
-                
+
                 out.append(CMakeParser.getArgText(arg));
             }
         }
@@ -224,97 +222,82 @@ public abstract class CMakeCommandBase implements CMakeElement {
         return myCommandType.isOfType(commandType);
     }
 
-    public List<String> getArgs() {
+    public @NotNull List<CommandArgument> getArgs() {
         return myArgs;
     }
 
-    public List<BasedSequence> getArgsLeadingSpaces() {
-        return myArgsLeadingSpaces;
+    // get leading spaces for matching args, BasedSequence.NULL for the rest
+    public List<CommandArgument> getArgsWithLeadingSpaces(Collection<CommandArgument> args) {
+        return getArgsWithLeadingSpaces(args, 0, args.size());
     }
 
     // get leading spaces for matching args, BasedSequence.NULL for the rest
-    public List<BasedSequence> getArgsLeadingSpaces(Collection<String> args) {
-        return getArgsLeadingSpaces(args, 0, args.size());
-    }
-    
-    // get leading spaces for matching args, BasedSequence.NULL for the rest
-    public List<BasedSequence> getArgsLeadingSpaces(Collection<String> args, int start, int end) {
-        ArrayList<BasedSequence> argsLeadingSpaces = new ArrayList<>();
-        
+    public List<CommandArgument> getArgsWithLeadingSpaces(Collection<CommandArgument> args, int start, int end) {
+        ArrayList<CommandArgument> argsWithLeadingSpaces = new ArrayList<>();
+
         int i = 0;
-        for (String arg : args) {
-            if (i >= end) return argsLeadingSpaces;
+        for (CommandArgument arg : args) {
+            if (i >= end) return argsWithLeadingSpaces;
 
             if (i >= start) {
+                CommandArgument cmdArg = i < myArgs.size() ? myArgs.get(i) : CommandArgument.NULL;
+
                 if (arg != null) {
-                    if (i < myArgs.size()) {
-                        if (!arg.equals(myArgs.get(i))) {
-                            argsLeadingSpaces.add(BasedSequence.NULL);
+                    if (!cmdArg.isNull()) {
+                        if (!cmdArg.isEqualValue(arg)) {
+                            argsWithLeadingSpaces.add(arg.withLeadingSpaces(BasedSequence.NULL));
                         } else {
-                            argsLeadingSpaces.add(myArgsLeadingSpaces.get(i));   
+                            argsWithLeadingSpaces.add(arg.withLeadingSpaces(cmdArg.getLeadingSpaces()));
                         }
                     } else {
-                        argsLeadingSpaces.add(BasedSequence.NULL);
+                        argsWithLeadingSpaces.add(arg.withLeadingSpaces(BasedSequence.NULL));
                     }
                 } else {
-                    if (i >= myArgs.size() || !myArgs.get(i).isEmpty()) {
-                        argsLeadingSpaces.add(BasedSequence.NULL);
+                    if (cmdArg.isEmpty()) {
+                        argsWithLeadingSpaces.add(CommandArgument.NULL);
                     } else {
-                        argsLeadingSpaces.add(myArgsLeadingSpaces.get(i));
+                        argsWithLeadingSpaces.add(cmdArg.withValue(null));
                     }
                 }
             }
             i++;
         }
-        return argsLeadingSpaces;
+        return argsWithLeadingSpaces;
     }
 
     public int getArgCount() {
         return myArgs.size();
     }
 
-    public @NotNull String getArg(int index) {
+    public @NotNull CommandArgument getArg(int index) {
         return myArgs.get(index);
     }
 
-    public @NotNull BasedSequence getArgLeadingSpaces(int index) {
-        return myArgsLeadingSpaces.get(index);
-    }
-
-    public @NotNull String arg(int index) {
-        return index < myArgs.size() ? myArgs.get(index) : "";
-    }
-
-    public @NotNull BasedSequence argLeadingSpaces(int index) {
-        return index < myArgsLeadingSpaces.size() ? myArgsLeadingSpaces.get(index) : BasedSequence.NULL;
+    public @NotNull CommandArgument arg(int index) {
+        return index < myArgs.size() ? myArgs.get(index) : CommandArgument.NULL;
     }
 
     public void extendArgs(int index) {
         while (index >= myArgs.size()) {
-            myArgs.add("");
-            myArgsLeadingSpaces.add(BasedSequence.NULL);
+            myArgs.add(CommandArgument.NULL);
         }
     }
 
-    public void setArgsWithDefaults(@NotNull Collection<String> args, @Nullable Collection<BasedSequence> argsLeadingSpaces) {
+    public void setArgsWithDefaults(@NotNull Collection<CommandArgument> args) {
         myArgs.clear();
 
         int i = 0;
         int j = 0; // default args
         String[] defaultArgs = myCommandType.getDefaultArgs();
-        Iterator<BasedSequence> leadingSpacesIterator = argsLeadingSpaces == null ? null : argsLeadingSpaces.iterator();
 
-        for (String arg : args) {
-            if (arg != null) {
+        for (CommandArgument arg : args) {
+            if (arg.isNotNull()) {
                 extendArgs(i);
                 myArgs.set(i, arg);
-                BasedSequence leadingSpaces = leadingSpacesIterator == null /*|| !leadingSpacesIterator.hasNext()*/ ? BasedSequence.NULL : leadingSpacesIterator.next();
-                myArgsLeadingSpaces.set(i, leadingSpaces == null ? BasedSequence.NULL : leadingSpaces);
             } else {
                 if (j < defaultArgs.length) {
                     extendArgs(i);
-                    myArgs.set(i, defaultArgs[j]);
-                    myArgsLeadingSpaces.set(i, BasedSequence.NULL);
+                    myArgs.set(i, CommandArgument.of(defaultArgs[j]));
                 }
             }
             j++;
@@ -323,26 +306,25 @@ public abstract class CMakeCommandBase implements CMakeElement {
 
         while (j < defaultArgs.length) {
             extendArgs(i);
-            myArgs.set(i, defaultArgs[j]);
-            myArgsLeadingSpaces.set(i, BasedSequence.NULL);
+            myArgs.set(i, CommandArgument.of(defaultArgs[j]));
             j++;
             i++;
         }
     }
 
-    public boolean allArgsEqual(final Collection<String> args) {
+    public boolean allArgsEqual(final Collection<CommandArgument> args) {
         return allArgsEqual(args, 0, args.size());
     }
 
-    public boolean allArgsEqual(final Collection<String> args, int start, int end) {
+    public boolean allArgsEqual(final Collection<CommandArgument> args, int start, int end) {
         int i = 0;
-        for (String arg : args) {
+        for (CommandArgument arg : args) {
             if (i >= end) return true;
 
             if (i >= start) {
                 if (arg != null) {
                     if (i < myArgs.size()) {
-                        if (!arg.equals(myArgs.get(i))) {
+                        if (!myArgs.get(i).isEqualValue(arg)) {
                             return false;
                         }
                     } else {
@@ -364,43 +346,30 @@ public abstract class CMakeCommandBase implements CMakeElement {
     // clear to defaults
     public void clearToDefaults() {
         myArgs.clear();
-        myArgsLeadingSpaces.clear();
-
-        Collections.addAll(myArgs, myCommandType.myDefaultArgs);
 
         for (String arg : myCommandType.myDefaultArgs) {
-            myArgsLeadingSpaces.add(BasedSequence.NULL);
+            myArgs.add(CommandArgument.of(arg));
         }
     }
 
     // raw manipulation
-    public void setArg(int index, @NotNull String arg, @NotNull BasedSequence leadingSpaces) {
+    public void setOrAddArg(int index, @NotNull CommandArgument arg) {
         if (index == getArgCount()) {
             myArgs.add(arg);
-            myArgsLeadingSpaces.add(leadingSpaces);
         } else {
             myArgs.set(index, arg);
-            myArgsLeadingSpaces.set(index, leadingSpaces);
         }
     }
 
     public void clearArgs() {
         myArgs.clear();
-        myArgsLeadingSpaces.clear();
     }
 
-    public void addArg(@NotNull String arg, @NotNull BasedSequence argLeadingSpaces) {
+    public void addArg(@NotNull CommandArgument arg) {
         myArgs.add(arg);
-        myArgsLeadingSpaces.add(argLeadingSpaces);
-    }
-
-    public void addArg(int index, @NotNull String arg, @NotNull BasedSequence argLeadingSpaces) {
-        myArgs.set(index, arg);
-        myArgsLeadingSpaces.set(index, argLeadingSpaces);
     }
 
     public void removeArg(int index) {
         myArgs.remove(index);
-        myArgsLeadingSpaces.remove(index);
     }
 }

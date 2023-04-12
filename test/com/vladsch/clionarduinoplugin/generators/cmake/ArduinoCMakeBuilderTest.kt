@@ -109,7 +109,7 @@ set(lib4_RECURSE false)
             assertEquals("Argument count differs", exp.size, act.argCount)
 
             for (j in 0..exp.size - 1) {
-                assertEquals("Item[$i+1] argument ${j + 1} differs", exp[j], actual[i].getArg(j))
+                assertEquals("Item[$i+1] argument ${j + 1} differs", exp[j], actual[i].getArg(j).value.toString())
             }
         }
     }

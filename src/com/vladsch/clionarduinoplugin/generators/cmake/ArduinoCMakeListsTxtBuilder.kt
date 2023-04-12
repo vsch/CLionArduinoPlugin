@@ -49,9 +49,6 @@ import java.io.File
  * generate_arduino_firmware(${CMAKE_PROJECT_NAME})
  */
 class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
-
-    constructor() : super(ourCommands, ourAnchors, PROJECT_NAME)
-
     constructor(text: CharSequence, options: DataHolder? = null, values: Map<String, Any>? = null) : super(
         PROJECT_NAME,
         ourCommands,
@@ -222,7 +219,7 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             builder.setOrAddCommand(SET_HDRS, hFiles).setSuppressible(hFiles.isEmpty())
 
             // TODO: implement
-            val staticLibs = arrayOf<String>();
+            val staticLibs = arrayOf<String>()
             builder.setOrAddCommand(SET_LIBS, *staticLibs).setSuppressible(staticLibs.isEmpty())
 
             builder.setOrAddCommand(SET_SKETCH, sketchFile.ifEmpty(projectName + Strings.DOT_INO_EXT)).setSuppressible(sketchFile.isEmpty())
@@ -271,7 +268,7 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             }
 
             // Can add our own values to resolve variables
-            
+
             return builder.getCMakeContents(
                 null,
                 !appSettings.isCommentUnusedSettings,
@@ -304,15 +301,15 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             builder.isWantCommented = false   // commented commands don't count
 
             // see if at all our project type by looking for generate_arduino_firmware(${CMAKE_PROJECT_NAME}) or generate_arduino_library(${CMAKE_PROJECT_NAME})
-            val arduinoCommand = builder.getCommand(ArduinoCMakeListsTxtBuilder.GENERATE_ARDUINO_FIRMWARE)
-                ?: builder.getCommand(ArduinoCMakeListsTxtBuilder.GENERATE_ARDUINO_LIBRARY) ?: return null
+            val arduinoCommand = builder.getCommand(GENERATE_ARDUINO_FIRMWARE)
+                ?: builder.getCommand(GENERATE_ARDUINO_LIBRARY) ?: return null
 
             // ok, it is ours
             val settings = ArduinoApplicationSettingsProxy.wrap(applicationSettings, false) as ArduinoProjectFileSettings
             val cMakeVariableValues = builder.cMakeVariableValues
             val cMakeProjectName = builder.cMakeProjectName
 
-            settings.projectName = cMakeProjectName ?: ""
+            settings.projectName = cMakeProjectName
             settings.sources = cMakeVariableValues["${cMakeProjectName}_SRCS"].toTypedArray()
             settings.headers = cMakeVariableValues["${cMakeProjectName}_HDRS"].toTypedArray()
             settings.sketch = cMakeVariableValues["${cMakeProjectName}_SKETCH"].firstOrNull() ?: ""
@@ -331,12 +328,12 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             }
 
             when (arduinoCommand.commandType) {
-                ArduinoCMakeListsTxtBuilder.GENERATE_ARDUINO_LIBRARY -> {
+                GENERATE_ARDUINO_LIBRARY -> {
                     settings.isLibrary = true
                     settings.libraryType = ArduinoProjectFileSettings.STATIC_LIB_TYPE
                 }
 
-                ArduinoCMakeListsTxtBuilder.GENERATE_ARDUINO_FIRMWARE -> {
+                GENERATE_ARDUINO_FIRMWARE -> {
                     if (libraryProperties.exists() && libraryProperties.isFile) {
                         settings.isLibrary = true
                         settings.libraryType = ArduinoProjectFileSettings.ARDUINO_LIB_TYPE
@@ -351,14 +348,15 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
                 val list = builder.getCommands(LINK_DIRECTORIES).flatMap { it.args }
                 if (!list.isEmpty()) {
                     settings.isAddLibraryDirectory = true
-                    settings.libraryDirectories = list.map { it.removePrefix("\${CMAKE_CURRENT_SOURCE_DIR}/") }.toTypedArray()
+                    settings.libraryDirectories =
+                        list.map { it.value.toString().removePrefix("\${CMAKE_CURRENT_SOURCE_DIR}/") }.toTypedArray()
                 }
             }
 
             if (!settings.isLibrary) {
                 val list = ArrayList<String>()
-                builder.getCommands(ArduinoCMakeListsTxtBuilder.SET_LIB_NAMES_RECURSE).forEach {
-                    list.addAll(it.args)
+                builder.getCommands(SET_LIB_NAMES_RECURSE).forEach { command ->
+                    list.addAll(command.args.map { arg -> arg.value.toString() })
                 }
                 settings.nestedLibraries = list.toTypedArray()
             }

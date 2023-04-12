@@ -4,7 +4,7 @@
     <name>Arduino Support</name>
     <vendor email="vladimir.schneider@gmail.com" url="https://github.com/vsch">Vladimir Schneider</vendor>
 
-    <version>1.5.31</version>
+    <version>1.5.33</version>
     <depends>com.intellij.modules.clion</depends>
     <idea-version since-build="201.6668.113"/>
 
@@ -52,8 +52,10 @@
         ]]></description>
 
     <change-notes><![CDATA[
-        <h3>1.5.32</h3>
+        <h3>1.5.34</h3>
         <ul>
+            <li>Fix: refactor cmake AST command with <code>CommandArgument</code> class to encapsulate the value and
+                leading spaces instead of lugging around two separate lists.</li>
             <li>Fix: improve toolchain file path error and info messages</li>
             <li>Fix: revert macro name for <code>_SRCS</code> and <code>_HRDS</code> to be resolved, with arguments to remain
                 unresolved.

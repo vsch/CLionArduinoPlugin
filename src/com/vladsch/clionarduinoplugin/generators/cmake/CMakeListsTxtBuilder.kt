@@ -191,7 +191,7 @@ abstract class CMakeListsTxtBuilder(
                     // RELEASE: if inside conditional or looping commands then do not replace its macro values
                     //     by checking the parent nodes (or previous nodes) and seeing if unmatched parent conditional or loop is our parent
                     val args: List<String> = rawArgs.map { cMakeVariableValues.resolve(it) }
-                    var useVarName: String? = null
+                    var useVarName: String?
 
                     if (rawArgs.isNotEmpty() && args.size > 1 && (rawArgs[0] == "\${CMAKE_PROJECT_NAME}" && args[0].isEmpty() || rawArgs[0] == "\${PROJECT_NAME}") && args[0].isEmpty()) {
                         // probably a mistake of including ${} around variable name
@@ -256,19 +256,18 @@ abstract class CMakeListsTxtBuilder(
     fun elementFrom(node: Node, valueSet: Map<String, Any>?): CMakeElement {
         // either command or text
         if (node is Command) {
-            // find the command or we can create a new one if we don't have it already or just make it into a text block
+            // find the command or create a new one if we don't have it already or just make it into a text block
             var commandType: CMakeCommandType? = null
-            val rawArgs = ArrayList<String>()
-            val rawArgsLeadingSpaces = ArrayList<BasedSequence>()
+            val rawArgs = ArrayList<CommandArgument>()
 
             for (arg in node.getChildren()) {
                 if (arg is Argument) {
-                    rawArgs.add(arg.text.toString())
-                    if (arg.previous is LineEnding) {
-                        rawArgsLeadingSpaces.add(arg.leadingSpaces.prefixWithEOL())
-                    } else {
-                        rawArgsLeadingSpaces.add(arg.leadingSpaces)
-                    }
+                    rawArgs.add(
+                        CommandArgument.of(
+                            arg.text,
+                            if (arg.previous is LineEnding) arg.leadingSpaces.prefixWithEOL() else arg.leadingSpaces
+                        )
+                    )
                 }
             }
 
@@ -282,25 +281,25 @@ abstract class CMakeListsTxtBuilder(
                 // see if we have a matching set command
                 val arg = rawArgs.firstOrNull()
                 if (arg != null) {
-                    val setCommand: String?
-
-                    if (!canUseUnmodifiedOriginal && rawArgs.isNotEmpty() && rawArgs.size > 1 && (rawArgs[0] == "\${CMAKE_PROJECT_NAME}" || rawArgs[0] == "\${PROJECT_NAME}")) {
+                    val setCommand: String = if (!canUseUnmodifiedOriginal && rawArgs.isNotEmpty() && rawArgs.size > 1
+                        && (rawArgs[0].isEqualValue("\${CMAKE_PROJECT_NAME}") || rawArgs[0].isEqualValue("\${PROJECT_NAME}"))
+                    ) {
                         // erroneous set, we convert it to proper set project name
-                        setCommand = cMakeProjectNameMacro.removeSurrounding("\${", "}")
+                        cMakeProjectNameMacro.removeSurrounding("\${", "}")
                     } else {
-                        setCommand = arg
+                        arg.value.toString()
                     }
 
                     // normalize it to PROJECT_NAME as commands expect
-                    val resolvedSetCommand: String
-                    if (setCommand == "\${PROJECT_NAME}_SRCS" || setCommand == "\${PROJECT_NAME}_HDRS") {
-                        // do not resolve
-                        resolvedSetCommand = cMakeVariableValues[setCommand].joinToString { it }
-                    } else {
-                        resolvedSetCommand = cMakeVariableValues.resolve(setCommand)
-                    }
+                    val resolvedSetCommand: String =
+                        if (setCommand == "\${PROJECT_NAME}_SRCS" || setCommand == "\${PROJECT_NAME}_HDRS") {
+                            // do not resolve
+                            cMakeVariableValues[setCommand].joinToString { it }
+                        } else {
+                            cMakeVariableValues.resolve(setCommand)
+                        }
 
-                    rawArgs[0] = resolvedSetCommand
+                    rawArgs[0] = rawArgs[0].withValue(resolvedSetCommand)
 
                     commandType = mySetCommandsArg0[setCommand]
                     if (commandType == null) {
@@ -313,7 +312,7 @@ abstract class CMakeListsTxtBuilder(
                             if (converted.replace(projectNameMacro, cMakeProjectName) == resolvedSetCommand) {
                                 // it is this
                                 commandType = mySetCommandsArg0[name]
-                                rawArgs[0] = name
+                                rawArgs[0] = rawArgs[0].withValue(name)
                                 break
                             } else if (converted.indexOf(CMakeCommandType.WILDCARD_ARG_MARKER) >= 0) {
                                 // has wildcard match
@@ -336,11 +335,6 @@ abstract class CMakeListsTxtBuilder(
 
             val makeCommand: CMakeCommandBase
 
-            // DEBUG: remove lines
-            if (commandName == "made_up_command") {
-                val tmp = 0
-            }
-
             if (commandType != null) {
                 makeCommand = CMakeCommand(commandType, false, addBeforeClosing)
                 makeCommand.leadingSpaces = node.leadingSpaces
@@ -353,21 +347,21 @@ abstract class CMakeListsTxtBuilder(
                     if (fixedArg.contains(CMakeCommandType.WILDCARD_ARG_MARKER)) {
                         // extract value of wild card
                         val regEx = Pattern.compile("^\\Q" + fixedArg.replace(CMakeCommandType.WILDCARD_ARG_MARKER, "\\E(.*?)\\Q") + "\\E$")
-                        val matcher = regEx.matcher(rawArgs[i++])
+                        val matcher = regEx.matcher(rawArgs[i++].value)
                         matcher.find()
                         for (g in 1 .. matcher.groupCount()) {
-                            makeCommand.setArg(j++, matcher.group(g), rawArgsLeadingSpaces[g])
+                            makeCommand.setOrAddArg(j++, rawArgs[g].withValue(matcher.group(g)))
                         }
                     } else i++
                 }
 
                 while (i < rawArgs.size) {
-                    makeCommand.setArg(j++, rawArgs[i], rawArgsLeadingSpaces[i])
+                    makeCommand.setOrAddArg(j++, rawArgs[i])
                     i++
                 }
             } else {
                 // unknown command
-                makeCommand = CMakeUnknownCommand(commandName, rawArgs, rawArgsLeadingSpaces, false, addBeforeClosing)
+                makeCommand = CMakeUnknownCommand(commandName, rawArgs, false, addBeforeClosing)
                 makeCommand.leadingSpaces = node.leadingSpaces
             }
 
@@ -519,7 +513,7 @@ abstract class CMakeListsTxtBuilder(
                         if (commandType == SET_PROJECT_NAME && commandType.isOfType(element.commandType)) {
                             // specialization, compare first argument to see if a match, for now just set project name
                             val setCommandMacro = outputCMakeProjectNameMacro.ifEmpty { cMakeProjectNameMacro }
-                            if (element.argCount > 1 && element.arg(0).prefixWith("\${").suffixWith("}") == setCommandMacro) {
+                            if (element.argCount > 1 && element.arg(0).value.prefixWith("\${").suffixWith("}").equals(setCommandMacro)) {
                                 return i
                             }
                         }
@@ -694,11 +688,11 @@ abstract class CMakeListsTxtBuilder(
             val beforeDependents = myBeforeAnchorsMap[command.commandType]
             val afterDependents = myAfterAnchorsMap[command.commandType]
             if (beforeDependents != null) {
-                // treat them as first (ie. before this node)
+                // treat them as first (i.e. before this node)
                 adjustIndexRange(command, range, beforeDependents, AnchorType.FIRST, false)
             }
             if (afterDependents != null) {
-                // treat them as last (ie. after this node)
+                // treat them as last (i.e. after this node)
                 adjustIndexRange(command, range, afterDependents, AnchorType.LAST, false)
             }
         } else {
@@ -740,41 +734,39 @@ abstract class CMakeListsTxtBuilder(
 
         if (command.isOfType(PROJECT) && command.argCount > 0) {
             // copy its argument for generating the CMakeLists file
-            outputCMakeProjectNameMacro = command.arg(0)
+            outputCMakeProjectNameMacro = command.arg(0).value.toString()
         }
 
         if (range.beforeIndex == myElements.size && range.afterIndex == 0) {
             // no anchors, goes last
             addElement(command)
         } else if (range.beforeIndex == myElements.size) {
-            // no before anchor, goes after
+            // not before anchor, goes after
             addElement(range.afterIndex, command)
         } else if (range.afterIndex == 0) {
-            // no after anchor, goes before
+            // not after anchor, goes before
             addElement(range.beforeIndex, command)
         } else {
-            //            if (!afterHasPriority && range.beforeIndex < range.afterIndex) throw IllegalStateException("Invalid anchor definitions: BeforeAnchor(" + range.beforeIndex + ") < AfterAnchor(" + range.afterIndex + ") for " + command.commandType.name)
             // insert before
             addElement(if (afterHasPriority) range.afterIndex else range.beforeIndex, command)
         }
     }
 
     fun setCommand(name: String, args: Collection<String>): CMakeCommand? {
-        return setCommand(getCommandType(name), args)
-    }
-
-    fun setOrAddCommand(name: String, vararg args: String): CMakeCommand {
-        val commandType = getCommandType(name)
-        return setOrAddCommand(commandType!!, Arrays.asList(*args))
+        return setCommand(getCommandType(name), args.map { CommandArgument.of(it) })
     }
 
     fun setOrAddCommand(name: String, args: Collection<String>): CMakeCommand {
         val commandType = getCommandType(name)
-        return setOrAddCommand(commandType!!, args)
+        return setOrAddCommand(commandType!!, args.map { CommandArgument.of(it) })
     }
 
     fun setOrAddCommand(commandType: CMakeCommandType, vararg args: String): CMakeCommand {
-        return setOrAddCommand(commandType, Arrays.asList(*args))
+        return setOrAddCommand(commandType, listOf(*args).map { CommandArgument.of(it) })
+    }
+
+    fun setOrAddCommand(commandType: CMakeCommandType, args: Collection<String>): CMakeCommand {
+        return setOrAddCommand(commandType, args.map { CommandArgument.of(it) })
     }
 
     fun removeCommand(name: String) {
@@ -798,11 +790,11 @@ abstract class CMakeListsTxtBuilder(
      * @param args arguments for the command
      * @return resulting command (new or modified)
      */
-    fun setOrAddCommand(commandType: CMakeCommandType, args: Collection<String>?): CMakeCommand {
+    fun setOrAddCommand(commandType: CMakeCommandType, args: List<CommandArgument>?): CMakeCommand {
         val command = setCommand(commandType, args)
         if (command == null) {
             // create a new one and find where to insert it
-            val newCommand = CMakeCommand(commandType, args?.toList() ?: listOf(), null, true, BasedSequence.NULL)
+            val newCommand = CMakeCommand(commandType, args?.toList() ?: listOf(), true, BasedSequence.NULL)
             addCommand(newCommand)
             return newCommand
         }
@@ -813,14 +805,14 @@ abstract class CMakeListsTxtBuilder(
      * Replace or modify a command based on command type and command anchors information
      * if the command does not exist in the builder then nothing is done and null is returned.
      *
-     * RELEASE: have to not resolve its args to values if it is inside if(), else(), foreach(), while(), function()
+     * FIX: setOrAddCommand has to not resolve its args to values if it is inside if(), else(), foreach(), while(), function()
      *     currently, expansion proceeds with the last set value
      *
      * @param commandType command name (not CMake command name but builder specific name)
      * @param args arguments for the command
      * @return resulting command (new or modified)
      */
-    fun setCommand(commandType: CMakeCommandType?, args: Collection<String>?): CMakeCommand? {
+    fun setCommand(commandType: CMakeCommandType?, args: Collection<CommandArgument>?): CMakeCommand? {
         val command = getCommand(commandType)
         var newCommand = command
 
@@ -832,10 +824,10 @@ abstract class CMakeListsTxtBuilder(
                     // original command, replace it with new
                     newCommand = CMakeCommand(command)
                     newCommand.commentOut(false)
-                    newCommand.setArgsWithDefaults(argList, command.getArgsLeadingSpaces(argList))
+                    newCommand.setArgsWithDefaults(command.getArgsWithLeadingSpaces(argList))
                     replaceElement(command, newCommand)
                 } else {
-                    newCommand!!.setArgsWithDefaults(argList, null)
+                    newCommand!!.setArgsWithDefaults(argList)
                 }
             } else {
                 if (commandType.isMultiple) {
@@ -844,8 +836,7 @@ abstract class CMakeListsTxtBuilder(
                         if (!command.allArgsEqual(argList)) {
                             newCommand = CMakeCommand(
                                 command.commandType,
-                                argList,
-                                command.getArgsLeadingSpaces(argList),
+                                command.getArgsWithLeadingSpaces(argList),
                                 true,
                                 command.addBeforeClosing
                             )
@@ -854,13 +845,13 @@ abstract class CMakeListsTxtBuilder(
                         }
                     } else {
                         // add another one after this one
-                        newCommand = CMakeCommand(command.commandType, argList, null, true, BasedSequence.NULL)
+                        newCommand = CMakeCommand(command.commandType, argList, true, BasedSequence.NULL)
                         addElementAfter(command, newCommand)
                     }
                 } else {
                     if (command.isOfType(PROJECT) && argList.isNotEmpty()) {
                         // copy its argument for generating the CMakeLists file
-                        outputCMakeProjectNameMacro = argList[0]
+                        outputCMakeProjectNameMacro = argList[0].value.toString()
                     }
 
                     if (myElementNodeMap[command] != null) {
@@ -868,18 +859,18 @@ abstract class CMakeListsTxtBuilder(
                         if (command.isOfType(commandType)) {
                             newCommand = CMakeCommand(command)
                             newCommand.commentOut(false)
-                            newCommand.setArgsWithDefaults(argList, command.getArgsLeadingSpaces(argList))
+                            newCommand.setArgsWithDefaults(command.getArgsWithLeadingSpaces(argList))
                             replaceElement(command, newCommand)
                         } else {
-                            // is a matched sub-type, need to replace completely
-                            newCommand = CMakeCommand(commandType, argList, null, false, command.addBeforeClosing)
+                            // is a matched subtype, need to replace completely
+                            newCommand = CMakeCommand(commandType, argList, false, command.addBeforeClosing)
                             newCommand.commentOut(false)
-                            newCommand.setArgsWithDefaults(argList, command.getArgsLeadingSpaces(argList))
+                            newCommand.setArgsWithDefaults(command.getArgsWithLeadingSpaces(argList))
 
                             replaceElement(command, newCommand)
                         }
                     } else {
-                        newCommand!!.setArgsWithDefaults(argList, null)
+                        newCommand!!.setArgsWithDefaults(argList)
                     }
                 }
             }
@@ -893,11 +884,7 @@ abstract class CMakeListsTxtBuilder(
         if (values != null) valueSet.putAll(values)
 
         if (outputCMakeProjectNameMacro.isEmpty()) {
-            if (cMakeProjectNameMacro.isEmpty()) {
-                outputCMakeProjectNameMacro = projectNameMacro
-            } else {
-                outputCMakeProjectNameMacro = cMakeProjectNameMacro
-            }
+            outputCMakeProjectNameMacro = cMakeProjectNameMacro.ifEmpty { projectNameMacro }
         }
 
         // if cmake project var name not given, set it to the
@@ -1083,7 +1070,7 @@ abstract class CMakeListsTxtBuilder(
         // @formatter:on
 
         val ourIndentingCommands = ourAllCommands.filter { it.isPostIndenting || it.isPreUnIndenting }
-        val ourIndentingCommandMap: Map<String, CMakeCommandType> = ourIndentingCommands.map { it.name to it }.toMap()
+        val ourIndentingCommandMap: Map<String, CMakeCommandType> = ourIndentingCommands.associateBy { it.name }
 
         private val LOG = Logger.getInstance("com.vladsch.clionarduinoplugin.generators")
         private val DEFAULT_OPTIONS = MutableDataSet()
@@ -1110,7 +1097,7 @@ abstract class CMakeListsTxtBuilder(
          * @return string with variables replaced
          */
         @Suppress("MemberVisibilityCanBePrivate")
-        fun replacedCommandParams(arg: String, valueSet: Map<String, Any>?): String {
+        fun replacedCommandParams(arg: CharSequence, valueSet: Map<String, Any>?): String {
             val result = arg.resolveRefs(TemplateResolver.COMMAND_REF) { name, index ->
                 val ref = valueSet?.get(name)
                 if (ref == null) null
@@ -1121,7 +1108,7 @@ abstract class CMakeListsTxtBuilder(
                     var varIndex = index?.toIntOrNull() ?: 0
 
                     if (varIndex < 0) varIndex += command!!.argCount
-                    if (varIndex >= 0 && varIndex < command!!.argCount) command.getArg(varIndex) else ""
+                    if (varIndex >= 0 && varIndex < command!!.argCount) command.getArg(varIndex).value.toString() else ""
                 }
             }
             return result

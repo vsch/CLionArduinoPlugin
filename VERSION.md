@@ -5,8 +5,9 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
-  - [1.5.32](#1532)
+  - [1.5.33](#1533)
   - [1.5.31](#1531)
+  - [1.5.29](#1529)
   - [1.5.25](#1525)
   - [1.5.11](#1511)
   - [1.5.9](#159)
@@ -54,11 +55,16 @@
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
 
-### 1.5.32
+### 1.5.33
+
+* Fix: refactor cmake AST command with `CommandArgument` class to encapsulate the value and
+  leading spaces instead of lugging around two separate lists.
+
+### 1.5.31
 
 * Fix: improve toolchain file path error and info messages
 
-### 1.5.31
+### 1.5.29
 
 * Fix: revert macro name for `_SRCS` and `_HRDS` to be resolved, with arguments to remain
   unresolved.
