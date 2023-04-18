@@ -19,15 +19,6 @@ class ChangeBuildSettingsAction : DumbAwareAction(Bundle.message("action.change-
         var enabled = false
         if (project != null) {
             enabled = true
-            //            val projectComponent = ArduinoProjectComponent.getInstance(project)
-            //            if (projectComponent.isArduinoProject == true) {
-            //                enabled = true
-            //            } else if (!projectComponent.inReload.get()) {
-            //                val workspace = CMakeWorkspace.getInstance(project)
-            //                val projectDir = workspace.projectDir
-            //                val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir)
-            //                projectComponent.isArduinoProject = settings != null
-            //            }
         }
         e.presentation.isEnabled = enabled
     }
@@ -36,7 +27,7 @@ class ChangeBuildSettingsAction : DumbAwareAction(Bundle.message("action.change-
         val project = e.project
         if (project != null) {
             val workspace = CMakeWorkspace.getInstance(project)
-            val projectDir = workspace.projectDir
+            val projectDir = workspace.projectPath.toFile()
 
             val cMakeListsTxt = projectDir + Strings.CMAKE_LISTS_FILENAME
             val virtualFile = VirtualFileManager.getInstance().findFileByUrl("file://" + cMakeListsTxt.absolutePath)
@@ -47,14 +38,12 @@ class ChangeBuildSettingsAction : DumbAwareAction(Bundle.message("action.change-
                 document?.text
             ) 
 
-            if (settings == null || virtualFile == null) {
+            if (settings == null) {
                 Messages.showErrorDialog(project, Bundle.message("action.change-build-settings.not-arduino-project.message"), Bundle.message("action.change-build-settings.not-arduino-project.title"))
                 return
             }
 
-            if (ProjectBuildSettingsDialog.showDialog(project, settings, virtualFile)) {
-
-            }
+            ProjectBuildSettingsDialog.showDialog(project, settings, virtualFile)
         }
     }
 }

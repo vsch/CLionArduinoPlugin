@@ -5,6 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.5.35](#1535)
   - [1.5.33](#1533)
   - [1.5.31](#1531)
   - [1.5.29](#1529)
@@ -54,6 +55,15 @@
   * Offer to add the directory if it is missing
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
+
+### 1.5.35
+
+* Change: migrate to gradle build
+* Change: minimum supported version to `2020.3` for gradle build compatibility with later
+  versions.
+* Fix: `ArduinoToolchain.cmake` to work with CLion 2022.3 and 2023.1
+* Add: show difference buttons to show diff which allows modification of unbundled files or
+  CMakeLists.txt, in case of `Change Build Options` action.
 
 ### 1.5.33
 

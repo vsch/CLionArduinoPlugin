@@ -1,0 +1,7 @@
+<component name="MarkdownNavigator.ProfileManager">
+  <settings>
+    <scope-profiles>
+      <element scope="Version" profile="Version" />
+    </scope-profiles>
+  </settings>
+</component>

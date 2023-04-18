@@ -233,7 +233,7 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
             if (!canceled) {
                 ApplicationManager.getApplication().invokeLater {
                     // force reload after the first generation cycle is complete
-                    myWorkspace.selectProjectDir(myWorkspace.projectDir)
+                    myWorkspace.selectProjectDir(myWorkspace.projectPath.toFile())
                 }
             }
         }
@@ -428,7 +428,7 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
             val workspace = CMakeWorkspace.getInstance(project)
             ApplicationManager.getApplication().invokeLater {
                 // force reload
-                workspace.selectProjectDir(workspace.projectDir)
+                workspace.selectProjectDir(workspace.projectPath.toFile())
             }
         }
     }

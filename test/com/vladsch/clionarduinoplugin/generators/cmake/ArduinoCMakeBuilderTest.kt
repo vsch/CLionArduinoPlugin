@@ -81,9 +81,9 @@ set(lib4_RECURSE false)
         val projectDir = File(rootDir.path)
         val fileList = sourceFiles.map { File(it.path).relativeTo(projectDir).path }
         val cMakeFileContent = ArduinoCMakeListsTxtBuilder.getCMakeFileContent(cMakeFileTemplate, name, mySettings, fileList, true)
-        val cMakeFile = createProjectFileWithContent(createdFiles, rootDir, Strings.CMAKE_LISTS_FILENAME, cMakeFileContent)
+        
+        createProjectFileWithContent(createdFiles, rootDir, Strings.CMAKE_LISTS_FILENAME, cMakeFileContent)
 
-        //        val extraFiles = ArduinoToolchainFiles.copyToDirectory(VfsUtil.findFileByIoFile(VfsUtilCore.virtualToIoFile(rootDir), false))
         if (mySettings.isAddLibraryDirectory) {
             val libDir = File(rootDir.path) + (mySettings.libraryDirectories.firstOrNull() ?: "")
             if (!libDir.exists() && libDir.canonicalPath != rootDir.canonicalPath) {
@@ -99,6 +99,7 @@ set(lib4_RECURSE false)
         return file
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun compareCommand(expected: Array<Array<String>>, actual: List<CMakeCommand>) {
         assertEquals("Result size differs", expected.size, actual.size)
 
@@ -152,7 +153,7 @@ set(lib4_RECURSE false)
 
     fun compareFiles(rootDir: File, files: Map<File, String>) {
         val expected = HashMap<File, String>()
-        rootDir.list().forEach { name ->
+        rootDir.list()?.forEach { name ->
             val file = rootDir + name
             // TODO: handle directories
             if (file.exists() && file.isFile) {
@@ -167,7 +168,6 @@ set(lib4_RECURSE false)
     fun test_non_arduino() {
         val projectDir = testProjects + "non_arduino"
         val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
-        val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
 
         assertEquals(null, settings?.asString("expected"))
     }
@@ -192,8 +192,8 @@ set(lib4_RECURSE false)
         assertEquals(expected.asString("expected"), settings?.asString("expected"))
 
         val rootDir = createdProjects + expected.projectName
-        val cmakelists = getFileContent(projectDir + Strings.CMAKE_LISTS_FILENAME)
-        val modified = ArduinoCMakeListsTxtBuilder.getCMakeFileContent(cmakelists, expected.projectName, expected as ArduinoApplicationSettingsProxy, true)
+        val cmakeLists = getFileContent(projectDir + Strings.CMAKE_LISTS_FILENAME)
+        val modified = ArduinoCMakeListsTxtBuilder.getCMakeFileContent(cmakeLists, expected.projectName, expected as ArduinoApplicationSettingsProxy, true)
         val expectedContent = getFileContent(rootDir + Strings.CMAKE_LISTS_FILENAME)
 
         assertEquals("Expected ${getFileUriFromProjectResource(rootDir + Strings.CMAKE_LISTS_FILENAME, rootDir)}", expectedContent, modified);

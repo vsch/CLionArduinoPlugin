@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="clion">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/excluded_lib/clion.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

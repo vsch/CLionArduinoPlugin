@@ -52,8 +52,14 @@
         ]]></description>
 
     <change-notes><![CDATA[
-        <h3>1.5.34</h3>
+        <h3>1.5.36</h3>
         <ul>
+            <li>Change: migrate to gradle build</li>
+            <li>Change: minimum supported version to <code>2020.3</code> for gradle build compatibility with later
+                versions.</li>
+            <li>Fix: <code>ArduinoToolchain.cmake</code> to work with CLion 2022.3 and 2023.1</li>
+            <li>Add: show difference buttons to show diff which allows modification of unbundled files or
+                CMakeLists.txt, in case of <code>Change Build Options</code> action.</li>
             <li>Fix: refactor cmake AST command with <code>CommandArgument</code> class to encapsulate the value and
                 leading spaces instead of lugging around two separate lists.</li>
             <li>Fix: improve toolchain file path error and info messages</li>
@@ -72,7 +78,6 @@
             <li>Fix: add second diff button for toolchain diff viewing <code>Platform/Arduino.cmake</code></li>
             <li>Fix: allow directories to be selected for toolchain file path.</li>
             <li>Fix: if a directory is selected add <code>ArduinoToolchain.cmake</code> file name automatically.</li>
-            <li>Change: minimum supported version is <code>201.6668.113</code></li>
             <li>Add: Toolchain file path option, wth diff and create, to allow not having a <code>cmake</code> directory
                 and tool chain files in every project. Also allows to use different toolchain than
                 <code>ArduinoCmake.cmake</code>.

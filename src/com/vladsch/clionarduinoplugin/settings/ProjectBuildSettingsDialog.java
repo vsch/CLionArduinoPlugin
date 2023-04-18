@@ -1,17 +1,4 @@
-/*
- * Copyright (c) 2015-2018 Vladimir Schneider <vladimir.schneider@gmail.com>, all rights reserved.
- *
- * This code is private property of the copyright holder and cannot be used without
- * having obtained a license or prior written permission of the of the copyright holder.
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *
- */
+// Copyright (c) 2015-2023 Vladimir Schneider <vladimir.schneider@gmail.com> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package com.vladsch.clionarduinoplugin.settings;
 
 import com.intellij.diff.DiffContentFactoryEx;
@@ -22,6 +9,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.fileTypes.PlainTextFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -34,6 +22,7 @@ import com.jetbrains.cidr.cpp.cmake.workspace.CMakeWorkspace;
 import com.vladsch.clionarduinoplugin.Bundle;
 import com.vladsch.clionarduinoplugin.generators.ArduinoProjectGenerator;
 import com.vladsch.clionarduinoplugin.generators.cmake.ArduinoCMakeListsTxtBuilder;
+import com.vladsch.clionarduinoplugin.util.DiffActionListener;
 import com.vladsch.flexmark.util.html.ui.BackgroundColor;
 import com.vladsch.flexmark.util.html.ui.HtmlBuilder;
 import com.vladsch.plugin.util.ui.Helpers;
@@ -54,8 +43,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ProjectBuildSettingsDialog extends DialogWrapper {
-    //private static final Logger logger = com.intellij.openapi.diagnostic.Logger.getInstance("com.vladsch.idea.multimarkdown.settings.license.fetch-dialog");
-
     private JPanel myMainPanel;
     private JPanel myFormPanel;
     private JEditorPane myNotificationEditorPane;
@@ -67,7 +54,6 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
     final VirtualFile myFile;
     final ArduinoApplicationSettingsProxy mySettings;
     final ArduinoApplicationSettingsProxy myResetSettings;
-    //final Alarm myAlarm;
 
     private ProjectBuildSettingsDialog(Project project, ArduinoApplicationSettingsProxy settings, final VirtualFile file) {
         super(project, false);
@@ -100,7 +86,6 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
             builder.tag("html").attr(font).tag("body");
 
             // add warning icon from GitHub
-
             for (String notification : notifications) {
                 String[] parts = notification.split("\r");
                 String text = Bundle.message(parts[0]);
@@ -127,24 +112,6 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
         } else {
             myNotificationsPanel.setVisible(false);
         }
-
-        //descriptionEditorPane.setText("" +
-        //        "<html>\n" +
-        //        "  <head>\n" +
-        //        "  <style>\n" +
-        //        //"     body.multimarkdown-preview, body.multimarkdown-preview p, body.multimarkdown-preview p.error { background: transparent !important;}\n" +
-        //        "     body.multimarkdown-preview, body.multimarkdown-preview div { margin: 0 !important; padding: 0 !important; font-family: sans-serif; font-size: " + JBUI.scale(11) + "px; }\n" +
-        //        "     body.multimarkdown-preview p { margin: " + JBUI.scale(10) + "px !important; padding: 0 !important; }\n" +
-        //        "     p.error { color: #ec2e5c; }\n" +
-        //        "  </style>\n" +
-        //        "  </head>\n" +
-        //        "  <body class='multimarkdown-preview'>\n" +
-        //        "    <p>\n" +
-        //        "      " + MultiMarkdownBundle.message("settings.license-fetch.description") + "\n" +
-        //        "    </p>\n" +
-        //        "  </body>\n" +
-        //        "</html>\n" +
-        //        "");
     }
 
     @Nullable
@@ -156,13 +123,6 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
-
-    //void updateOptions() {
-    //    if (myAlarm.isDisposed()) return;
-    //
-    //    myAlarm.cancelAllRequests();
-    //    myAlarm.addRequest(this::updateOptionsRaw, 500);
-    //}
 
     void updateOptions() {
         ApplicationManager.getApplication().invokeLater(() -> {
@@ -253,8 +213,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
     MyAction myResetAction = null;
     MyAction myShowDiffAction = null;
 
-    @NotNull
-    protected Action[] createLeftSideActions() {
+    protected Action @NotNull [] createLeftSideActions() {
         myResetAction = new MyAction(Bundle.message("settings.project-build-settings.reset.label"), new Runnable() {
             @Override
             public void run() {
@@ -269,14 +228,17 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
             public void run() {
                 String original = getCMakeFileContent();
                 String modified = getModifiedContent(original);
-                SimpleDiffRequest request = new SimpleDiffRequest(
-                        Bundle.message("settings.project-build-settings.show-diff.title"),
-                        getContent(original),
-                        getContent(modified),
-                        myFile.getName(),
-                        Bundle.message("settings.project-build-settings.modified.title")
+                
+                DiffActionListener actionListener = new DiffActionListener(
+                        myProject
+                        , Bundle.message("settings.project-build-settings.show-diff.title")
+                        ,  modified
+                        , FileTypeManager.getInstance().getFileTypeByExtension("cmake")
+                        , Bundle.message("settings.project-build-settings.modified.title")
+                        , myFile::getPath
+
                 );
-                DiffManager.getInstance().showDiff(null, request);
+                actionListener.actionPerformed(null);
             }
         });
 
@@ -288,9 +250,8 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
 
     MyOkAction myOkAction = null;
 
-    @NotNull
     @Override
-    protected Action[] createActions() {
+    protected Action @NotNull [] createActions() {
         super.createDefaultActions();
         myOkAction = new MyOkAction();
         return new Action[] { myOkAction, getCancelAction() };
@@ -324,6 +285,8 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
                 Disposer.dispose(dialog.myNewProjectSettingsForm);
             }
             return true;
+        } else {
+            Disposer.dispose(dialog.myNewProjectSettingsForm);
         }
         return false;
     }

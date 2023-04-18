@@ -1,36 +1,14 @@
-/*
- * Copyright (c) 2015-2016 Vladimir Schneider <vladimir.schneider@gmail.com>, all rights reserved.
- *
- * This code is private property of the copyright holder and cannot be used without
- * having obtained a license or prior written permission of the of the copyright holder.
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *
- */
+// Copyright (c) 2015-2023 Vladimir Schneider <vladimir.schneider@gmail.com> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package com.vladsch.clionarduinoplugin.settings;
 
-import com.intellij.diff.DiffContentFactoryEx;
-import com.intellij.diff.DiffManager;
-import com.intellij.diff.contents.DiffContent;
-import com.intellij.diff.requests.DiffRequest;
-import com.intellij.diff.requests.SimpleDiffRequest;
-import com.intellij.ide.diff.DiffElement;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.diff.DirDiffManager;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
-import com.intellij.openapi.fileTypes.PlainTextFileType;
+import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.TextComponentAccessor;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.components.JBCheckBox;
 import com.vladsch.clionarduinoplugin.Bundle;
@@ -39,10 +17,10 @@ import com.vladsch.clionarduinoplugin.resources.ArduinoToolchainFiles;
 import com.vladsch.clionarduinoplugin.resources.ResourceUtils;
 import com.vladsch.clionarduinoplugin.resources.TemplateResolver;
 import com.vladsch.clionarduinoplugin.util.ApplicationSettingsListener;
+import com.vladsch.clionarduinoplugin.util.DiffActionListener;
 import com.vladsch.plugin.util.ui.Settable;
 import com.vladsch.plugin.util.ui.SettingsComponents;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -52,11 +30,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.DocumentEvent;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Path;
 
 public class ApplicationSettingsForm implements Disposable, ApplicationSettingsListener {
@@ -100,6 +76,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
     private final SettingsComponents<ArduinoApplicationSettings> components;
     final ArduinoApplicationSettings mySettings;
 
+    @SuppressWarnings("StatementWithEmptyBody")
     public ApplicationSettingsForm(ArduinoApplicationSettings settings) {
         mySettings = settings;
 
@@ -108,10 +85,10 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         final String toolchainTxt = ArduinoConfig.Companion.getToolchainTxtString();
         final String toolchainTxt2 = ArduinoConfig.Companion.getToolchainTxtString2();
         myArduinoConfig = new ArduinoConfig(boardsTxt, programmersTxt);
-        //noinspection unchecked
-        components = new SettingsComponents<ArduinoApplicationSettings>(mySettings) {
+        //noinspection unchecked,rawtypes
+        components = new SettingsComponents<>(mySettings) {
             @Override
-            protected Settable[] createComponents(ArduinoApplicationSettings i) {
+            protected Settable[] createComponents(@NotNull ArduinoApplicationSettings i) {
                 return new Settable[] {
                         component(myAuthorName, i::getAuthorName, i::setAuthorName),
                         component(myAuthorEMail, i::getAuthorEMail, i::setAuthorEMail),
@@ -132,12 +109,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
 
         ApplicationManager.getApplication().getMessageBus().connect(this).subscribe(ApplicationSettingsListener.TOPIC, this);
 
-        ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                updateOptions(false);
-            }
-        };
+        ActionListener listener = e -> updateOptions(false);
 
         DocumentAdapter change = new DocumentAdapter() {
             @Override
@@ -163,7 +135,6 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
 
-        //noinspection DialogTitleCapitalization
         myTemplatesPath.addBrowseFolderListener(Bundle.message("settings.templates.file-directory.title"), null, null,
                 new FileChooserDescriptor(false, true, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
@@ -179,175 +150,128 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         myTemplatesPath.getTextField().getDocument().addDocumentListener(change);
         myToolchainTxtPath.getTextField().getDocument().addDocumentListener(change);
 
-        myBoardsTxtDiff.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                // show diff
-                File file = new File(myBoardsTxtPath.getText());
+        myBoardsTxtDiff.addActionListener(new DiffActionListener(
+                null
+                , Bundle.message("settings.boards-txt.diff.title")
+                , boardsTxt
+                , null
+                , Bundle.message("settings.bundled.0.title", "boards.txt")
+                , () -> myBoardsTxtPath.getText()
+        ));
+
+        myProgrammersTxtDiff.addActionListener(new DiffActionListener(
+                null
+                , Bundle.message("settings.programmers-txt-diff.title")
+                , programmersTxt
+                , null
+                , Bundle.message("settings.bundled.0.title", "programmers.txt")
+                , () -> myProgrammersTxtPath.getText()
+        ));
+
+        myToolchainTxtDiff.addActionListener(new DiffActionListener(
+                null
+                , Bundle.message("settings.toolchain-txt.diff.title")
+                , toolchainTxt
+                , FileTypeManager.getInstance().getFileTypeByExtension("cmake")
+                , Bundle.message("settings.bundled.0.title", "ArduinoToolchain.cmake")
+                , () -> myToolchainTxtPath.getText()
+        ));
+        
+        myToolchainTxtDiff2.addActionListener(new DiffActionListener(
+                null
+                , Bundle.message("settings.toolchain-txt.diff2.title")
+                , toolchainTxt2
+                , FileTypeManager.getInstance().getFileTypeByExtension("cmake")
+                , Bundle.message("settings.bundled.0.title", "Platform/Arduino.cmake")
+                , () -> new File(new File(myToolchainTxtPath.getText()).getParentFile(), "Platform/Arduino.cmake").getPath()
+        ));
+        
+        myTemplatesCreate.addActionListener(e -> {
+            // copy templates to location
+            String templatesPathText = myTemplatesPath.getText();
+            if (!myBundledTemplates.isSelected() && !templatesPathText.trim().isEmpty()) {
+                File file = new File(templatesPathText);
                 if (!file.exists()) {
-                } else if (file.isDirectory()) {
-                } else {
-                    String fileTxt = ResourceUtils.getFileContent(file);
-                    SimpleDiffRequest request = new SimpleDiffRequest(
-                            Bundle.message("settings.boards-txt.diff.title"),
-                            getContent(boardsTxt),
-                            getContent(fileTxt),
-                            Bundle.message("settings.bundled.0.title", "boards.txt"),
-                            myBoardsTxtPath.getText());
-                    showDiff(request);
-                }
-            }
-        });
+                    // TODO: move this out to utils as two functions: parentPath() and canCreatePath()
+                    String parentPath = file.getPath();
+                    boolean canCreate = false;
 
-        myProgrammersTxtDiff.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                File file = new File(myProgrammersTxtPath.getText());
-                if (!file.exists()) {
-                } else if (file.isDirectory()) {
-                } else {
-                    String fileTxt = ResourceUtils.getFileContent(file);
-                    SimpleDiffRequest request = new SimpleDiffRequest(
-                            Bundle.message("settings.programmers-txt-diff.title"),
-                            getContent(programmersTxt),
-                            getContent(fileTxt),
-                            Bundle.message("settings.bundled.0.title", "programmers.txt"),
-                            myProgrammersTxtPath.getText());
-                    showDiff(request);
-                }
-            }
-        });
-
-        myToolchainTxtDiff.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                File file = new File(myToolchainTxtPath.getText());
-                if (!file.exists()) {
-                } else if (file.isDirectory()) {
-                } else {
-                    String fileTxt = ResourceUtils.getFileContent(file);
-                    SimpleDiffRequest request = new SimpleDiffRequest(
-                            Bundle.message("settings.toolchain-txt.diff.title"),
-                            getContent(toolchainTxt),
-                            getContent(fileTxt),
-                            Bundle.message("settings.bundled.0.title", "ArduinoToolchain.cmake"),
-                            myToolchainTxtPath.getText());
-                    showDiff(request);
-                }
-            }
-        });
-
-        myToolchainTxtDiff2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                File file = new File(new File(myToolchainTxtPath.getText()).getParentFile(), "Platform/Arduino.cmake");
-                if (!file.exists()) {
-                } else if (file.isDirectory()) {
-                } else {
-                    String fileTxt = ResourceUtils.getFileContent(file);
-                    SimpleDiffRequest request = new SimpleDiffRequest(
-                            Bundle.message("settings.toolchain-txt.diff2.title"),
-                            getContent(toolchainTxt2),
-                            getContent(fileTxt),
-                            Bundle.message("settings.bundled.0.title", "Platform/Arduino.cmake"),
-                            file.getPath());
-                    showDiff(request);
-                }
-            }
-        });
-
-        myTemplatesCreate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                // copy templates to location
-                String templatesPathText = myTemplatesPath.getText();
-                if (!myBundledTemplates.isSelected() && !templatesPathText.trim().isEmpty()) {
-                    File file = new File(templatesPathText);
-                    if (!file.exists()) {
-                        // TODO: move this out to utils as two functions: parentPath() and canCreatePath()
-                        String parentPath = file.getPath();
-                        boolean canCreate = false;
-
-                        while (!parentPath.isEmpty()) {
-                            File parent = new File(parentPath);
-                            if (parent.exists()) {
-                                canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
-                                break;
-                            }
-
-                            int pos = parentPath.lastIndexOf(File.separator);
-                            if (pos <= 0) break;
-
-                            parentPath = parentPath.substring(0, pos);
+                    while (!parentPath.isEmpty()) {
+                        File parent = new File(parentPath);
+                        if (parent.exists()) {
+                            canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
+                            break;
                         }
 
-                        if (canCreate) {
-                            try {
-                                TemplateResolver.INSTANCE.copyTemplatesDirectoryTo(file);
-                                //FileUtil.copyDir(bundledTemplateDir, file);
-                                updateOptions(false);
-                                Messages.showMessageDialog(
-                                        myMainPanel,
-                                        Bundle.message("settings.templates.create-success.label", file.getPath()),
-                                        Bundle.message("settings.templates.create-success.title"),
-                                        Messages.getInformationIcon());
-                            } catch (IOException e1) {
-                                LOG.info("Create template dir failed", e1);
+                        int pos = parentPath.lastIndexOf(File.separator);
+                        if (pos <= 0) break;
 
-                                Messages.showMessageDialog(
-                                        myMainPanel,
-                                        Bundle.message("settings.templates.create-failed.label"),
-                                        Bundle.message("settings.templates.create-failed.title"),
-                                        Messages.getErrorIcon());
-                            }
+                        parentPath = parentPath.substring(0, pos);
+                    }
+
+                    if (canCreate) {
+                        try {
+                            TemplateResolver.INSTANCE.copyTemplatesDirectoryTo(file);
+                            //FileUtil.copyDir(bundledTemplateDir, file);
+                            updateOptions(false);
+                            Messages.showMessageDialog(
+                                    myMainPanel,
+                                    Bundle.message("settings.templates.create-success.label", file.getPath()),
+                                    Bundle.message("settings.templates.create-success.title"),
+                                    Messages.getInformationIcon());
+                        } catch (IOException e1) {
+                            LOG.info("Create template dir failed", e1);
+
+                            Messages.showMessageDialog(
+                                    myMainPanel,
+                                    Bundle.message("settings.templates.create-failed.label"),
+                                    Bundle.message("settings.templates.create-failed.title"),
+                                    Messages.getErrorIcon());
                         }
                     }
                 }
             }
         });
 
-        myToolchainTxtCreate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                // copy templates to location
-                String toolchainTxtPathText = myToolchainTxtPath.getText();
-                if (!myBundledToolchainTxt.isSelected() && !toolchainTxtPathText.trim().isEmpty()) {
-                    File file = new File(toolchainTxtPathText);
-                    if (!file.exists()) {
-                        // TODO: move this out to utils as two functions: parentPath() and canCreatePath()
-                        String parentPath = file.getPath();
-                        boolean canCreate = false;
+        myToolchainTxtCreate.addActionListener(e -> {
+            // copy templates to location
+            String toolchainTxtPathText = myToolchainTxtPath.getText();
+            if (!myBundledToolchainTxt.isSelected() && !toolchainTxtPathText.trim().isEmpty()) {
+                File file = new File(toolchainTxtPathText);
+                if (!file.exists()) {
+                    // TODO: move this out to utils as two functions: parentPath() and canCreatePath()
+                    String parentPath = file.getPath();
+                    boolean canCreate = false;
 
-                        while (!parentPath.isEmpty()) {
-                            File parent = new File(parentPath);
-                            if (parent.exists()) {
-                                canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
-                                break;
-                            }
-
-                            int pos = parentPath.lastIndexOf(File.separator);
-                            if (pos <= 0) break;
-
-                            parentPath = parentPath.substring(0, pos);
+                    while (!parentPath.isEmpty()) {
+                        File parent = new File(parentPath);
+                        if (parent.exists()) {
+                            canCreate = parent.isDirectory() && parent.canRead() && parent.canWrite();
+                            break;
                         }
 
-                        if (canCreate) {
-                            File[] files = ArduinoToolchainFiles.copyToDirectory(file.getParentFile());
+                        int pos = parentPath.lastIndexOf(File.separator);
+                        if (pos <= 0) break;
 
-                            if (files.length != 0) {
-                                updateOptions(false);
-                                Messages.showMessageDialog(
-                                        myMainPanel,
-                                        Bundle.message("settings.toolchain-txt.create-success.label", file.getParentFile().getPath()),
-                                        Bundle.message("settings.toolchain-txt.create-success.title"),
-                                        Messages.getInformationIcon());
-                            } else {
-                                Messages.showMessageDialog(
-                                        myMainPanel,
-                                        Bundle.message("settings.toolchain-txt.create-failed.label"),
-                                        Bundle.message("settings.toolchain-txt.create-failed.title"),
-                                        Messages.getErrorIcon());
-                            }
+                        parentPath = parentPath.substring(0, pos);
+                    }
+
+                    if (canCreate) {
+                        File[] files = ArduinoToolchainFiles.copyToDirectory(file.getParentFile());
+
+                        if (files.length != 0) {
+                            updateOptions(false);
+                            Messages.showMessageDialog(
+                                    myMainPanel,
+                                    Bundle.message("settings.toolchain-txt.create-success.label", file.getParentFile().getPath()),
+                                    Bundle.message("settings.toolchain-txt.create-success.title"),
+                                    Messages.getInformationIcon());
+                        } else {
+                            Messages.showMessageDialog(
+                                    myMainPanel,
+                                    Bundle.message("settings.toolchain-txt.create-failed.label"),
+                                    Bundle.message("settings.toolchain-txt.create-failed.title"),
+                                    Messages.getErrorIcon());
                         }
                     }
                 }
@@ -357,29 +281,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         updateOptions(true);
     }
 
-    static DiffContent getContent(String content) {
-        return DiffContentFactoryEx.getInstanceEx().create(content, PlainTextFileType.INSTANCE, true);
-    }
-
-    @Nullable
-    static DiffElement getDirContent(@NotNull DirDiffManager diffManager, File content) {
-        try {
-            VirtualFile dir = VirtualFileManager.getInstance().findFileByUrl(content.toURI().toURL().toString());
-            if (dir != null) {
-                return diffManager.createDiffElement(dir);
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    static void showDiff(DiffRequest request) {
-        if (request == null) return;
-
-        DiffManager.getInstance().showDiff(null, request);
-    }
-
+    @SuppressWarnings({ "ConstantValue", "ReassignedVariable" })
     void updateOptions(boolean onSet) {
         if (myInUpdate) return;
         try {
@@ -533,6 +435,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     } else if (file.isFile()) {
                         error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-templates.message") + "</span></body></html>";
                     } else {
+                        //noinspection DataFlowIssue
                         canShowDiff = false; // does not work for non-project directories
 
                         // should have all files in respective template types
@@ -575,13 +478,11 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     if (!file.exists() || file.isDirectory()) {
                         if (file.isDirectory()) {
                             // add file name automatically 
-                            Path toolchainPath = Path.of(toolchainTxtPathText, "ArduinoToolchain.cmake");
+                            Path toolchainPath = new File(toolchainTxtPathText, "ArduinoToolchain.cmake").toPath();
                             toolchainTxtPathText = toolchainPath.toString();
                             file = toolchainPath.toFile();
                             String finalToolchainTxtPathText = toolchainTxtPathText;
-                            ApplicationManager.getApplication().invokeLater(() -> {
-                                myToolchainTxtPath.setText(finalToolchainTxtPathText);
-                            });
+                            ApplicationManager.getApplication().invokeLater(() -> myToolchainTxtPath.setText(finalToolchainTxtPathText));
                         } else {
                             if (!file.getName().equals("ArduinoToolchain.cmake")) {
                                 error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists.not-arduino-cmake.message") + "</span></body></html>";
@@ -604,7 +505,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                                 missingParentPath = parentPath;
                                 parentPath = parentPath.substring(0, pos);
                             }
-                            
+
                             if (!canCreate) {
                                 error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists-rd-only.0.message", missingParentPath) + "</span></body></html>";
                             } else {
@@ -613,7 +514,6 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                                 } else {
                                     error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists.message") + "</span></body></html>";
                                 }
-
                             }
                         }
                     } else if (file.isDirectory()) {
