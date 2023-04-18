@@ -76,15 +76,10 @@ solves the problem. On some project it is not needed on others 20ms was sufficie
 
 ## Status
 
-Forked to fix CLion 2018 issues and decided to add a few creature comforts:
+Updated to work with CLion 2020.3 to 2023.1, with fixes in the ArduinoToolchain.cmake.
 
-From previous experience, when I see an issue open for a couple of years I can see that the
-maintainer is no longer motivated by the project. I can understand but I am not motivated to
-report suggestions or go to the trouble of a PR. I feel it would be a hassle to the maintainer.
-
-I opt out for another solution or implement it myself. At least with the latter I am limited by
-my available time and motivation to get the functionality the way I like it. Until I too loose
-interest. Then maybe someone else will pick up the torch at take it further.
+Added an option not to use bundled toolchain file. This opens the possibility of using another
+toolchain.
 
 ## Wish List
 
