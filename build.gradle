@@ -1,21 +1,14 @@
-@file:Suppress("PublicApiImplicitType")
-
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-fun properties(key: String) = providers.gradleProperty(key)
-fun environment(key: String) = providers.environmentVariable(key)
-
-val javaVersion = "11"
-val flexmarkVersion = "0.64.0"
-val pluginSinceBuild = "203.5981.155"
-val pluginUntilBuild = ""
-val pluginVersion = "1.5.35"
-
 plugins {
-    id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.8.20"
-    id("org.jetbrains.intellij") version "1.13.3"
+    id "java"
+    id "org.jetbrains.kotlin.jvm" version "1.8.20"
+    id "org.jetbrains.intellij" version "1.13.3"
 }
+
+def javaVersion = "11"
+def flexmarkVersion = "0.64.0"
+def pluginSinceBuild = "203.5981.155"
+def pluginUntilBuild = ""
+def pluginVersion = "1.5.35"
 
 group = "com.vladsch.clionarduinoplugin"
 version = pluginVersion
@@ -28,10 +21,10 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2020.3")
-    type.set("CL") // Target IDE Platform
+    version = "2020.3"
+    type = "CL" // Target IDE Platform
 
-    plugins.set(listOf("com.intellij.clion", "com.intellij.cidr.base", project(":SimpleSerialConnectorService")))
+    plugins = ["com.intellij.clion", "com.intellij.cidr.base", project(":SimpleSerialConnectorService")]
 
 //    sandboxDir.set("/Users/vlad/src/projects/CLionArduinoPlugin/build/idea-sandbox")
 }
@@ -53,43 +46,45 @@ dependencies {
 
     implementation(files("lib/plugin-util.jar"))
     compileOnly("io.github.java-native:jssc:2.9.4") {
-        exclude("org.slf4j", "slf4j-api")
+        exclude(group: "org.slf4j", module: "slf4j-api")
     }
 }
 
 sourceSets {
     main {
         java {
-            setSrcDirs(mutableListOf("src"))
-            resources.setSrcDirs(mutableListOf("resources"))
+            srcDirs = ["src"]
+            resources.srcDirs  = ["resources"]
         }
 
         kotlin {
-            setSrcDirs(mutableListOf("src"))
+            srcDirs = ["src"]
         }
     }
 
     test {
         java {
-            setSrcDirs(mutableListOf("test"))
-            resources.setSrcDirs(mutableListOf("test-resources", "test"))
+            srcDirs = ["test"]
+            resources.srcDirs  = ["test-resources", "test"]
         }
 
         kotlin {
-            setSrcDirs(mutableListOf("test"))
+            srcDirs = ["test"]
         }
     }
 }
 
-tasks { // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-    }
+// Set the JVM compatibility versions
+compileJava {
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
+}
 
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = javaVersion
-    }
+compileKotlin {
+    kotlinOptions.jvmTarget = "11"
+}
+
+tasks { // Set the JVM compatibility versions
 
     prepareSandbox {
         dependsOn(":SimpleSerialPortService:prepareSandbox")
