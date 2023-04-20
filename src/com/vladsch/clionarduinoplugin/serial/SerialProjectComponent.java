@@ -13,6 +13,9 @@ import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
 import com.vladsch.plugins.simpleserialconnectorservice.JsscSerialService;
 import com.vladsch.plugins.simpleserialconnectorservice.SerialMonitorException;
 import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile;
+import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile.NewLine;
+import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile.Parity;
+import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile.StopBits;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,6 +28,7 @@ import static com.vladsch.plugins.simpleserialconnectorservice.SerialConnectionL
 
 public class SerialProjectComponent implements BuildListener, Disposable, ProjectSettingsListener {
     final Project myProject;
+    @SuppressWarnings("unused") 
     private ArduinoApplicationComponent myApplicationComponent;
     final @NotNull ArduinoProjectSettings myProjectSettings;
     boolean myIsBuilding = false;
@@ -261,19 +265,19 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
             SerialPortProfile settings = new SerialPortProfile();
             settings.bits = 8;
             settings.baudRate = baudRate;
-            settings.stopBits = SerialPortProfile.StopBits.BITS_1;
-            settings.parity = SerialPortProfile.Parity.NONE;
+            settings.stopBits = StopBits.BITS_1;
+            settings.parity = Parity.NONE;
             switch (myProjectSettings.getSerialEndOfLineType()) {
                 case LF:
-                    settings.newLine = SerialPortProfile.NewLine.LF;
+                    settings.newLine = NewLine.LF;
                     break;
                 case CR_LF:
-                    settings.newLine = SerialPortProfile.NewLine.CRLF;
+                    settings.newLine = NewLine.CRLF;
                     break;
                 default:
                 case NONE:
                 case CR:
-                    settings.newLine = SerialPortProfile.NewLine.CR;
+                    settings.newLine = NewLine.CR;
                     break;
             }
             settings.portName = portName;

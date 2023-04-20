@@ -2,7 +2,6 @@
 package com.vladsch.clionarduinoplugin.settings;
 
 import com.intellij.openapi.Disposable;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.TextFieldWithHistory;
 import com.intellij.ui.components.JBCheckBox;
@@ -17,14 +16,11 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
 public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Disposable, RegExSettingsHolder {
-    private static final Logger logger = Logger.getInstance("com.vladsch.clionarduinoplugin.settings");
-
     JPanel myMainPanel;
     JComboBox<String> myPort;
     JComboBox<String> myBaudRate;
@@ -38,11 +34,10 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
     JBCheckBox myAfterSuccessfulBuild;
     JBCheckBox myLogConnectDisconnect;
     JBCheckBox myActivateOnConnect;
-    private JPanel myBuildControlPanel;
-    private SendSettingsForm mySendSettings;
-    JBCheckBox myReloadOnFileChange;
 
-    private @NotNull String myRegexSampleText;
+    JPanel myBuildControlPanel;
+    SendSettingsForm mySendSettings;
+    @NotNull String myRegexSampleText;
 
     public JComponent getComponent() {
         return myMainPanel;
@@ -53,10 +48,10 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
     public SerialMonitorSettingsForm(ArduinoProjectSettings settings, boolean allowPortEdit) {
         super(allowPortEdit);
 
-        //noinspection unchecked
-        components = new SettingsComponents<ArduinoProjectSettings>(settings) {
+        //noinspection unchecked,rawtypes
+        components = new SettingsComponents<>(settings) {
             @Override
-            protected Settable[] createComponents(ArduinoProjectSettings i) {
+            protected Settable[] createComponents(@NotNull ArduinoProjectSettings i) {
                 return new Settable[] {
                         componentString(SerialPortNames.ADAPTER, myPort, i::getPort, i::setPort),
                         //component(SerialBaudRates.ADAPTER, myBaudRate, i::getBaudRate, i::setBaudRate),
@@ -101,9 +96,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         myBaudRate.addActionListener(actionListener);
 
         myEditRegExButton.addActionListener(e -> {
-            boolean valid = RegExTestDialog.showDialog(myMainPanel, this);
-            //myRemovePrefixOnPaste.setSelected(valid);
-            //myAddPrefixOnPaste.setSelected(valid);
+            RegExTestDialog.showDialog(myMainPanel, this);
         });
 
         Project project = settings.getProject();
@@ -133,7 +126,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         myBuildConfigurationNames.setEnabled(enablePrefixes);
         myEditRegExButton.setVisible(regexPrefixes);
         myCustomBaudRate.setEnabled(SerialBaudRates.ADAPTER.get(myBaudRate).isCustom());
-        
+
         SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
         if (!baudRates.isCustom()) {
             myCustomBaudRate.setText(baudRates.displayName);
@@ -167,6 +160,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
 
         if (mySettings) {
             // allow edit
+            //noinspection unchecked
             myPort = new TextFieldWithHistory();
         } else {
             myPort = SerialPortNames.ADAPTER.createComboBox();

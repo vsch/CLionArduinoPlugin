@@ -16,6 +16,7 @@ public class SerialPortNames extends DynamicListAdaptable<SerialPortNames> {
     }
 
     final public static SerialPortNames EMPTY = new SerialPortNames(0, "");
+    @SuppressWarnings("rawtypes") 
     public static DynamicListAdaptable[] values = new DynamicListAdaptable[0];
     final public static Static<DynamicListAdaptable<SerialPortNames>> ADAPTER = new Static<>(new ComboBoxAdapterImpl<>(EMPTY));
 
