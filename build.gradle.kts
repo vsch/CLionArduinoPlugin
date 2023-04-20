@@ -31,7 +31,7 @@ intellij {
     version.set("2020.3")
     type.set("CL") // Target IDE Platform
 
-    plugins.set(listOf("com.intellij.clion", "com.intellij.cidr.base", project(":SimpleSerialPortService")))
+    plugins.set(listOf("com.intellij.clion", "com.intellij.cidr.base", project(":SimpleSerialConnectorService")))
 
 //    sandboxDir.set("/Users/vlad/src/projects/CLionArduinoPlugin/build/idea-sandbox")
 }
@@ -55,8 +55,6 @@ dependencies {
     compileOnly("io.github.java-native:jssc:2.9.4") {
         exclude("org.slf4j", "slf4j-api")
     }
-    
-    compileOnly(files("excluded_lib/serial-monitor/lib/serial-monitor.jar"))
 }
 
 sourceSets {

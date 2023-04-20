@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":SimpleSerialConnectorService:main" external.linked.project.path="$MODULE_DIR$/../../../SimpleSerialConnectorService" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="com.vladsch.plugins" external.system.module.type="sourceSet" external.system.module.version="1.0.0" type="JAVA_MODULE" version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/build/generated/sources/annotationProcessor/java/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
+    </content>
+  </component>
+  <component name="FacetManager">
+    <facet external-system-id="GRADLE" type="kotlin-language" name="Kotlin">
+      <configuration version="5" platform="JVM 11" allPlatforms="JVM [11]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <flagArguments>
+            <flagArg name="noReflect" arg="true" />
+            <flagArg name="noStdlib" arg="true" />
+          </flagArguments>
+          <stringArguments>
+            <stringArg name="classpath">
+              <args>
+                <arg>$MODULE_DIR$/../../../SimpleSerialConnectorService/lib/serial-monitor.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/24.0.1/13c5c75c4206580aa4d683bffee658caae6c9f43/annotations-24.0.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.java-native/jssc/2.9.4/40d6018506d706a4a6a6ec5ed1e52c566f4e0687/jssc-2.9.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/FastInfoset-1.2.15.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/RoaringBitmap-0.9.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/animal-sniffer-annotations-1.18.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/annotations-20.1.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/annotations-4.1.1.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/annotations-java5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-all-9.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-analysis-7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-commons-7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-tree-7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-util-7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/assertj-core-3.17.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/automaton-1.12-1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-anim-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-awt-util-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-bridge-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-codec-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-constants-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-css-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-dom-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-ext-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-gvt-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-parser-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-svg-dom-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-svggen-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-transcoder-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-util-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-xml-1.13.0-21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/bcpkix-jdk15on-1.65.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/bcprov-jdk15on-1.65.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/blockmap-1.0.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/bootstrap.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/built-in-server.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/byte-buddy-agent-1.10.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/caffeine-2.8.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/cglib-nodep-3.2.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/cli-parser-1.1.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/clion.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/cloud-config-client.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/common-image-3.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/common-io-3.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/common-lang-3.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-cli-1.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-codec-1.14.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-collections-3.2.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-compress-1.20.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-httpclient-3.1-patched.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-imaging-1.0-RC-1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-io-2.7.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-lang-2.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-lang3-3.10.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-logging-1.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-net-3.6.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/configuration-store-impl.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/coverage-common.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/credential-store.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/dbus-java-3.2.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/delight-rhino-sandbox-0.0.11.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/eddsa-0.3.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/error_prone_annotations-2.3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/error_prone_annotations-2.3.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/extensions.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/external-system-rt.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/failureaccess-1.0.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/fluent-hc-4.5.12.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/forms-1.1-preview.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/forms_rt.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grazie-spellchecker-0.1.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-2.5.11.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-json-2.5.11.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-jsr223-2.5.11.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-templates-2.5.11.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-xml-2.5.11.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-api-1.32.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-context-1.32.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-core-1.32.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-kotlin-stub-0.2.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-netty-shaded-1.32.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-protobuf-1.32.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-protobuf-lite-1.32.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-stub-1.32.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/gson-2.8.6.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/guava-29.0-jre.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/hamcrest-core-1.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/hamcrest-library-1.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/httpclient-4.5.12.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/httpcore-4.4.13.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/httpmime-4.5.12.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/icons.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/icu4j-67.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imageio-core-3.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imageio-metadata-3.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imageio-tiff-3.5.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imgscalr-lib-4.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ini4j-0.5.5-2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-coverage-agent-1.0.573.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-deps-fastutil-8.4.1-4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-dvcs.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-test-discovery-agent-1.0.573.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-xml.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ion-java-1.6.2-3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/isorelax-20030108.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/istack-commons-runtime-3.0.7.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/j2objc-annotations-1.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-annotations-2.11.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-core-2.11.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-databind-2.11.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-module-kotlin-2.11.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/java-compatibility-1.0.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/java-string-similarity-1.2.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/java-utils-1.0.6.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/javax.activation-1.2.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/javax.annotation-api-1.3.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jaxb-api-2.3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jaxb-runtime-2.3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jaxen-1.2.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jcef-81.2.24-gc0b313d-chromium-81.0.4044.113-api-1.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jcodings-1.0.48.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jdom.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jediterm-pty-2.32.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jetCheck-0.2.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jettison-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jffi-1.2.19-native.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jffi-1.2.19.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jing-20030619.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jna-platform.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jna.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-a64asm-1.0.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-constants-0.9.12.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-enxio-0.21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-ffi-2.1.10.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-posix-3.0.50.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-unixsocket-0.23.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-x86asm-1.0.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/joni-2.1.32.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jps-model.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch-0.1.55.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.connector-factory-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.core-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.jsch-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.pageant-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.sshagent-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.sshj-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.usocket-jna-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.usocket-nc-0.0.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/json-simple-1.1.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/json.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsoup-1.12.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsr305-3.0.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsr305.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jts-core-1.16.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jts-io-common-1.16.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junit-4.12.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junixsocket-common-2.3.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junixsocket-core-2.3.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junixsocket-native-common-2.3.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jzlib-1.1.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-reflect-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-common-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-jdk7-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-jdk8-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-test-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-test-common-1.4.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlinx-coroutines-core-1.3.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlinx-coroutines-jdk8-1.3.9.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlinx-serialization-core-1.0.0-RC.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kryo-2.24.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ktor-websockets-1.3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/log4j.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/lz4-java-1.7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/markdown4j-2.2-cj-1.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/markdownj-core-0.4.2-SNAPSHOT.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-artifact-3.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-builder-support-3.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-model-3.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-model-builder-3.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-repository-metadata-3.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-api-1.3.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-impl-1.3.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-provider-3.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-spi-1.3.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-util-1.3.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/memoryfilesystem-2.1.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/microba.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/miglayout-core-5.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/miglayout-swing-5.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/minlog-1.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/nanoxml-2.2.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-buffer-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-http-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-http2-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-socks-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-common-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-handler-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-handler-proxy-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-resolver-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-transport-4.1.52.Final.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/objenesis-3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/openapi.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.lsp4j-0.7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.lsp4j.jsonrpc-0.7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtend.lib-2.17.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtend.lib.macro-2.17.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtext.xbase.lib-2.14.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtext.xbase.lib-2.17.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/oro-2.0.8.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/owasp-java-html-sanitizer-20191001.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/perfmark-api-0.19.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-concurrency.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-core-ui.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-diagnostic.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-ide-util-io.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-impl.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-objectSerializer-annotations.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-objectSerializer.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-rd-community.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-serviceContainer.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics-config.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics-devkit.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics-uploader.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-util-ex.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-util-ui.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/plexus-component-annotations-1.7.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/plexus-interpolation-1.25.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/plexus-utils-3.2.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/proto-google-common-protos-1.17.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/protobuf-java-3.13.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/proxy-vole-1.0.5-jb.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/pty4j-0.11.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/purejavacomm-0.0.11.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rd-core-0.203.181.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rd-framework-0.203.181.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rd-swing-0.203.181.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/resources.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/resources_en.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rhino-1.7.12.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rngom-20051226-patched.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/serviceMessages-2019.1.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/shims-0.9.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/slf4j-api-1.7.25.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/slf4j-log4j12-1.7.25.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/snakeyaml-1.26.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/snakeyaml-engine-2.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/spellchecker.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ssh-nio-fs-1.0.19.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/sshj-0.29.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/stax-api-1.0.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/stax-ex-1.8.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/streamex-0.7.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/swingx-core-1.6.2-2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/testFramework.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/tips-clion-203.11.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/trang-core.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/trove4j.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/txw2-2.3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/util.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/velocity-1.7.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/winp-1.28.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xercesImpl-2.12.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xml-apis-ext-1.3.04.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xml-resolver-1.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlbeans-2.6.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlgraphics-commons-2.4.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlpull-1.1.3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlrpc-2.0.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xpp3_min-1.1.4c.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xstream-1.4.11.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xz-1.8.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scijava/native-lib-loader/2.3.6/3df7250e67452ff6fb472b3ed694534d11ca3441/native-lib-loader-2.3.6.jar</arg>
+              </args>
+            </stringArg>
+            <stringArg name="destination" arg="$MODULE_DIR$/../../../SimpleSerialConnectorService/build/classes/kotlin/main" />
+            <stringArg name="jvmTarget" arg="11" />
+            <stringArg name="moduleName" arg="SimpleSerialConnectorService" />
+            <stringArg name="apiVersion" arg="1.4" />
+            <stringArg name="languageVersion" arg="1.8" />
+          </stringArguments>
+          <arrayArguments>
+            <arrayArg name="friendPaths" />
+            <arrayArg name="pluginClasspaths">
+              <args>
+                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-scripting-jvm/1.8.20/kotlin-scripting-jvm-1.8.20.jar</arg>
+                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-scripting-common/1.8.20/kotlin-scripting-common-1.8.20.jar</arg>
+                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib/1.8.20/kotlin-stdlib-1.8.20.jar</arg>
+                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.20/kotlin-stdlib-common-1.8.20.jar</arg>
+                <arg>$MAVEN_REPOSITORY$/org/jetbrains/annotations/13.0/annotations-13.0.jar</arg>
+                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-script-runtime/1.8.20/kotlin-script-runtime-1.8.20.jar</arg>
+              </args>
+            </arrayArg>
+            <arrayArg name="pluginOptions" />
+          </arrayArguments>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/build/classes/java/main" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/build/generated/sources/annotationProcessor/java/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../SimpleSerialConnectorService/src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../SimpleSerialConnectorService/lib/serial-monitor.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:24.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.github.java-native:jssc:2.9.4" level="project" />
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library name="Gradle: com.jetbrains:clion:2020.3">
+        <ANNOTATIONS>
+          <root url="jar://$MAVEN_REPOSITORY$/com/jetbrains/intellij/idea/ideaIU/2020.3.4/ideaIU-2020.3.4-annotations.zip!/" />
+        </ANNOTATIONS>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/FastInfoset-1.2.15.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/RoaringBitmap-0.9.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/animal-sniffer-annotations-1.18.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/annotations-20.1.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/annotations-4.1.1.4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/annotations-java5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-all-9.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-analysis-7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-commons-7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-tree-7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/asm-util-7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/assertj-core-3.17.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/automaton-1.12-1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-anim-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-awt-util-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-bridge-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-codec-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-constants-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-css-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-dom-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-ext-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-gvt-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-parser-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-svg-dom-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-svggen-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-transcoder-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-util-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/batik-xml-1.13.0-21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/bcpkix-jdk15on-1.65.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/bcprov-jdk15on-1.65.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/blockmap-1.0.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/bootstrap.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/built-in-server.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/byte-buddy-agent-1.10.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/caffeine-2.8.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/cglib-nodep-3.2.4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/cli-parser-1.1.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/clion.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/cloud-config-client.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/common-image-3.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/common-io-3.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/common-lang-3.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-cli-1.4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-codec-1.14.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-collections-3.2.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-compress-1.20.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-httpclient-3.1-patched.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-imaging-1.0-RC-1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-io-2.7.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-lang-2.4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-lang3-3.10.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-logging-1.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/commons-net-3.6.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/configuration-store-impl.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/coverage-common.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/credential-store.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/dbus-java-3.2.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/delight-rhino-sandbox-0.0.11.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/eddsa-0.3.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/error_prone_annotations-2.3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/error_prone_annotations-2.3.4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/extensions.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/external-system-rt.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/failureaccess-1.0.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/fluent-hc-4.5.12.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/forms-1.1-preview.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/forms_rt.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grazie-spellchecker-0.1.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-2.5.11.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-json-2.5.11.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-jsr223-2.5.11.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-templates-2.5.11.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/groovy-xml-2.5.11.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-api-1.32.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-context-1.32.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-core-1.32.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-kotlin-stub-0.2.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-netty-shaded-1.32.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-protobuf-1.32.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-protobuf-lite-1.32.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/grpc-stub-1.32.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/gson-2.8.6.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/guava-29.0-jre.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/hamcrest-core-1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/hamcrest-library-1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/httpclient-4.5.12.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/httpcore-4.4.13.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/httpmime-4.5.12.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/icons.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/icu4j-67.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imageio-core-3.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imageio-metadata-3.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imageio-tiff-3.5.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/imgscalr-lib-4.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ini4j-0.5.5-2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-coverage-agent-1.0.573.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-deps-fastutil-8.4.1-4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-dvcs.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-test-discovery-agent-1.0.573.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/intellij-xml.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ion-java-1.6.2-3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/isorelax-20030108.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/istack-commons-runtime-3.0.7.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/j2objc-annotations-1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-annotations-2.11.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-core-2.11.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-databind-2.11.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jackson-module-kotlin-2.11.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/java-compatibility-1.0.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/java-string-similarity-1.2.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/java-utils-1.0.6.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/javax.activation-1.2.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/javax.annotation-api-1.3.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jaxb-api-2.3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jaxb-runtime-2.3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jaxen-1.2.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jcef-81.2.24-gc0b313d-chromium-81.0.4044.113-api-1.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jcodings-1.0.48.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jdom.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jediterm-pty-2.32.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jetCheck-0.2.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jettison-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jffi-1.2.19.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jffi-1.2.19-native.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jing-20030619.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jna.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jna-platform.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-a64asm-1.0.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-constants-0.9.12.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-enxio-0.21.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-ffi-2.1.10.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-posix-3.0.50.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-unixsocket-0.23.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jnr-x86asm-1.0.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/joni-2.1.32.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jps-model.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch-0.1.55.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.connector-factory-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.core-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.jsch-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.pageant-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.sshagent-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.sshj-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.usocket-jna-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsch.agentproxy.usocket-nc-0.0.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/json.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/json-simple-1.1.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsoup-1.12.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsr305.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jsr305-3.0.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jts-core-1.16.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jts-io-common-1.16.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junit-4.12.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junixsocket-common-2.3.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junixsocket-core-2.3.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/junixsocket-native-common-2.3.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/jzlib-1.1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-reflect-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-common-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-jdk7-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-stdlib-jdk8-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-test-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlin-test-common-1.4.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlinx-coroutines-core-1.3.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlinx-coroutines-jdk8-1.3.9.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kotlinx-serialization-core-1.0.0-RC.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/kryo-2.24.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ktor-websockets-1.3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/log4j.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/lz4-java-1.7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/markdown4j-2.2-cj-1.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/markdownj-core-0.4.2-SNAPSHOT.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-artifact-3.6.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-builder-support-3.6.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-model-3.6.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-model-builder-3.6.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-repository-metadata-3.6.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-api-1.3.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-impl-1.3.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-provider-3.6.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-spi-1.3.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/maven-resolver-util-1.3.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/memoryfilesystem-2.1.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/microba.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/miglayout-core-5.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/miglayout-swing-5.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/minlog-1.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/nanoxml-2.2.3.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-buffer-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-http-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-http2-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-codec-socks-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-common-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-handler-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-handler-proxy-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-resolver-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/netty-transport-4.1.52.Final.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/objenesis-3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/openapi.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.lsp4j-0.7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.lsp4j.jsonrpc-0.7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtend.lib-2.17.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtend.lib.macro-2.17.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtext.xbase.lib-2.14.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/org.eclipse.xtext.xbase.lib-2.17.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/oro-2.0.8.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/owasp-java-html-sanitizer-20191001.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/perfmark-api-0.19.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-api.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-concurrency.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-core-ui.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-diagnostic.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-ide-util-io.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-impl.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-objectSerializer.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-objectSerializer-annotations.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-rd-community.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-serviceContainer.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics-config.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics-devkit.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-statistics-uploader.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-util-ex.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/platform-util-ui.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/plexus-component-annotations-1.7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/plexus-interpolation-1.25.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/plexus-utils-3.2.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/proto-google-common-protos-1.17.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/protobuf-java-3.13.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/proxy-vole-1.0.5-jb.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/pty4j-0.11.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/purejavacomm-0.0.11.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rd-core-0.203.181.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rd-framework-0.203.181.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rd-swing-0.203.181.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/resources.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/resources_en.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rhino-1.7.12.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/rngom-20051226-patched.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/serviceMessages-2019.1.4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/shims-0.9.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/slf4j-api-1.7.25.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/slf4j-log4j12-1.7.25.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/snakeyaml-1.26.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/snakeyaml-engine-2.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/spellchecker.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/ssh-nio-fs-1.0.19.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/sshj-0.29.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/stax-api-1.0.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/stax-ex-1.8.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/streamex-0.7.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/swingx-core-1.6.2-2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/testFramework.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/tips-clion-203.11.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/trang-core.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/trove4j.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/txw2-2.3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/util.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/velocity-1.7.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/winp-1.28.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xercesImpl-2.12.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xml-apis-ext-1.3.04.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xml-resolver-1.2.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlbeans-2.6.0.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlgraphics-commons-2.4.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlpull-1.1.3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xmlrpc-2.0.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xpp3_min-1.1.4c.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xstream-1.4.11.1.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xz-1.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2020.3/c364e3b91c4315fc7284aa2bf666677872859fba/ideaIC-2020.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.scijava:native-lib-loader:2.3.6" level="project" />
+  </component>
+</module>

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleSerialPortService/CLionArduinoPlugin.SimpleSerialPortService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleSerialPortService/CLionArduinoPlugin.SimpleSerialPortService.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleSerialPortService/CLionArduinoPlugin.SimpleSerialPortService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleSerialPortService/CLionArduinoPlugin.SimpleSerialPortService.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CLionArduinoPlugin.iml" filepath="$PROJECT_DIR$/.idea/modules/CLionArduinoPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleSerialConnectorService/CLionArduinoPlugin.SimpleSerialConnectorService.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleSerialConnectorService/CLionArduinoPlugin.SimpleSerialConnectorService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleSerialConnectorService/CLionArduinoPlugin.SimpleSerialConnectorService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleSerialConnectorService/CLionArduinoPlugin.SimpleSerialConnectorService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleSerialConnectorService/CLionArduinoPlugin.SimpleSerialConnectorService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleSerialConnectorService/CLionArduinoPlugin.SimpleSerialConnectorService.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CLionArduinoPlugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CLionArduinoPlugin.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CLionArduinoPlugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CLionArduinoPlugin.test.iml" />
     </modules>
