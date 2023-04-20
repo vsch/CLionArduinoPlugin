@@ -2,11 +2,11 @@
   <library name="Gradle: com.vladsch.flexmark:flexmark-util-format:0.64.0" type="java-imported" external-system-id="GRADLE">
     <properties groupId="com.vladsch.flexmark" artifactId="flexmark-util-format" version="0.64.0" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-format/0.64.0/flexmark-util-format-0.64.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-format/0.64.0/630055c4891adc0c0856419646e925b7d8f29514/flexmark-util-format-0.64.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-format/0.64.0/flexmark-util-format-0.64.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-format/0.64.0/bda73ca8f5caeb90e42d028e441535e3ab99f26a/flexmark-util-format-0.64.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

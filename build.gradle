@@ -8,14 +8,22 @@ def javaVersion = "11"
 def flexmarkVersion = "0.64.0"
 def pluginSinceBuild = "203.5981.155"
 def pluginUntilBuild = ""
-def pluginVersion = "1.5.35"
+def pluginVersion = "1.5.37"
 
 group = "com.vladsch.clionarduinoplugin"
 version = pluginVersion
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = "https://maven.pkg.github.com/vsch/SimpleSerialConnectorService"
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+    mavenLocal()
 }
 
 // Configure Gradle IntelliJ Plugin
@@ -41,11 +49,11 @@ dependencies {
     implementation("com.vladsch.flexmark:flexmark-tree-iteration:$flexmarkVersion")
 
     implementation("org.jetbrains:annotations:24.0.1")
-    implementation("commons-io:commons-io:2.7")
+    implementation('commons-io:commons-io:2.11.0')
 
     implementation(files("lib/plugin-util.jar"))
 
-    compileOnly(files("excluded_lib/SimpleSerialConnectorService-1.0.0.jar"))
+    compileOnly("com.vladsch.plugins:simple-serial-connector-service:1.0.2")
 }
 
 sourceSets {

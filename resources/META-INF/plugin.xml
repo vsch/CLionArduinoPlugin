@@ -6,7 +6,7 @@
 
     <version>1.5.33</version>
     <depends>com.intellij.modules.clion</depends>
-    <depends>com.vladsch.plugins.SimpleSerialPortService</depends>
+    <depends>com.vladsch.plugins.SimpleSerialConnectorService</depends>
     <idea-version since-build="203.5981.155"/>
 
     <description><![CDATA[

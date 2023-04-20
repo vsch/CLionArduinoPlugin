@@ -5,6 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.5.37](#1537)
   - [1.5.35](#1535)
   - [1.5.33](#1533)
   - [1.5.31](#1531)
@@ -55,6 +56,15 @@
   * Offer to add the directory if it is missing
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
+
+### 1.5.37
+
+* Change: extract all serial port comms with [java-simple-serial-connector] to a separate plugin
+  exposing serial communications as a service:
+  [SimpleSerialConnectorService](https://plugins.jetbrains.com/plugin/21550-simpleserialconnectorservice)
+  and make it a dependency of this plugin. This should eliminate plugin conflicts in the future
+  and allow the user to install multiple serial monitor plugins.
+* Change: build to use published packages on `maven.pkg.github`
 
 ### 1.5.35
 
@@ -337,4 +347,6 @@
 [Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub]: https://github.com/francoiscampbell/arduino-cmake/pull/4 "Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub"
 [Support for ESP32 using Arduino libs]: https://github.com/altexdim/arduino-cmake/commit/f21fd1ae0c48583c2b498a24cfa2e65814fff483
 [arduino-cmake]: https://github.com/queezythegreat/arduino-cmake
+[java-simple-serial-connector]: https://github.com/scream3r/java-simple-serial-connector
+
 

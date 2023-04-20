@@ -2,11 +2,11 @@
   <library name="Gradle: com.vladsch.flexmark:flexmark-tree-iteration:0.64.0" type="java-imported" external-system-id="GRADLE">
     <properties groupId="com.vladsch.flexmark" artifactId="flexmark-tree-iteration" version="0.64.0" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-tree-iteration/0.64.0/flexmark-tree-iteration-0.64.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-tree-iteration/0.64.0/a654971e96e1014e63a2ec8448a724dc92f545a6/flexmark-tree-iteration-0.64.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-tree-iteration/0.64.0/flexmark-tree-iteration-0.64.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-tree-iteration/0.64.0/9c1f89ff0436cff6bf022674d3c01cd739ecada2/flexmark-tree-iteration-0.64.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

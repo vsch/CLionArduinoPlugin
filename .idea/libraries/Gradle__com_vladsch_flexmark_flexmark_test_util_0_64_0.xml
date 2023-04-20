@@ -2,11 +2,11 @@
   <library name="Gradle: com.vladsch.flexmark:flexmark-test-util:0.64.0" type="java-imported" external-system-id="GRADLE">
     <properties groupId="com.vladsch.flexmark" artifactId="flexmark-test-util" version="0.64.0" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-test-util/0.64.0/flexmark-test-util-0.64.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-test-util/0.64.0/7b8b31c79cf2bd93cef1c7afb15dfffeab3a3b03/flexmark-test-util-0.64.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-test-util/0.64.0/flexmark-test-util-0.64.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-test-util/0.64.0/c6dee33f586df635cca6972b726f94480f59465/flexmark-test-util-0.64.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

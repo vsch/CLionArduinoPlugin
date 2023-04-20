@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="CLionArduinoPlugin:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="com.vladsch.clionarduinoplugin" external.system.module.type="sourceSet" external.system.module.version="1.5.35" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="CLionArduinoPlugin:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="com.vladsch.clionarduinoplugin" external.system.module.type="sourceSet" external.system.module.version="1.5.37" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet external-system-id="GRADLE" type="kotlin-language" name="Kotlin">
       <configuration version="5" platform="JVM 11" allPlatforms="JVM [11]" useProjectSettings="false">
@@ -19,24 +19,24 @@
                 <arg>$MODULE_DIR$/../../build/classes/kotlin/main</arg>
                 <arg>$MODULE_DIR$/../../build/resources/main</arg>
                 <arg>$MODULE_DIR$/../../lib/plugin-util.jar</arg>
-                <arg>$MODULE_DIR$/../../excluded_lib/SimpleSerialConnectorService-1.0.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark/0.64.0/flexmark-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util/0.64.0/flexmark-util-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-tree-iteration/0.64.0/flexmark-tree-iteration-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-test-util/0.64.0/flexmark-test-util-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-format/0.64.0/flexmark-util-format-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-ast/0.64.0/flexmark-util-ast-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-builder/0.64.0/flexmark-util-builder-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-dependency/0.64.0/flexmark-util-dependency-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-html/0.64.0/flexmark-util-html-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-options/0.64.0/flexmark-util-options-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-sequence/0.64.0/flexmark-util-sequence-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-collection/0.64.0/flexmark-util-collection-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-data/0.64.0/flexmark-util-data-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-misc/0.64.0/flexmark-util-misc-0.64.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util-visitor/0.64.0/flexmark-util-visitor-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark/0.64.0/bb5fcdf1335a35c4c0285fee2683a32e6a70cd59/flexmark-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util/0.64.0/54fc812a9fdeee63d15853dde2720c113e96de81/flexmark-util-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-tree-iteration/0.64.0/a654971e96e1014e63a2ec8448a724dc92f545a6/flexmark-tree-iteration-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-test-util/0.64.0/7b8b31c79cf2bd93cef1c7afb15dfffeab3a3b03/flexmark-test-util-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-format/0.64.0/630055c4891adc0c0856419646e925b7d8f29514/flexmark-util-format-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-ast/0.64.0/10fff87e61b7c3bb12afddf7b418977cd02acdc8/flexmark-util-ast-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-builder/0.64.0/2d6adaf6053f72de86a050fe6967049f7c2d3500/flexmark-util-builder-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-dependency/0.64.0/4d3809cad7c93695dee2cdab0abba865a9fd40b/flexmark-util-dependency-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-html/0.64.0/fc52f860cf45f57468d8f14ee63c1e6469ee3f47/flexmark-util-html-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-options/0.64.0/74f82ed65f116e4329777f4c8d5c638db03b1151/flexmark-util-options-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-sequence/0.64.0/299e3b4a4272ba9dcd6b9081b8d24d1a672a0921/flexmark-util-sequence-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-collection/0.64.0/c66075121456230a17956be29992292fa2b94fe1/flexmark-util-collection-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-data/0.64.0/63162607faa7c98f6e50a9d1e826004c5475841d/flexmark-util-data-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-misc/0.64.0/d2129f4f2b55fbf645e3499c7b0cdddcfef81112/flexmark-util-misc-0.64.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-visitor/0.64.0/7eb0030ae2a2eec80d74790caeb4cdb6b4bf8e17/flexmark-util-visitor-0.64.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/24.0.1/13c5c75c4206580aa4d683bffee658caae6c9f43/annotations-24.0.1.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/commons-io/commons-io/2.7/commons-io-2.7.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.11.0/a2503f302b11ebde7ebc3df41daebe0e4eea3689/commons-io-2.11.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.plugins/simple-serial-connector-service/1.0.2/2e6984e5a158a35b6182767e4dbc7cf91b2a599b/simple-serial-connector-service-1.0.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/FastInfoset-1.2.15.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/RoaringBitmap-0.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/animal-sniffer-annotations-1.18.jar</arg>
@@ -315,9 +315,9 @@
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/plugins/cidr-base-plugin/lib/resources_en.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/plugins/cidr-base-plugin/lib/cidr-base-plugin.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/plugins/cidr-base-plugin/lib/antlr4-runtime-4.1.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/junit/junit/4.13.2/junit-4.13.2.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.26/77100a62c2e6f04b53977b9f541044d7d722693d/slf4j-api-1.7.26.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar</arg>
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../build/classes/kotlin/test" />
@@ -331,17 +331,17 @@
               <args>
                 <arg>$MODULE_DIR$/../../build/classes/java/main</arg>
                 <arg>$MODULE_DIR$/../../build/classes/kotlin/main</arg>
-                <arg>$MODULE_DIR$/../../build/libs/CLionArduinoPlugin-1.5.35.jar</arg>
+                <arg>$MODULE_DIR$/../../build/libs/CLionArduinoPlugin-1.5.37.jar</arg>
               </args>
             </arrayArg>
             <arrayArg name="pluginClasspaths">
               <args>
-                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-scripting-jvm/1.8.20/kotlin-scripting-jvm-1.8.20.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-scripting-common/1.8.20/kotlin-scripting-common-1.8.20.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib/1.8.20/kotlin-stdlib-1.8.20.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.20/kotlin-stdlib-common-1.8.20.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/org/jetbrains/annotations/13.0/annotations-13.0.jar</arg>
-                <arg>$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-script-runtime/1.8.20/kotlin-script-runtime-1.8.20.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.8.20/51c8efbe177ebcaa89c82d01663c60060a120dd2/kotlin-scripting-jvm-1.8.20.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.8.20/f19996e3a40658541fe2108c483fd3301c4a3416/kotlin-scripting-common-1.8.20.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.8.20/e72fc5e03ec6c064c678a6bd0d955c88d55b0c4a/kotlin-stdlib-1.8.20.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.8.20/5eddaaf234c8c49d03eebeb6a14feb7f90faca71/kotlin-stdlib-common-1.8.20.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.8.20/c850771e723701f9d63dbcf641429c0f29290074/kotlin-script-runtime-1.8.20.jar</arg>
               </args>
             </arrayArg>
             <arrayArg name="pluginOptions" />
@@ -372,21 +372,13 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" scope="PROVIDED">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../excluded_lib/SimpleSerialConnectorService-1.0.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-util:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-tree-iteration:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-test-util:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:24.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.7" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.11.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.vladsch.plugins:simple-serial-connector-service:1.0.2" level="project" />
     <orderEntry type="module-library">
       <library name="Gradle: com.jetbrains:clion:2020.3">
         <ANNOTATIONS>
