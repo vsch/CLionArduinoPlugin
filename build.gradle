@@ -24,9 +24,8 @@ intellij {
     version = "2020.3"
     type = "CL" // Target IDE Platform
 
-    plugins = ["com.intellij.clion", "com.intellij.cidr.base", project(":SimpleSerialConnectorService")]
-
-//    sandboxDir.set("/Users/vlad/src/projects/CLionArduinoPlugin/build/idea-sandbox")
+    plugins = ["com.intellij.clion", "com.intellij.cidr.base"]
+    downloadSources = true
 }
 
 dependencies {
@@ -45,16 +44,15 @@ dependencies {
     implementation("commons-io:commons-io:2.7")
 
     implementation(files("lib/plugin-util.jar"))
-    compileOnly("io.github.java-native:jssc:2.9.4") {
-        exclude(group: "org.slf4j", module: "slf4j-api")
-    }
+
+    compileOnly(files("excluded_lib/SimpleSerialConnectorService-1.0.0.jar"))
 }
 
 sourceSets {
     main {
         java {
             srcDirs = ["src"]
-            resources.srcDirs  = ["resources"]
+            resources.srcDirs = ["resources"]
         }
 
         kotlin {
@@ -65,7 +63,7 @@ sourceSets {
     test {
         java {
             srcDirs = ["test"]
-            resources.srcDirs  = ["test-resources", "test"]
+            resources.srcDirs = ["test-resources", "test"]
         }
 
         kotlin {
@@ -76,19 +74,15 @@ sourceSets {
 
 // Set the JVM compatibility versions
 compileJava {
-    sourceCompatibility = "11"
-    targetCompatibility = "11"
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = javaVersion
 }
 
-tasks { // Set the JVM compatibility versions
-
-    prepareSandbox {
-        dependsOn(":SimpleSerialPortService:prepareSandbox")
-    }
+tasks {
 
     patchPluginXml {
         sinceBuild.set(pluginSinceBuild)

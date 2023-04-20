@@ -19,8 +19,8 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../excluded_lib/SimpleSerialConnectorService-1.0.0.jar</arg>
                 <arg>$MODULE_DIR$/../../lib/plugin-util.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.java-native/jssc/2.9.4/40d6018506d706a4a6a6ec5ed1e52c566f4e0687/jssc-2.9.4.jar</arg>
                 <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark/0.64.0/flexmark-0.64.0.jar</arg>
                 <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-util/0.64.0/flexmark-util-0.64.0.jar</arg>
                 <arg>$MAVEN_REPOSITORY$/com/vladsch/flexmark/flexmark-tree-iteration/0.64.0/flexmark-tree-iteration-0.64.0.jar</arg>
@@ -42,7 +42,6 @@
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/plugins/cidr-base-plugin/lib/resources_en.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/plugins/cidr-base-plugin/lib/cidr-base-plugin.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/plugins/cidr-base-plugin/lib/antlr4-runtime-4.1.jar</arg>
-                <arg>$MODULE_DIR$/../../SimpleSerialConnectorService/build/libs/SimpleSerialConnectorService-1.0.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/FastInfoset-1.2.15.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/RoaringBitmap-0.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/animal-sniffer-annotations-1.18.jar</arg>
@@ -316,7 +315,6 @@
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xpp3_min-1.1.4c.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xstream-1.4.11.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/xz-1.8.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scijava/native-lib-loader/2.3.6/3df7250e67452ff6fb472b3ed694534d11ca3441/native-lib-loader-2.3.6.jar</arg>
                 <arg>$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar</arg>
               </args>
             </stringArg>
@@ -358,6 +356,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../excluded_lib/SimpleSerialConnectorService-1.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -367,7 +374,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: io.github.java-native:jssc:2.9.4" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-util:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-tree-iteration:0.64.0" level="project" />
@@ -398,7 +404,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="CLionArduinoPlugin.SimpleSerialConnectorService.main" scope="PROVIDED" />
     <orderEntry type="module-library" scope="PROVIDED">
       <library name="Gradle: com.jetbrains:clion:2020.3">
         <ANNOTATIONS>
@@ -685,7 +690,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.scijava:native-lib-loader:2.3.6" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-util-format:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-util-ast:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-util-builder:0.64.0" level="project" />

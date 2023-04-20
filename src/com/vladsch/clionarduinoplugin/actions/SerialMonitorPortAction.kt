@@ -2,7 +2,7 @@ package com.vladsch.clionarduinoplugin.actions
 
 import com.intellij.openapi.actionSystem.*
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings
-import com.vladsch.plugins.simpleserialportservice.JsscSerialService
+import com.vladsch.plugins.simpleserialconnectorservice.JsscSerialService
 
 class SerialMonitorPortAction(private val myPort: String) : AnAction(myPort), Toggleable {
 

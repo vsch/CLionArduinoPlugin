@@ -39,7 +39,6 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
     JBCheckBox myLogConnectDisconnect;
     JBCheckBox myActivateOnConnect;
     private JPanel myBuildControlPanel;
-    private JLabel myNoBuildMonitorLabel;
     private SendSettingsForm mySendSettings;
     JBCheckBox myReloadOnFileChange;
 
@@ -110,8 +109,6 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         Project project = settings.getProject();
         if (project != null && !project.isDefault() && !SerialProjectComponent.getInstance(project).isBuildMonitored()) {
             disableChildren(myBuildControlPanel);
-        } else {
-            myNoBuildMonitorLabel.setVisible(false);
         }
     }
 

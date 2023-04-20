@@ -4,25 +4,28 @@ import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.plugin.util.ui.ComboBoxAdaptable;
 import com.vladsch.plugin.util.ui.ComboBoxAdapter;
 import com.vladsch.plugin.util.ui.ComboBoxAdapterImpl;
-import jssc.SerialPort;
+import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile;
 import org.jetbrains.annotations.NotNull;
 
 public enum SerialBaudRates implements ComboBoxAdaptable<SerialBaudRates> {
     DEFAULT(0, ArduinoSupportBundle.message("new-project.baud-rate.default")),
-    BAUDRATE_110(SerialPort.BAUDRATE_110, Integer.toString(SerialPort.BAUDRATE_110)),
-    BAUDRATE_300(SerialPort.BAUDRATE_300, Integer.toString(SerialPort.BAUDRATE_300)),
-    BAUDRATE_600(SerialPort.BAUDRATE_600, Integer.toString(SerialPort.BAUDRATE_600)),
-    BAUDRATE_1200(SerialPort.BAUDRATE_1200, Integer.toString(SerialPort.BAUDRATE_1200)),
-    BAUDRATE_4800(SerialPort.BAUDRATE_4800, Integer.toString(SerialPort.BAUDRATE_4800)),
-    BAUDRATE_9600(SerialPort.BAUDRATE_9600, Integer.toString(SerialPort.BAUDRATE_9600)),
-    BAUDRATE_14400(SerialPort.BAUDRATE_14400, Integer.toString(SerialPort.BAUDRATE_14400)),
-    BAUDRATE_19200(SerialPort.BAUDRATE_19200, Integer.toString(SerialPort.BAUDRATE_19200)),
-    BAUDRATE_38400(SerialPort.BAUDRATE_38400, Integer.toString(SerialPort.BAUDRATE_38400)),
-    BAUDRATE_57600(SerialPort.BAUDRATE_57600, Integer.toString(SerialPort.BAUDRATE_57600)),
-    BAUDRATE_115200(SerialPort.BAUDRATE_115200, Integer.toString(SerialPort.BAUDRATE_115200)),
-    BAUDRATE_128000(SerialPort.BAUDRATE_128000, Integer.toString(SerialPort.BAUDRATE_128000)),
-    BAUDRATE_256000(SerialPort.BAUDRATE_256000, Integer.toString(SerialPort.BAUDRATE_256000)),
-    BAUDRATE_512000(512000, Integer.toString(512000)),
+    BAUDRATE_110(SerialPortProfile.BaudRate.BAUDRATE_110.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_110.intValue)),
+    BAUDRATE_300(SerialPortProfile.BaudRate.BAUDRATE_300.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_300.intValue)),
+    BAUDRATE_600(SerialPortProfile.BaudRate.BAUDRATE_600.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_600.intValue)),
+    BAUDRATE_1200(SerialPortProfile.BaudRate.BAUDRATE_1200.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_1200.intValue)),
+    BAUDRATE_2400(SerialPortProfile.BaudRate.BAUDRATE_2400.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_2400.intValue)),
+    BAUDRATE_4800(SerialPortProfile.BaudRate.BAUDRATE_4800.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_4800.intValue)),
+    BAUDRATE_9600(SerialPortProfile.BaudRate.BAUDRATE_9600.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_9600.intValue)),
+    BAUDRATE_14400(SerialPortProfile.BaudRate.BAUDRATE_14400.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_14400.intValue)),
+    BAUDRATE_19200(SerialPortProfile.BaudRate.BAUDRATE_19200.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_19200.intValue)),
+    BAUDRATE_38400(SerialPortProfile.BaudRate.BAUDRATE_38400.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_38400.intValue)),
+    BAUDRATE_57600(SerialPortProfile.BaudRate.BAUDRATE_57600.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_57600.intValue)),
+    BAUDRATE_115200(SerialPortProfile.BaudRate.BAUDRATE_115200.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_115200.intValue)),
+    BAUDRATE_128000(SerialPortProfile.BaudRate.BAUDRATE_128000.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_128000.intValue)),
+    BAUDRATE_230400(SerialPortProfile.BaudRate.BAUDRATE_230400.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_230400.intValue)),
+    BAUDRATE_256000(SerialPortProfile.BaudRate.BAUDRATE_256000.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_256000.intValue)),
+    BAUDRATE_460800(SerialPortProfile.BaudRate.BAUDRATE_460800.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_460800.intValue)),
+    BAUDRATE_512000(SerialPortProfile.BaudRate.BAUDRATE_512000.intValue, Integer.toString(SerialPortProfile.BaudRate.BAUDRATE_512000.intValue)),
     CUSTOM(-1, ArduinoSupportBundle.message("new-project.baud-rate.custom")),
     ;
 

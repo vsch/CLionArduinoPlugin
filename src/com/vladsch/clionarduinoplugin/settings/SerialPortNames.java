@@ -3,7 +3,7 @@ package com.vladsch.clionarduinoplugin.settings;
 import com.vladsch.plugin.util.ui.ComboBoxAdapter;
 import com.vladsch.plugin.util.ui.ComboBoxAdapterImpl;
 import com.vladsch.plugin.util.ui.DynamicListAdaptable;
-import com.vladsch.plugins.simpleserialportservice.JsscSerialService;
+import com.vladsch.plugins.simpleserialconnectorservice.JsscSerialService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

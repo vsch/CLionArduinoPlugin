@@ -10,9 +10,9 @@ import com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent;
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
-import com.vladsch.plugins.simpleserialportservice.JsscSerialService;
-import com.vladsch.plugins.simpleserialportservice.SerialMonitorException;
-import com.vladsch.plugins.simpleserialportservice.SerialPortProfile;
+import com.vladsch.plugins.simpleserialconnectorservice.JsscSerialService;
+import com.vladsch.plugins.simpleserialconnectorservice.SerialMonitorException;
+import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.vladsch.clionarduinoplugin.serial.SerialMonitorPanel.ALT_CONNECTION_STATUS;
-import static com.vladsch.plugins.simpleserialportservice.SerialConnectionListener.PortStatus.DISCONNECTED;
+import static com.vladsch.plugins.simpleserialconnectorservice.SerialConnectionListener.PortStatus.DISCONNECTED;
 
 public class SerialProjectComponent implements BuildListener, Disposable, ProjectSettingsListener {
     final Project myProject;
