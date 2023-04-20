@@ -1,9 +1,9 @@
 <component name="MarkdownNavigator.ProfileManager">
   <profile>
     <option name="myName" value="COPY_HTML_MIME" profileName="COPY_HTML_MIME" havePreviewSettings="false" haveParserSettings="false" haveHtmlSettings="true" haveCssSettings="true" haveStyleSettings="false" haveRightMargin="false" rightMargin="72" haveHtmlExportSettings="false" haveLinkMapSettings="false">
-      <PreviewSettings splitEditorLayout="FIRST" splitEditorPreview="PREVIEW" useGrayscaleRendering="false" zoomFactor="1.0" maxImageWidth="0" synchronizePreviewPosition="true" highlightPreviewType="LINE" highlightFadeOut="5" highlightOnTyping="false" synchronizeSourcePosition="true" verticallyAlignSourceAndPreviewSyncPosition="true" showSearchHighlightsInPreview="true" showSelectionInPreview="true" lastLayoutSetsDefault="false">
+      <PreviewSettings splitEditorLayout="SPLIT" splitEditorPreview="PREVIEW" useGrayscaleRendering="true" zoomFactor="1.0" maxImageWidth="0" synchronizePreviewPosition="true" highlightPreviewType="LINE" highlightFadeOut="5" highlightOnTyping="true" synchronizeSourcePosition="true" verticallyAlignSourceAndPreviewSyncPosition="true" showSearchHighlightsInPreview="true" showSelectionInPreview="true" lastLayoutSetsDefault="false">
         <PanelProvider>
-          <provider providerId="com.vladsch.md.nav.editor.javafx.html.panel" providerName="JavaFX WebView" />
+          <provider providerId="com.vladsch.md.nav.editor.swing.html.panel" providerName="Default - Swing" />
         </PanelProvider>
       </PreviewSettings>
       <ParserSettings gitHubSyntaxChange="false" correctedInvalidSettings="false" emojiShortcuts="3" emojiImages="0">
@@ -47,7 +47,7 @@
       </ParserSettings>
       <HtmlSettings headerTopEnabled="false" headerBottomEnabled="false" bodyTopEnabled="false" bodyBottomEnabled="false" addPageHeader="false" addAnchorLinks="false" anchorLinksWrapText="false" imageUriSerials="true" addDocTypeHtml="true" noParaTags="false" defaultUrlTitle="false" migratedPlantUml="true" migratedAnchorLinks="true" plantUmlConversion="0">
         <GeneratorProvider>
-          <provider providerId="com.vladsch.md.nav.editor.javafx.html.generator" providerName="JavaFx HTML Generator" />
+          <provider providerId="com.vladsch.md.nav.editor.javafx.html.generator" providerName="JavaFx/Chromium HTML Generator" />
         </GeneratorProvider>
         <headerTop />
         <headerBottom />
@@ -73,7 +73,7 @@
       </HtmlSettings>
       <CssSettings previewScheme="UI_SCHEME" cssUri="" isCssUriEnabled="false" isCssUriSerial="true" isCssTextEnabled="true" isDynamicPageWidth="true">
         <StylesheetProvider>
-          <provider providerId="com.vladsch.md.nav.editor.javafx.html.css" providerName="Default JavaFx Stylesheet" />
+          <provider providerId="com.vladsch.md.nav.editor.javafx.html.css" providerName="Default JavaFx/Chromium Stylesheet" />
         </StylesheetProvider>
         <ScriptProviders />
         <cssText>code                         { background-color:#f0f0f0;border-radius:2px;padding:1px 2px 0 2px;border:1px solid #e0e0e0;font-family:Consolas,Inconsolata,Courier,monospace;font-size:0.9em;color:#bb002f; }</cssText>

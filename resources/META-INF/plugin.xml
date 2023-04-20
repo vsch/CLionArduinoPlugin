@@ -6,7 +6,8 @@
 
     <version>1.5.33</version>
     <depends>com.intellij.modules.clion</depends>
-    <idea-version since-build="201.6668.113"/>
+    <depends>com.vladsch.plugins.SimpleSerialPortService</depends>
+    <idea-version since-build="203.5981.155"/>
 
     <description><![CDATA[
         <p>Integrates <a href="https://github.com/francoiscampbell/arduino-cmake">Arduino CMake</a> into the CLion IDE.</p>
@@ -309,6 +310,7 @@
         ]]>
     </change-notes>
 
+    <resource-bundle>messages.ArduinoSupportBundle</resource-bundle>
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <directoryProjectGenerator implementation="com.vladsch.clionarduinoplugin.generators.ArduinoSketchProjectGenerator"/>
@@ -317,7 +319,7 @@
         <projectService serviceImplementation="com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings"/>
 
         <applicationConfigurable id="com.vladsch.clionarduinoplugin.settings.ArduinoApplicationConfigurable"
-                                 bundle="com.vladsch.clionarduinoplugin.localization.strings"
+                                 bundle="messages.ArduinoSupportBundle"
                                  groupId="language"
                                  groupWeight="1000"
                                  key="plugin.settings.name"
@@ -327,7 +329,7 @@
         <projectConfigurable id="com.vladsch.clionarduinoplugin.settings.ArduinoSerialMonitorConfigurable"
                              parentId="com.vladsch.clionarduinoplugin.settings.ArduinoApplicationConfigurable"
                              groupWeight="-1"
-                             bundle="com.vladsch.clionarduinoplugin.localization.strings"
+                             bundle="messages.ArduinoSupportBundle"
                              key="plugin.project-configurable.name"
                              nonDefaultProject="false"
                              instance="com.vladsch.clionarduinoplugin.settings.ArduinoSerialMonitorConfigurable"/>
@@ -343,10 +345,11 @@
         <statusBarWidgetFactory implementation="com.vladsch.clionarduinoplugin.serial.SerialMonitorStatusBarWidgetFactory"
                                 id="ArduinoSupport.SerialMonitor"/>
 
-        <applicationService serviceImplementation="com.vladsch.clionarduinoplugin.serial.SerialPortManager"/>
         <applicationService serviceImplementation="com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent"/>
-        <projectService serviceImplementation="com.vladsch.clionarduinoplugin.components.ArduinoProjectComponent"/>
         <projectService serviceImplementation="com.vladsch.clionarduinoplugin.serial.SerialProjectComponent"/>
+        
+        <notificationGroup id="com.vladsch.clionarduinoplugin.serialMonitor" toolWindowId="Arduino Support" displayType="TOOL_WINDOW"
+                           bundle="messages.ArduinoSupportBundle" key="serial.monitor.notification"/>
     </extensions>
 
     <actions>
@@ -362,7 +365,6 @@
             </action>
         </group>
 
-        <!-- Add your actions here -->
         <action id="com.vladsch.clionarduinoplugin.actions.NewSketchFile"
                 class="com.vladsch.clionarduinoplugin.actions.NewSketchFile"
                 text="Arduino Sketch" description="Create a new arduino sketch file"

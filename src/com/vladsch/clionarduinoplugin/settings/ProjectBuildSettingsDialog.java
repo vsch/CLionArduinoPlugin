@@ -2,9 +2,7 @@
 package com.vladsch.clionarduinoplugin.settings;
 
 import com.intellij.diff.DiffContentFactoryEx;
-import com.intellij.diff.DiffManager;
 import com.intellij.diff.contents.DiffContent;
-import com.intellij.diff.requests.SimpleDiffRequest;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.editor.Document;
@@ -19,7 +17,7 @@ import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.jetbrains.cidr.cpp.cmake.workspace.CMakeWorkspace;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.clionarduinoplugin.generators.ArduinoProjectGenerator;
 import com.vladsch.clionarduinoplugin.generators.cmake.ArduinoCMakeListsTxtBuilder;
 import com.vladsch.clionarduinoplugin.util.DiffActionListener;
@@ -64,7 +62,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
         //myAlarm = new Alarm();
 
         init();
-        setTitle(Bundle.message("settings.project-build-settings.title"));
+        setTitle(ArduinoSupportBundle.message("settings.project-build-settings.title"));
         setModal(true);
 
         myNewProjectSettingsForm.setRunnable(this::updateOptions);
@@ -88,7 +86,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
             // add warning icon from GitHub
             for (String notification : notifications) {
                 String[] parts = notification.split("\r");
-                String text = Bundle.message(parts[0]);
+                String text = ArduinoSupportBundle.message(parts[0]);
                 if (parts.length > 1) {
                     String[] convertedParts = new String[parts.length - 1];
 
@@ -98,7 +96,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
                         convertedParts[i - 1] = snippet.toFinalizedString();
                     }
 
-                    builder.raw(Bundle.message(parts[0], (Object[]) convertedParts));
+                    builder.raw(ArduinoSupportBundle.message(parts[0], (Object[]) convertedParts));
                 } else {
                     builder.attr(errorColor).tag("p").span().raw(text);
                 }
@@ -153,7 +151,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
     protected class MyOkAction extends OkAction {
         protected MyOkAction() {
             super();
-            putValue(Action.NAME, Bundle.message("settings.project-build-settings.ok.label"));
+            putValue(Action.NAME, ArduinoSupportBundle.message("settings.project-build-settings.ok.label"));
         }
 
         @Override
@@ -214,7 +212,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
     MyAction myShowDiffAction = null;
 
     protected Action @NotNull [] createLeftSideActions() {
-        myResetAction = new MyAction(Bundle.message("settings.project-build-settings.reset.label"), new Runnable() {
+        myResetAction = new MyAction(ArduinoSupportBundle.message("settings.project-build-settings.reset.label"), new Runnable() {
             @Override
             public void run() {
                 mySettings.copyFrom(myResetSettings);
@@ -223,7 +221,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
             }
         });
 
-        myShowDiffAction = new MyAction(Bundle.message("settings.project-build-settings.show-diff.label"), new Runnable() {
+        myShowDiffAction = new MyAction(ArduinoSupportBundle.message("settings.project-build-settings.show-diff.label"), new Runnable() {
             @Override
             public void run() {
                 String original = getCMakeFileContent();
@@ -231,10 +229,10 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
                 
                 DiffActionListener actionListener = new DiffActionListener(
                         myProject
-                        , Bundle.message("settings.project-build-settings.show-diff.title")
+                        , ArduinoSupportBundle.message("settings.project-build-settings.show-diff.title")
                         ,  modified
                         , FileTypeManager.getInstance().getFileTypeByExtension("cmake")
-                        , Bundle.message("settings.project-build-settings.modified.title")
+                        , ArduinoSupportBundle.message("settings.project-build-settings.modified.title")
                         , myFile::getPath
 
                 );
@@ -273,7 +271,7 @@ public class ProjectBuildSettingsDialog extends DialogWrapper {
                             try {
                                 dialog.myFile.setBinaryContent(modifiedContent.getBytes());
                             } catch (IOException e) {
-                                Messages.showErrorDialog(project, Bundle.message("settings.project-build-settings.save-failed.message", e.getMessage()), Bundle.message("settings.project-build-settings.save-failed.title"));
+                                Messages.showErrorDialog(project, ArduinoSupportBundle.message("settings.project-build-settings.save-failed.message", e.getMessage()), ArduinoSupportBundle.message("settings.project-build-settings.save-failed.title"));
                             }
                         }
 

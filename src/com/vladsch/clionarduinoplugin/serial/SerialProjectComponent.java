@@ -2,7 +2,6 @@ package com.vladsch.clionarduinoplugin.serial;
 
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.Disposable;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
@@ -11,68 +10,62 @@ import com.vladsch.clionarduinoplugin.components.ArduinoApplicationComponent;
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
-import jssc.SerialPort;
-import jssc.SerialPortEvent;
-import jssc.SerialPortEventListener;
-import jssc.SerialPortException;
+import com.vladsch.plugins.simpleserialportservice.JsscSerialService;
+import com.vladsch.plugins.simpleserialportservice.SerialMonitorException;
+import com.vladsch.plugins.simpleserialportservice.SerialPortProfile;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import static com.vladsch.clionarduinoplugin.serial.SerialMonitorPanel.ALT_CONNECTION_STATUS;
+import static com.vladsch.plugins.simpleserialportservice.SerialConnectionListener.PortStatus.DISCONNECTED;
 
 public class SerialProjectComponent implements BuildListener, Disposable, ProjectSettingsListener {
-    private static final Logger LOG = Logger.getInstance("com.vladsch.clionarduinoplugin.serial");
-    public static final String NEED_CLION_2018_3_OR_LATER = "Build monitoring not available. Need CLion 2018.3 or later";
-
     final Project myProject;
     private ArduinoApplicationComponent myApplicationComponent;
     final @NotNull ArduinoProjectSettings myProjectSettings;
     boolean myIsBuilding = false;
-    boolean myWasConnected;
-    String myConnectedPort;
+    boolean myWasConnected = false;
+    @Nullable String myConnectedPort = null;
     int myConnectedBaudRate;
-    private SerialPortManager myPortManager;
+    private JsscSerialService mySerialPortService;
     ToolWindow myToolWindow;
     SerialMonitorPanel mySerialMonitorPanel;
     BuildMonitor myBuildMonitor;
 
-    SerialPort mySerialPort;
-
     final Set<SerialPortListener> myListeners = Collections.synchronizedSet(new HashSet<>());
+    final Set<SerialPortStatusListener> myStatusListeners = Collections.synchronizedSet(new HashSet<>());
 
     public SerialProjectComponent(final Project project) {
         myProject = project;
         myApplicationComponent = ArduinoApplicationComponent.getInstance();
         myProjectSettings = ArduinoProjectSettings.getInstance(myProject);
 
+        //noinspection ThisEscapedInObjectConstruction
+        myBuildMonitor = new BuildMonitor(myProject, this);
+        //noinspection ThisEscapedInObjectConstruction
+        myBuildMonitor.projectOpened(this);
         try {
-            //noinspection ThisEscapedInObjectConstruction
-            myBuildMonitor = new BuildMonitor(myProject, this);
-            myBuildMonitor.projectOpened();
-            try {
-                if (ALT_CONNECTION_STATUS == null) {
-                    //noinspection AssignmentToStaticFieldFromInstanceMethod
-                    ALT_CONNECTION_STATUS = ConsoleViewContentType.LOG_VERBOSE_OUTPUT;
-                }
-            } catch (Throwable ignored) {
-
+            if (ALT_CONNECTION_STATUS == null) {
+                //noinspection AssignmentToStaticFieldFromInstanceMethod
+                ALT_CONNECTION_STATUS = ConsoleViewContentType.LOG_VERBOSE_OUTPUT;
             }
-        } catch (NoClassDefFoundError e) {
-            LOG.debug(NEED_CLION_2018_3_OR_LATER, e);
-            myBuildMonitor = null;
+        } catch (Throwable ignored) {
+
         }
 
-        myPortManager = SerialPortManager.getInstance();
-
+        //noinspection ThisEscapedInObjectConstruction
         project.getMessageBus().connect(this).subscribe(ProjectSettingsListener.TOPIC, this);
+
+        mySerialPortService = JsscSerialService.getInstance();
     }
 
     @Override
     public void onSettingsChanged() {
-        if (isPortConnected() && (myConnectedBaudRate != myProjectSettings.getBaudRate() || !myConnectedPort.equals(myProjectSettings.getPort()))) {
+        if (isPortConnected() && (myConnectedBaudRate != myProjectSettings.getBaudRate() || myConnectedPort != null && !myConnectedPort.equals(myProjectSettings.getPort()))) {
             disconnectAndRest();
             connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
         }
@@ -89,10 +82,10 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
             mySerialMonitorPanel = null;
             myApplicationComponent = null;
 
-            myPortManager.removeProjectComponent(this);
-            myPortManager = null;
+            mySerialPortService = null;
 
             myListeners.clear();
+            myStatusListeners.clear();
 
             if (myBuildMonitor != null) {
                 myBuildMonitor.projectClosed();
@@ -111,18 +104,24 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
         } else {
             myWasConnected = false;
         }
+
         statusChanged();
     }
 
     private void disconnectAndRest() {
-        if (myPortManager.disconnectPort(myProjectSettings.getPort())) {
-            // need to pause for a very short delay to allow port to reset
-            int restTime = ArduinoApplicationSettings.getInstance().getDisconnectRestTime();
-            if (restTime > 0) {
-                try {
+        if (myConnectedPort != null) {
+            try {
+                mySerialPortService.close(myConnectedPort);
+                myConnectedPort = null;
+
+                // need to pause for a very short delay to allow port to reset
+                int restTime = ArduinoApplicationSettings.getInstance().getDisconnectRestTime();
+                if (restTime > 0) {
                     Thread.sleep(restTime);
-                } catch (InterruptedException ignored) {
                 }
+            } catch (SerialMonitorException e) {
+                notifySerialError(true, e.getMessage(), e);
+            } catch (InterruptedException ignored) {
             }
         }
     }
@@ -155,30 +154,38 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
 
     public boolean connectPort(@NotNull String port, int baudRate) {
         if (!isPortConnected() && !myIsBuilding) {
-            myPortManager.disconnectPort(port);
-
-            connect(port, baudRate);
-
-            //noinspection VariableNotUsedInsideIf
-            if (mySerialPort != null) {
-                // once connected
-                myConnectedPort = port;
-                myConnectedBaudRate = baudRate;
-                myPortManager.setPortOwner(this, myConnectedPort);
-
-                if (myProjectSettings.isActivateOnConnect() && myToolWindow != null) {
-                    // active tool window
-                    myToolWindow.show(null);
-                }
-
-                ensureToolWindowCreated();
-                
-                for (SerialPortListener listener : myListeners) {
-                    listener.onConnect(myConnectedPort, baudRate);
+            if (mySerialPortService.isConnected(port)) {
+                try {
+                    mySerialPortService.close(port);
+                } catch (SerialMonitorException e) {
+                    notifySerialError(true, e.getMessage(), e);
                 }
             }
+
+            connect(port, baudRate);
+            portConnected();
         }
         return true;
+    }
+
+    private void portConnected() {
+        if (myConnectedPort != null) {
+            // once connected
+            if (myProjectSettings.isActivateOnConnect() && myToolWindow != null) {
+                // active tool window
+                myToolWindow.show(null);
+            }
+
+            ensureToolWindowCreated();
+
+            for (SerialPortListener listener : myListeners) {
+                listener.onConnect(myConnectedPort, myConnectedBaudRate);
+            }
+
+            for (SerialPortStatusListener listener : myStatusListeners) {
+                listener.onStatusChanged();
+            }
+        }
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -186,11 +193,11 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
         return connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
     }
 
-    public boolean isBuilding() {
-        return myIsBuilding;
+    public boolean isNotBuilding() {
+        return !myIsBuilding;
     }
 
-    public String getConnectedPort() {
+    public @Nullable String getConnectedPort() {
         return myConnectedPort;
     }
 
@@ -200,34 +207,37 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
 
     public void disconnectPort() {
         if (myConnectedPort != null) {
-            if (mySerialPort != null) {
+            if (mySerialPortService.isConnected(myConnectedPort)) {
                 try {
-                    if (mySerialPort.isOpened()) {
-                        mySerialPort.removeEventListener();
-                        mySerialPort.closePort();
-                    }
-                } catch (SerialPortException e) {
-                    LOG.error("Error closing port", e);
+                    // this will generate a DISCONNECTED status, which will trigger portDisconnected()
+                    mySerialPortService.close(myConnectedPort);
+                } catch (SerialMonitorException e) {
+                    notifySerialError(true, e.getMessage(), e);
+                    portDisconnected();
                 }
-            }
-
-            final String port = myConnectedPort;
-            final int baud = myConnectedBaudRate;
-            mySerialPort = null;
-            myWasConnected = false;
-            myPortManager.removeProjectComponent(this);
-
-            myConnectedPort = null;
-
-            ensureToolWindowCreated();
-
-            for (SerialPortListener listener : myListeners) {
-                listener.onDisconnect(port, baud);
+            } else {
+                portDisconnected();
             }
         }
     }
 
-    @SuppressWarnings("UnstableApiUsage")
+    private void portDisconnected() {
+        final String port = myConnectedPort;
+        final int baud = myConnectedBaudRate;
+        myWasConnected = false;
+        myConnectedPort = null;
+
+        ensureToolWindowCreated();
+
+        for (SerialPortListener listener : myListeners) {
+            listener.onDisconnect(port, baud);
+        }
+
+        for (SerialPortStatusListener listener : myStatusListeners) {
+            listener.onStatusChanged();
+        }
+    }
+
     private void ensureToolWindowCreated() {
         if (myToolWindow == null) {
             // get it up and running
@@ -238,14 +248,8 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
         }
     }
 
-    public void disconnectPort(@NotNull final String port) {
-        if (port.equals(myConnectedPort)) {
-            disconnectPort();
-        }
-    }
-
     public boolean canConnectPort() {
-        return !myIsBuilding && SerialPortManager.getSerialPorts(true).contains(myProjectSettings.getPort());
+        return !myIsBuilding && mySerialPortService.isPortValid(myProjectSettings.getPort(), true);
     }
 
     public Project getProject() {
@@ -253,89 +257,61 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     }
 
     private void connect(String portName, int baudRate) {
-        int dataBits = SerialPort.DATABITS_8;
-        int stopBits = SerialPort.STOPBITS_1;
-        int parity = SerialPort.PARITY_NONE;
-        boolean rts = true;
-        boolean dtr = true;
-
         try {
-            mySerialPort = new SerialPort(portName);
-            mySerialPort.openPort();
-
-            String[] stopBitNames = new String[] {
-                    "1",
-                    "2",
-                    "1.5",
-            };
-            String[] parityNames = new String[] {
-                    "none",
-                    "odd",
-                    "even",
-                    "mark",
-                    "space",
-            };
-
-            //noinspection ConstantValue
-            String message = "Failed to set port parameters { baud: " + baudRate +
-                    ", dataBits: " + dataBits +
-                    ", stopBits: " + stopBitNames[stopBits] +
-                    ", parity: " + parityNames[parity] +
-                    ", rts: " + (rts ? "yes" : "no") +
-                    ", dtr: " + (dtr ? "yes" : "no") +
-                    "";
-            //notifySerialError(true, message, null);
-
-            if (!mySerialPort.setParams(baudRate, dataBits, stopBits, parity, rts, dtr)) {
-                // Failed to set parameters
-                mySerialPort = null;
-                notifySerialError(true, message, null);
-            } else {
-                mySerialPort.addEventListener(new SerialPortEventListener() {
-                    @Override
-                    public synchronized void serialEvent(SerialPortEvent serialEvent) {
-                        if (serialEvent.isRXCHAR()) {
-                            if (myListeners.isEmpty()) {
-                                return;
-                            }
-                            try {
-                                byte[] buf = mySerialPort.readBytes(serialEvent.getEventValue());
-                                if (buf.length > 0) {
-                                    for (SerialPortListener listener : myListeners) {
-                                        listener.onReceive(buf);
-                                    }
-                                }
-                            } catch (SerialPortException e) {
-                                LOG.error(e);
-                                notifySerialError(true, "Serial port exception", e);
-                            }
-                        } else {
-                            for (SerialPortListener listener : myListeners) {
-                                listener.onEvent(serialEvent);
-                            }
-                        }
-                    }
-                });
+            SerialPortProfile settings = new SerialPortProfile();
+            settings.bits = 8;
+            settings.baudRate = baudRate;
+            settings.stopBits = SerialPortProfile.StopBits.BITS_1;
+            settings.parity = SerialPortProfile.Parity.NONE;
+            switch (myProjectSettings.getSerialEndOfLineType()) {
+                case LF:
+                    settings.newLine = SerialPortProfile.NewLine.LF;
+                    break;
+                case CR_LF:
+                    settings.newLine = SerialPortProfile.NewLine.CRLF;
+                    break;
+                default:
+                case NONE:
+                case CR:
+                    settings.newLine = SerialPortProfile.NewLine.CR;
+                    break;
             }
-        } catch (SerialPortException e) {
-            mySerialPort = null;
-            String message = "Error opening port";
-            LOG.error(message, e);
-            notifySerialError(true, message, e);
+            settings.portName = portName;
+
+            mySerialPortService.connect(settings, bytes -> {
+                if (myListeners.isEmpty()) return;
+
+                if (bytes.length > 0) {
+                    for (SerialPortListener listener : myListeners) {
+                        listener.onReceive(bytes);
+                    }
+                }
+            }, status -> {
+                // we handle direct errors, this is just a catch all
+                if (status == DISCONNECTED) {
+                    // this could be coming from someone else or ourselves
+                    portDisconnected();
+                }
+            });
+
+            myConnectedPort = portName;
+            myConnectedBaudRate = baudRate;
+        } catch (SerialMonitorException e) {
+            myConnectedPort = null;
+            notifySerialError(true, e.getMessage(), e);
         }
     }
 
     public void send(byte[] bytes) {
-        if (isPortConnected()) {
+        if (myConnectedPort != null) {
             try {
-                mySerialPort.writeBytes(bytes);
+                mySerialPortService.write(myConnectedPort, bytes);
                 for (SerialPortListener listener : myListeners) {
-                    listener.onSent(bytes);
+                    listener.onSend(bytes);
                 }
                 return;
-            } catch (SerialPortException e) {
-                String message = "Send serial port error";
-                LOG.error(message, e);
+            } catch (SerialMonitorException e) {
+                String message = "Send serial port error: " + e.getMessage();
                 notifySerialError(true, message, e);
             }
         }
@@ -343,7 +319,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
         throw new IllegalStateException("Serial Port is not connected");
     }
 
-    public void notifySerialError(final boolean isError, final String message, final SerialPortException e) {
+    public void notifySerialError(final boolean isError, final String message, final SerialMonitorException e) {
         for (SerialPortListener listener : myListeners) {
             listener.onError(isError, message, e);
         }
@@ -357,8 +333,16 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
         myListeners.remove(listener);
     }
 
+    public void addPortListener(@NotNull SerialPortStatusListener listener) {
+        myStatusListeners.add(listener);
+    }
+
+    public void removePortListener(SerialPortStatusListener listener) {
+        myStatusListeners.remove(listener);
+    }
+
     public void statusChanged() {
-        for (SerialPortListener listener : myListeners) {
+        for (SerialPortStatusListener listener : myStatusListeners) {
             listener.onStatusChanged();
         }
     }

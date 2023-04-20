@@ -4,14 +4,14 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.ToggleAction;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
 
 public class ShowSendOptionsAction extends ToggleAction implements DumbAware {
     public ShowSendOptionsAction() {
-        super(Bundle.message("action.show-send-options.label"), Bundle.message("actions.show-send-options.description"), PluginIcons.show_send_options);
+        super(ArduinoSupportBundle.message("action.show-send-options.label"), ArduinoSupportBundle.message("actions.show-send-options.description"), PluginIcons.show_send_options);
     }
 
     @Override

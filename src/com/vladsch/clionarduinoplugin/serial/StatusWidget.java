@@ -11,7 +11,7 @@ import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.util.Consumer;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.clionarduinoplugin.actions.ConnectAction;
 import com.vladsch.clionarduinoplugin.actions.SerialMonitorBaudRateAction;
 import com.vladsch.clionarduinoplugin.actions.SerialMonitorPortAction;
@@ -33,7 +33,7 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
     private String myTooltip;
     boolean myIsConnected;
     boolean myCanConnect;
-    private SerialPortListener mySerialPortListener;
+    private SerialPortStatusListener mySerialPortListener;
     private Icon myIcon = null;
 
     public StatusWidget(@NotNull SerialProjectComponent serialProjectComponent) {
@@ -43,16 +43,16 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
         //noinspection ThisEscapedInObjectConstruction
         serialProjectComponent.getProject().getMessageBus().connect(this).subscribe(ProjectSettingsListener.TOPIC, this);
 
-        mySerialPortListener = new SerialPortListener() {
+        mySerialPortListener = new SerialPortStatusListener() {
             @Override
             public void onStatusChanged() {
-                setStatus(!serialProjectComponent.isBuilding(), serialProjectComponent.isPortConnected(), serialProjectComponent.canConnectPort());
+                setStatus(serialProjectComponent.isNotBuilding(), serialProjectComponent.isPortConnected(), serialProjectComponent.canConnectPort());
             }
         };
 
         serialProjectComponent.addPortListener(mySerialPortListener);
 
-        setStatus(!serialProjectComponent.isBuilding(), serialProjectComponent.isPortConnected(), serialProjectComponent.canConnectPort());
+        setStatus(serialProjectComponent.isNotBuilding(), serialProjectComponent.isPortConnected(), serialProjectComponent.canConnectPort());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
             DataContext context = DataManager.getInstance().getDataContext(myStatusBar.getComponent());
 
             return JBPopupFactory.getInstance().createActionGroupPopup(
-                    "Serial Monitor",
+                    "Arduino Support",
                     group,
                     context,
                     ActionSelectionAid.SPEEDSEARCH,
@@ -110,8 +110,8 @@ public class StatusWidget implements StatusBarWidget, /*CustomStatusBarWidget,*/
     @Override
     public @Nullable String getTooltipText() {
         ArduinoProjectSettings settings = ArduinoProjectSettings.getInstance(mySerialProjectComponent.getProject());
-        return myActionEnabled ? (myIsConnected ? Bundle.message("widget.connected.2.label", settings.getPort(), Integer.toString(settings.getBaudRate()))
-                : Bundle.message("widget.disconnected.2.label", settings.getPort(), Integer.toString(settings.getBaudRate())))
+        return myActionEnabled ? (myIsConnected ? ArduinoSupportBundle.message("widget.connected.2.label", settings.getPort(), Integer.toString(settings.getBaudRate()))
+                : ArduinoSupportBundle.message("widget.disconnected.2.label", settings.getPort(), Integer.toString(settings.getBaudRate())))
                 : myTooltip;
     }
 

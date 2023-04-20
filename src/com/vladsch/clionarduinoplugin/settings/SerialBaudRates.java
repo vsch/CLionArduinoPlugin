@@ -1,6 +1,6 @@
 package com.vladsch.clionarduinoplugin.settings;
 
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.plugin.util.ui.ComboBoxAdaptable;
 import com.vladsch.plugin.util.ui.ComboBoxAdapter;
 import com.vladsch.plugin.util.ui.ComboBoxAdapterImpl;
@@ -8,7 +8,7 @@ import jssc.SerialPort;
 import org.jetbrains.annotations.NotNull;
 
 public enum SerialBaudRates implements ComboBoxAdaptable<SerialBaudRates> {
-    DEFAULT(0, Bundle.message("new-project.baud-rate.default")),
+    DEFAULT(0, ArduinoSupportBundle.message("new-project.baud-rate.default")),
     BAUDRATE_110(SerialPort.BAUDRATE_110, Integer.toString(SerialPort.BAUDRATE_110)),
     BAUDRATE_300(SerialPort.BAUDRATE_300, Integer.toString(SerialPort.BAUDRATE_300)),
     BAUDRATE_600(SerialPort.BAUDRATE_600, Integer.toString(SerialPort.BAUDRATE_600)),
@@ -23,7 +23,7 @@ public enum SerialBaudRates implements ComboBoxAdaptable<SerialBaudRates> {
     BAUDRATE_128000(SerialPort.BAUDRATE_128000, Integer.toString(SerialPort.BAUDRATE_128000)),
     BAUDRATE_256000(SerialPort.BAUDRATE_256000, Integer.toString(SerialPort.BAUDRATE_256000)),
     BAUDRATE_512000(512000, Integer.toString(512000)),
-    CUSTOM(-1, Bundle.message("new-project.baud-rate.custom")),
+    CUSTOM(-1, ArduinoSupportBundle.message("new-project.baud-rate.custom")),
     ;
 
     public final int intValue;

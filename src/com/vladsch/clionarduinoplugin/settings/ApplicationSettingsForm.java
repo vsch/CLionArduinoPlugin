@@ -11,7 +11,7 @@ import com.intellij.openapi.ui.TextComponentAccessor;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.components.JBCheckBox;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.clionarduinoplugin.resources.ArduinoConfig;
 import com.vladsch.clionarduinoplugin.resources.ArduinoToolchainFiles;
 import com.vladsch.clionarduinoplugin.resources.ResourceUtils;
@@ -124,23 +124,23 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
         myBundledToolchainTxt.addActionListener(listener);
 
         //noinspection DialogTitleCapitalization
-        myBoardsTxtPath.addBrowseFolderListener(Bundle.message("settings.boards-file.is-directory.title"), null, null,
+        myBoardsTxtPath.addBrowseFolderListener(ArduinoSupportBundle.message("settings.boards-file.is-directory.title"), null, null,
                 new FileChooserDescriptor(true, false, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
 
         //noinspection DialogTitleCapitalization
-        myProgrammersTxtPath.addBrowseFolderListener(Bundle.message("settings.programmers-file-directory.title"), null, null,
+        myProgrammersTxtPath.addBrowseFolderListener(ArduinoSupportBundle.message("settings.programmers-file-directory.title"), null, null,
                 new FileChooserDescriptor(true, false, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
 
-        myTemplatesPath.addBrowseFolderListener(Bundle.message("settings.templates.file-directory.title"), null, null,
+        myTemplatesPath.addBrowseFolderListener(ArduinoSupportBundle.message("settings.templates.file-directory.title"), null, null,
                 new FileChooserDescriptor(false, true, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
 
-        myToolchainTxtPath.addBrowseFolderListener(Bundle.message("settings.toolchain-txt.file-directory.title"), null, null,
+        myToolchainTxtPath.addBrowseFolderListener(ArduinoSupportBundle.message("settings.toolchain-txt.file-directory.title"), null, null,
                 new FileChooserDescriptor(true, true, false, false, false, false),
                 TextComponentAccessor.TEXT_FIELD_WHOLE_TEXT
         );
@@ -152,37 +152,37 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
 
         myBoardsTxtDiff.addActionListener(new DiffActionListener(
                 null
-                , Bundle.message("settings.boards-txt.diff.title")
+                , ArduinoSupportBundle.message("settings.boards-txt.diff.title")
                 , boardsTxt
                 , null
-                , Bundle.message("settings.bundled.0.title", "boards.txt")
+                , ArduinoSupportBundle.message("settings.bundled.0.title", "boards.txt")
                 , () -> myBoardsTxtPath.getText()
         ));
 
         myProgrammersTxtDiff.addActionListener(new DiffActionListener(
                 null
-                , Bundle.message("settings.programmers-txt-diff.title")
+                , ArduinoSupportBundle.message("settings.programmers-txt-diff.title")
                 , programmersTxt
                 , null
-                , Bundle.message("settings.bundled.0.title", "programmers.txt")
+                , ArduinoSupportBundle.message("settings.bundled.0.title", "programmers.txt")
                 , () -> myProgrammersTxtPath.getText()
         ));
 
         myToolchainTxtDiff.addActionListener(new DiffActionListener(
                 null
-                , Bundle.message("settings.toolchain-txt.diff.title")
+                , ArduinoSupportBundle.message("settings.toolchain-txt.diff.title")
                 , toolchainTxt
                 , FileTypeManager.getInstance().getFileTypeByExtension("cmake")
-                , Bundle.message("settings.bundled.0.title", "ArduinoToolchain.cmake")
+                , ArduinoSupportBundle.message("settings.bundled.0.title", "ArduinoToolchain.cmake")
                 , () -> myToolchainTxtPath.getText()
         ));
         
         myToolchainTxtDiff2.addActionListener(new DiffActionListener(
                 null
-                , Bundle.message("settings.toolchain-txt.diff2.title")
+                , ArduinoSupportBundle.message("settings.toolchain-txt.diff2.title")
                 , toolchainTxt2
                 , FileTypeManager.getInstance().getFileTypeByExtension("cmake")
-                , Bundle.message("settings.bundled.0.title", "Platform/Arduino.cmake")
+                , ArduinoSupportBundle.message("settings.bundled.0.title", "Platform/Arduino.cmake")
                 , () -> new File(new File(myToolchainTxtPath.getText()).getParentFile(), "Platform/Arduino.cmake").getPath()
         ));
         
@@ -216,16 +216,16 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                             updateOptions(false);
                             Messages.showMessageDialog(
                                     myMainPanel,
-                                    Bundle.message("settings.templates.create-success.label", file.getPath()),
-                                    Bundle.message("settings.templates.create-success.title"),
+                                    ArduinoSupportBundle.message("settings.templates.create-success.label", file.getPath()),
+                                    ArduinoSupportBundle.message("settings.templates.create-success.title"),
                                     Messages.getInformationIcon());
                         } catch (IOException e1) {
                             LOG.info("Create template dir failed", e1);
 
                             Messages.showMessageDialog(
                                     myMainPanel,
-                                    Bundle.message("settings.templates.create-failed.label"),
-                                    Bundle.message("settings.templates.create-failed.title"),
+                                    ArduinoSupportBundle.message("settings.templates.create-failed.label"),
+                                    ArduinoSupportBundle.message("settings.templates.create-failed.title"),
                                     Messages.getErrorIcon());
                         }
                     }
@@ -263,14 +263,14 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                             updateOptions(false);
                             Messages.showMessageDialog(
                                     myMainPanel,
-                                    Bundle.message("settings.toolchain-txt.create-success.label", file.getParentFile().getPath()),
-                                    Bundle.message("settings.toolchain-txt.create-success.title"),
+                                    ArduinoSupportBundle.message("settings.toolchain-txt.create-success.label", file.getParentFile().getPath()),
+                                    ArduinoSupportBundle.message("settings.toolchain-txt.create-success.title"),
                                     Messages.getInformationIcon());
                         } else {
                             Messages.showMessageDialog(
                                     myMainPanel,
-                                    Bundle.message("settings.toolchain-txt.create-failed.label"),
-                                    Bundle.message("settings.toolchain-txt.create-failed.title"),
+                                    ArduinoSupportBundle.message("settings.toolchain-txt.create-failed.label"),
+                                    ArduinoSupportBundle.message("settings.toolchain-txt.create-failed.title"),
                                     Messages.getErrorIcon());
                         }
                     }
@@ -320,22 +320,22 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 boolean canShowDiff = false;
                 if (boardsTxtPath.isEmpty()) {
                     // using bundled boards txt
-                    error = Bundle.message("settings.bundled-boards-txt.message");
+                    error = ArduinoSupportBundle.message("settings.bundled-boards-txt.message");
                 } else {
                     // try to open and read the file
                     File file = new File(boardsTxtPath);
                     if (!file.exists()) {
                         // should not happen
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.boards-txt.not-exists.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.boards-txt.not-exists.message") + "</span></body></html>";
                     } else if (file.isDirectory()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.boards-txt.is-directory.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.boards-txt.is-directory.message") + "</span></body></html>";
                     } else {
                         canShowDiff = true;
                         String fileTxt = ResourceUtils.getFileContent(file);
                         ArduinoConfig arduinoConfig = new ArduinoConfig(fileTxt, "");
                         if (arduinoConfig.getBoardIdMap().size() == 0) {
                             // invalid
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-boards-txt.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.invalid-boards-txt.message") + "</span></body></html>";
                         }
                     }
                 }
@@ -353,7 +353,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     myBoardsTxtDiff.setVisible(true);
                 }
             } else {
-                String error = Bundle.message("settings.bundled-boards-txt.message");
+                String error = ArduinoSupportBundle.message("settings.bundled-boards-txt.message");
                 myBoardsTxtLabel.setText(error);
             }
 
@@ -363,22 +363,22 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 boolean canShowDiff = false;
                 if (programmersTxtPath.isEmpty()) {
                     // using bundled programmers txt
-                    error = Bundle.message("settings.bundled-programmers-txt.message");
+                    error = ArduinoSupportBundle.message("settings.bundled-programmers-txt.message");
                 } else {
                     // try to open and read the file
                     File file = new File(programmersTxtPath);
                     if (!file.exists()) {
                         // should not happen
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.programmers-txt.not-exists.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.programmers-txt.not-exists.message") + "</span></body></html>";
                     } else if (file.isDirectory()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.programmers-txt.directory.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.programmers-txt.directory.message") + "</span></body></html>";
                     } else {
                         canShowDiff = true;
                         String fileTxt = ResourceUtils.getFileContent(file);
                         ArduinoConfig arduinoConfig = new ArduinoConfig("", fileTxt);
                         if (arduinoConfig.getProgrammerIdMap().size() == 0) {
                             // invalid
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-programmers-txt.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.invalid-programmers-txt.message") + "</span></body></html>";
                         }
                     }
                 }
@@ -396,7 +396,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     myProgrammersTxtDiff.setVisible(true);
                 }
             } else {
-                String error = Bundle.message("settings.bundled-programmers-txt.message");
+                String error = ArduinoSupportBundle.message("settings.bundled-programmers-txt.message");
                 myProgrammersTxtLabel.setText(error);
             }
 
@@ -407,7 +407,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 boolean canShowDiff = false;
                 if (templatesPath.isEmpty()) {
                     // using bundled programmers txt
-                    error = Bundle.message("settings.bundled-templates.message");
+                    error = ArduinoSupportBundle.message("settings.bundled-templates.message");
                 } else {
                     // try to open and read the file
                     File file = new File(templatesPath);
@@ -428,12 +428,12 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                         }
 
                         if (!canCreate) {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.templates.not-exists.rd-only.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.templates.not-exists.rd-only.message") + "</span></body></html>";
                         } else {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.templates.not-exists.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.templates.not-exists.message") + "</span></body></html>";
                         }
                     } else if (file.isFile()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.file-templates.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.file-templates.message") + "</span></body></html>";
                     } else {
                         //noinspection DataFlowIssue
                         canShowDiff = false; // does not work for non-project directories
@@ -441,7 +441,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                         // should have all files in respective template types
                         if (!TemplateResolver.INSTANCE.haveAllTemplates(file)) {
                             // invalid
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.invalid-templates.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.invalid-templates.message") + "</span></body></html>";
                         }
                     }
                 }
@@ -461,7 +461,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     myTemplatesCreate.setVisible(false);
                 }
             } else {
-                String error = Bundle.message("settings.bundled-templates.message");
+                String error = ArduinoSupportBundle.message("settings.bundled-templates.message");
                 myTemplatesPathLabel.setText(error);
             }
 
@@ -471,7 +471,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                 boolean canCreate = false;
                 boolean canShowDiff = false;
                 if (toolchainTxtPathText.isEmpty()) {
-                    error = Bundle.message("settings.bundled-toolchain.message");
+                    error = ArduinoSupportBundle.message("settings.bundled-toolchain.message");
                 } else {
                     // try to open and read the file
                     File file = new File(toolchainTxtPathText);
@@ -485,7 +485,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                             ApplicationManager.getApplication().invokeLater(() -> myToolchainTxtPath.setText(finalToolchainTxtPathText));
                         } else {
                             if (!file.getName().equals("ArduinoToolchain.cmake")) {
-                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists.not-arduino-cmake.message") + "</span></body></html>";
+                                error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.toolchain-txt.not-exists.not-arduino-cmake.message") + "</span></body></html>";
                             }
                         }
 
@@ -507,23 +507,23 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                             }
 
                             if (!canCreate) {
-                                error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists-rd-only.0.message", missingParentPath) + "</span></body></html>";
+                                error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.toolchain-txt.not-exists-rd-only.0.message", missingParentPath) + "</span></body></html>";
                             } else {
                                 if (!file.getParentFile().exists()) {
-                                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists-directory.0.message", missingParentPath) + "</span></body></html>";
+                                    error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.toolchain-txt.not-exists-directory.0.message", missingParentPath) + "</span></body></html>";
                                 } else {
-                                    error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-exists.message") + "</span></body></html>";
+                                    error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.toolchain-txt.not-exists.message") + "</span></body></html>";
                                 }
                             }
                         }
                     } else if (file.isDirectory()) {
-                        error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.is-directory.message") + "</span></body></html>";
+                        error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.toolchain-txt.is-directory.message") + "</span></body></html>";
                     } else {
                         // not necessarily our bundled toolchain
                         if (file.getName().equals("ArduinoToolchain.cmake")) {
                             canShowDiff = true;
                         } else {
-                            error = "<html><body><span style='color: red'>" + Bundle.message("settings.toolchain-txt.not-arduino-cmake.message") + "</span></body></html>";
+                            error = "<html><body><span style='color: red'>" + ArduinoSupportBundle.message("settings.toolchain-txt.not-arduino-cmake.message") + "</span></body></html>";
                         }
                     }
                 }
@@ -545,7 +545,7 @@ public class ApplicationSettingsForm implements Disposable, ApplicationSettingsL
                     myToolchainTxtCreate.setVisible(false);
                 }
             } else {
-                String error = Bundle.message("settings.bundled-toolchain.message");
+                String error = ArduinoSupportBundle.message("settings.bundled-toolchain.message");
                 myToolchainTxtLabel.setText(error);
             }
         } finally {

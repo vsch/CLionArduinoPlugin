@@ -21,7 +21,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.board.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.board.label"/>
             </properties>
           </component>
           <component id="90ce7" class="javax.swing.JComboBox" binding="myBoards" custom-create="true">
@@ -35,7 +35,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.cpu.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.cpu.label"/>
             </properties>
           </component>
           <component id="bf372" class="javax.swing.JComboBox" binding="myCpus" custom-create="true">
@@ -49,7 +49,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.programmer.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.programmer.label"/>
             </properties>
           </component>
           <component id="b4e31" class="javax.swing.JLabel">
@@ -57,7 +57,7 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.port.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.port.label"/>
             </properties>
           </component>
           <component id="8175d" class="javax.swing.JLabel" binding="myLibraryTypeLabel">
@@ -65,7 +65,7 @@
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.library-type.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.library-type.label"/>
             </properties>
           </component>
           <component id="fe708" class="javax.swing.JLabel" binding="myAuthorNameLabel">
@@ -73,7 +73,7 @@
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.author-name.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.author-name.label"/>
             </properties>
           </component>
           <component id="2a5b6" class="javax.swing.JTextField" binding="myAuthorName">
@@ -87,7 +87,7 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.author-email.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.author-email.label"/>
             </properties>
           </component>
           <component id="340c7" class="javax.swing.JTextField" binding="myAuthorEMail">
@@ -101,7 +101,7 @@
               <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="new-project.library-directory.description"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="new-project.library-directory.description"/>
             </properties>
           </component>
           <component id="769d" class="javax.swing.JLabel">
@@ -109,7 +109,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.baud.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.baud.label"/>
             </properties>
           </component>
           <component id="2ac07" class="com.intellij.ui.TextFieldWithHistory" binding="myPort">
@@ -137,7 +137,7 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.library-category.label"/>
+                  <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.library-category.label"/>
                 </properties>
               </component>
               <component id="2b467" class="javax.swing.JComboBox" binding="myLibraryCategory" custom-create="true">
@@ -177,7 +177,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.verbose.label"/>
+                  <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.verbose.label"/>
                 </properties>
               </component>
               <component id="58a3" class="com.intellij.ui.components.JBCheckBox" binding="myAddLibraryDirectory">
@@ -185,7 +185,7 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.add-library.label"/>
+                  <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.add-library.label"/>
                 </properties>
               </component>
             </children>
@@ -196,8 +196,8 @@
             </constraints>
             <properties>
               <labelFor value="ef476"/>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="new-project.library-display-name.label"/>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="new-project.library-display-name.description"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="new-project.library-display-name.label"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="new-project.library-display-name.description"/>
             </properties>
           </component>
           <component id="ef476" class="javax.swing.JTextField" binding="myLibraryDisplayName">
@@ -205,7 +205,7 @@
               <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="new-project.library-display-name.description"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="new-project.library-display-name.description"/>
             </properties>
           </component>
           <grid id="18145" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -235,7 +235,7 @@
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="new-project.baud-rate.message.label"/>
+                      <text resource-bundle="messages/ArduinoSupportBundle" key="new-project.baud-rate.message.label"/>
                     </properties>
                   </component>
                   <component id="7ea2f" class="com.intellij.ui.components.JBTextField" binding="myCustomBaudRate">
@@ -255,8 +255,8 @@
               <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.comment-unused.label"/>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.comment-unused.description"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.comment-unused.label"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.comment-unused.description"/>
             </properties>
           </component>
         </children>
@@ -274,7 +274,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.new-project.language-standard.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.new-project.language-standard.label"/>
             </properties>
           </component>
           <component id="a58e5" class="javax.swing.JComboBox" binding="myLanguageVersion" custom-create="true">

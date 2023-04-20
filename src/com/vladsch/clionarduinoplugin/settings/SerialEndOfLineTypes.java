@@ -1,16 +1,16 @@
 package com.vladsch.clionarduinoplugin.settings;
 
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.plugin.util.ui.ComboBoxAdaptable;
 import com.vladsch.plugin.util.ui.ComboBoxAdapter;
 import com.vladsch.plugin.util.ui.ComboBoxAdapterImpl;
 import org.jetbrains.annotations.NotNull;
 
 public enum SerialEndOfLineTypes implements ComboBoxAdaptable<SerialEndOfLineTypes> {
-    NONE(0, "", Bundle.message("settings.eol.none")),
-    LF(1, "\n", Bundle.message("settings.eol.lf")),
-    CR(2, "\r", Bundle.message("settings.eol.cr")),
-    CR_LF(3, "\r\n", Bundle.message("settings.eol.crlf")),
+    NONE(0, "", ArduinoSupportBundle.message("settings.eol.none")),
+    LF(1, "\n", ArduinoSupportBundle.message("settings.eol.lf")),
+    CR(2, "\r", ArduinoSupportBundle.message("settings.eol.cr")),
+    CR_LF(3, "\r\n", ArduinoSupportBundle.message("settings.eol.crlf")),
     ;
 
     public final int intValue;

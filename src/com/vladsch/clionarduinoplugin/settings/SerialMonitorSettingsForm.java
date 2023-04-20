@@ -20,7 +20,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Disposable, RegExSettingsHolder {
@@ -66,16 +65,13 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
                             SerialBaudRates baudRates = SerialBaudRates.ADAPTER.get(myBaudRate);
                             if (baudRates.isCustom()) {
                                 Integer rate = SequenceUtils.parseIntOrNull(myCustomBaudRate.getText());
-                                if (rate != null) {
-                                    return rate;
-                                } else {
-                                    return SerialBaudRates.BAUDRATE_57600.intValue;
-                                }
+                                return rate != null ? rate : SerialBaudRates.BAUDRATE_57600.intValue;
                             } else {
                                 return baudRates.intValue;
                             }
                         }, rate -> {
                             SerialBaudRates baudRates = SerialBaudRates.ADAPTER.findEnum(Integer.toString(rate));
+                            //noinspection ConstantValue,VariableNotUsedInsideIf
                             if (baudRates == null) {
                                 myCustomBaudRate.setText(Integer.toString(rate));
                                 SerialBaudRates.ADAPTER.set(myBaudRate, SerialBaudRates.CUSTOM.intValue);
@@ -99,7 +95,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
 
         myRegexSampleText = settings.getRegexSampleText();
 
-        final ActionListener actionListener = e -> updateOptions(false);
+        final ActionListener actionListener = e -> updateOptions();
 
         myReconnectAfterBuild.addActionListener(actionListener);
         myClearOnReconnect.addActionListener(actionListener);
@@ -119,7 +115,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         }
     }
 
-    private void disableChildren(JComponent parent) {
+    private static void disableChildren(JComponent parent) {
         int iMax = parent.getComponentCount();
 
         for (int i = 0; i < iMax; i++) {
@@ -131,7 +127,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         }
     }
 
-    void updateOptions(boolean onInit) {
+    void updateOptions() {
         BuildConfigurationPatternType selectedType = BuildConfigurationPatternType.ADAPTER.get(myBuildConfigurationPattern);
         final boolean regexPrefixes = selectedType == BuildConfigurationPatternType.REGEX;
         final boolean all = selectedType == BuildConfigurationPatternType.ALL;
@@ -168,10 +164,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
     // @formatter:on
 
     private void createUIComponents() {
-        final ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {updateOptions(false);}
-        };
+        final ActionListener actionListener = e -> updateOptions();
 
         SerialPortNames.updateValues(true, null);
 

@@ -21,7 +21,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.send-eol.label"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.send-eol.label"/>
             </properties>
           </component>
           <component id="fb0a6" class="javax.swing.JComboBox" binding="mySerialEndOfLineTypes" custom-create="true">
@@ -35,8 +35,8 @@
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.send-immediate.label"/>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.send-immediate.description"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.send-immediate.label"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="settings.send-immediate.description"/>
               <verticalAlignment value="0"/>
             </properties>
           </component>
@@ -45,8 +45,8 @@
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.log-sent-text.label"/>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.log-sent-text.description"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.log-sent-text.label"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="settings.log-sent-text.description"/>
               <verticalAlignment value="0"/>
             </properties>
           </component>
@@ -55,8 +55,8 @@
               <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.log-exceptions.label"/>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.log-exceptions.description"/>
+              <text resource-bundle="messages/ArduinoSupportBundle" key="settings.log-exceptions.label"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="settings.log-exceptions.description"/>
               <verticalAlignment value="0"/>
             </properties>
           </component>

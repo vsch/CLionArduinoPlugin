@@ -1,7 +1,7 @@
 // Copyright (c) 2015-2023 Vladimir Schneider <vladimir.schneider@gmail.com> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package com.vladsch.clionarduinoplugin.settings;
 
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.plugin.util.ui.ComboBoxAdaptable;
 import com.vladsch.plugin.util.ui.ComboBoxAdapter;
 import com.vladsch.plugin.util.ui.ComboBoxAdapterImpl;
@@ -12,11 +12,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum BuildConfigurationPatternType implements ComboBoxAdaptable<BuildConfigurationPatternType> {
-    ALL(0, Bundle.message("settings.build-configuration-pattern-type.all")),
-    ANYWHERE(1, Bundle.message("settings.build-configuration-pattern-type.any")),
-    PREFIX(2, Bundle.message("settings.line-settings.remove-prefix-on-paste-type.prefix")),
-    SUFFIX(3, Bundle.message("settings.line-settings.remove-prefix-on-paste-type.suffix")),
-    REGEX(4, Bundle.message("settings.remove-prefix-on-paste-type.regex"));
+    ALL(0, ArduinoSupportBundle.message("settings.build-configuration-pattern-type.all")),
+    ANYWHERE(1, ArduinoSupportBundle.message("settings.build-configuration-pattern-type.any")),
+    PREFIX(2, ArduinoSupportBundle.message("settings.line-settings.remove-prefix-on-paste-type.prefix")),
+    SUFFIX(3, ArduinoSupportBundle.message("settings.line-settings.remove-prefix-on-paste-type.suffix")),
+    REGEX(4, ArduinoSupportBundle.message("settings.remove-prefix-on-paste-type.regex"));
 
     /**
      * Convert to caret position for paste depending on where the caret is relative

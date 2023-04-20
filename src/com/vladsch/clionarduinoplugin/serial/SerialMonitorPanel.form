@@ -41,7 +41,7 @@
             <properties>
               <icon value="icons/serial_port_send.png"/>
               <text value=""/>
-              <toolTipText resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="action.send.description"/>
+              <toolTipText resource-bundle="messages/ArduinoSupportBundle" key="action.send.description"/>
             </properties>
           </component>
           <nested-form id="65347" form-file="com/vladsch/clionarduinoplugin/settings/SendSettingsForm.form" binding="mySendSettingsForm">

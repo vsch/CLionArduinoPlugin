@@ -4,7 +4,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.clionarduinoplugin.serial.SerialProjectComponent;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import icons.PluginIcons;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class ConnectAction extends DumbAwareAction {
     
     public ConnectAction() {
-        super(Bundle.message("action.connect.label"), Bundle.message("actions.connect.description"), PluginIcons.serial_port_disconnected);
+        super(ArduinoSupportBundle.message("action.connect.label"), ArduinoSupportBundle.message("actions.connect.description"), PluginIcons.serial_port_disconnected);
     }
     
     @Override
@@ -26,12 +26,12 @@ public class ConnectAction extends DumbAwareAction {
             if (serialProjectComponent.isPortConnected()) {
                 presentation.setIcon(PluginIcons.serial_port);
 
-                presentation.setText(Bundle.message("actions.connect.connected.2.description", serialProjectComponent.getConnectedPort(), "" + serialProjectComponent.getConnectedBaudRate()));
+                presentation.setText(ArduinoSupportBundle.message("actions.connect.connected.2.description", serialProjectComponent.getConnectedPort(), "" + serialProjectComponent.getConnectedBaudRate()));
                 //presentation.setDescription("Disconnect " + serialProjectComponent.getConnectedPort() + " @ " + serialProjectComponent.getConnectedBaudRate());
             } else {
                 ArduinoProjectSettings projectSettings = ArduinoProjectSettings.getInstance(project);
                 presentation.setIcon(PluginIcons.serial_port_disconnected);
-                presentation.setText(Bundle.message("actions.connect.disconnected.2.description", projectSettings.getPort(), "" + projectSettings.getBaudRate()));
+                presentation.setText(ArduinoSupportBundle.message("actions.connect.disconnected.2.description", projectSettings.getPort(), "" + projectSettings.getBaudRate()));
             }
 
             enabled = serialProjectComponent.canConnectPort();

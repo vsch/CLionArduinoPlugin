@@ -7,7 +7,7 @@ fun environment(key: String) = providers.environmentVariable(key)
 
 val javaVersion = "11"
 val flexmarkVersion = "0.64.0"
-val pluginSinceBuild = "203"
+val pluginSinceBuild = "203.5981.155"
 val pluginUntilBuild = ""
 val pluginVersion = "1.5.35"
 
@@ -31,7 +31,9 @@ intellij {
     version.set("2020.3")
     type.set("CL") // Target IDE Platform
 
-    plugins.set(listOf("com.intellij.clion", "com.intellij.cidr.base"))
+    plugins.set(listOf("com.intellij.clion", "com.intellij.cidr.base", project(":SimpleSerialPortService")))
+
+//    sandboxDir.set("/Users/vlad/src/projects/CLionArduinoPlugin/build/idea-sandbox")
 }
 
 dependencies {
@@ -48,9 +50,13 @@ dependencies {
 
     implementation("org.jetbrains:annotations:24.0.1")
     implementation("commons-io:commons-io:2.7")
-    implementation("org.scream3r:jssc:2.8.0")
 
     implementation(files("lib/plugin-util.jar"))
+    compileOnly("io.github.java-native:jssc:2.9.4") {
+        exclude("org.slf4j", "slf4j-api")
+    }
+    
+    compileOnly(files("excluded_lib/serial-monitor/lib/serial-monitor.jar"))
 }
 
 sourceSets {
@@ -85,6 +91,10 @@ tasks { // Set the JVM compatibility versions
 
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = javaVersion
+    }
+
+    prepareSandbox {
+        dependsOn(":SimpleSerialPortService:prepareSandbox")
     }
 
     patchPluginXml {

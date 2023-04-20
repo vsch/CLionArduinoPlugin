@@ -5,7 +5,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.openapi.wm.StatusBarWidgetFactory;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +23,7 @@ class SerialMonitorStatusBarWidgetFactory implements StatusBarWidgetFactory {
     @Override
     public @Nls
     @NotNull String getDisplayName() {
-        return Bundle.getString("toolwindow.serial-monitor.title");
+        return ArduinoSupportBundle.getString("toolwindow.serial-monitor.title");
     }
 
     @Override

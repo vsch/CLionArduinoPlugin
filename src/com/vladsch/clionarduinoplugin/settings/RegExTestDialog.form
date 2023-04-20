@@ -42,7 +42,7 @@
                 </constraints>
                 <properties>
                   <horizontalAlignment value="2"/>
-                  <text resource-bundle="com/vladsch/clionarduinoplugin/localization/strings" key="settings.regex.pattern.label"/>
+                  <text resource-bundle="messages/ArduinoSupportBundle" key="settings.regex.pattern.label"/>
                 </properties>
               </component>
             </children>

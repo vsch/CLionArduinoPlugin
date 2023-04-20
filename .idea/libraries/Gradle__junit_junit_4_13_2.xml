@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: junit:junit:4.13.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="junit" artifactId="junit" version="4.13.2" />
+    <ANNOTATIONS>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/externalAnnotations/junit/junit/4.12-an1/junit-4.12-an1-annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.13.2/junit-4.13.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.13.2/junit-4.13.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

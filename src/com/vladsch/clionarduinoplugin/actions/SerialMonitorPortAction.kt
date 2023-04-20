@@ -1,12 +1,8 @@
 package com.vladsch.clionarduinoplugin.actions
 
-import com.intellij.openapi.actionSystem.ActionGroup
-import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.Toggleable
-import com.vladsch.clionarduinoplugin.serial.SerialPortManager
+import com.intellij.openapi.actionSystem.*
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings
+import com.vladsch.plugins.simpleserialportservice.JsscSerialService
 
 class SerialMonitorPortAction(private val myPort: String) : AnAction(myPort), Toggleable {
 
@@ -25,9 +21,9 @@ class SerialMonitorPortAction(private val myPort: String) : AnAction(myPort), To
         if (project != null) {
             val port = ArduinoProjectSettings.getInstance(project).port
             val presentation = e.presentation
-            
+
             Toggleable.setSelected(presentation, port == myPort)
-            
+
             if (ActionPlaces.isPopupPlace(e.place)) {
                 //force to show check marks instead of toggled icons in context menu
                 presentation.icon = null
@@ -36,8 +32,9 @@ class SerialMonitorPortAction(private val myPort: String) : AnAction(myPort), To
     }
 
     companion object {
+
         fun createSerialPortsActionGroup(): ActionGroup {
-            val serialPorts = SerialPortManager.getSerialPorts(true)
+            val serialPorts = JsscSerialService.getInstance().getPortNames(true)
             val portActions = serialPorts.map { SerialMonitorPortAction(it) }
 
             val group = object : ActionGroup("Port", true) {

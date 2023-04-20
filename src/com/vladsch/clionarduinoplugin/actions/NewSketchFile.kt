@@ -9,7 +9,7 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFile
-import com.vladsch.clionarduinoplugin.Bundle
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle
 import com.vladsch.clionarduinoplugin.generators.ArduinoProjectGenerator
 import com.vladsch.clionarduinoplugin.resources.TemplateResolver
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings
@@ -103,17 +103,17 @@ class NewSketchFile : AnAction() {
     }
 
     private fun showEmptyFilenameError(project: Project) {
-        Messages.showErrorDialog(project, Bundle.message("action.new-sketch.empty-name.message"), Bundle.message("action.new-sketch.empty-name.title"))
+        Messages.showErrorDialog(project, ArduinoSupportBundle.message("action.new-sketch.empty-name.message"), ArduinoSupportBundle.message("action.new-sketch.empty-name.title"))
     }
 
     private fun getOverwriteChoice(project: Project, filename: String): Int {
         return Messages
-                .showYesNoCancelDialog(project, Bundle.message("action.new-sketch.overwrite.message", filename), Bundle.message("action.new-sketch.overwrite.title"), PluginIcons.arduino_logo)
+                .showYesNoCancelDialog(project, ArduinoSupportBundle.message("action.new-sketch.overwrite.message", filename), ArduinoSupportBundle.message("action.new-sketch.overwrite.title"), PluginIcons.arduino_logo)
     }
 
     private fun getDesiredFilename(project: Project): String? {
         return Messages
-                .showInputDialog(project, Bundle.message("action.new-sketch.enter-filename.message"), Bundle.message("action.new-sketch.enter-filename.message.title"), PluginIcons.arduino_logo)
+                .showInputDialog(project, ArduinoSupportBundle.message("action.new-sketch.enter-filename.message"), ArduinoSupportBundle.message("action.new-sketch.enter-filename.message.title"), PluginIcons.arduino_logo)
     }
 
     private fun deleteVirtualFile(virtualFile: VirtualFile?) {

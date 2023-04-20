@@ -5,7 +5,7 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,7 +48,7 @@ public class ArduinoSerialMonitorConfigurable implements SearchableConfigurable 
     @Nls
     @Override
     public String getDisplayName() {
-        return Bundle.message("plugin.project-configurable.name");
+        return ArduinoSupportBundle.message("plugin.project-configurable.name");
     }
 
     @Nullable

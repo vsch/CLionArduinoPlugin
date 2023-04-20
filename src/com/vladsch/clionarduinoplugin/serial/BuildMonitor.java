@@ -1,5 +1,6 @@
 package com.vladsch.clionarduinoplugin.serial;
 
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.messages.MessageBusConnection;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeConfiguration;
@@ -19,8 +20,8 @@ public class BuildMonitor implements CidrBuildListener {
         myListener = listener;
     }
 
-    public void projectOpened() {
-        myConnection = myProject.getMessageBus().connect(myProject);
+    public void projectOpened(Disposable parent) {
+        myConnection = myProject.getMessageBus().connect(parent);
         myConnection.subscribe(CidrBuildListener.TOPIC, this);
     }
 

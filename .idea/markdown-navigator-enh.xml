@@ -8,6 +8,13 @@
       <textMaps />
     </LinkMapSettings>
   </component>
+  <component name="MarkdownExportedFiles">
+    <htmlFiles>
+      <exportedFile path="$PROJECT_DIR$/assets/docs/plugin-description.html" settingsVersion="ED6B5B75-09FD6505" />
+    </htmlFiles>
+    <imageFiles />
+    <otherFiles />
+  </component>
   <component name="MarkdownNavigatorHistory">
     <PasteImageHistory filename="Screenshot_AppSettings" directory="$PROJECT_DIR$/assets/images" onPasteImageTargetRef="3" onPasteLinkText="0" onPasteImageElement="1" onPasteLinkElement="1" onPasteReferenceElement="2" cornerRadius="10" borderColor="-5002318" transparentColor="-1" borderWidth="1" trimTop="1" trimBottom="0" trimLeft="2" trimRight="0" transparent="false" roundCorners="true" showPreview="true" bordered="true" scaled="true" cropped="true" hideInapplicableOperations="true" preserveLinkFormat="false" scale="40" scalingInterpolation="1" transparentTolerance="0" saveAsDefaultOnOK="true" linkFormat="1" addHighlights="false" showHighlightCoordinates="true" showHighlights="false" mouseSelectionAddsHighlight="false" outerFilled="false" outerFillColor="-16777216" outerFillTransparent="true" outerFillAlpha="30">
       <highlightList />

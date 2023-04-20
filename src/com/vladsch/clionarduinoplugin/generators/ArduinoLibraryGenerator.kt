@@ -6,7 +6,7 @@
 
 package com.vladsch.clionarduinoplugin.generators
 
-import com.vladsch.clionarduinoplugin.Bundle
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle
 import icons.PluginIcons
 import org.jetbrains.annotations.Nls
 
@@ -16,11 +16,11 @@ class ArduinoLibraryGenerator : ArduinoProjectGenerator(true) {
 
     @Nls
     override fun getName(): String {
-        return Bundle.message("new-project.library-project.name")
+        return ArduinoSupportBundle.message("new-project.library-project.name")
     }
 
     override fun getDescription(): String? {
-        return Bundle.message("new-project.library-project.description")
+        return ArduinoSupportBundle.message("new-project.library-project.description")
     }
 
     override fun getLogo(): Icon? {

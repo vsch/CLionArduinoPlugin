@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.scijava:native-lib-loader:2.3.6" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.scijava" artifactId="native-lib-loader" version="2.3.6" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scijava/native-lib-loader/2.3.6/3df7250e67452ff6fb472b3ed694534d11ca3441/native-lib-loader-2.3.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scijava/native-lib-loader/2.3.6/338780d3f37a0e7bb5945eaa664e4d0ad4cba248/native-lib-loader-2.3.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

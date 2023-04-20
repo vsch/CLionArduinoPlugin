@@ -32,14 +32,14 @@ class SerialMonitorBaudRateAction(internal val myBaudRate: Int) : AnAction(Integ
 
     companion object {
         fun createBaudRateActionGroup(): ActionGroup {
-            // TODO: add to string properties
-            val group = object : ActionGroup("Baud rate", true) {
+            val group = object : ActionGroup("Baud Rate", true) {
                 override fun getChildren(e: AnActionEvent?): Array<AnAction> {
                     return arrayOf(
                             SerialMonitorBaudRateAction(SerialPort.BAUDRATE_110),
                             SerialMonitorBaudRateAction(SerialPort.BAUDRATE_300),
                             SerialMonitorBaudRateAction(SerialPort.BAUDRATE_600),
                             SerialMonitorBaudRateAction(SerialPort.BAUDRATE_1200),
+                            SerialMonitorBaudRateAction(SerialPort.BAUDRATE_2400),
                             SerialMonitorBaudRateAction(SerialPort.BAUDRATE_4800),
                             SerialMonitorBaudRateAction(SerialPort.BAUDRATE_9600),
                             SerialMonitorBaudRateAction(SerialPort.BAUDRATE_14400),

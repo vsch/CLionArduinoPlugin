@@ -15,7 +15,7 @@ import com.intellij.util.ui.ElementProducer;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.ListTableModel;
 import com.intellij.util.ui.UIUtil;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import com.vladsch.flexmark.util.misc.DelimitedBuilder;
 import com.vladsch.flexmark.util.html.ui.BackgroundColor;
 import com.vladsch.flexmark.util.html.ui.HtmlBuilder;
@@ -397,7 +397,7 @@ public class RegExTestDialog extends DialogWrapper {
 
     class MatchColumn extends MyColumnInfo<Boolean> {
         MatchColumn() {
-            super(Bundle.message("settings.regex.match.label"));
+            super(ArduinoSupportBundle.message("settings.regex.match.label"));
         }
 
         @Override
@@ -455,7 +455,7 @@ public class RegExTestDialog extends DialogWrapper {
     class SampleColumn extends MyColumnInfo<String> {
 
         SampleColumn() {
-            super(Bundle.message("settings.regex.sample.label"));
+            super(ArduinoSupportBundle.message("settings.regex.sample.label"));
         }
 
         @Override
@@ -516,7 +516,7 @@ public class RegExTestDialog extends DialogWrapper {
         private String tooltipText;
 
         ResultColumn() {
-            super(Bundle.message("settings.regex.results.label"));
+            super(ArduinoSupportBundle.message("settings.regex.results.label"));
             tooltipText = null;
         }
 

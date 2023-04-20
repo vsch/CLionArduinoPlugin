@@ -7,14 +7,14 @@ import org.jetbrains.annotations.PropertyKey;
 
 import java.util.ResourceBundle;
 
-public class Bundle {
+public class ArduinoSupportBundle {
 
     @NonNls
-    private static final String BUNDLE_NAME = "com.vladsch.clionarduinoplugin.localization.strings";
+    private static final String BUNDLE_NAME = "messages.ArduinoSupportBundle";
 
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-    private Bundle() {
+    private ArduinoSupportBundle() {
     }
 
     public static ResourceBundle getBundle() {

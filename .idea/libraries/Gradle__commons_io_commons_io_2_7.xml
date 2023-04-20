@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: commons-io:commons-io:2.7" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="commons-io" artifactId="commons-io" version="2.7" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/2.7/commons-io-2.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/2.7/commons-io-2.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

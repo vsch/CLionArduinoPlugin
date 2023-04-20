@@ -6,13 +6,13 @@ import com.intellij.openapi.project.DumbAwareAction
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.jetbrains.cidr.cpp.cmake.workspace.CMakeWorkspace
-import com.vladsch.clionarduinoplugin.Bundle
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle
 import com.vladsch.clionarduinoplugin.generators.cmake.ArduinoCMakeListsTxtBuilder
 import com.vladsch.clionarduinoplugin.resources.Strings
 import com.vladsch.clionarduinoplugin.settings.ProjectBuildSettingsDialog
 import com.vladsch.plugin.util.plus
 
-class ChangeBuildSettingsAction : DumbAwareAction(Bundle.message("action.change-build-settings.label"), Bundle.message("actions.change-build-settings.description"), null) {
+class ChangeBuildSettingsAction : DumbAwareAction(ArduinoSupportBundle.message("action.change-build-settings.label"), ArduinoSupportBundle.message("actions.change-build-settings.description"), null) {
 
     override fun update(e: AnActionEvent) {
         val project = e.project
@@ -39,7 +39,7 @@ class ChangeBuildSettingsAction : DumbAwareAction(Bundle.message("action.change-
             ) 
 
             if (settings == null) {
-                Messages.showErrorDialog(project, Bundle.message("action.change-build-settings.not-arduino-project.message"), Bundle.message("action.change-build-settings.not-arduino-project.title"))
+                Messages.showErrorDialog(project, ArduinoSupportBundle.message("action.change-build-settings.not-arduino-project.message"), ArduinoSupportBundle.message("action.change-build-settings.not-arduino-project.title"))
                 return
             }
 

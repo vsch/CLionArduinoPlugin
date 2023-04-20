@@ -10,7 +10,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import org.jetbrains.annotations.NotNull;
 
 class SerialMonitorToolWindowFactory implements ToolWindowFactory, DumbAware {
@@ -30,7 +30,7 @@ class SerialMonitorToolWindowFactory implements ToolWindowFactory, DumbAware {
         mainPanel.add(serialProjectComponent.mySerialMonitorPanel.getComponent());
 
         ContentFactory contentFactory = ApplicationManager.getApplication().getService(ContentFactory.class);
-        Content content = contentFactory.createContent(mainPanel, Bundle.message("toolwindow.serial-monitor.title"), false);
+        Content content = contentFactory.createContent(mainPanel, ArduinoSupportBundle.message("toolwindow.serial-monitor.title"), false);
         serialProjectComponent.myToolWindow = window;
         window.getContentManager().addContent(content);
     }

@@ -32,7 +32,7 @@ import com.jetbrains.cidr.cpp.cmake.projectWizard.generators.settings.CMakeProje
 import com.jetbrains.cidr.cpp.cmake.projectWizard.generators.settings.ui.CMakeSettingsPanel
 import com.jetbrains.cidr.cpp.cmake.workspace.CMakeWorkspace
 import com.jetbrains.cidr.cpp.cmake.workspace.CMakeWorkspaceListener
-import com.vladsch.clionarduinoplugin.Bundle
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle
 import com.vladsch.clionarduinoplugin.generators.cmake.ArduinoCMakeListsTxtBuilder
 import com.vladsch.clionarduinoplugin.resources.ArduinoToolchainFiles
 import com.vladsch.clionarduinoplugin.resources.Strings
@@ -65,7 +65,7 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
     }
 
     override fun getGroupName(): String {
-        return Bundle.message("new-project.group.name")
+        return ArduinoSupportBundle.message("new-project.group.name")
     }
 
     @Nls
@@ -162,7 +162,7 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
                 libDir.mkdirs()
             }
         }
-        return CreatedFilesHolder(cMakeFile, sourceFiles, nonSourceFiles.toTypedArray(), extraFiles)
+        return CreatedFilesHolder(cMakeFile!!, sourceFiles, nonSourceFiles.toTypedArray(), extraFiles)
     }
 
     override fun generateProject(project: Project, baseDir: VirtualFile, settings: CMakeProjectSettings, module: Module) {
@@ -193,10 +193,6 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         val workspace = CMakeWorkspace.getInstance(project)
         val busConnection = project.messageBus.connect()
         busConnection.subscribe(CMakeWorkspaceListener.TOPIC, MyCMakeWorkspaceListener(busConnection, workspace))
-    }
-
-    override fun formatSourceFilesAsCpp(): Boolean {
-        return true
     }
 
     override fun validate(baseDirPath: String): ValidationResult {
@@ -399,14 +395,14 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
         fun validateOptionsInfo(settings: ArduinoApplicationSettings, form: NewProjectSettingsForm?): ValidationInfo? {
             if (settings.boardId.isEmpty()) {
                 return ValidationInfo(
-                    Bundle.message("new-project.no-board"),
+                    ArduinoSupportBundle.message("new-project.no-board"),
                     form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.BOARD)
                 )
             }
 
             if (settings.getBoardCpuNames(settings.boardName).isNotEmpty() && settings.cpuId.isEmpty()) {
                 return ValidationInfo(
-                    Bundle.message("new-project.1.no-cpu", settings.cpuLabel, settings.boardName),
+                    ArduinoSupportBundle.message("new-project.1.no-cpu", settings.cpuLabel, settings.boardName),
                     form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.CPU)
                 )
             }
@@ -415,7 +411,7 @@ abstract class ArduinoProjectGenerator(isLibrary: Boolean) : CMakeProjectGenerat
                 for (dir in settings.libraryDirectories) {
                     if (File(dir).isAbsolute) {
                         return ValidationInfo(
-                            Bundle.message("new-project.0.absolute-lib-dir", dir),
+                            ArduinoSupportBundle.message("new-project.0.absolute-lib-dir", dir),
                             form?.getErrorComponent(NewProjectSettingsForm.ErrorComp.LIB_DIR)
                         )
                     }

@@ -2,14 +2,17 @@ package com.vladsch.clionarduinoplugin.serial;
 
 import com.intellij.execution.actions.ClearConsoleAction;
 import com.intellij.execution.filters.TextConsoleBuilderImpl;
-import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.notification.NotificationGroup;
+import com.intellij.notification.NotificationGroupManager;
+import com.intellij.notification.NotificationType;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction;
 import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction;
 import com.intellij.openapi.project.Project;
@@ -21,7 +24,6 @@ import com.vladsch.clionarduinoplugin.actions.ShowSendOptionsAction;
 import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import com.vladsch.clionarduinoplugin.settings.SendSettingsForm;
 import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
-import jssc.SerialPortEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,6 +43,11 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
     final static public ConsoleViewContentType LOG_ERROR_OUTPUT = new ConsoleViewContentType("LOG_ERROR_OUTPUT", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY);
     final static public ConsoleViewContentType CONNECTION_STATUS = ConsoleViewContentType.SYSTEM_OUTPUT;
     static public ConsoleViewContentType ALT_CONNECTION_STATUS = null;
+    final private static NotificationGroup SERIAL_NOTIFICATION_GROUP = ApplicationManager.getApplication().getService(NotificationGroupManager.class).getNotificationGroup("com.vladsch.clionarduinoplugin.serialMonitor");
+
+    static void errorNotification(@NotNull String content, @Nullable Project project) {
+        SERIAL_NOTIFICATION_GROUP.createNotification(content, NotificationType.ERROR).notify(project);
+    }
 
     private JPanel myPanel;
     private JButton mySendButton;
@@ -108,8 +115,6 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
     public void onSettingsChanged() {
         mySendSettingsForm.reset(myProjectSettings);
         mySendSettingsForm.getComponent().setVisible(myProjectSettings.isShowSendOptions());
-
-        //mySendButton.setEnabled(settings.isImmediateSend());
     }
 
     private void createConsole() {
@@ -142,7 +147,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
     }
 
     @Override
-    public void onSent(final byte[] buf) {
+    public void onSend(final byte[] buf) {
         if (myConsoleView != null && myProjectSettings.isLogSentText()) {
             String s = new String(buf).replaceAll("\r", "");
             myConsoleView.print(s, ConsoleViewContentType.USER_INPUT);
@@ -155,7 +160,7 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendButton.setEnabled(true);
 
         if (myConsoleView != null && myProjectSettings.isLogConnectDisconnect()) {
-            myConsoleView.print("--------------- Connected " + portName + " @ " + baudRate + " ----------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS : ALT_CONNECTION_STATUS);
+            myConsoleView.print("\n--------------- Connected " + portName + " @ " + baudRate + " ----------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS : ALT_CONNECTION_STATUS);
         }
     }
 
@@ -165,13 +170,8 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         mySendButton.setEnabled(false);
 
         if (myConsoleView != null && myProjectSettings.isLogConnectDisconnect()) {
-            myConsoleView.print("-------------- Disconnected " + portName + " @ " + baudRate + " --------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS : ALT_CONNECTION_STATUS);
+            myConsoleView.print("\n-------------- Disconnected " + portName + " @ " + baudRate + " --------------\n", ALT_CONNECTION_STATUS == null ? CONNECTION_STATUS : ALT_CONNECTION_STATUS);
         }
-    }
-
-    @Override
-    public void onEvent(final SerialPortEvent event) {
-
     }
 
     @Override
@@ -191,6 +191,8 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
                 myConsoleView.print("\n", viewContentType);
             }
         }
+
+        errorNotification(message, myProject);
     }
 
     private static List<AnAction> filterActions(AnAction[] actions) {
@@ -198,24 +200,17 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
         addIfFoundAction(filteredActions, actions, ToggleUseSoftWrapsToolbarAction.class);
         addIfFoundAction(filteredActions, actions, ScrollToTheEndToolbarAction.class);
         addIfFoundAction(filteredActions, actions, ActionManager.getInstance().getAction("Print").getClass());
-
-        // try to load the new version, if not found try the old
-        if (!addIfFoundAction(filteredActions, actions, ClearConsoleAction.class)) {
-            //noinspection removal,UnnecessarilyQualifiedInnerClassAccess
-            addIfFoundAction(filteredActions, actions, ConsoleViewImpl.ClearAllAction.class);
-        }
-
+        addIfFoundAction(filteredActions, actions, ClearConsoleAction.class);
         return filteredActions;
     }
 
-    private static <T extends AnAction> boolean addIfFoundAction(ArrayList<AnAction> list, AnAction[] actions, Class<T> actionClass) {
+    private static <T extends AnAction> void addIfFoundAction(ArrayList<AnAction> list, AnAction[] actions, Class<T> actionClass) {
         for (AnAction action : actions) {
             if (actionClass.isInstance(action)) {
                 list.add(action);
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     public JComponent getComponent() {

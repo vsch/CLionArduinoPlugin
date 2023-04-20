@@ -3,7 +3,7 @@ package com.vladsch.clionarduinoplugin.settings;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.ValidationInfo;
-import com.vladsch.clionarduinoplugin.Bundle;
+import com.vladsch.clionarduinoplugin.ArduinoSupportBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +21,7 @@ public class ProjectSettingsDialog extends DialogWrapper {
 
         myMainPanel = new JPanel();
 
-        setTitle(Bundle.message("settings.project-settings.title"));
+        setTitle(ArduinoSupportBundle.message("settings.project-settings.title"));
 
         ArduinoProjectSettings projectSettings = ArduinoProjectSettings.getInstance(project);
         mySerialMonitorSettingsForm = new SerialMonitorSettingsForm(projectSettings, true);
