@@ -56,6 +56,7 @@ sourceSets {
         }
 
         kotlin {
+            //noinspection GroovyAssignabilityCheck
             srcDirs = ["src"]
         }
     }
@@ -67,6 +68,7 @@ sourceSets {
         }
 
         kotlin {
+            //noinspection GroovyAssignabilityCheck
             srcDirs = ["test"]
         }
     }

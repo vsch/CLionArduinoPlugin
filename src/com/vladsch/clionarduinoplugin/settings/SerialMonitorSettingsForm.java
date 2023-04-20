@@ -95,9 +95,7 @@ public class SerialMonitorSettingsForm extends FormParams<Boolean> implements Di
         myClearOnReconnect.addActionListener(actionListener);
         myBaudRate.addActionListener(actionListener);
 
-        myEditRegExButton.addActionListener(e -> {
-            RegExTestDialog.showDialog(myMainPanel, this);
-        });
+        myEditRegExButton.addActionListener(e -> RegExTestDialog.showDialog(myMainPanel, this));
 
         Project project = settings.getProject();
         if (project != null && !project.isDefault() && !SerialProjectComponent.getInstance(project).isBuildMonitored()) {
