@@ -4,7 +4,7 @@
     <name>Arduino Support</name>
     <vendor email="vladimir.schneider@gmail.com" url="https://github.com/vsch">Vladimir Schneider</vendor>
 
-    <version>1.5.33</version>
+    <version>1.5.37</version>
     <depends>com.intellij.modules.clion</depends>
     <depends>com.vladsch.plugins.SimpleSerialConnectorService</depends>
     <idea-version since-build="203.5981.155"/>
