@@ -15,7 +15,7 @@
         <provider providerId="com.vladsch.md.nav.editor.jbcef.html.panel" providerName="Java Chromium Embedded" />
       </PanelProvider>
     </PreviewSettings>
-    <ParserSettings gitHubSyntaxChange="false" correctedInvalidSettings="false" emojiShortcuts="3" emojiImages="0">
+    <ParserSettings gitHubSyntaxChange="false" correctedInvalidSettings="false" emojiShortcuts="1" emojiImages="0">
       <PegdownExtensions>
         <option name="ABBREVIATIONS" value="true" />
         <option name="ASIDE" value="true" />

@@ -6,7 +6,7 @@
           <provider providerId="com.vladsch.md.nav.editor.swing.html.panel" providerName="Default - Swing" />
         </PanelProvider>
       </PreviewSettings>
-      <ParserSettings gitHubSyntaxChange="false" correctedInvalidSettings="false" emojiShortcuts="0" emojiImages="0">
+      <ParserSettings gitHubSyntaxChange="false" correctedInvalidSettings="false" emojiShortcuts="1" emojiImages="0">
         <PegdownExtensions>
           <option name="ABBREVIATIONS" value="true" />
           <option name="ATXHEADERSPACE" value="true" />
@@ -26,11 +26,12 @@
           <option name="WIKILINKS" value="true" />
         </PegdownExtensions>
         <ParserOptions>
+          <option name="ATTRIBUTES_EXT" value="true" />
+          <option name="COMMONMARK_LISTS" value="true" />
           <option name="EMOJI_SHORTCUTS" value="true" />
           <option name="FLEXMARK_FRONT_MATTER" value="true" />
           <option name="GFM_TABLE_RENDERING" value="true" />
           <option name="GITBOOK_URL_ENCODING" value="true" />
-          <option name="GITHUB_LISTS" value="true" />
           <option name="GITHUB_WIKI_LINKS" value="true" />
           <option name="PRODUCTION_SPEC_PARSER" value="true" />
           <option name="SIM_TOC_BLANK_LINE_SPACER" value="true" />
@@ -71,11 +72,11 @@
         <cssUriHistory />
       </CssSettings>
       <AnnotatorSettings targetHasSpaces="true" linkCaseMismatch="true" wikiCaseMismatch="true" wikiLinkHasDashes="true" notUnderWikiHome="true" targetNotWikiPageExt="true" notUnderSourceWikiHome="true" targetNameHasAnchor="true" targetPathHasAnchor="true" wikiLinkHasSlash="true" wikiLinkHasSubdir="true" wikiLinkHasOnlyAnchor="true" linkTargetsWikiHasExt="true" linkTargetsWikiHasBadExt="true" notUnderSameRepo="true" targetNotUnderVcs="false" linkNeedsExt="true" linkHasBadExt="true" linkTargetNeedsExt="true" linkTargetHasBadExt="true" wikiLinkNotInWiki="true" imageTargetNotInRaw="true" repoRelativeAcrossVcsRoots="true" multipleWikiTargetsMatch="true" unresolvedLinkReference="true" linkIsIgnored="true" anchorIsIgnored="true" anchorIsUnresolved="true" anchorLineReferenceIsUnresolved="true" anchorLineReferenceFormat="true" anchorHasDuplicates="true" abbreviationDuplicates="true" abbreviationNotUsed="true" attributeIdDuplicateDefinition="true" attributeIdNotUsed="true" footnoteDuplicateDefinition="true" footnoteUnresolved="true" footnoteDuplicates="true" footnoteNotUsed="true" macroDuplicateDefinition="true" macroUnresolved="true" macroDuplicates="true" macroNotUsed="true" referenceDuplicateDefinition="true" referenceUnresolved="true" referenceDuplicates="true" referenceNotUsed="true" referenceUnresolvedNumericId="true" enumRefDuplicateDefinition="true" enumRefUnresolved="true" enumRefDuplicates="true" enumRefNotUsed="true" enumRefLinkUnresolved="true" enumRefLinkDuplicates="true" simTocUpdateNeeded="true" simTocTitleSpaceNeeded="true" />
-      <HtmlExportSettings updateOnSave="true" parentDir="$FileDir$" targetDir="$FileDir$" cssDir="$FileDir$/css" scriptDir="$FileDir$/js" plainHtml="true" imageDir="$FileDir$/img" copyLinkedImages="false" imagePathType="0" targetPathType="2" targetExt="" useTargetExt="false" noCssNoScripts="true" useElementStyleAttribute="false" linkToExportedHtml="false" exportOnSettingsChange="true" regenerateOnProjectOpen="false" linkFormatType="HTTP_ABSOLUTE" />
+      <HtmlExportSettings updateOnSave="true" parentDir="$FileDir$" targetDir="$FileDir$" cssDir="$FileDir$/css" scriptDir="$FileDir$/js" plainHtml="true" imageDir="$FileDir$/img" copyLinkedImages="false" imagePathType="0" targetPathType="2" targetExt="" useTargetExt="false" noCssNoScripts="true" useElementStyleAttribute="false" linkToExportedHtml="true" exportOnSettingsChange="true" regenerateOnProjectOpen="false" linkFormatType="PAGE_RELATIVE" />
       <LinkMapSettings>
         <textMaps />
       </LinkMapSettings>
-      <EnhPreviewSettings allowBrowsingInPreview="false" openRemoteLinks="true" replaceUnicodeEmoji="false" showGitHubPageIfSynced="false" />
+      <EnhPreviewSettings allowBrowsingInPreview="false" openRemoteLinks="true" replaceUnicodeEmoji="true" showGitHubPageIfSynced="false" />
       <EnhHtmlSettings embedUrlContent="false" embedImages="false" embedHttpImages="false" migratedMathConversion="true" mathConversion="-1" />
       <FlexmarkHtmlSettings flexmarkSpecExampleRendering="0" flexmarkSpecExampleRenderHtml="false">
         <flexmarkSectionLanguages>

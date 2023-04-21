@@ -8,7 +8,7 @@ def javaVersion = "11"
 def flexmarkVersion = "0.64.0"
 def pluginSinceBuild = "203.5981.155"
 def pluginUntilBuild = ""
-def pluginVersion = "1.5.37"
+def pluginVersion = "1.5.39"
 
 group = "com.vladsch.clionarduinoplugin"
 version = pluginVersion

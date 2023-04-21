@@ -21,18 +21,23 @@ communications with the integrated serial monitor tool window.
 
 * Use bundled `ArduinoToolchain` or your own version.
 
-### ** `Serial Port Monitor` plugin cannot be used with `Arduino Support`
+** `Serial Port Monitor` plugin may conflict with `Arduino Support`
 
-Both plugins use [jSSC-2.8.0] serial library and only one plugin can load the native libraries.
-Please uninstall or disable `Serial Port Monitor` plugin before installing `Arduino Support`.
+This plugin uses [Simple Serial Connector Service] plugin, which uses
+[jscc - Java Simple Serial Connector] serial library, as does `Serial Port Monitor` plugin. Only
+one plugin can load the native libraries. If you encounter conflicts please uninstall or disable
+`Serial Port Monitor` plugin, or this plugin.
 
 | [Issues][] | [Plugin Source][] |
 
 <hr>
 
-![Screenshot_NewProject.png](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png){height=248px width=400px}  
-![Screenshot_SerialMonitor](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png){height=191px width=400px}  
-![Screenshot_ChangeBuildSettings](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png){height=281px width=400px}
+![Screenshot_NewProject.png](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png){height=248px
+width=400px}  
+![Screenshot_SerialMonitor](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png){height=191px
+width=400px}  
+![Screenshot_ChangeBuildSettings](https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png){height=281px
+width=400px}
 
 <hr>
 
@@ -40,8 +45,8 @@ Please uninstall or disable `Serial Port Monitor` plugin before installing `Ardu
 
 [Arduino CMake]: https://github.com/francoiscampbell/arduino-cmake
 [Issues]: https://github.com/vsch/CLionArduinoPlugin/issues
-[jSSC-2.8.0]: https://github.com/scream3r/java-simple-serial-connector
 [Original CLionArduinoPlugin]: https://github.com/francoiscampbell/CLionArduinoPlugin
 [Plugin Source]: https://github.com/vsch/CLionArduinoPlugin
-[rjuang/CLionArduinoPlugin]: https://github.com/rjuang/CLionArduinoPlugin
+[Simple Serial Connector Service]: https://plugins.jetbrains.com/plugin/21550-simpleserialconnectorservice
+[jscc - Java Simple Serial Connector]: https://github.com/java-native/jssc
 

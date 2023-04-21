@@ -28,14 +28,16 @@ communications with the integrated serial monitor tool window.</p>
     <p>Use bundled <code>ArduinoToolchain</code> or your own version.</p>
   </li>
 </ul>
-<h3>** <code>Serial Port Monitor</code> plugin cannot be used with <code>Arduino Support</code></h3>
-<p>Both plugins use <a href="https://github.com/scream3r/java-simple-serial-connector">jSSC-2.8.0</a> serial library and only one plugin can load the native libraries.
-Please uninstall or disable <code>Serial Port Monitor</code> plugin before installing <code>Arduino Support</code>.</p>
+<p>** <code>Serial Port Monitor</code> plugin may conflict with <code>Arduino Support</code></p>
+<p>This plugin uses <a href="https://plugins.jetbrains.com/plugin/21550-simpleserialconnectorservice">Simple Serial Connector Service</a> plugin, which uses
+<a href="https://github.com/java-native/jssc">jscc - Java Simple Serial Connector</a> serial library, as does <code>Serial Port Monitor</code> plugin. Only
+one plugin can load the native libraries. If you encounter conflicts please uninstall or disable
+<code>Serial Port Monitor</code> plugin, or this plugin.</p>
 <p>| <a href="https://github.com/vsch/CLionArduinoPlugin/issues">Issues</a> | <a href="https://github.com/vsch/CLionArduinoPlugin">Plugin Source</a> |</p>
 <hr>
-<p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png" alt="Screenshot_NewProject.png" />{height=248px width=400px}<br />
-<img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png" alt="Screenshot_SerialMonitor" />{height=191px width=400px}<br />
-<img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png" alt="Screenshot_ChangeBuildSettings" />{height=281px width=400px}</p>
+<p><img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_NewProject.png" alt="Screenshot_NewProject.png" height="248px" width="400px" /><br />
+<img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_SerialMonitor.png" alt="Screenshot_SerialMonitor" height="191px" width="400px" /><br />
+<img src="https://github.com/vsch/CLionArduinoPlugin/raw/master/assets/images/Screenshot_ChangeBuildSettings.png" alt="Screenshot_ChangeBuildSettings" height="281px" width="400px" /></p>
 <hr>
 <p><strong>*</strong> This plugin is a fork of <a href="https://github.com/francoiscampbell/CLionArduinoPlugin">Original CLionArduinoPlugin</a> written by Francois Campbell.</p>
 

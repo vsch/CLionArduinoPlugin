@@ -5,6 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.6.0](#160)
   - [1.5.39](#1539)
   - [1.5.37](#1537)
   - [1.5.35](#1535)
@@ -57,6 +58,8 @@
   * Offer to add the directory if it is missing
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
+
+### 1.6.0
 
 ### 1.5.39
 
@@ -353,5 +356,4 @@
 [Support for ESP32 using Arduino libs]: https://github.com/altexdim/arduino-cmake/commit/f21fd1ae0c48583c2b498a24cfa2e65814fff483
 [arduino-cmake]: https://github.com/queezythegreat/arduino-cmake
 [java-simple-serial-connector]: https://github.com/scream3r/java-simple-serial-connector
-
 
