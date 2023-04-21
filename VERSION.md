@@ -5,6 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.5.39](#1539)
   - [1.5.37](#1537)
   - [1.5.35](#1535)
   - [1.5.33](#1533)
@@ -56,6 +57,10 @@
   * Offer to add the directory if it is missing
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
+
+### 1.5.39
+
+* Change: to use `SerialPortOwnerAccess` instance for writing to port
 
 ### 1.5.37
 

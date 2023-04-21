@@ -53,8 +53,9 @@
         ]]></description>
 
     <change-notes><![CDATA[
-        <h3>1.5.38</h3>
+        <h3>1.5.40</h3>
         <ul>
+            <li>Change: to use <code>SerialPortOwnerAccess</code> instance for writing to port</li>
             <li>Change: extract all serial port comms with <a href="https://github.com/scream3r/java-simple-serial-connector">java-simple-serial-connector</a> to a separate plugin
                 exposing serial communications as a service:
                 <a href="https://plugins.jetbrains.com/plugin/21550-simpleserialconnectorservice">SimpleSerialConnectorService</a>
