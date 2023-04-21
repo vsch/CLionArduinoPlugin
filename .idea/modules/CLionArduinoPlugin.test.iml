@@ -36,7 +36,7 @@
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-visitor/0.64.0/7eb0030ae2a2eec80d74790caeb4cdb6b4bf8e17/flexmark-util-visitor-0.64.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/24.0.1/13c5c75c4206580aa4d683bffee658caae6c9f43/annotations-24.0.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.11.0/a2503f302b11ebde7ebc3df41daebe0e4eea3689/commons-io-2.11.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.plugins/simple-serial-connector-service/1.0.2/2e6984e5a158a35b6182767e4dbc7cf91b2a599b/simple-serial-connector-service-1.0.2.jar</arg>
+                <arg>$MAVEN_REPOSITORY$/com/vladsch/plugins/simple-serial-connector-service/1.0.4/simple-serial-connector-service-1.0.4.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/FastInfoset-1.2.15.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/RoaringBitmap-0.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.clion/clion/2020.3/fdb32ff78b4eb335da0a126973a2b3cc55bc750e/clion-2020.3/lib/animal-sniffer-annotations-1.18.jar</arg>
@@ -378,7 +378,7 @@
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-test-util:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:24.0.1" level="project" />
     <orderEntry type="library" name="Gradle: commons-io:commons-io:2.11.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.vladsch.plugins:simple-serial-connector-service:1.0.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.vladsch.plugins:simple-serial-connector-service:1.0.4" level="project" />
     <orderEntry type="module-library">
       <library name="Gradle: com.jetbrains:clion:2020.3">
         <ANNOTATIONS>

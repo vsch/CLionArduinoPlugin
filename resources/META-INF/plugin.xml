@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<idea-plugin url="http://github.com/vsch/CLionArduinoPlugin" require-restart="true">
+<idea-plugin url="http://github.com/vsch/CLionArduinoPlugin">
     <id>com.vladsch.clionarduinoplugin</id>
     <name>Arduino Support</name>
     <vendor email="vladimir.schneider@gmail.com" url="https://github.com/vsch">Vladimir Schneider</vendor>
@@ -53,8 +53,14 @@
         ]]></description>
 
     <change-notes><![CDATA[
-        <h3>1.5.36</h3>
+        <h3>1.5.38</h3>
         <ul>
+            <li>Change: extract all serial port comms with <a href="https://github.com/scream3r/java-simple-serial-connector">java-simple-serial-connector</a> to a separate plugin
+                exposing serial communications as a service:
+                <a href="https://plugins.jetbrains.com/plugin/21550-simpleserialconnectorservice">SimpleSerialConnectorService</a>
+                and make it a dependency of this plugin. This should eliminate plugin conflicts in the future
+                and allow the user to install multiple serial monitor plugins.</li>
+            <li>Change: build to use published packages on <code>maven.pkg.github</code></li>
             <li>Change: migrate to gradle build</li>
             <li>Change: minimum supported version to <code>2020.3</code> for gradle build compatibility with later
                 versions.</li>

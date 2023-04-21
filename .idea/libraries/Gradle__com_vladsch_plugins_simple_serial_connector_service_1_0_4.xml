@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.vladsch.plugins:simple-serial-connector-service:1.0.4" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.vladsch.plugins" artifactId="simple-serial-connector-service" version="1.0.4" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/plugins/simple-serial-connector-service/1.0.4/simple-serial-connector-service-1.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

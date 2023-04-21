@@ -219,11 +219,15 @@ public class SerialMonitorPanel implements Disposable, SerialPortListener, Proje
 
     @Override
     public void dispose() {
-        SerialProjectComponent.getInstance(myProject).removePortListener(this);
+        SerialProjectComponent projectComponent = SerialProjectComponent.getInstance(myProject);
+        
+        if (projectComponent != null) {
+            projectComponent.removePortListener(this);
 
-        if (myConsoleView != null) {
-            Disposer.dispose(myConsoleView);
-            myConsoleView = null;
+            if (myConsoleView != null) {
+                Disposer.dispose(myConsoleView);
+                myConsoleView = null;
+            }
         }
     }
 }

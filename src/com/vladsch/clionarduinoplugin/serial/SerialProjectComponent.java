@@ -12,6 +12,7 @@ import com.vladsch.clionarduinoplugin.settings.ArduinoProjectSettings;
 import com.vladsch.clionarduinoplugin.util.ProjectSettingsListener;
 import com.vladsch.plugins.simpleserialconnectorservice.JsscSerialService;
 import com.vladsch.plugins.simpleserialconnectorservice.SerialMonitorException;
+import com.vladsch.plugins.simpleserialconnectorservice.SerialPortOwnerAccess;
 import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile;
 import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile.NewLine;
 import com.vladsch.plugins.simpleserialconnectorservice.SerialPortProfile.Parity;
@@ -28,12 +29,12 @@ import static com.vladsch.plugins.simpleserialconnectorservice.SerialConnectionL
 
 public class SerialProjectComponent implements BuildListener, Disposable, ProjectSettingsListener {
     final Project myProject;
-    @SuppressWarnings("unused") 
+    @SuppressWarnings("unused")
     private ArduinoApplicationComponent myApplicationComponent;
     final @NotNull ArduinoProjectSettings myProjectSettings;
     boolean myIsBuilding = false;
     boolean myWasConnected = false;
-    @Nullable String myConnectedPort = null;
+    @Nullable SerialPortOwnerAccess myPortOwnerAccess = null;
     int myConnectedBaudRate;
     private JsscSerialService mySerialPortService;
     ToolWindow myToolWindow;
@@ -69,7 +70,9 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
 
     @Override
     public void onSettingsChanged() {
-        if (isPortConnected() && (myConnectedBaudRate != myProjectSettings.getBaudRate() || myConnectedPort != null && !myConnectedPort.equals(myProjectSettings.getPort()))) {
+        if (isPortConnected() && (myConnectedBaudRate != myProjectSettings.getBaudRate()
+                || myPortOwnerAccess != null && !myPortOwnerAccess.getPortName().equals(myProjectSettings.getPort()))
+        ) {
             disconnectAndRest();
             connectPort(myProjectSettings.getPort(), myProjectSettings.getBaudRate());
         }
@@ -86,6 +89,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
             mySerialMonitorPanel = null;
             myApplicationComponent = null;
 
+            myPortOwnerAccess = null;
             mySerialPortService = null;
 
             myListeners.clear();
@@ -113,10 +117,10 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     }
 
     private void disconnectAndRest() {
-        if (myConnectedPort != null) {
+        if (myPortOwnerAccess != null) {
             try {
-                mySerialPortService.close(myConnectedPort);
-                myConnectedPort = null;
+                mySerialPortService.close(myPortOwnerAccess.getPortName());
+                myPortOwnerAccess = null;
 
                 // need to pause for a very short delay to allow port to reset
                 int restTime = ArduinoApplicationSettings.getInstance().getDisconnectRestTime();
@@ -153,7 +157,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     }
 
     public boolean isPortConnected() {
-        return myConnectedPort != null;
+        return myPortOwnerAccess != null;
     }
 
     public boolean connectPort(@NotNull String port, int baudRate) {
@@ -173,7 +177,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     }
 
     private void portConnected() {
-        if (myConnectedPort != null) {
+        if (myPortOwnerAccess != null) {
             // once connected
             if (myProjectSettings.isActivateOnConnect() && myToolWindow != null) {
                 // active tool window
@@ -183,7 +187,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
             ensureToolWindowCreated();
 
             for (SerialPortListener listener : myListeners) {
-                listener.onConnect(myConnectedPort, myConnectedBaudRate);
+                listener.onConnect(myPortOwnerAccess.getPortName(), myConnectedBaudRate);
             }
 
             for (SerialPortStatusListener listener : myStatusListeners) {
@@ -202,7 +206,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     }
 
     public @Nullable String getConnectedPort() {
-        return myConnectedPort;
+        return myPortOwnerAccess == null ? null : myPortOwnerAccess.getPortName();
     }
 
     public int getConnectedBaudRate() {
@@ -210,11 +214,11 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     }
 
     public void disconnectPort() {
-        if (myConnectedPort != null) {
-            if (mySerialPortService.isConnected(myConnectedPort)) {
+        if (myPortOwnerAccess != null) {
+            if (myPortOwnerAccess.isConnected()) {
                 try {
                     // this will generate a DISCONNECTED status, which will trigger portDisconnected()
-                    mySerialPortService.close(myConnectedPort);
+                    mySerialPortService.close(myPortOwnerAccess.getPortName());
                 } catch (SerialMonitorException e) {
                     notifySerialError(true, e.getMessage(), e);
                     portDisconnected();
@@ -226,15 +230,15 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
     }
 
     private void portDisconnected() {
-        final String port = myConnectedPort;
+        final String portName = myPortOwnerAccess == null ? "" : myPortOwnerAccess.getPortName();
         final int baud = myConnectedBaudRate;
         myWasConnected = false;
-        myConnectedPort = null;
+        myPortOwnerAccess = null;
 
         ensureToolWindowCreated();
 
         for (SerialPortListener listener : myListeners) {
-            listener.onDisconnect(port, baud);
+            listener.onDisconnect(portName, baud);
         }
 
         for (SerialPortStatusListener listener : myStatusListeners) {
@@ -282,7 +286,7 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
             }
             settings.portName = portName;
 
-            mySerialPortService.connect(settings, bytes -> {
+            myPortOwnerAccess = mySerialPortService.connect(settings, bytes -> {
                 if (myListeners.isEmpty()) return;
 
                 if (bytes.length > 0) {
@@ -298,18 +302,17 @@ public class SerialProjectComponent implements BuildListener, Disposable, Projec
                 }
             });
 
-            myConnectedPort = portName;
             myConnectedBaudRate = baudRate;
         } catch (SerialMonitorException e) {
-            myConnectedPort = null;
+            myPortOwnerAccess = null;
             notifySerialError(true, e.getMessage(), e);
         }
     }
 
     public void send(byte[] bytes) {
-        if (myConnectedPort != null) {
+        if (myPortOwnerAccess != null) {
             try {
-                mySerialPortService.write(myConnectedPort, bytes);
+                myPortOwnerAccess.write(bytes);
                 for (SerialPortListener listener : myListeners) {
                     listener.onSend(bytes);
                 }

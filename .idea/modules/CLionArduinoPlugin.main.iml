@@ -20,7 +20,7 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../lib/plugin-util.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.plugins/simple-serial-connector-service/1.0.2/2e6984e5a158a35b6182767e4dbc7cf91b2a599b/simple-serial-connector-service-1.0.2.jar</arg>
+                <arg>$MAVEN_REPOSITORY$/com/vladsch/plugins/simple-serial-connector-service/1.0.4/simple-serial-connector-service-1.0.4.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark/0.64.0/bb5fcdf1335a35c4c0285fee2683a32e6a70cd59/flexmark-0.64.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util/0.64.0/54fc812a9fdeee63d15853dde2720c113e96de81/flexmark-util-0.64.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-tree-iteration/0.64.0/a654971e96e1014e63a2ec8448a724dc92f545a6/flexmark-tree-iteration-0.64.0.jar</arg>
@@ -365,7 +365,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.vladsch.plugins:simple-serial-connector-service:1.0.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.vladsch.plugins:simple-serial-connector-service:1.0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-util:0.64.0" level="project" />
     <orderEntry type="library" name="Gradle: com.vladsch.flexmark:flexmark-tree-iteration:0.64.0" level="project" />
