@@ -57,21 +57,27 @@
     <change-notes><![CDATA[
         <h3>1.6.0</h3>
         <ul>
+            <li>Change: use maven plugin-util dependency</li>
+            <li>Change: use JetBrains Marketplace <code>SimpleSerialConnectorService</code> plugin dependency</li>
             <li>Change: to use <code>SerialPortOwnerAccess</code> instance for writing to port</li>
             <li>Change: extract all serial port comms with <a href="https://github.com/scream3r/java-simple-serial-connector">java-simple-serial-connector</a> to a separate plugin
                 exposing serial communications as a service:
                 <a href="https://plugins.jetbrains.com/plugin/21550-simpleserialconnectorservice">SimpleSerialConnectorService</a>
                 and make it a dependency of this plugin. This should eliminate plugin conflicts in the future
-                and allow the user to install multiple serial monitor plugins.</li>
+                and allow the user to install multiple serial monitor plugins.
+            </li>
             <li>Change: build to use published packages on <code>maven.pkg.github</code></li>
             <li>Change: migrate to gradle build</li>
             <li>Change: minimum supported version to <code>2020.3</code> for gradle build compatibility with later
-                versions.</li>
+                versions.
+            </li>
             <li>Fix: <code>ArduinoToolchain.cmake</code> to work with CLion 2022.3 and 2023.1</li>
             <li>Add: show difference buttons to show diff which allows modification of unbundled files or
-                CMakeLists.txt, in case of <code>Change Build Options</code> action.</li>
+                CMakeLists.txt, in case of <code>Change Build Options</code> action.
+            </li>
             <li>Fix: refactor cmake AST command with <code>CommandArgument</code> class to encapsulate the value and
-                leading spaces instead of lugging around two separate lists.</li>
+                leading spaces instead of lugging around two separate lists.
+            </li>
             <li>Fix: improve toolchain file path error and info messages</li>
             <li>Fix: revert macro name for <code>_SRCS</code> and <code>_HRDS</code> to be resolved, with arguments to remain
                 unresolved.

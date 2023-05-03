@@ -6,16 +6,6 @@
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
   - [1.6.0](#160)
-  - [1.5.41](#1541)
-  - [1.5.39](#1539)
-  - [1.5.37](#1537)
-  - [1.5.35](#1535)
-  - [1.5.33](#1533)
-  - [1.5.31](#1531)
-  - [1.5.29](#1529)
-  - [1.5.25](#1525)
-  - [1.5.11](#1511)
-  - [1.5.9](#159)
   - [1.5.7](#157)
   - [1.5.6](#156)
   - [1.5.2](#152)
@@ -62,49 +52,26 @@
 
 ### 1.6.0
 
-### 1.5.41
-
 * Change: use maven plugin-util dependency
 * Change: use JetBrains Marketplace `SimpleSerialConnectorService` plugin dependency
-
-### 1.5.39
-
 * Change: to use `SerialPortOwnerAccess` instance for writing to port
-
-### 1.5.37
-
 * Change: extract all serial port comms with [java-simple-serial-connector] to a separate plugin
   exposing serial communications as a service:
   [SimpleSerialConnectorService](https://plugins.jetbrains.com/plugin/21550-simpleserialconnectorservice)
   and make it a dependency of this plugin. This should eliminate plugin conflicts in the future
   and allow the user to install multiple serial monitor plugins.
 * Change: build to use published packages on `maven.pkg.github`
-
-### 1.5.35
-
 * Change: migrate to gradle build
 * Change: minimum supported version to `2020.3` for gradle build compatibility with later
   versions.
 * Fix: `ArduinoToolchain.cmake` to work with CLion 2022.3 and 2023.1
 * Add: show difference buttons to show diff which allows modification of unbundled files or
   CMakeLists.txt, in case of `Change Build Options` action.
-
-### 1.5.33
-
 * Fix: refactor cmake AST command with `CommandArgument` class to encapsulate the value and
   leading spaces instead of lugging around two separate lists.
-
-### 1.5.31
-
 * Fix: improve toolchain file path error and info messages
-
-### 1.5.29
-
 * Fix: revert macro name for `_SRCS` and `_HRDS` to be resolved, with arguments to remain
   unresolved.
-
-### 1.5.25
-
 * Fix: resolve white space preservation in regenerated `CMakeLists.txt` file. Only changing text
   for values which were changed.
 * Fix: `CMakeLists.txt` file with mixed project macro name when `PROJECT_NAME` or
@@ -115,10 +82,6 @@
 * Fix: add second diff button for toolchain diff viewing `Platform/Arduino.cmake`
 * Fix: allow directories to be selected for toolchain file path.
 * Fix: if a directory is selected add `ArduinoToolchain.cmake` file name automatically.
-
-### 1.5.11
-
-* Change: minimum supported version is `201.6668.113`
 * Add: Toolchain file path option, wth diff and create, to allow not having a `cmake` directory
   and tool chain files in every project. Also allows to use different toolchain than
   `ArduinoCmake.cmake`.
@@ -133,9 +96,6 @@
   * [Bug fix: Allow linking for sketches]
   * [Let source files depend on included local header files by ntninja · Pull Request #4 · francoiscampbell/arduino-cmake · GitHub]
   * [Add LIBS input property to GENERATE_ARDUINO_EXAMPLE by ryanpfeeley · Pull Request #3 · francoiscampbell/arduino-cmake · GitHub]
-
-### 1.5.9
-
 * Fix: serial monitor tool window throwing exceptions on closing because some elements were
   already disposed.
 * Fix: serial monitor settings, baud rate was always showing up as custom.

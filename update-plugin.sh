@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION="1.5.41-signed"
+VERSION="1.6.0-signed"
 PLUGIN="CLionArduinoPlugin"
 DIST=".zip"
 HOME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
