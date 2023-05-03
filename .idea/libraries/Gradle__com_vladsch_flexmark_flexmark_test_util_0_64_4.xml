@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.vladsch.flexmark:flexmark-test-util:0.64.4" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.vladsch.flexmark" artifactId="flexmark-test-util" version="0.64.4" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-test-util/0.64.4/5315c7322f8e6c75570176f223a18f0be50162a8/flexmark-test-util-0.64.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-test-util/0.64.4/3497d86ac4de08eaae9e77404c85ad58f22c499/flexmark-test-util-0.64.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

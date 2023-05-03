@@ -17,3 +17,4 @@
 /out/
 /.idea/workspace.xml
 /gradle/wrapper/gradle-wrapper.jar
+/dist/

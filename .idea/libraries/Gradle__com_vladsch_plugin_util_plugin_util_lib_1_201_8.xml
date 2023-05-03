@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.vladsch.plugin-util:plugin-util-lib:1.201.8" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.vladsch.plugin-util" artifactId="plugin-util-lib" version="1.201.8" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/plugin-util/plugin-util-lib/1.201.8/plugin-util-lib-1.201.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

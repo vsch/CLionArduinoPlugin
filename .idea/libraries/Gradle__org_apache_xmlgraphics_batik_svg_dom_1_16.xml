@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.xmlgraphics:batik-svg-dom:1.16" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.apache.xmlgraphics" artifactId="batik-svg-dom" version="1.16" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.xmlgraphics/batik-svg-dom/1.16/d16a96149c33cde0eb5ed688308abf067e73e5a4/batik-svg-dom-1.16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.xmlgraphics/batik-svg-dom/1.16/cb5e57d7934fa112973f5bdfd8949270164730c4/batik-svg-dom-1.16-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

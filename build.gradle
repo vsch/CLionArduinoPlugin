@@ -4,17 +4,19 @@ plugins {
     id "org.jetbrains.intellij" version "1.13.3"
 }
 
-def javaVersion = "11"
-def flexmarkVersion = "0.64.0"
+def pluginVersion = "1.5.41"
 def pluginSinceBuild = "203.5981.155"
 def pluginUntilBuild = ""
-def pluginVersion = "1.5.39"
+def flexmarkVersion = "0.64.4"
+def javaVersion = "11"
 
 group = "com.vladsch.clionarduinoplugin"
 version = pluginVersion
 
 repositories {
     mavenCentral()
+/*
+    // NOTE: using plugin in intellij config instead of jar, since the plugin is now available
     maven {
         name = "GitHubPackages"
         url = "https://maven.pkg.github.com/vsch/SimpleSerialConnectorService"
@@ -23,7 +25,12 @@ repositories {
             password = System.getenv("GITHUB_TOKEN")
         }
     }
-    mavenLocal()
+*/
+    mavenLocal() {
+        content {
+            includeGroup "com.vladsch.plugin-util"
+        }
+    }
 }
 
 // Configure Gradle IntelliJ Plugin
@@ -32,12 +39,11 @@ intellij {
     version = "2020.3"
     type = "CL" // Target IDE Platform
 
-    plugins = ["com.intellij.clion", "com.intellij.cidr.base"]
+    plugins = ["com.intellij.clion", "com.intellij.cidr.base", "com.vladsch.plugins.SimpleSerialConnectorService:1.0.4"]
     downloadSources = true
 }
 
 dependencies {
-    annotationProcessor("junit:junit:4.13.2")
     testImplementation("junit:junit:4.13.2")
     testImplementation("com.vladsch.flexmark:flexmark-test-util:$flexmarkVersion")
 
@@ -50,10 +56,7 @@ dependencies {
 
     implementation("org.jetbrains:annotations:24.0.1")
     implementation('commons-io:commons-io:2.11.0')
-
-    implementation(files("lib/plugin-util.jar"))
-
-    compileOnly("com.vladsch.plugins:simple-serial-connector-service:1.0.4")
+    implementation("com.vladsch.plugin-util:plugin-util-lib:1.201.8")
 }
 
 sourceSets {
@@ -95,18 +98,18 @@ compileKotlin {
 tasks {
 
     patchPluginXml {
-        sinceBuild.set(pluginSinceBuild)
-        untilBuild.set(pluginUntilBuild)
-        version.set(pluginVersion)
+        sinceBuild = pluginSinceBuild
+        untilBuild = pluginUntilBuild
+        version = pluginVersion
     }
 
     signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+        certificateChainFile = file(System.getenv("CERTIFICATE_CHAIN"))
+        privateKeyFile = file(System.getenv("PRIVATE_KEY"))
+        password = System.getenv("PRIVATE_KEY_PASSWORD")
     }
 
     publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
+        token = System.getenv("PUBLISH_TOKEN")
     }
 }

@@ -1,15 +1,10 @@
 #!/usr/bin/env bash
-VERSION="1.5.35"
+VERSION="1.5.41-signed"
 PLUGIN="CLionArduinoPlugin"
-PLUGIN_JAR=
-HOME_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DIST=".zip"
+HOME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 OLD_PLUGIN=
-SANDBOX_NAME=
-SANDBOX_IDE=
 IDE_LIST=(
-#    "CLion2019.3" only 201.6668.113 is supported
-#    "CLion2020.1"
-#    "CLion2020.2" only 203 and up are supported.
     "CLion2020.3"
     "CLion2021.1"
     "CLion2021.2"
@@ -22,11 +17,13 @@ IDE_LIST=(
     "CLion2023.3"
 )
 
+cd "${HOME_DIR}" || exit
+
 # copy the versioned file to un-versioned one.
-cp ./build/distributions/${PLUGIN}-${VERSION}.zip ./${PLUGIN}.zip
-cp ./build/distributions/${PLUGIN}-${VERSION}.zip ./dist
+cp "./build/distributions/${PLUGIN}-${VERSION}${DIST}" "./${PLUGIN}${DIST}"
+cp "./build/distributions/${PLUGIN}-${VERSION}${DIST}" "./dist"
 
-echo updating "/Volumes/Pegasus/Data" for latest "${PLUGIN}.zip"
-cp "${PLUGIN}.zip" "/Volumes/Pegasus/Data"
+echo updating "/Volumes/Pegasus/Data" for latest "${PLUGIN}${DIST}"
+cp "${PLUGIN}${DIST}" "/Volumes/Pegasus/Data"
 
-../update-plugin.sh "${HOME_DIR}" "${PLUGIN}" "${PLUGIN_JAR}" "${OLD_PLUGIN}" "${SANDBOX_NAME}" "${SANDBOX_IDE}" "${IDE_LIST[@]}"
+../update-plugin.sh "${HOME_DIR}" "${PLUGIN}" "${OLD_PLUGIN}" "${IDE_LIST[@]}"

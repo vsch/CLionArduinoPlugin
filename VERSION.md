@@ -6,6 +6,7 @@
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
   - [1.6.0](#160)
+  - [1.5.41](#1541)
   - [1.5.39](#1539)
   - [1.5.37](#1537)
   - [1.5.35](#1535)
@@ -60,6 +61,11 @@
     toolchain file.
 
 ### 1.6.0
+
+### 1.5.41
+
+* Change: use maven plugin-util dependency
+* Change: use JetBrains Marketplace `SimpleSerialConnectorService` plugin dependency
 
 ### 1.5.39
 

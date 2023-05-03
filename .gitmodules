@@ -1,3 +1,13 @@
-[submodule "src/com/vladsch/clionarduinoplugin/resources/arduino-cmake"]
-	path = src/com/vladsch/clionarduinoplugin/resources/arduino-cmake
-	url = https://vsch@github.com/vsch/arduino-cmake.git
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = https://github.com/vsch/CLionArduinoPlugin
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
