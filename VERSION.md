@@ -5,6 +5,7 @@
 ### Version History
 - [CLionArduinoPlugin Version Notes](#clionarduinoplugin-version-notes)
   - [TO DO](#to-do)
+  - [1.6.1](#161)
   - [1.6.0](#160)
   - [1.5.7](#157)
   - [1.5.6](#156)
@@ -49,6 +50,13 @@
   * Offer to add the directory if it is missing
   * Add: inspection to check that `CMakeLists.txt` is out of sync, especially if missing the
     toolchain file.
+
+### 1.6.1
+
+* Change: version to allow running in 2023.1
+* Add: Include ASM Source Files option
+* Add: ASM source files to Arduino.CMake processing
+* Change: `Arduino.CMake` to include .S Asm files in the build
 
 ### 1.6.0
 

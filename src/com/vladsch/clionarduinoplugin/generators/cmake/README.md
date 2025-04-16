@@ -14,10 +14,12 @@
 
 [CmakeMinimumRequired](https://cmake.org/cmake/help/v3.0/command/cmake_minimum_required.html)
 
-Set the minimum required version of cmake for a project.
+Set the minimum required version of cmake for a project. Currently minimum versions are set to
+3\.5 to 3.31. CMake versions lower than this are not supported because they are not supported by
+more recent CMake releases.
 
 ```
-cmake_minimum_required(VERSION major[.minor[.patch[.tweak]]]
+cmake_minimum_required(VERSION major[.minor[.patch[.tweak]]...major2[.minor2[.patch2[.tweak2]]]]
                        [FATAL_ERROR])
 ```
 
@@ -103,7 +105,7 @@ project(<PROJECT-NAME>
 
 Sets the name of the project and stores the name in the
 [PROJECT_NAME](https://cmake.org/cmake/help/v3.0/variable/PROJECT_NAME.html#variable:PROJECT_NAME
-"PROJECT_NAME") variable. Additionally this sets variables
+"PROJECT_NAME") variable. Additionally, this sets variables
 
 * [PROJECT_SOURCE_DIR](https://cmake.org/cmake/help/v3.0/variable/PROJECT_SOURCE_DIR.html#variable:PROJECT_SOURCE_DIR
   "PROJECT_SOURCE_DIR"),

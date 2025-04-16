@@ -2,9 +2,11 @@
   <library name="Gradle: com.vladsch.plugin-util:plugin-util-lib:1.201.8" type="java-imported" external-system-id="GRADLE">
     <properties groupId="com.vladsch.plugin-util" artifactId="plugin-util-lib" version="1.201.8" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/vladsch/plugin-util/plugin-util-lib/1.201.8/plugin-util-lib-1.201.8.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.plugin-util/plugin-util-lib/1.201.8/c7d5d48c73448dd2b76c5ac4281e6d906db1120d/plugin-util-lib-1.201.8.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.plugin-util/plugin-util-lib/1.201.8/b2c5d3bdb21dc018f45f2c5d06c871c6f142efdf/plugin-util-lib-1.201.8-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

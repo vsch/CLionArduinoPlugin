@@ -284,7 +284,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 #=============================================================================#
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.5...3.31 FATAL_ERROR)
 include(CMakeParseArguments)
 
 
@@ -1035,6 +1035,7 @@ function(setup_arduino_library VAR_NAME BOARD_ID LIB_PATH COMPILE_FLAGS LINK_FLA
             set(FILE_SEARCH_LIST
                     ${LIB_PATH}/src/${LIB_TEST_PATH}.cpp
                     ${LIB_PATH}/src/${LIB_TEST_PATH}.c
+                    ${LIB_PATH}/src/${LIB_TEST_PATH}.S
                     ${LIB_PATH}/src/${LIB_TEST_PATH}.cc
                     ${LIB_PATH}/src/${LIB_TEST_PATH}.cxx
                     ${LIB_PATH}/src/${LIB_TEST_PATH}.h
@@ -1155,6 +1156,11 @@ endfunction()
 #
 #=============================================================================#
 function(setup_arduino_target TARGET_NAME BOARD_ID ALL_SRCS ALL_LIBS COMPILE_FLAGS LINK_FLAGS MANUAL)
+    foreach(SRC ${ALL_SRCS})
+        if(SRC MATCHES "\\.S$")
+            set_source_files_properties(${SRC} PROPERTIES LANGUAGE ASM)
+        endif()
+    endforeach()
 
     add_executable(${TARGET_NAME} ${ALL_SRCS})
     set_target_properties(${TARGET_NAME} PROPERTIES SUFFIX ".elf")
@@ -1516,6 +1522,7 @@ function(find_sources VAR_NAME LIB_PATH RECURSE)
     set(FILE_SEARCH_LIST
             ${LIB_PATH}/*.cpp
             ${LIB_PATH}/*.c
+            ${LIB_PATH}/*.S
             ${LIB_PATH}/*.cc
             ${LIB_PATH}/*.cxx
             ${LIB_PATH}/*.h
@@ -2076,7 +2083,7 @@ endfunction()
 
 
 #=============================================================================#
-# [PRIVATE/INTERNAL]
+# [PUBLIC/USER]
 #
 #  arduino_debug_on()
 #
@@ -2088,7 +2095,7 @@ endfunction()
 
 
 #=============================================================================#
-# [PRIVATE/INTERNAL]
+# [PUBLIC/USER]
 #
 #  arduino_debug_off()
 #

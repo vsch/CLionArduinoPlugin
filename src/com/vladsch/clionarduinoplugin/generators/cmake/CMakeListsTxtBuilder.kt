@@ -206,7 +206,7 @@ abstract class CMakeListsTxtBuilder(
                         && (args[0] == "_SRCS" && (rawArgs[0] == "\${PROJECT_NAME}_SRCS" || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_SRCS")
                             || args[0] == "_HDRS" && (rawArgs[0] == "\${PROJECT_NAME}_HDRS" || rawArgs[0] == "\${CMAKE_PROJECT_NAME}_HDRS"))
                     ) {
-                        // this is most likely a mistake, since the project name is given by cMakeProjectNameMacro 
+                        // this is most likely a mistake, since the project name is given by cMakeProjectNameMacro
                         // and this uses something else and undefined
                         val replaceMacroName =
                             cMakeVariableValues.resolve("\${${cMakeProjectNameMacro}}") + rawArgs[0].substring(rawArgs[0].length - 5)
@@ -949,8 +949,8 @@ abstract class CMakeListsTxtBuilder(
         val CMAKE_MINIMUM_REQUIRED_VERSION = CMakeCommandSubType("CMAKE_MINIMUM_REQUIRED_VERSION", CMAKE_MINIMUM_REQUIRED, arrayOf("VERSION"), 2, 2, true, false, true)
         val LINK_DIRECTORIES = CMakeCommandType("LINK_DIRECTORIES", "link_directories", arrayOf(), 1, CMakeCommandType.INF_MAX_ARGS, true, false, true)
         val ADD_SUBDIRECTORY = CMakeCommandType("ADD_SUBDIRECTORY", "add_subdirectory", arrayOf(), 1, 3, true, true, false)
-        val PROJECT = CMakeCommandType("PROJECT", "project", arrayOf(), 1, 1, true, false, false, arrayOf("\${<@$PROJECT_VAR_NAME@>}"), 0)
-        
+        val PROJECT = CMakeCommandType("PROJECT", "project", arrayOf(), 1, CMakeCommandType.INF_MAX_ARGS, true, false, false, arrayOf("\${<@$PROJECT_VAR_NAME@>}"), 0)
+
         val SET = CMakeCommandType("SET", "set", arrayOf(), 1, CMakeCommandType.INF_MAX_ARGS, true, true, true)
 
         // Generic commands added but not verified
@@ -1056,7 +1056,7 @@ abstract class CMakeListsTxtBuilder(
         // @formatter:off
         val ourAllCommands = arrayOf(
             CMAKE_MINIMUM_REQUIRED, CMAKE_MINIMUM_REQUIRED_VERSION, LINK_DIRECTORIES, ADD_SUBDIRECTORY, PROJECT, SET, ADD_COMPILE_OPTIONS,
-            ADD_CUSTOM_COMMAND, ADD_CUSTOM_TARGET, ADD_DEFINITIONS, ADD_DEPENDENCIES, ADD_EXECUTABLE, ADD_LIBRARY, ADD_TEST, 
+            ADD_CUSTOM_COMMAND, ADD_CUSTOM_TARGET, ADD_DEFINITIONS, ADD_DEPENDENCIES, ADD_EXECUTABLE, ADD_LIBRARY, ADD_TEST,
             AUX_SOURCE_DIRECTORY, BREAK, BUILD_COMMAND, CMAKE_HOST_SYSTEM_INFORMATION, CMAKE_POLICY, CONFIGURE_FILE, CREATE_TEST_SOURCELIST,
             DEFINE_PROPERTY, ELSEIF, ELSE, ENABLE_LANGUAGE, ENABLE_TESTING, ENDFOREACH, ENDFUNCTION, ENDIF, ENDMACRO, ENDWHILE,
             EXECUTE_PROCESS, EXPORT, FILE, FIND_FILE, FIND_LIBRARY, FIND_PACKAGE, FIND_PATH, FIND_PROGRAM, FLTK_WRAP_UI, FOREACH, FUNCTION,

@@ -4,6 +4,7 @@ import com.vladsch.clionarduinoplugin.generators.cmake.ast.CMakeFile
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.CMakeCommand
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.CMakeCommandSubType
 import com.vladsch.clionarduinoplugin.generators.cmake.commands.CMakeCommandType
+import com.vladsch.clionarduinoplugin.generators.cmake.commands.CommandArgument
 import com.vladsch.clionarduinoplugin.resources.Strings
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettings
 import com.vladsch.clionarduinoplugin.settings.ArduinoApplicationSettingsProxy
@@ -49,6 +50,7 @@ import java.io.File
  * generate_arduino_firmware(${CMAKE_PROJECT_NAME})
  */
 class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
+
     constructor(text: CharSequence, options: DataHolder? = null, values: Map<String, Any>? = null) : super(
         PROJECT_NAME,
         ourCommands,
@@ -77,7 +79,7 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
         // @formatter:off
         val GENERATE_ARDUINO_FIRMWARE = CMakeCommandType("GENERATE_ARDUINO_FIRMWARE", "generate_arduino_firmware", arrayOf(), 1, 1, true, false, true, arrayOf("\${PROJECT_NAME}"), 0)
         val GENERATE_ARDUINO_LIBRARY = CMakeCommandType("GENERATE_ARDUINO_LIBRARY", "generate_arduino_library", arrayOf(), 1, 1, true, false, true, arrayOf("\${PROJECT_NAME}"), 0)
-        
+
         val SET_BOARD = CMakeCommandSubType("SET_BOARD", SET, arrayOf("${PROJECT_NAME}_BOARD"), 1, 1, false, false, true)
         val SET_CPU = CMakeCommandSubType("SET_CPU", SET, arrayOf("ARDUINO_CPU"), 1, 1, false, false, true)
         val SET_SKETCH = CMakeCommandSubType("SET_SKETCH", SET, arrayOf("${PROJECT_NAME}_SKETCH"), 1, 1, false, false, true)
@@ -143,6 +145,11 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             CMakeCommandAnchor.last(GENERATE_ARDUINO_LIBRARY)
         )
 
+        val PROJECT_LANGUAGES = "LANGUAGES"
+        val PROJECT_LANGUAGE_C = "C"
+        val PROJECT_LANGUAGE_CXX = "CXX"
+        val PROJECT_LANGUAGE_ASM = "ASM"
+
         private val String.extension: String
             get() {
                 val pos = lastIndexOf('.')
@@ -191,7 +198,7 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
 
             builder.isWantCommented = true
 
-            builder.setOrAddCommand(CMAKE_MINIMUM_REQUIRED_VERSION, "3.0.0")
+            builder.setOrAddCommand(CMAKE_MINIMUM_REQUIRED_VERSION, "3.5...3.31", "FATAL_ERROR")
             builder.setOrAddCommand(
                 SET_CMAKE_TOOLCHAIN_FILE,
                 if (appSettings.isBundledToolchainTxt) "\${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake"
@@ -209,7 +216,17 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             val cpuId = appSettings.cpuId.ifEmpty(cpuIds.firstOrNull() ?: "")
             builder.setOrAddCommand(SET_CPU, cpuId).setSuppressible(cpuId.isEmpty())
 
-            builder.setOrAddCommand(PROJECT).clearToDefaults()
+            val project = builder.setOrAddCommand(PROJECT)
+            project.clearToDefaults()
+
+            if (appSettings.isAsmSources) {
+                project.args.addAll(listOf(
+                    CommandArgument.of(PROJECT_LANGUAGES)
+                    , CommandArgument.of(PROJECT_LANGUAGE_C)
+                    , CommandArgument.of(PROJECT_LANGUAGE_CXX)
+                    , CommandArgument.of(PROJECT_LANGUAGE_ASM)
+                ))
+            }
 
             val cppFiles = settings.sources.toList()
             val hFiles = settings.headers.toList()
@@ -315,6 +332,27 @@ class ArduinoCMakeListsTxtBuilder : CMakeListsTxtBuilder {
             settings.sketch = cMakeVariableValues["${cMakeProjectName}_SKETCH"].firstOrNull() ?: ""
             settings.boardId = cMakeVariableValues["${cMakeProjectName}_BOARD"].firstOrNull() ?: ""
             settings.cpuId = cMakeVariableValues["ARDUINO_CPU"].firstOrNull() ?: ""
+
+            val projectCommand = builder.getCommand(PROJECT)
+            if (projectCommand is CMakeCommand && projectCommand.argCount > 1) {
+                // see if LANGUAGES and ASM is included, then isAsmSources will be set
+                var argIndex = 0
+                for (arg in projectCommand.args) {
+                    argIndex++
+
+                    if (argIndex == 1) continue // skip project name
+                    else if (argIndex == 2) {
+                        if (!arg.value.equals(PROJECT_LANGUAGES)) {
+                            break
+                        }
+                    } else {
+                        if (arg.value.equals(PROJECT_LANGUAGE_ASM)) {
+                            settings.isAsmSources = true
+                            break
+                        }
+                    }
+                }
+            }
 
             if (!builder.canUseUnmodifiedOriginal) {
                 notifications.add(

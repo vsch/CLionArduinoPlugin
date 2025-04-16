@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.5...3.31 FATAL_ERROR)
 #set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_CXX_STANDARD)
 set(PROJECT_NAME)
@@ -26,8 +26,8 @@ project(${PROJECT_NAME})
 # An Arduino library my_lib will contain files in libs/my_lib/: my_lib.h, my_lib.cpp + any other cpp files
 # link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
-# This is no longer need but left in for those occasions where automatics do not work out. 
-# Current Arduino.cmake will recurse into any libraries which contain source files in src/ subdirectory. 
+# This is no longer need but left in for those occasions where automatics do not work out.
+# Current Arduino.cmake will recurse into any libraries which contain source files in src/ subdirectory.
 # Files in subdirectories whose name starts with cmake-build or examples are excluded
 # For nested library sources replace ${LIB_NAME} with library name for each library
 # set(${LIB_NAME}_RECURSE true)

@@ -117,23 +117,23 @@ set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_PROJECT_NAME tft_life)
 
 ## This must be set before project call
-set(${MAKE_PROJECT_NAME}_BOARD pro)
+set(${CMAKE_PROJECT_NAME}_BOARD pro)
 set(ARDUINO_CPU 8MHzatmega328)
 
 project(${MAKE_PROJECT_NAME})
 
 # Define the source code
-set(${MAKE_PROJECT_NAME}_SRCS tft_life.cpp)
-# set(${MAKE_PROJECT_NAME}_SKETCH tft_life.cpp)
+set(${CMAKE_PROJECT_NAME}_SRCS tft_life.cpp)
+# set(${CMAKE_PROJECT_NAME}_SKETCH tft_life.cpp)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 ### Add project sub-directories into the build
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sub)
 
 #### Uncomment below additional settings as needed.
-set(${MAKE_PROJECT_NAME}_PROGRAMMER avrispmkii)
-set(${MAKE_PROJECT_NAME}_PORT /dev/cu.usbserial-00000000)
-set(${MAKE_PROJECT_NAME}_AFLAGS -v)
+set(${CMAKE_PROJECT_NAME}_PROGRAMMER avrispmkii)
+set(${CMAKE_PROJECT_NAME}_PORT /dev/cu.usbserial-00000000)
+set(${CMAKE_PROJECT_NAME}_AFLAGS -v)
 # set(pro.upload.speed 57600)
 
 generate_arduino_firmware(${CMAKE_PROJECT_NAME})
@@ -247,18 +247,18 @@ generate_arduino_firmware(${CMAKE_PROJECT_NAME})
 cmake_minimum_required(VERSION Maj.Min.Rev.Twk)
 set(CMAKE_TOOLCHAIN_FILE setCmakeToolchainFile)
 set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
-set(CMAKE_PROJECT_NAME tft_life)
+set(CMAKE_PROJECT_NAME setProjectName)
 
 ## This must be set before project call
-set(${MAKE_PROJECT_NAME}_BOARD setBoard)
+set(${CMAKE_PROJECT_NAME}_BOARD setBoard)
 set(ARDUINO_CPU setCpu)
 
 project(${MAKE_PROJECT_NAME})
 
 # Define the source code
-set(${MAKE_PROJECT_NAME}_SRCS setSrcs)
-set(${MAKE_PROJECT_NAME}_HDRS setHdrs)
-set(${MAKE_PROJECT_NAME}_SKETCH setSketch)
+set(${CMAKE_PROJECT_NAME}_SRCS setSrcs)
+set(${CMAKE_PROJECT_NAME}_HDRS setHdrs)
+set(${CMAKE_PROJECT_NAME}_SKETCH setSketch)
 link_directories(linkDirectories)
 
 ### Add project sub-directories into the build
@@ -266,9 +266,9 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sub)
 add_subdirectory(addSubdirectory)
 
 #### Uncomment below additional settings as needed.
-set(${MAKE_PROJECT_NAME}_PROGRAMMER setProgrammer)
-set(${MAKE_PROJECT_NAME}_PORT setPort)
-set(${MAKE_PROJECT_NAME}_AFLAGS setAflags)
+set(${CMAKE_PROJECT_NAME}_PROGRAMMER setProgrammer)
+set(${CMAKE_PROJECT_NAME}_PORT setPort)
+set(${CMAKE_PROJECT_NAME}_AFLAGS setAflags)
 
 set(setBoard.upload.speed setUploadSpeed)
 set(libName_RECURSE setLibNameRecurse)
@@ -448,21 +448,21 @@ project(${CMAKE_PROJECT_NAME})
 cmake_minimum_required(VERSION Maj.Min.Rev.Twk)
 set(CMAKE_TOOLCHAIN_FILE setCmakeToolchainFile)
 set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
-set(MAKE_PROJECT_NAME setProjectName)
+set(CMAKE_PROJECT_NAME setProjectName)
 ## Top
 
 ## Before project
-set(${MAKE_PROJECT_NAME}_BOARD setBoard)
+set(${CMAKE_PROJECT_NAME}_BOARD setBoard)
 set(ARDUINO_CPU setCpu)
 project(${MAKE_PROJECT_NAME})
-set(${MAKE_PROJECT_NAME}_SRCS setSrcs)
-set(${MAKE_PROJECT_NAME}_HDRS setHdrs)
+set(${CMAKE_PROJECT_NAME}_SRCS setSrcs)
+set(${CMAKE_PROJECT_NAME}_HDRS setHdrs)
 link_directories(linkDirectories)
 add_subdirectory(addSubdirectory)
-set(${MAKE_PROJECT_NAME}_SKETCH setSketch)
-set(${MAKE_PROJECT_NAME}_PROGRAMMER setProgrammer)
-set(${MAKE_PROJECT_NAME}_PORT setPort)
-set(${MAKE_PROJECT_NAME}_AFLAGS setAflags)
+set(${CMAKE_PROJECT_NAME}_SKETCH setSketch)
+set(${CMAKE_PROJECT_NAME}_PROGRAMMER setProgrammer)
+set(${CMAKE_PROJECT_NAME}_PORT setPort)
+set(${CMAKE_PROJECT_NAME}_AFLAGS setAflags)
 set(libName_RECURSE setLibNameRecurse)
 set(setBoard.upload.speed setUploadSpeed)
 ## After project
@@ -752,17 +752,17 @@ set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
 ## Top
 
 ## Before project
-set(${A_PROJECT_NAME}_BOARD setBoard)
+set(${PROJECT_NAME}_BOARD setBoard)
 set(ARDUINO_CPU setCpu)
 project(${A_PROJECT_NAME})
 link_directories(linkDirectories)
 add_subdirectory(addSubdirectory)
-set(${A_PROJECT_NAME}_SKETCH setSketch)
-set(${A_PROJECT_NAME}_PROGRAMMER setProgrammer)
-set(${A_PROJECT_NAME}_PORT setPort)
-set(${A_PROJECT_NAME}_AFLAGS setAflags)
-set(${A_PROJECT_NAME}_HDRS setHdrs)
-set(${A_PROJECT_NAME}_SRCS setSrcs)
+set(${PROJECT_NAME}_SKETCH setSketch)
+set(${PROJECT_NAME}_PROGRAMMER setProgrammer)
+set(${PROJECT_NAME}_PORT setPort)
+set(${PROJECT_NAME}_AFLAGS setAflags)
+set(${PROJECT_NAME}_HDRS setHdrs)
+set(${PROJECT_NAME}_SRCS setSrcs)
 set(libName_RECURSE setLibNameRecurse)
 set(setBoard.upload.speed setUploadSpeed)
 ## After project
@@ -858,22 +858,22 @@ project(${CMAKE_PROJECT_NAME})
 cmake_minimum_required(VERSION Maj.Min.Rev.Twk)
 set(CMAKE_TOOLCHAIN_FILE setCmakeToolchainFile)
 set(CMAKE_CXX_STANDARD setCmakeCxxStandard)
-set(MAKE_PROJECT_NAME setProjectName)
+set(CMAKE_PROJECT_NAME setProjectName)
 # project(${CMAKE_PROJECT_NAME})
 ## Top
 
 ## Before project
-set(${MAKE_PROJECT_NAME}_BOARD setBoard)
+set(${CMAKE_PROJECT_NAME}_BOARD setBoard)
 set(ARDUINO_CPU setCpu)
 project(${MAKE_PROJECT_NAME})
-set(${MAKE_PROJECT_NAME}_SRCS setSrcs)
-set(${MAKE_PROJECT_NAME}_HDRS setHdrs)
+set(${CMAKE_PROJECT_NAME}_SRCS setSrcs)
+set(${CMAKE_PROJECT_NAME}_HDRS setHdrs)
 link_directories(linkDirectories)
 add_subdirectory(addSubdirectory)
-set(${MAKE_PROJECT_NAME}_SKETCH setSketch)
-set(${MAKE_PROJECT_NAME}_PROGRAMMER setProgrammer)
-set(${MAKE_PROJECT_NAME}_PORT setPort)
-set(${MAKE_PROJECT_NAME}_AFLAGS setAflags)
+set(${CMAKE_PROJECT_NAME}_SKETCH setSketch)
+set(${CMAKE_PROJECT_NAME}_PROGRAMMER setProgrammer)
+set(${CMAKE_PROJECT_NAME}_PORT setPort)
+set(${CMAKE_PROJECT_NAME}_AFLAGS setAflags)
 set(libName_RECURSE setLibNameRecurse)
 set(setBoard.upload.speed setUploadSpeed)
 ## After project
@@ -1034,7 +1034,7 @@ cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_PROJECT_NAME tft_life)
 
-set(${MAKE_PROJECT_NAME}_BOARD pro)
+set(${CMAKE_PROJECT_NAME}_BOARD pro)
 set(ARDUINO_CPU 8MHzatmega328)    ## This must be set before project call
 project(${MAKE_PROJECT_NAME})
 # Define the source code
@@ -1094,19 +1094,19 @@ cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_PROJECT_NAME tft_life)
 
-set(${MAKE_PROJECT_NAME}_BOARD pro)
+set(${CMAKE_PROJECT_NAME}_BOARD pro)
 set(ARDUINO_CPU 8MHzatmega328)    ## This must be set before project call
 project(${MAKE_PROJECT_NAME})
 
 # Define the source code
-set(${MAKE_PROJECT_NAME}_SRCS tft_life.cpp)
-# set(${MAKE_PROJECT_NAME}_SKETCH tft_life.cpp)
+set(${CMAKE_PROJECT_NAME}_SRCS tft_life.cpp)
+# set(${CMAKE_PROJECT_NAME}_SKETCH tft_life.cpp)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 #### Uncomment below additional settings as needed.
-set(${MAKE_PROJECT_NAME}_PROGRAMMER avrispmkii)
-set(${MAKE_PROJECT_NAME}_PORT /dev/cu.usbserial-00000000)
-set(${MAKE_PROJECT_NAME}_AFLAGS -v)
+set(${CMAKE_PROJECT_NAME}_PROGRAMMER avrispmkii)
+set(${CMAKE_PROJECT_NAME}_PORT /dev/cu.usbserial-00000000)
+set(${CMAKE_PROJECT_NAME}_AFLAGS -v)
 # set(pro.upload.speed 57600)
 
 generate_arduino_firmware(${CMAKE_PROJECT_NAME})
@@ -1332,22 +1332,22 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_PROJECT_NAME tft_test)
 
 ## This must be set before project call
-set(${MAKE_PROJECT_NAME}_BOARD pro)
+set(${CMAKE_PROJECT_NAME}_BOARD pro)
 set(ARDUINO_CPU 8MHzatmega328)
 
 project(${MAKE_PROJECT_NAME})
 
 # set(SOURCE_FILES Dda.cpp Dda.h test.cpp)
-# set(${MAKE_PROJECT_NAME}_SRCS ${SOURCE_FILES})
-set(${MAKE_PROJECT_NAME}_SKETCH tft_test.ino)
+# set(${CMAKE_PROJECT_NAME}_SRCS ${SOURCE_FILES})
+set(${CMAKE_PROJECT_NAME}_SKETCH tft_test.ino)
 
 # Extra library directories
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
 #### Uncomment below additional settings as needed.
-set(${MAKE_PROJECT_NAME}_PORT /dev/cu.usbserial-00000000)
-set(${MAKE_PROJECT_NAME}_PROGRAMMER avrispmkii)
-set(${MAKE_PROJECT_NAME}_AFLAGS -v)
+set(${CMAKE_PROJECT_NAME}_PORT /dev/cu.usbserial-00000000)
+set(${CMAKE_PROJECT_NAME}_PROGRAMMER avrispmkii)
+set(${CMAKE_PROJECT_NAME}_AFLAGS -v)
 # set(pro.upload.speed 57600)
 
 generate_arduino_firmware(${CMAKE_PROJECT_NAME})

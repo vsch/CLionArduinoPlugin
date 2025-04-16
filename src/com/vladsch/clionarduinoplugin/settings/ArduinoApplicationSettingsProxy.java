@@ -63,6 +63,7 @@ public class ArduinoApplicationSettingsProxy implements ArduinoProjectFileSettin
         setPort(other.getPort());
         setBaudRate(other.getBaudRate());
         setVerbose(other.isVerbose());
+        setAsmSources(other.isAsmSources());
         setLibraryCategory(other.getLibraryCategory());
         setAuthorName(other.getAuthorName());
         setAuthorEMail(other.getAuthorEMail());
@@ -210,6 +211,11 @@ public class ArduinoApplicationSettingsProxy implements ArduinoProjectFileSettin
     }
 
     @Override
+    public boolean isAsmSources() {
+        return mySettings.isAsmSources();
+    }
+
+    @Override
     public @NotNull String getLibraryCategory() {
         return mySettings.getLibraryCategory();
     }
@@ -282,6 +288,11 @@ public class ArduinoApplicationSettingsProxy implements ArduinoProjectFileSettin
     @Override
     public void setVerbose(final boolean isVerbose) {
         mySettings.setVerbose(isVerbose);
+    }
+
+    @Override
+    public void setAsmSources(final boolean isAsmSources) {
+        mySettings.setAsmSources(isAsmSources);
     }
 
     @Override

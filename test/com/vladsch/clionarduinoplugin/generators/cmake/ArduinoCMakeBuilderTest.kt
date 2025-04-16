@@ -81,7 +81,7 @@ set(lib4_RECURSE false)
         val projectDir = File(rootDir.path)
         val fileList = sourceFiles.map { File(it.path).relativeTo(projectDir).path }
         val cMakeFileContent = ArduinoCMakeListsTxtBuilder.getCMakeFileContent(cMakeFileTemplate, name, mySettings, fileList, true)
-        
+
         createProjectFileWithContent(createdFiles, rootDir, Strings.CMAKE_LISTS_FILENAME, cMakeFileContent)
 
         if (mySettings.isAddLibraryDirectory) {
@@ -274,6 +274,31 @@ set(lib4_RECURSE false)
     }
 
     @Test
+    fun test_sketch3() {
+        val projectDir = testProjects + "sketch_3"
+        val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
+        val expected = ArduinoApplicationSettingsProxy.of() as ArduinoProjectFileSettings
+
+        expected.projectName = projectDir.name
+        expected.headers = arrayOf("User_Setup.h")
+        expected.sketch = "sketch_3.ino"
+        expected.boardId = "uno"
+        expected.cpuId = ""
+        expected.programmerId = "usbtinyisp"
+        expected.port = "/dev/cu.Bluetooth-Incoming-Port"
+        expected.isAddLibraryDirectory = true
+        expected.libraryDirectories = arrayOf("libs")
+        expected.isVerbose = false
+        expected.isAsmSources = true
+
+        assertEquals(expected.asString("expected"), settings?.asString("expected"))
+
+        val rootDir = createdProjects + expected.projectName
+        val files = createFiles(expected.projectName, rootDir, expected as ArduinoApplicationSettingsProxy, "project/sketch")
+        compareFiles(rootDir, files);
+    }
+
+    @Test
     fun test_tft_test() {
         val projectDir = testProjects + "tft_test"
         val settings = ArduinoCMakeListsTxtBuilder.loadProjectConfiguration(projectDir, null, applicationSettings)
@@ -349,7 +374,7 @@ set(lib4_RECURSE false)
         //expected.libraryDisplayName = "Arduino Lib2"
 
         assertEquals(expected.asString("expected"), settings?.asString("expected"))
-        
+
         // since we don't extract library display name
         expected.libraryDisplayName = "Lib2"
 

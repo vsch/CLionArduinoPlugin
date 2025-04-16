@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 3.5...3.31 FATAL_ERROR)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/ArduinoToolchain.cmake)
 set(CMAKE_CXX_STANDARD 98)
 set(PROJECT_NAME sketch_1)

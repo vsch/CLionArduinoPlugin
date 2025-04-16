@@ -32,6 +32,7 @@ public interface ArduinoProjectFileSettings {
     @NotNull String getPort();
     int getBaudRate();
     boolean isVerbose();
+    boolean isAsmSources();
     boolean isCommentUnusedSettings();
     void setCommentUnusedSettings(boolean commentUnusedSettings);
     @NotNull String getLibraryCategory();
@@ -56,6 +57,7 @@ public interface ArduinoProjectFileSettings {
     void setPort(@NotNull String port);
     void setBaudRate(int baudRate);
     void setVerbose(boolean isVerbose);
+    void setAsmSources(boolean isAsmSources);
     void setLibraryCategory(@NotNull String libraryCategory);
     void setAuthorName(String authorName);
     void setAuthorEMail(@NotNull String authorEMail);
@@ -107,6 +109,7 @@ public interface ArduinoProjectFileSettings {
                 "  " + thizz + "authorName = \"" + getAuthorName() + "\"\n" +
                 "  " + thizz + "authorEMail = \"" + getAuthorEMail() + "\"\n" +
                 "  " + thizz + "isVerbose = " + isVerbose() + "\n" +
+                "  " + thizz + "isAsmSources = " + isAsmSources() + "\n" +
                 "}\n";
     }
 

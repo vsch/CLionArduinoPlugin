@@ -58,6 +58,7 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
     private @NotNull String authorName = "";
     private @NotNull String authorEMail = "";
     private boolean verbose = false;
+    private boolean asmSources = false;
     private @NotNull HashMap<String, String> boardCpuMap = new HashMap<>();
     private @NotNull LinkedHashSet<String> portHistory = new LinkedHashSet<>();
     private @NotNull String boardsTxtPath = "";
@@ -69,7 +70,7 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
     private boolean bundledTemplates = true;
     private boolean bundledToolchainTxt = true;
     private boolean commentUnusedSettings = true;
-    private int myDisconnectRestTime = 50;  // ms to delay after disconnecting on build 
+    private int myDisconnectRestTime = 50;  // ms to delay after disconnecting on build
 
     private ArduinoConfig myArduinoConfig = null;
 
@@ -313,6 +314,14 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         this.verbose = verbose;
     }
 
+    public boolean isAsmSources() {
+        return asmSources;
+    }
+
+    public void setAsmSources(final boolean asmSources) {
+        this.asmSources = asmSources;
+    }
+
     @XMap
     public Map<String, String> getBoardCpuMap() {
         return boardCpuMap;
@@ -540,6 +549,7 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         if (addLibraryDirectory != settings.addLibraryDirectory) return false;
         if (baudRate != settings.baudRate) return false;
         if (verbose != settings.verbose) return false;
+        if (asmSources != settings.asmSources) return false;
         if (bundledBoardsTxt != settings.bundledBoardsTxt) return false;
         if (bundledProgrammersTxt != settings.bundledProgrammersTxt) return false;
         if (bundledTemplates != settings.bundledTemplates) return false;
@@ -581,6 +591,7 @@ public class ArduinoApplicationSettings extends CMakeProjectSettings implements 
         result = 31 * result + authorName.hashCode();
         result = 31 * result + authorEMail.hashCode();
         result = 31 * result + (verbose ? 1 : 0);
+        result = 31 * result + (asmSources ? 1 : 0);
         result = 31 * result + boardCpuMap.hashCode();
         result = 31 * result + portHistory.hashCode();
         result = 31 * result + boardsTxtPath.hashCode();
